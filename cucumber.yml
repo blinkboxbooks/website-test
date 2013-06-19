@@ -1,0 +1,3 @@
+default: -p integration
+integration: BASE_URL="https://nodejs-internal.mobcastdev.com" --no-multiline -i -s --format progress 
+integration_ci: BASE_URL="https://nodejs-internal.mobcastdev.com" --no-color  --format progress -o log/features.log --format junit -o log/ --format html -o log/features.html --format pretty 
