@@ -1,4 +1,5 @@
 default: -p local
 local: GRID=false TEST_ENV=integration --no-multiline -i -s --format progress
+integration: GRID=true TEST_ENV=integration PLATFORM=MAC BROWSER_NAME=htmlunit BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress 
 integration-mac-safari: GRID=true TEST_ENV=integration PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress 
 integration_ci: BASE_URL="https://nodejs-internal.mobcastdev.com" --no-color  --format progress -o log/features.log --format junit -o log/ --format html -o log/features.html --format pretty 

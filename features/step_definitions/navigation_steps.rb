@@ -22,7 +22,6 @@ Then /^the link should point to the blinkbox books help home page$/ do
 	link[:title].should == 'Help'
 end 
 
-
 Given /^the blinkbox movies link is present in the footer$/ do 
 	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-movies-link"]').visible?
 end 
@@ -33,7 +32,6 @@ Then /^the link should point to the blinkbox movies home page$/ do
 	link[:target].should == '_blank'
 	link[:title].should == 'Blinkbox movies'
 end 
-
 
 Given /^the blinkbox music link is present in the footer$/ do 
 	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-music-link"]').visible?

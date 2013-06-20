@@ -34,6 +34,8 @@ if ENV['GRID'] == 'true'
 			caps = Selenium::WebDriver::Remote::Capabilities.ie
  		when 'chrome', 'Chrome', 'CHROME'
 			caps = Selenium::WebDriver::Remote::Capabilities.chrome
+		when 'htmlunit', 'HTMLUNIT'
+			caps = Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
 		else 
 			caps = Selenium::WebDriver::Remote::Capabilities.firefox
 	end
