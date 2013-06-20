@@ -11,8 +11,14 @@ Scenario: Clicking on the website logo
 	When I click on the website logo
 	Then I should return to the home page
 
+Scenario: Navigating to the help site from the footer
+	Given the blinkbox books help link is present in the footer
+	Then the link should point to the blinkbox books help home page
 
-Scenario: Navigating to the help page from the footer
-	When I click on the help link in the footer
-	Then I should see the blinkbox help page
+Scenario: Navigating to the blinkbox movies site from the footer
+	Given the blinkbox movies link is present in the footer
+	Then the link should point to the blinkbox movies home page
 
+Scenario: Navigating to the blinkbox music site from the footer
+	Given the blinkbox music link is present in the footer
+	Then the link should point to the blinkbox music home page

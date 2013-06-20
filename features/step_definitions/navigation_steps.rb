@@ -1,23 +1,47 @@
-Given /I am on the home page/ do 
+Given /^I am on the home page/ do 
 	visit('/')
 end
 
-When /I click on the website logo/ do
+When /^I click on the website logo$/ do
 	find('[data-test="logo-link"]').click
 end
 
-Then /I should return to the home page/ do
+Then /^I should return to the home page$/ do
 	current_path.should == '/'
 end
 
 
-When /I click on the help link in the footer/ do 
-	find('[data-test="footer-help-link"]').click
-end
+Given /^the blinkbox books help link is present in the footer$/ do 
+	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-movies-link"]').visible?
+end 
 
-Then /I should see the blinkbox help page/ do 
-	page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
-	current_url.should == 'https://blinkboxbooks.zendesk.com/home'
-end
+Then /^the link should point to the blinkbox books help home page$/ do 
+	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-help-link"]')
+	link[:href].should == 'https://blinkboxbooks.zendesk.com/'
+	link[:target].should == '_blank'
+	link[:title].should == 'Help'
+end 
 
 
+Given /^the blinkbox movies link is present in the footer$/ do 
+	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-movies-link"]').visible?
+end 
+
+Then /^the link should point to the blinkbox movies home page$/ do 
+	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-movies-link"]')
+	link[:href].should == 'http://www.blinkbox.com/'
+	link[:target].should == '_blank'
+	link[:title].should == 'Blinkbox movies'
+end 
+
+
+Given /^the blinkbox music link is present in the footer$/ do 
+	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-music-link"]').visible?
+end 
+
+Then /^the link should point to the blinkbox music home page$/ do 
+	link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-music-link"]')
+	link[:href].should == 'http://www.blinkboxmusic.com/'
+	link[:target].should == '_blank'
+	link[:title].should == 'Blinkbox music'
+end 
