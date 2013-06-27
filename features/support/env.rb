@@ -27,21 +27,18 @@ case ENV['SERVER']
 end
 
 # target device
+window = Capybara.current_session.driver.browser.manage.window
 case ENV['DEVICE']
 	when 'MOBILE'
-		window = Capybara.current_session.driver.browser.manage.window
 	  	window.resize_to(320, 480)
 	when 'TABLET-PORTRAIT'
-		window = Capybara.current_session.driver.browser.manage.window
 	  	window.resize_to(768, 1024)
 	when 'TABLET-LANDSCAPE'
 	  	window.resize_to(1024, 768)
 	when 'DESKTOP'
-		window = Capybara.current_session.driver.browser.manage.window
-	  	window.maximise
+	  	window.maximize
 	else 
-		window = Capybara.current_session.driver.browser.manage.window
-		window.maximise
+	  	window.maximize
 end
 
 # grid setup
@@ -88,7 +85,6 @@ if ENV['GRID'] == 'true'
     	:url => "http://selenium.mobcastdev.local:4444/wd/hub",
     	:desired_capabilities => caps)
   	end 
-
 end  
 
 
