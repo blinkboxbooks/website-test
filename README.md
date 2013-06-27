@@ -52,10 +52,33 @@ $ cucumber
 
 To test via the Selenium Grid server
 
-Target: Safari on OSX
+There are a number of profiles defined in the cucumber.yml file 
 
+* mac-safari 
+* mac-firefox
+* mac-chrome 
+* win7-ie
+* win7-firefox
+* win7-chrome
+* win-vista-ie
+* win-vista-firefox
+* win-vista-chrome
+* win8-ie
+* win8-firefox
+* win8-chrome
+* win-vista-ie
+* win-vista-firefox
+* win-vista-chrome
+
+There are also command line options to choose the target device and target server
+
+* SERVER = INTEGRATION, QA, STAGING, PRODUCTION
+* DEVICE = MOBILE, TABLET-PORTRAIT, TABLET-LANDSCAPE, DESKTOP (resizes the browser window to suit target device)
+
+e.g. to test Firefox on Windows 7, on the QA server, simulating a tablet in landscape :
 
 ```
-$ cucumber -p integration-mac-safari
+cucumber -p win7-firefox SERVER=QA DEVICE=TABLET-LANDSCAPE
 ```
+
 
