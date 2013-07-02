@@ -2,6 +2,8 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
 require 'selenium-webdriver'
+require 'rspec/expectations'
+World(RSpec::Matchers)
 
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
