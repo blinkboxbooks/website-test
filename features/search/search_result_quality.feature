@@ -1,4 +1,4 @@
-@wip @searchresults
+ @searchresults
 Feature: Verify that search results match search criteria
   As a Blinkbox books user
   I want to see the search results matching my search criteria
@@ -7,19 +7,22 @@ Feature: Verify that search results match search criteria
   Background: Open Blinkbox books home page
     Given I am on the home page
 
-  Scenario: exact match on author name
-    When I search with full author name
-    Then results should be displayed
-     And the first result should contain author name
+  Scenario: Exact match on author name
+    When I search for "dan brown"
+    Then search results should be displayed
+     And the author name of first book displayed should contain "dan brown"
 
-  Scenario: exact match on title
-    When I search with full title name
-    Then results should be displayed
-    And the first result should contain title
-
-  Scenario: exact match on ISBN
-    When I search with full ISBN
-    Then One result matching ISBN should be displayed
+  @wip
+  Scenario: Exact match on title
+    When I search for "fifty shades of grey"
+    Then search results should be displayed
+    And the title of first book displayed should contain "fifty shades of grey"
+  @wip
+  Scenario: Exact match on ISBN
+    When I search for "9780571267064"
+    Then only one matching search result should be displayed
+     And book name should be "Jack Maggs"
+     And author name should be "Peter Carey"
 
 
 
