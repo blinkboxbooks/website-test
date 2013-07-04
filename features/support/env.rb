@@ -2,6 +2,7 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
 require 'selenium-webdriver'
+require 'active_support/core_ext'
 require 'rspec/expectations'
 World(RSpec::Matchers)
 
@@ -24,7 +25,7 @@ case ENV['SERVER']
 		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
 	when 'PRODUCTION'
 		Capybara.app_host = 'https://www.blinkboxmusic.com'
-	else 
+  else
 		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
 end
 
