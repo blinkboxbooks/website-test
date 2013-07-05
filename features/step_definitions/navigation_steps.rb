@@ -32,13 +32,13 @@ end
 
 Given /^the blinkbox books help link is present in the footer$/ do 
 	@help_link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-help-link"]')
-	@help_link.visible?
+	@help_link.visible?.should == true
 end 
 
 Then /^the link should point to the blinkbox books help home page$/ do 
 	@help_link[:href].should == 'https://blinkboxbooks.zendesk.com/'
-	@help_link[:target].should == '_blank'
-	@help_link[:title].should == 'Help'
+  @help_link[:target].should == '_blank'
+  @help_link[:title].should == 'Help'
 end 
 
 Given /^the blinkbox movies link is present in the footer$/ do 
