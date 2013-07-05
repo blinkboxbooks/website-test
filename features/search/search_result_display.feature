@@ -1,4 +1,3 @@
-@wip
 @search
 Feature:
   As a Blinkbox book user
@@ -45,13 +44,12 @@ Feature:
       And I change from Grid mode to List mode
      Then the result should be displayed in List mode
       And the Tesco clubcard logo should be visible
-#
-#  Scenario: Search for a word that does not return any results
-#    Given I type "fsjdfjsdjk" value in the search text box
-#      And press return or click the search button
-#     Then I should get a message which contains "fsjdfjsdjk"
-#      And the list mode grid mode and sorting options should not appear
-#      And 10 Bestselling books should be returned
+
+  Scenario: Search for a word that does not return any results
+    Given I search for term "blahblahblahblah"
+     Then I should get a message
+      And the options of switching view mode should not appear
+      And 10 Bestselling books should be returned
 
 
 

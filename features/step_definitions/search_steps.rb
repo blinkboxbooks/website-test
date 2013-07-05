@@ -1,4 +1,5 @@
 And(/^I search for term "(.*?)"$/) do |term|
+  @search = term
   fill_in('term', :with => "#{term}")
   click_button('submit_desk')
 end
@@ -45,6 +46,19 @@ end
 
 And(/^the Tesco clubcard logo should be visible$/) do
   all('[data-test="book-clubcard-points"]').first.visible?.should == true
+end
+
+Then(/^I should get a message$/) do
+  page.should have_content(@search)
+  page.should have_content(find('h5.ng-binding').text)
+end
+
+And(/^the options of switching view mode should not appear$/) do
+  page.should_not have_css('div#controls')
+end
+
+And(/^(\d+) Bestselling books should be returned$/) do |n|
+  find('[data-test="search-results-list"]').all('li').length.should == n.to_i
 end
 
 When(/^I enter "(.*?)" into search field$/) do |search_word|
