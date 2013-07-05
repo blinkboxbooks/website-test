@@ -32,7 +32,7 @@ end
 
 Given /^the blinkbox books help link is present in the footer$/ do 
 	@help_link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-help-link"]')
-	@help_link.visible?
+	@help_link.visible?.should == true
 end 
 
 Then /^the link should point to the blinkbox books help home page$/ do 
