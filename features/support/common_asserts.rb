@@ -30,3 +30,36 @@ def assert_unique_result
   end
 end
 
+def assert_number_of_suggestions number_of_suggestion
+  within("#suggestions")do
+    page.all("li").count.should >= number_of_suggestion
+  end
+end
+
+def assert_auto_corrected_word corrected_word
+ within("#suggestions") do
+    i = 0
+    page.all('li').to_a.each do |li|
+      li.text.should == corrected_word[i]
+      i += 1
+    end
+  end
+end
+
+
+def assert_search_word_in_suggestions search_word
+  within("#suggestions") do
+    page.all('li').to_a.each do |li|
+    ((li.text).include?(search_word)).should == true
+    end
+  end
+end
+
+def assert_last_suggestion search_word
+  within("#suggestions") do
+    ((page.all('li').to_a.last).text).should == search_word
+  end
+end
+
+
+
