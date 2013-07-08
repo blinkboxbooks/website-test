@@ -61,41 +61,45 @@ And(/^(\d+) Bestselling books should be returned$/) do |n|
   find('[data-test="search-results-list"]').all('li').length.should == n.to_i
 end
 
-When(/^I enter "(.*?)" into search field$/) do |search_word|
-
+When(/^I type "(.*?)" into search field$/) do |search_word|
+  find('[data-test="header-container"]').find('[data-test="search-input"]').set(search_word)
 end
 
 And (/^search suggestions should be displayed$/) do
-
+  (find("#suggestions")[:class]).should == 'enabled'
 end
 
 Then /^search suggestions should not be displayed$/ do
+  page.should_not have_css("#suggestions")
 
 end
 
-And /^I should see at least 5 suggestions$/ do |number_of_suggestions|
-
+And /^I should see at least (\d+) suggestions$/ do |number_of_suggestions|
+  assert_number_of_suggestions  number_of_suggestions.to_i
 end
 
 And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
-
+  assert_search_word_in_suggestions search_word
 end
 
 And /^the last suggestion should be equal to "(.*?)"$/ do |search_word|
+  assert_last_suggestion search_word
 end
 
 
 And  /^first suggestions should contain complete word "(.*?)"$/ do |search_word|
+  pending
 end
 
 And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
+  pending
 end
 
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
-
+ assert_auto_corrected_word [corrected_word]
 end
 And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |first_part,second_part|
-
+  assert_auto_corrected_word [first_part, second_part ]
 end
 
 
