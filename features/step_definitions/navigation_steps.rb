@@ -18,10 +18,6 @@ end
 # testing main navigation
 ##############################################################
 
-When /^I click on the categories link$/ do 
-	find('[data-test="header-container"]').find('[data-test="header-categories-link"]').click
-end  
-
 Then /^I should be on the categories page$/ do 
 	current_url.should == Capybara.app_host << '/#!/categories/'
 end 
@@ -61,7 +57,30 @@ Then /^the link should point to the blinkbox music home page$/ do
 	@music_link[:href].should == 'http://www.blinkboxmusic.com/'
 	@music_link[:target].should == '_blank'
 	@music_link[:title].should == 'Blinkbox music'
-end 
+end
+
+And /^I click on the (.*) link$/ do |page|
+
+  case page
+    when "Featured"
+      find('[data-test="header-container"]').find('[data-test="header-featured"]').click
+    when "Categories"
+      find('[data-test="header-container"]').find('[data-test="header-categories-link"]').click
+    when "Best Sellers"
+      find('[data-test="header-container"]').find('[data-test="header-bestsellers-link"]').click
+    when "New Releases"
+      find('[data-test="header-container"]').find('[data-test="header-new-releases-link"]').click
+    when "Top Free"
+      find('[data-test="header-container"]').find('[data-test="header-top-free-link"]').click
+    when "Authors"
+      find('[data-test="header-container"]').find('[data-test="header-authors-link"]').click
+
+  end
+end
+
+And /^I press browser back$/ do
+  page.evaluate_script('window.history.back()')
+end
 
 
 

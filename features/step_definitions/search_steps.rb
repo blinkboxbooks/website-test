@@ -134,3 +134,36 @@ end
 Then /^author name should be "(.*?)"$/ do |author_name|
       assert_author_name author_name
 end
+
+Then /^"(.*?)" should be visible in search bar$/ do |search_word|
+  find('[data-test="header-container"]').find('[data-test="search-input"]')[:value].should == search_word
+end
+
+Then /^search term should not be visible in search bar$/ do
+  find('[data-test="header-container"]').find('[data-test="search-input"]')[:value].should == ""
+end
+
+When /^I change search term in url to "(.*?)"$/ do |edit_word|
+  @search_word = edit_word
+  visit("/#!/search/?q=#{edit_word}")
+end
+
+And /^page url should have "(.*?)"$/ do |search_word|
+  (current_url.include?(search_word)).should == true
+  @current_url = current_url.to_s
+end
+
+And /^copy paste url into another browser session$/ do
+  session = Capybara::Session.new(:selenium)
+  session.visit(@current_url)
+end
+
+When /^I search for following words$/ do |table|
+   table.hashes.each do |search_word|
+     search_blinkbox_books search_word['words']
+   end
+end
+And /^I should see search results page for "(.*?)"$/ do |search_word|
+  assert_search_results search_word
+end
+
