@@ -31,3 +31,28 @@ Feature: Navigation around the website
   Scenario: Navigating with the categories link
     When I click on the categories link
     Then I should be on the categories page
+
+   @CWA-105
+  Scenario Outline: Search word should not visible upon user navigating to another page
+    When I search for "dan brown"
+    Then "dan brown" should be visible in search bar
+     And I click on the <page> link
+    Then search term should not be visible in search bar
+
+    Examples:
+     |page|
+     |Featured     |
+     |Categories   |
+     |Best Sellers |
+     |New Releases |
+     |Top Free     |
+     |Authors      |
+
+  @CWA-87
+  Scenario: Clicking browser back should load previous search results pages if any
+    When I search for following words
+    |words|
+    |da vinci    |
+    |dan brown   |
+    And I press browser back
+    And I should see search results page for "da vinci"

@@ -1,5 +1,5 @@
 
-@suggestions
+@suggestions @cp-275
 Feature: Suggestions for user search
   As a Blinkbox books user
   I want to get suggestions when I start searching for a book or author etc
