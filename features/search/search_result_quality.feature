@@ -24,22 +24,22 @@ Feature: Verify that search results match search criteria
     Then only one matching search result should be displayed
      And book name should be "Jack Maggs"
      And author name should be "Peter Carey"
-  @CWA-88
+  @CWA-88 @wip
   Scenario: Editing search url should update search results
     When I search for "alice"
     Then page url should have "alice"
-     And search results should be displayed
-     And I change search term in url to "wonder"
+    And search results should be displayed
+    And I change search term in url to "wonder"
     Then page url should have "wonder"
-     And search results should be displayed
+    And search results should be displayed
 
   @CWA-88
   Scenario: Copy and paste search url to another browser session
-    When I search for "alice"
-    Then page url should have "alice"
+    When I search for "dan"
+    Then page url should have "dan"
     And search results should be displayed
     And copy paste url into another browser session
-    Then page url should have "alice"
+    Then page url should have "dan"
     And search results should be displayed
 
 

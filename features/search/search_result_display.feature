@@ -51,10 +51,16 @@ Feature:
       And the options of switching view mode should not appear
       And 10 Bestselling books should be returned
 
+  Scenario: When user selects List view mode to display search results it should be set as default
+    Given I change from Grid mode to List mode
+    Then the result should be displayed in List mode
+    And I search for term "da vinci"
+    Then the result should be displayed in List mode
 
-
-
-
+  Scenario: Default search results view is always kept to Grid view unless user changes to list view
+    Given the result is displayed in Grid mode
+    And I search for term "da vinci"
+    Then the result is displayed in Grid mode
 
 
 

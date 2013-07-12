@@ -107,9 +107,11 @@ When (/^I search for "(.*?)"$/) do |word|
   @search_word = word
   search_blinkbox_books @search_word
 
+
 end
 
 Then /^search results should be displayed$/ do
+  puts @search_word
   assert_search_results @search_word
 end
 
@@ -146,6 +148,7 @@ end
 When /^I change search term in url to "(.*?)"$/ do |edit_word|
   @search_word = edit_word
   visit("/#!/search/?q=#{edit_word}")
+  puts @search_word
 end
 
 And /^page url should have "(.*?)"$/ do |search_word|
