@@ -61,5 +61,36 @@ def assert_last_suggestion search_word
   end
 end
 
+def is_category_displayed category_id
+  category_displayed=false
+  within('[data-test="all-categories-list"]') do
+    page.all('li').to_a.each do |li|
+      begin
+        if ((li.find('[data-category="category"]')['data-test']).include?(category_id) == true)
+           category_displayed = true;
+        end
+      rescue TypeError => e
+        e.message
+        category_displayed = false;
+      end
+    end
+    end
+ return category_displayed
+end
+
+def find_category category_id
+ within('[data-test="all-categories-list"]') do
+  page.all('li').to_a.each do |li|
+      if (li.find('[data-category="category"]')['data-test']).include?(category_id) == true
+       return li.find('[data-category="category"]')['data-test'];
+      end
+  end
+ end
+
+end
+
+
+
+
 
 
