@@ -30,23 +30,7 @@ Feature: Navigation around the website
   @desktop @mobile
   Scenario: Navigating with the categories link
     When I click on the Categories link
-    Then I should be on the categories page
-
-   @CWA-105
-  Scenario Outline: Search word should not visible upon user navigating to another page
-    When I search for "dan brown"
-    Then "dan brown" should be visible in search bar
-     And I click on the <page> link
-    Then search term should not be visible in search bar
-
-    Examples:
-     |page|
-     |Featured     |
-     |Categories   |
-     |Best Sellers |
-     |New Releases |
-     |Top Free     |
-     |Authors      |
+    Then I should be on the Categories page
 
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any
@@ -83,4 +67,32 @@ Feature: Navigation around the website
     Then the button should change to View less
     And I click on View less button
     Then the button should change to View more
+  @CWA-34
+  Scenario:Book Component-List view Title display
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+    And  I select list view
+    Then long titles should be displayed in two lines
 
+  @CWA-34
+  Scenario:Book Component-Grid view Title display
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+    And  I select grid view
+    Then long titles should be truncated to fit within image
+
+   @CWA-105
+  Scenario Outline: Search word should not visible upon user navigating to another page
+    When I search for "dan brown"
+    Then "dan brown" should be visible in search bar
+    And I click on the <page> link
+    Then search term should not be visible in search bar
+
+  Examples:
+    |page         |
+    |Featured     |
+    |Categories   |
+    |Best sellers |
+    |New releases |
+    |Top free     |
+    |Authors      |

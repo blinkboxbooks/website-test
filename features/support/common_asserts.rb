@@ -5,9 +5,9 @@ require 'capybara/selenium/node'
 
 def assert_search_results  search_word
   page.should have_content("You searched for \"#{search_word}\"")
-  find('[data-test="list-button"]').visible?
-  within("div.item")  do
-    find('[data-test="expand-list-button"]').visible?
+  page.find('[data-test="search-results-list"]').visible?
+  within('[data-test="search-results-list"]')  do
+    page.all('li',:visible =>false).count.should >= 1
   end
 
 end

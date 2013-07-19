@@ -10,6 +10,8 @@ Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
 
 
+
+
 ARGV.each do|a|
   puts "Argument: #{a}"
 end

@@ -29,7 +29,7 @@ And(/^the result should be displayed in List mode$/) do
 end
 
 When(/^I change from List mode to Grid mode$/) do
-  page.find('[ata-test="grid-button"]').click
+  page.find('[data-test="grid-button"]').click
 end
 
 And(/^I take the number books on Grid mode$/) do
@@ -111,7 +111,6 @@ When (/^I search for "(.*?)"$/) do |word|
 end
 
 Then /^search results should be displayed$/ do
-  puts @search_word
   assert_search_results @search_word
 end
 

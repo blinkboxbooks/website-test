@@ -1,5 +1,6 @@
 Given /^I am on the home page/ do 
 	visit('/')
+  page.driver.browser.manage.window.maximize
 end
 
 ##############################################################
@@ -18,8 +19,15 @@ end
 # testing main navigation
 ##############################################################
 
-Then /^I should be on the categories page$/ do 
-	current_url.should == Capybara.app_host << '/#!/categories/'
+Then /^I should be on the (.*?) page$/ do |page_name|
+	#current_url.should == Capybara.app_host << '/#!/categories/'
+  case page_name
+    when "Categories"
+      current_url.include?('/#!/categories/').should == true
+    when "Best sellers"
+      current_url.include?('#!/bestsellers/').should == true
+  end
+
 end 
 
 ##############################################################
@@ -66,11 +74,11 @@ And /^I click on the (.*) link$/ do |page|
       find('[data-test="header-container"]').find('[data-test="header-featured"]').click
     when "Categories"
       find('[data-test="header-container"]').find('[data-test="header-categories-link"]').click
-    when "Best Sellers"
+    when "Best sellers"
       find('[data-test="header-container"]').find('[data-test="header-bestsellers-link"]').click
-    when "New Releases"
+    when "New releases"
       find('[data-test="header-container"]').find('[data-test="header-new-releases-link"]').click
-    when "Top Free"
+    when "Top free"
       find('[data-test="header-container"]').find('[data-test="header-top-free-link"]').click
     when "Authors"
       find('[data-test="header-container"]').find('[data-test="header-authors-link"]').click
@@ -105,8 +113,10 @@ When /^a promotable category has more books to display$/ do
 end
 
 And /^I click on View (.*) button$/ do |arg1|
-  unless (@all_books > @visible_books) == false
-  find('[data-test="expand-list-button"]').click
+  within("#books_news") do
+    unless (@all_books > @visible_books) == false
+      find('[data-test="expand-list-button"]').click
+    end
   end
 end
 

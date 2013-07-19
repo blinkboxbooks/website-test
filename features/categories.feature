@@ -7,27 +7,27 @@ Feature:  Checking Categories page content
   Background: Opens Blinkbox books home page
     Given I am on the home page
     And I click on the Categories link
-    Then I should be on the categories page
+    Then I should be on the Categories page
 
   Scenario: Display Categories in Desktop Mode
     When I am viewing in Desktop mode
      And page should display 5 categories in a row
-  @wip
+
   Scenario: Display Categories in 10 inch tablet mode
     When I am viewing in 10 inch tablet mode
-     And page should display 4 categories in a row
+     And page should display 4 categories per a row
 
-  @wip
-   Scenario: Display Top Categories in 7 inch tablet mode
+   Scenario: Display Categories in 7 inch tablet mode
      When I am viewing in 7 inch tablet mode
       And page should display categories as list
-      And page should not display the images
 
-   @wip
-   Scenario: Display Top Categories in mobile mode
-     When I am viewing in mobile mode
+   Scenario: Display Categories in mobile portrait mode
+     When I am viewing in Mobile Portrait mode
      And page should display categories as list
-     And page should not display the images
+
+  Scenario: Display Categories in mobile landscape  mode
+    When I am viewing in Mobile Landscape mode
+    And page should display categories as list
 
    Scenario: Valid category displayed
      When 109 is valid category id
