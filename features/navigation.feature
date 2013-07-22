@@ -81,7 +81,7 @@ Feature: Navigation around the website
     And  I select grid view
     Then long titles should be truncated to fit within image
 
-   @CWA-105
+  @CWA-105
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
     Then "dan brown" should be visible in search bar
@@ -96,3 +96,46 @@ Feature: Navigation around the website
     |New releases |
     |Top free     |
     |Authors      |
+
+  @CWA-71
+  Scenario: Best sellers page displayed
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+     And I should see Best sellers section header as Best sellers Top 100 this month
+     And I should see 'Fiction' and 'Non-Fiction' tabs
+     And I should see Grid view and List view buttons
+     And I should see Main Footer
+
+  @CWA-71
+  Scenario: Promotable category-All time best selling books
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+     And I should see Promotions section header as All time best selling books
+     And I should see 5 books being displayed
+
+  @CWA-71
+  Scenario: Best sellers page - Switching views
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+     And I select grid view
+    Then I should see Fiction books in gird view
+     And I select list view
+    Then I should see Fiction books in list view
+
+  @CWA-71
+  Scenario: Best sellers page - Grid view not changing between tabs
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+     And I select grid view
+    Then I should see Fiction books in gird view
+     And I click on Non-Fiction tab
+    Then I should see Non-Fiction books in gird view
+
+  @CWA-71
+  Scenario: Best sellers page - List view not changing between tabs
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+     And I select list view
+    Then I should see Fiction books in list view
+     And I click on Non-Fiction tab
+    Then I should see Non-Fiction books in list view
