@@ -146,3 +146,61 @@ Then /^the button should change to View more$/ do
   end
 end
 
+And /^I should see Best sellers section header as (.*?)$/ do |text|
+ within('[data-test="bestsellers-container"]') do
+  page.should have_content(text)
+  end
+end
+
+And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/  do
+  within('[data-test="bestsellers-container"]') do
+    page.find('[title="Fiction"]').visible?
+    page.find('[title="Non-Fiction"]').visible?
+  end
+end
+
+And /^I should see Grid view and List view buttons$/  do
+  within('[data-test="bestsellers-container"]') do
+    page.find('[title="Set view to list"]').visible?
+    page.find('[title="Set view to grid"]').visible?
+  end
+end
+
+And /^I should see Main Footer$/ do
+  page.find('[data-test="bottom-footer-container"]').visible?
+end
+
+And /^I should see Promotions section header as (.*?)$/ do |promo_text|
+  within('[data-id="399"]') do
+    page.should have_content(promo_text)
+  end
+end
+
+And /^I should see (\d+) books being displayed$/ do |books|
+  within('[data-title="All time best selling books"]') do
+    page.all('li').count.should == books.to_i
+  end
+end
+
+And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
+  case tab
+    when 'Fiction'
+    when 'Non-Fiction'
+      find('[title="Non-Fiction"]').click
+  end
+end
+
+Then /^I should see (Fiction|Non\-Fiction) books in (gird|list) view$/ do |book_type,view|
+  case view
+    when 'grid'
+      (find('[data-test="grid-button"]')[:class]).should =='active'
+      within('[data-test="bestsellers-container"]') do
+        find('.selected').text.should == book_type
+      end
+    when 'list'
+      (find('[data-test="list-button"]')[:class]).should == 'active'
+      within('[data-test="bestsellers-container"]') do
+        find('.selected').text.should == book_type
+      end
+  end
+end
