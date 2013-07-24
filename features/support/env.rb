@@ -29,23 +29,8 @@ case ENV['SERVER']
 		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
 end
 
-# target device
-window = Capybara.current_session.driver.browser.manage.window
-case ENV['DEVICE']
-	when 'MOBILE'
-	  	window.resize_to(320, 480)
-	when 'TABLET-PORTRAIT'
-	  	window.resize_to(768, 1024)
-	when 'TABLET-LANDSCAPE'
-	  	window.resize_to(1024, 768)
-	when 'DESKTOP'
-	  	window.maximize
-	else 
-	  	window.maximize
-end
-
 # grid setup
-if ENV['GRID'] == 'true'
+if ENV['GRID'] == 'TRUE'
 
 	# target browser
 	case ENV['BROWSER_NAME']
@@ -87,8 +72,8 @@ if ENV['GRID'] == 'true'
     	:browser => :remote,
     	:url => "http://selenium.mobcastdev.local:4444/wd/hub",
     	:desired_capabilities => caps)
-  	end 
-end  
+  	end
+end
 
 
 
