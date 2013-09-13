@@ -18,17 +18,20 @@ end
 
 
 # target environment
+ENV['SERVER'] ||= 'INTEGRATION'
 case ENV['SERVER']
 	when 'INTEGRATION'
 		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
 	when 'QA'
-		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
+		Capybara.app_host = 'https://qa.mobcastdev.com'
 	when 'STAGING'
-		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
+		raise "STAGING environment does not exist yet"
+		#Capybara.app_host = ''
 	when 'PRODUCTION'
-		Capybara.app_host = 'https://www.blinkboxmusic.com'
+		raise "STAGING environment does not exist yet"
+		#Capybara.app_host = 'https://www.blinkboxbooks.com'
   else
-		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
+		raise "Undefined environment name: #{ENV['SERVER']}"
 end
 
 # grid setup
