@@ -28,7 +28,7 @@ case ENV['SERVER']
 		raise "STAGING environment does not exist yet"
 		#Capybara.app_host = ''
 	when 'PRODUCTION'
-		raise "STAGING environment does not exist yet"
+		raise "PRODUCTION environment does not exist yet"
 		#Capybara.app_host = 'https://www.blinkboxbooks.com'
   else
 		raise "Undefined environment name: #{ENV['SERVER']}"
