@@ -1,6 +1,11 @@
+<% ci_opts = " --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --format progress -o log/features.log --format junit -o log/junit/ --format Cucumber::Formatter::HtmlCustomFormatter -o log/features_report.html --format pretty "  %>
+
+
 default: -p local
 local: -r features --tags ~@wip GRID=false TEST_ENV=integration --no-multiline -i -s --format progress
-jenkins: -r features --tags ~@wip GRID=true TEST_ENV=integration PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4 --no-color  --format progress -o log/features.log --format junit -o log/ --format html -o log/features.html --format pretty
+ci: -r features <%= ci_opts %> GRID=true TEST_ENV=integration PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4
+ci-no-grid: <%= ci_opts %> GRID=false TEST_ENV=integration
+ci-smoke: -p ci-no-grid --tags @smoke
 
 mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
 mac-firefox: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress

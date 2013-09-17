@@ -1,3 +1,6 @@
+$: << "."
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
+
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
@@ -5,6 +8,8 @@ require 'selenium-webdriver'
 require 'active_support/core_ext'
 require 'rspec/expectations'
 World(RSpec::Matchers)
+
+require 'support/formatters/html_custom_formatter'
 
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
@@ -16,7 +21,7 @@ ARGV.each do|a|
   puts "Argument: #{a}"
 end
 
-
+#TODO: move this to config yml file
 # target environment
 ENV['SERVER'] ||= 'INTEGRATION'
 case ENV['SERVER']

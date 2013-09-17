@@ -1,5 +1,7 @@
 require 'cucumber/formatter/html'
 
+#TODO: add logger to the framework
+
 module Cucumber
   module Formatter
 
@@ -17,6 +19,32 @@ module Cucumber
 
       def prefix_with_timestamp( name )
         "#{timestamp} #{name}"
+      end
+
+      def save_screenshot_with_filename_based_on(filename_base)
+        #figure out path to the report HtmlFile (@io will contain filepath - see Cucumber::Formatter::Html)
+        #we will put "screenshots" folder in the same location.
+        screen_dir = File.join(File.dirname(@io.path), 'screenshots')
+        Dir::mkdir(screen_dir) if not File.directory?(screen_dir)
+        screenshot_filename = "FAILED_#{filename_base.to_s.gsub(' ', '_').gsub(/[^0-9A-Za-z_]/, '')}.png"
+        screenshot = File.join(screen_dir, screenshot_filename)
+        #scheenshot's src attribute should be relative location of report HTML
+        screenshot_src = File.join('screenshots', screenshot_filename)
+        begin
+          driver = Capybara.page.driver
+          if driver.respond_to?(:save_screenshot)
+            driver.save_screenshot(screenshot)
+          elsif driver.respond_to?(:browser) && driver.browser.respond_to?(:save_screenshot)
+            driver.browser.save_screenshot(screenshot)
+          else
+            driver.render(screenshot)
+          end
+          embed screenshot_src, 'image/png', "CLICK TO VIEW/HIDE SCREENSHOT"
+        rescue Exception => e
+          puts 'THE SCREENSHOT TAKING FAILED, YOUR PAGE IS TOO DAMN BIG'
+          puts e.message
+          puts e.backtrace
+        end
       end
 
       #override inline JS in the default html formatter to always show cucumber tags regardless expand/collapse state of the scenarios
@@ -64,27 +92,27 @@ module Cucumber
       end
 
       #output framework start up logs before all executed features are listed
-      def before_features(features)
-        super(features)
-
-        @builder.div(:id => 'cucumber_log') do
-          @builder.h3(:id => 'scenario_cucumber_log', :style => 'cursor: pointer; ') do
-            @builder.text!('  CLICK TO VIEW/HIDE CUCUMBER START UP LOG')
-          end
-          @builder.ol() do
-            $logger.results[:all].each do |message|
-              @builder.li() { @builder.text! message }
-            end
-          end
-        end
-      end
+      #def before_features(features)
+      #  super(features)
+      #
+      #  @builder.div(:id => 'cucumber_log') do
+      #    @builder.h3(:id => 'scenario_cucumber_log', :style => 'cursor: pointer; ') do
+      #      @builder.text!('  CLICK TO VIEW/HIDE CUCUMBER START UP LOG')
+      #    end
+      #    @builder.ol() do
+      #      $logger.results[:all].each do |message|
+      #        @builder.li() { @builder.text! message }
+      #      end
+      #    end
+      #  end
+      #end
 
       #log scenario name so that console log is more readable
       #also track the position in the all logs array from which out for current scenario starts
       def scenario_name(keyword, name, file_colon_line, source_indent)
-        $logger.info("")
-        $logger.info("STARTING SCENARIO: #{name}")
-        @scenario_log_counter = $logger.results[:all].length - 1
+        #$logger.info("")
+        #$logger.info("STARTING SCENARIO: #{name}")
+        #@scenario_log_counter = $logger.results[:all].length - 1
         name = append_timestamp_to(name)
         super(keyword, name, file_colon_line, source_indent)
       end
@@ -105,56 +133,56 @@ module Cucumber
       end
 
       #output execution log messages after each scenario or scenario outline
-      def after_feature_element(feature_element)
-        @builder.div(:id => "cucumber_log_#{@scenario_number}", :class => 'log') do
-          @builder.ol() do
-            @builder.li() do
-
-              @builder.h3(:id => "scenario__#{@scenario_number}_cucumber_log", :style => 'cursor: pointer; ') do
-                @builder.text!('CLICK TO VIEW/HIDE EXECUTION LOG FOR THIS SCENARIO')
-              end
-              @builder.ol() do
-                $logger.results[:all].slice(@scenario_log_counter..-1).each do |message|
-                  @builder.li() { @builder.text! message }
-                end
-              end
-
-            end
-          end
-        end
-
-        super(feature_element)
-      end
-
-      #def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
-      #  super(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
+      #def after_feature_element(feature_element)
+      #  @builder.div(:id => "cucumber_log_#{@scenario_number}", :class => 'log') do
+      #    @builder.ol() do
+      #      @builder.li() do
       #
-      #  if  status == :failed
-      #    save_screenshot_with_filename_based_on(step_match.step_definition)
-      #  end
-      #end
-
-      #def after_table_row(table_row)
-      #  return if @hide_this_step
-      #  print_table_row_messages
-      #  @builder << '</tr>'
-      #  if table_row.exception
-      #    @builder.tr do
-      #      @builder.td(:colspan => @col_index.to_s, :class => 'failed') do
-      #        @builder.pre do |pre|
-      #          pre << format_exception(table_row.exception)
+      #        @builder.h3(:id => "scenario__#{@scenario_number}_cucumber_log", :style => 'cursor: pointer; ') do
+      #          @builder.text!('CLICK TO VIEW/HIDE EXECUTION LOG FOR THIS SCENARIO')
       #        end
+      #        @builder.ol() do
+      #          $logger.results[:all].slice(@scenario_log_counter..-1).each do |message|
+      #            @builder.li() { @builder.text! message }
+      #          end
+      #        end
+      #
       #      end
       #    end
-      #    save_screenshot_with_filename_based_on(table_row)
-      #    set_scenario_color_failed
       #  end
-      #  if @outline_row
-      #    @outline_row += 1
-      #  end
-      #  @step_number += 1
-      #  move_progress
+      #
+      #  super(feature_element)
       #end
+
+      def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
+        super(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
+
+        if status == :failed
+          save_screenshot_with_filename_based_on(step_match.step_definition)
+        end
+      end
+
+      def after_table_row(table_row)
+        return if @hide_this_step
+        print_table_row_messages
+        @builder << '</tr>'
+        if table_row.exception
+          @builder.tr do
+            @builder.td(:colspan => @col_index.to_s, :class => 'failed') do
+              @builder.pre do |pre|
+                pre << format_exception(table_row.exception)
+              end
+            end
+          end
+          save_screenshot_with_filename_based_on(table_row)
+          set_scenario_color_failed
+        end
+        if @outline_row
+          @outline_row += 1
+        end
+        @step_number += 1
+        move_progress
+      end
 
       #override to set color of pending exceptions backtraces to Yellow instead of Red (and thus not make the whole scenario Red)
       def after_table_row(table_row)
