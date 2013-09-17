@@ -1,3 +1,4 @@
+@smoke
 @navigation
 Feature: Navigation around the website
   As a user
@@ -7,6 +8,7 @@ Feature: Navigation around the website
   Background:
     Given I am on the home page
 
+  @smoke
   Scenario: Clicking on the website logo
     When I click on the website logo
     Then I should return to the home page
@@ -28,6 +30,7 @@ Feature: Navigation around the website
     Then the link should point to the blinkbox music home page
 
   @desktop @mobile
+
   Scenario: Navigating with the categories link
     When I click on the Categories link
     Then I should be on the Categories page
@@ -35,9 +38,9 @@ Feature: Navigation around the website
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
-    |words|
-    |da vinci    |
-    |dan brown   |
+      | words     |
+      | da vinci  |
+      | dan brown |
     And I press browser back
     And I should see search results page for "da vinci"
 
@@ -49,9 +52,10 @@ Feature: Navigation around the website
     And footer is displayed
 
   @CWA-54
+  @unstable
   Scenario: View more books under a Promotable category on homepage
     When a promotable category has more books to display
-     And I click on View more button
+    And I click on View more button
     Then I should see more books displayed
 
   @CWA-54
@@ -67,7 +71,9 @@ Feature: Navigation around the website
     Then the button should change to View less
     And I click on View less button
     Then the button should change to View more
+
   @CWA-34
+  @unstable
   Scenario:Book Component-List view Title display
     When I click on the Best sellers link
     Then I should be on the Best sellers page
@@ -75,12 +81,14 @@ Feature: Navigation around the website
     Then long titles should be displayed in two lines
 
   @CWA-34
+  @unstable
   Scenario:Book Component-Grid view Title display
     When I click on the Best sellers link
     Then I should be on the Best sellers page
     And  I select grid view
     Then long titles should be truncated to fit within image
 
+  @unstable
   @CWA-105
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
@@ -89,53 +97,56 @@ Feature: Navigation around the website
     Then search term should not be visible in search bar
 
   Examples:
-    |page         |
-    |Featured     |
-    |Categories   |
-    |Best sellers |
-    |New releases |
-    |Top free     |
-    |Authors      |
+    | page         |
+    | Featured     |
+    | Categories   |
+    | Best sellers |
+    | New releases |
+    | Top free     |
+    | Authors      |
 
+  #  @unstable
   @CWA-71
+  @smoke
   Scenario: Best sellers page displayed
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-     And I should see Best sellers section header as Best sellers Top 100 this month
-     And I should see 'Fiction' and 'Non-Fiction' tabs
-     And I should see Grid view and List view buttons
-     And I should see Main Footer
+    And I should see Best sellers section header as Best sellers Top 100 this month
+    And I should see 'Fiction' and 'Non-Fiction' tabs
+    And I should see Grid view and List view buttons
+    And I should see Main Footer
 
+  @unstable
   @CWA-71
   Scenario: Promotable category-All time best selling books
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-     And I should see Promotions section header as All time best selling books
-     And I should see 5 books being displayed
+    And I should see Promotions section header as All time best selling books
+    And I should see 5 books being displayed
 
   @CWA-71
   Scenario: Best sellers page - Switching views
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-     And I select grid view
+    And I select grid view
     Then I should see Fiction books in gird view
-     And I select list view
+    And I select list view
     Then I should see Fiction books in list view
 
   @CWA-71
   Scenario: Best sellers page - Grid view not changing between tabs
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-     And I select grid view
+    And I select grid view
     Then I should see Fiction books in gird view
-     And I click on Non-Fiction tab
+    And I click on Non-Fiction tab
     Then I should see Non-Fiction books in gird view
 
   @CWA-71
   Scenario: Best sellers page - List view not changing between tabs
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-     And I select list view
+    And I select list view
     Then I should see Fiction books in list view
-     And I click on Non-Fiction tab
+    And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
