@@ -1,7 +1,7 @@
+require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
-require 'selenium-webdriver'
 require 'active_support/core_ext'
 require 'rspec/expectations'
 World(RSpec::Matchers)
@@ -22,13 +22,13 @@ case ENV['SERVER']
 	when 'INTEGRATION'
 		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
 	when 'QA'
-		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
+		Capybara.app_host = 'https://qa.mobcastdev.com'
 	when 'STAGING'
 		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
 	when 'PRODUCTION'
 		Capybara.app_host = 'https://www.blinkboxmusic.com'
   else
-		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
+		Capybara.app_host = 'https://qa.mobcastdev.com'
 end
 
 # grid setup

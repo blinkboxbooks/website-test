@@ -44,3 +44,7 @@
 | /             | Footer Author 2                  | data-test="footer-top-authors-in-crime-container"     |                        |
 | /             | Footer Author                    | data-test="footer-top-authors-container"              |                        |
 | /             | Main footer container            | data-test="footer-container"                          |                        |
+|#!/signin      | Sign In button                   | data-test="sign-in"                                   |                        |
+|#!/signin      | Register button                  | data-test="register"                                  |                        |
+|#!/register    | Continue button                  | data-test="continue"                                  |                        |
+|#!/register    | Cancel registration link         | data-test="cancel-registration"                       |                        |
