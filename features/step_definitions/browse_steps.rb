@@ -71,7 +71,7 @@ And /^I select (list|grid) view$/ do |view|
       if find('[data-test="grid-button"]')[:class] =='active'
        page.find('[data-test="list-button"]').click
       end
-    when 'gird'
+    when 'grid'
       if find('[data-test="list-button"]')[:class] == 'active'
        page.find('[ata-test="grid-button"]').click
 
