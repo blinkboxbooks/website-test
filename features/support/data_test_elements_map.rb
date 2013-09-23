@@ -1,5 +1,5 @@
 module DataTestElements
-  ELEMENTS_MAP = {'Categories' => 'header-categories-link',
+  DATA_TEST_ELEMENTS_MAP = {'Categories' => 'header-categories-link',
                   'Best sellers' => 'header-bestsellers-link',
                   'New releases' => 'header-new-releases-link',
                   'Top free' => 'header-top-free-link',
@@ -20,9 +20,9 @@ module DataTestElements
                   'Footer container' => 'footer-sitemap-link',
                   'iOS app link' => 'footer-t-and-c-link',
                   'Android app link'=> 'footer-help-link',
-                  'Pintrest link' => 'footer-pintrest-link',
-                  'Twitter link' => 'footer-twitter-link',
-                  'Facebook link' => 'footer-facebook-link',
+                  'Pintrest' => 'footer-pintrest-link',
+                  'Twitter' => 'footer-twitter-link',
+                  'Facebook' => 'footer-facebook-link',
                   'Connect with us container'=> 'footer-connect-with-us-container',
                   'Footer new release container' => 'footer-new-releases-container',
                   'Footer Author 2' => 'footer-top-authors-in-crime-container',
@@ -30,11 +30,28 @@ module DataTestElements
                   'Main footer container'=> 'footer-container'
                    }
 
+  PAGE_URL_PATHS = { 'Categories' => '/#!/categories/',
+                     'Best sellers' => '#!/bestsellers/',
+                     'New releases' => '/#!/new',
+                     'Top free' => '#!/topfree/',
+                     'Authors' => '#!/authors/',
+                     'Sign in' => '#!/signin',
+                     'Terms and conditions' => '#!/terms_and_conditions',
+                     'Confirm & pay' => '#!/confirm'
+                     }
+
   def get_element_id_for(element_name)
-    if ELEMENTS_MAP.key?(element_name)
-      return ELEMENTS_MAP[element_name]
+    if DATA_TEST_ELEMENTS_MAP.key?(element_name)
+      return DATA_TEST_ELEMENTS_MAP[element_name]
     end
     element_name
+  end
+
+  def get_page_url_path_for(page_name)
+    if PAGE_URL_PATHS.key?(page_name)
+      return PAGE_URL_PATHS[page_name]
+    end
+    page_name
   end
 end
 
