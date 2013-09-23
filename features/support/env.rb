@@ -31,11 +31,9 @@ case ENV['SERVER']
 		raise "PRODUCTION environment does not exist yet"
 		#Capybara.app_host = 'https://www.blinkboxbooks.com'
   else
-<<<<<<< HEAD
 		Capybara.app_host = 'https://qa.mobcastdev.com'
-=======
 		raise "Undefined environment name: #{ENV['SERVER']}"
->>>>>>> upstream/master
+
 end
 
 # grid setup
