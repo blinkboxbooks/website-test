@@ -1,3 +1,5 @@
+module WebUtilities
+
 def find_a_text selector,type
   within(selector) do
     case type
@@ -27,3 +29,6 @@ end
 def delete_cookies
   Capybara.current_session.reset_session!
 end
+end
+
+World(WebUtilities)
