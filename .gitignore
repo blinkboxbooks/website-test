@@ -6,3 +6,6 @@
 
 # Cucumber
 log/
+
+.idea/
+features_report.htm

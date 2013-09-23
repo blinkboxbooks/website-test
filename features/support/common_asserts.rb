@@ -89,6 +89,61 @@ def find_category category_id
 
 end
 
+def assert_main_footer_displayed
+  (find('[data-test="footer-container"]').visible?).should == true
+end
+
+def assert_footer_section(section)
+  case section
+    when 'Connect with us'
+      (find('[data-test="footer-connect-with-us-container"]').visible?).should == true
+    when 'New releases'
+      (find('[data-test="footer-new-releases-container"]').visible?).should == true
+    when 'Top authors in crime'
+      (find('[data-test="footer-top-authors-in-crime-container"]').visible?).should == true
+    when 'Top authors'
+      (find('[data-test="footer-top-authors-container"]').visible?).should == true
+  end
+end
+
+def assert_social_media_links
+  within('[data-test="footer-connect-with-us-container"]') do
+    (find('[data-test="footer-facebook-link"]').visible?).should == true
+    (find('[data-test="footer-twitter-link"]').visible?).should == true
+    (find('[data-test="footer-pintrest-link"]').visible?).should == true
+  end
+end
+
+def assert_section_header(section_id,text)
+  within("[data-test='#{section_id}']") do
+    page.text.include?(text).should == true
+  end
+  #(page.find("[class='#{section_id}']").text).should == text
+end
+
+def assert_page_path(page_name)
+  case page_name
+    when "Categories"
+      current_path.should.eql?('/#!/categories/') == true
+    when "Best sellers"
+      current_path.should.eql?('#!/bestsellers/') == true
+    when "New releases"
+      current_path.should.eql?('/#!/new') == true
+    when "Top free"
+      current_path.should.eql?('#!/topfree/') == true
+    when "Authors"
+      current_path.should.eql?('#!/authors/') == true
+    when "Terms and conditions"
+      current_path.should.eql?('#!/terms_and_conditions') == true
+  end
+end
+
+def assert_container (section_id)
+  (page.find("[data-test='#{section_id}']").visible?).should == true
+end
+
+
+
 
 
 

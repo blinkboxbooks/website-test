@@ -19,7 +19,7 @@ And /^page should display (\d+) categories in a row$/ do |top_categories|
   within('[data-test="recommended-category-container"]') do
    (page.all('li',:visible => false).count).should == top_categories.to_i
    page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft").should == 772
-   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should ==54
+   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should ==57
   end
 end
 
@@ -61,7 +61,7 @@ end
 
 And /^page should display (\d+) categories per a row$/ do |top_categories|
    page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft").should == 20
-   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should == 373
+   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should == 376
 
 end
 
@@ -80,7 +80,21 @@ And /^I select (list|grid) view$/ do |view|
 end
 
 Then /^long titles should be displayed in two lines$/ do
+  elem = "document.getElementsByClassName('expandable itemsets')[0].children[0].children[35].children[0].children[1].children[1].children[0].children[0]"
+  page.evaluate_script("window.getComputedStyle(#{elem},null).getPropertyValue('white-space')").should == 'normal'
+
+  within('[data-test="search-results-list"]') do
+    page.all('li').to_a.each do |li|
+      puts 'iam here'
+      puts li.find('[data-test="book-title"]')[:title]
+    end
+  end
+
+
 end
 
 Then /^long titles should be truncated to fit within image$/ do
+   find('[data-test="search-results-list"]').visible?
+  elem_gird = "document.getElementsByClassName('expandable booksets')[0].children[0].children[35].children[0].children[1].children[1].children[0].children[0]"
+  page.evaluate_script("window.getComputedStyle(#{elem_gird},null).getPropertyValue('white-space')").should == 'nowrap'
 end
