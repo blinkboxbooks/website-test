@@ -6,7 +6,7 @@ Feature: Sign into Blinkbox books
   Background: Navigate to sign in
     Given I am not signed in
 
-  @smoke_test
+  @smoke
    Scenario: Happy path user sign in
     Given I am on the Sign in page
     When I enter valid sign in details
