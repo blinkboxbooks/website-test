@@ -5,7 +5,7 @@ Feature: Returning buying book from Blinkbox Books
 
   Background:
 
-  @smoke_test
+  @smoke
   Scenario: Returning logged in user buying book
     Given I have signed in
     When I have identified the book to buy
@@ -15,7 +15,7 @@ Feature: Returning buying book from Blinkbox Books
     Then I should be on the Payment successful page
 
 
-  @smoke_test
+  @smoke
   Scenario: Returning user not logged in buying book
     Given I am not signed in
     And I have identified the book to buy
