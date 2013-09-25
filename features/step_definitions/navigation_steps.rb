@@ -61,7 +61,7 @@ Then /^the link should point to the blinkbox music home page$/ do
 end
 
 And /^I click on the (.*) link$/ do |page_name|
-   click_page_link(get_element_id_for(page_name))
+   click_link_or_button(get_element_id_for(page_name))
 
 end
 
@@ -184,20 +184,22 @@ And /^I should see 'Top categories' and 'All categories' sections$/ do
 end
 
 Given /^I am on crime and thriller category page$/ do
-visit('#!/category/crime-and-thriller/')
+ visit('#!/category/crime-and-thriller/')
+ current_path.should.eql?('#!/category/crime-and-thriller/') == true
+ find('[data-test="category-title"]').text.eql?('All books in Crime and Thriller').should == true
+(find('[data-test="categoryid-109"]').visible?).should == true
+ find('[data-test="list-button"]').click
 end
 
 When /^I click on book details page button of first book displayed$/ do
-    #within('[data-test="search-results-list"]') do
-       puts first('blue_button ng-binding')[:class]
-   # end
+click_book_details
 end
 
 Then /^I should be on the book details page of above book$/ do
-
+  (current_url.include?(@book_href)).should == true
 end
 
 And /^details of above book are displayed$/ do
-
+  assert_book_details
 end
 

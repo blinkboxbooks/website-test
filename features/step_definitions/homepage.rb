@@ -37,15 +37,15 @@ And /^homepage hero banner has navigation buttons$/ do
 end
 
 And /^main footer has (\d+) columns with links$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  pending
 end
 
 Then /^each banner image has title and subtitle$/ do
-
+  pending
 end
 
 And /^each banner image has Find out more button$/ do
-
+ pending
 end
 
 
