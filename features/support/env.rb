@@ -1,7 +1,7 @@
+require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
-require 'selenium-webdriver'
 require 'active_support/core_ext'
 require 'rspec/expectations'
 World(RSpec::Matchers)
@@ -31,7 +31,9 @@ case ENV['SERVER']
 		raise "PRODUCTION environment does not exist yet"
 		#Capybara.app_host = 'https://www.blinkboxbooks.com'
   else
+		Capybara.app_host = 'https://qa.mobcastdev.com'
 		raise "Undefined environment name: #{ENV['SERVER']}"
+
 end
 
 # grid setup

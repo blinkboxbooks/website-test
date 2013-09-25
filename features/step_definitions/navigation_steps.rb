@@ -20,14 +20,7 @@ end
 ##############################################################
 
 Then /^I should be on the (.*?) page$/ do |page_name|
-	#current_url.should == Capybara.app_host << '/#!/categories/'
-  case page_name
-    when "Categories"
-      current_url.include?('/#!/categories/').should == true
-    when "Best sellers"
-      current_url.include?('#!/bestsellers/').should == true
-  end
-
+  assert_page_path(page_name)
 end 
 
 ##############################################################
@@ -67,23 +60,9 @@ Then /^the link should point to the blinkbox music home page$/ do
 	@music_link[:title].should == 'Blinkbox music'
 end
 
-And /^I click on the (.*) link$/ do |page|
+And /^I click on the (.*) link$/ do |page_name|
+   click_page_link(get_element_id_for(page_name))
 
-  case page
-    when "Featured"
-      find('[data-test="header-container"]').find('[data-test="header-featured"]').click
-    when "Categories"
-      find('[data-test="header-container"]').find('[data-test="header-categories-link"]').click
-    when "Best sellers"
-      find('[data-test="header-container"]').find('[data-test="header-bestsellers-link"]').click
-    when "New releases"
-      find('[data-test="header-container"]').find('[data-test="header-new-releases-link"]').click
-    when "Top free"
-      find('[data-test="header-container"]').find('[data-test="header-top-free-link"]').click
-    when "Authors"
-      find('[data-test="header-container"]').find('[data-test="header-authors-link"]').click
-
-  end
 end
 
 And /^I press browser back$/ do
@@ -122,7 +101,7 @@ end
 
 Then /^I should see more books displayed$/ do
  within('#books_news') do
-   (page.all('li', :visible => true).count).should ==(2*@visible_books)
+   (page.all('li', :visible => true).count).should > (@visible_books)
  end
 end
 
@@ -146,10 +125,9 @@ Then /^the button should change to View more$/ do
   end
 end
 
-And /^I should see Best sellers section header as (.*?)$/ do |text|
- within('[data-test="bestsellers-container"]') do
-  page.should have_content(text)
-  end
+And /^(.*?) header is (.*?)$/ do |section_name,text|
+  assert_container(get_element_id_for(section_name))
+  assert_section_header(get_element_id_for(section_name),text)
 end
 
 And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/  do
@@ -159,15 +137,10 @@ And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/  do
   end
 end
 
-And /^I should see Grid view and List view buttons$/  do
-  within('[data-test="bestsellers-container"]') do
+And /^Grid view and List view buttons displayed$/  do
     page.find('[title="Set view to list"]').visible?
     page.find('[title="Set view to grid"]').visible?
-  end
-end
 
-And /^I should see Main Footer$/ do
-  page.find('[data-test="bottom-footer-container"]').visible?
 end
 
 And /^I should see Promotions section header as (.*?)$/ do |promo_text|
@@ -204,3 +177,27 @@ Then /^I should see (Fiction|Non\-Fiction) books in (gird|list) view$/ do |book_
       end
   end
 end
+
+And /^I should see 'Top categories' and 'All categories' sections$/ do
+  (find('[data-test="recommended-category-container"]').visible?).should == true
+  (find('[data-test="all-categories-container"]').visible?).should == true
+end
+
+Given /^I am on crime and thriller category page$/ do
+visit('#!/category/crime-and-thriller/')
+end
+
+When /^I click on book details page button of first book displayed$/ do
+    #within('[data-test="search-results-list"]') do
+       puts first('blue_button ng-binding')[:class]
+   # end
+end
+
+Then /^I should be on the book details page of above book$/ do
+
+end
+
+And /^details of above book are displayed$/ do
+
+end
+

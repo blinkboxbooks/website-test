@@ -5,23 +5,24 @@ Feature: Checking home page contents
 
   Background: Opens Blinkbox books home page
     Given I am on the home page
-    @wip @CWA-44
+    @CWA-44
     Scenario: Main footer contents
       When I am viewing in Desktop mode
       Then main footer is displayed
-      And main footer should have 4 columns with links
-    @wip @CWA-44
+
+    @CWA-44
     Scenario: Main footer content for 'Connect With us on'
       When I am viewing in Desktop mode
-      Then  main footer should dis
+      Then main footer has "Connect with us" displayed
+      And It has social media links
 
-    @wip @CWA-33
+    @CWA-33
     Scenario: Homepage hero banner display
        And I am viewing in Desktop mode
       When number of banners is between 1 and 4
       Then homepage hero banner is displayed
-       And homepage hero banner should have images
-       And homepage hero banner should have navigation buttons
+       And banner has background images
+       And homepage hero banner has navigation buttons
 
 
     @wip @CWA-33
@@ -36,8 +37,8 @@ Feature: Checking home page contents
        And I am viewing in Desktop mode
       When homepage hero banner is displayed
        And banner has background images
-      Then each banner image should have title and subtitle
-       And each banner image should have 'Find out more' button
+      Then each banner image has title and subtitle
+       And each banner image has Find out more button
 
     @wip @CWA-33
     Scenario: Click on banner image

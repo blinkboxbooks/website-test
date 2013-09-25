@@ -1,8 +1,0 @@
-# OSX specific
-.DS_Store
-
-# Sublime Text
-*.sublime*
-
-# Cucumber
-log/
