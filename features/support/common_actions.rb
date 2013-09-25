@@ -12,11 +12,10 @@ module Discover
       end
     end
   end
-
 end
 
 
-module SignInAndRegistration
+module RegisterAndSignIn
   def click_register_button
     find('[class="blue_button ng-binding"]').click
   end
@@ -68,8 +67,7 @@ module SignInAndRegistration
   end
 end
 
-
-module BuyABook
+module Buy
   def enter_card_number(number)
     fill_form_element('number_card', number)
   end
@@ -122,6 +120,7 @@ module BuyABook
   end
 
   def click_buy_now_in_book_details
+    #TODO: come up with a proper sync instead of always sleep for 2 seconds
     find('[class="details"]').should be_visible
     begin
       sleep(2)
@@ -131,18 +130,19 @@ module BuyABook
 end
 
 
-module ManageMyAccount
-
+module ManageAccount
   def click_link_from_my_account_dropdown(link)
     page.execute_script("document.getElementById('options').getElementsByTagName('ul')[0].style.display='inline-block'")
     find("[title='#{link}']").click
     page.execute_script("document.getElementById('options').getElementsByTagName('ul')[0].style.display='none'")
   end
 end
+
+
 World(Discover)
-World(SignInAndRegistration)
+World(RegisterAndSignIn)
 World(BuyABook)
-World(ManageMyAccount)
+World(ManageAccount)
 
 
 
