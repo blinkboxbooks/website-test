@@ -16,6 +16,7 @@ When /^I am viewing in (.*?) mode$/ do |viewing_mode|
 end
 
 And /^page should display (\d+) categories in a row$/ do |top_categories|
+  #TODO Explore how to make this step less brittle
   within('[data-test="recommended-category-container"]') do
    (page.all('li',:visible => false).count).should == top_categories.to_i
    page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft").should == 772
@@ -60,8 +61,9 @@ end
 
 
 And /^page should display (\d+) categories per a row$/ do |top_categories|
+  #TODO remove this duplicate step
    page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft").should == 20
-   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should == 373
+   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should == 376
 
 end
 
@@ -80,7 +82,9 @@ And /^I select (list|grid) view$/ do |view|
 end
 
 Then /^long titles should be displayed in two lines$/ do
+
 end
 
 Then /^long titles should be truncated to fit within image$/ do
+
 end

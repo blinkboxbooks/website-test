@@ -1,5 +1,5 @@
-module DataTestElements
-  DATA_TEST_ELEMENTS_MAP = {'Categories' => 'header-categories-link',
+module TestElementsMap
+  DATA_TEST_ELEMENTS = {'Categories' => 'header-categories-link',
                   'Best sellers' => 'header-bestsellers-link',
                   'New releases' => 'header-new-releases-link',
                   'Top free' => 'header-top-free-link',
@@ -27,22 +27,29 @@ module DataTestElements
                   'Footer new release container' => 'footer-new-releases-container',
                   'Footer Author 2' => 'footer-top-authors-in-crime-container',
                   'Footer Author' => 'footer-top-authors-container',
-                  'Main footer container'=> 'footer-container'
-                   }
+                  'Main footer container'=> 'footer-container',
+                  'Buy Now' => 'book-buy-button',
+                  'Sign in' => 'header-sign-in-link'}
 
   PAGE_URL_PATHS = { 'Categories' => '/#!/categories/',
                      'Best sellers' => '#!/bestsellers/',
                      'New releases' => '/#!/new',
                      'Top free' => '#!/topfree/',
                      'Authors' => '#!/authors/',
+                     'Register' => '#!/register',
                      'Sign in' => '#!/signin',
                      'Terms and conditions' => '#!/terms_and_conditions',
-                     'Confirm & pay' => '#!/confirm'
+                     'Confirm & pay' => '#!/confirm',
+                     'Payment successful' => '#!/success',
+                     'Account' => '#!/account'
                      }
+  TEST_CARD_NUMBERS = { 'VISA' => '4111 1111 1111 1111'
+
+  }
 
   def get_element_id_for(element_name)
-    if DATA_TEST_ELEMENTS_MAP.key?(element_name)
-      return DATA_TEST_ELEMENTS_MAP[element_name]
+    if DATA_TEST_ELEMENTS.key?(element_name)
+      return DATA_TEST_ELEMENTS[element_name]
     end
     element_name
   end
@@ -53,8 +60,14 @@ module DataTestElements
     end
     page_name
   end
+
+  def get_card_number_by_type(card_type)
+    if TEST_CARD_NUMBERS.key?(card_type)
+      return TEST_CARD_NUMBERS[card_type]
+    end
+  end
 end
 
-World(DataTestElements)
+World(TestElementsMap)
 
 
