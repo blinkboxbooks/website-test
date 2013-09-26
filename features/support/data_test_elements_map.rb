@@ -41,8 +41,9 @@ module TestElementsMap
                      'Terms and conditions' => '#!/terms_and_conditions',
                      'Confirm & pay' => '#!/confirm',
                      'Payment successful' => '#!/success',
-                     'Account' => '#!/account'
-                     }
+                     'Account' => '#!/account',
+                     'Fantacy Fiction'=>'#!/category/fantasy-fiction/'}
+
   TEST_CARD_NUMBERS = { 'VISA' => '4111 1111 1111 1111'
 
   }
