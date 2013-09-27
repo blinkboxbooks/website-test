@@ -4,10 +4,10 @@ Feature: Manual test scenarios for buy flow
   Scenario Outline: Identifying the type of card being used
     Given I am on the Confirm and pay page
     And I am paying with a new card
-    When I enter first <digits> of card number
-    Then I should be told card type by illuminating <card_icon>
+    When I start entering card number with <digits>
+    Then card type icon <card__type_icon> is illuminated
   Examples:
-  |digits |card_icon        |
+  |digits |card__type_icon        |
   |4      |VISA             |
   |51     |MasterCard       |
   |52     |MasterCard       |
