@@ -6,7 +6,6 @@ Feature: Navigation around the website
 
   Background:
     Given I am on the home page
-
   @smoke
   Scenario: Clicking on the website logo
     When I click on the website logo
@@ -17,7 +16,6 @@ Feature: Navigation around the website
     When I click on the About Blinkbox Books link
     Then I should return to the home page
   @smoke @wip
-
   Scenario: Clicking on the Sitemap link
     When I click on the Sitemap link
     Then I should be on the Sitemap page
@@ -50,7 +48,6 @@ Feature: Navigation around the website
     And main footer is displayed
 
   @CWA-71 @smoke
-
   Scenario: Navigate to Best sellers page
     When I click on the Best sellers link
     Then I should be on the Best sellers page
@@ -89,12 +86,19 @@ Feature: Navigation around the website
     Then I should be on the book details page of above book
     And details of above book are displayed
 
+  @smoke
+  Scenario: Navigate to a Category page
+    Given I am on Categories page
+    When I click on Fantasy Fiction category
+    Then Fantasy Fiction category page is displayed
+    And page heading is All books in Fantasy Fiction
+
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
-      | words     |
-      | da vinci  |
-      | dan brown |
+    |words|
+    |da vinci    |
+    |dan brown   |
     And I press browser back
     And I should see search results page for "da vinci"
 
@@ -106,10 +110,9 @@ Feature: Navigation around the website
     And footer is displayed
 
   @CWA-54 @smoke
-
   Scenario: View more books under a Promotable category on homepage
     When a promotable category has more books to display
-    And I click on View more button
+     And I click on View more button
     Then I should see more books displayed
 
   @CWA-54
@@ -127,7 +130,6 @@ Feature: Navigation around the website
     Then the button should change to View more
 
   @CWA-34 @manual
-
   Scenario:Book Component-List view Title display
     When I click on the Best sellers link
     Then I should be on the Best sellers page
@@ -135,7 +137,6 @@ Feature: Navigation around the website
     Then long titles should be displayed in two lines
 
   @CWA-34  @manual
-
   Scenario:Book Component-Grid view Title display
     When I click on the Best sellers link
     Then I should be on the Best sellers page
@@ -150,49 +151,48 @@ Feature: Navigation around the website
     Then search term should not be visible in search bar
 
   Examples:
-    | page         |
-    | Featured     |
-    | Categories   |
-    | Best sellers |
-    | New releases |
-    | Top free     |
-    | Authors      |
+    |page         |
+    |Featured     |
+    |Categories   |
+    |Best sellers |
+    |New releases |
+    |Top free     |
+    |Authors      |
 
 
 
   @CWA-71 @wip
-
   Scenario: Promotable category-All time best selling books
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-    And I should see Promotions section header as All time best selling books
-    And I should see 5 books being displayed
+     And I should see Promotions section header as All time best selling books
+     And I should see 5 books being displayed
 
   @CWA-71
   Scenario: Best sellers page - Switching views
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-    And I select grid view
+     And I select grid view
     Then I should see Fiction books in gird view
-    And I select list view
+     And I select list view
     Then I should see Fiction books in list view
 
   @CWA-71
   Scenario: Best sellers page - Grid view not changing between tabs
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-    And I select grid view
+     And I select grid view
     Then I should see Fiction books in gird view
-    And I click on Non-Fiction tab
+     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in gird view
 
   @CWA-71
   Scenario: Best sellers page - List view not changing between tabs
     When I click on the Best sellers link
     Then I should be on the Best sellers page
-    And I select list view
+     And I select list view
     Then I should see Fiction books in list view
-    And I click on Non-Fiction tab
+     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
 

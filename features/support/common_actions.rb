@@ -149,7 +149,7 @@ end
 
 World(Discover)
 World(RegisterAndSignIn)
-#World(BuyABook)
+World(Buy)
 World(ManageAccount)
 
 
