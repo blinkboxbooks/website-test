@@ -80,8 +80,6 @@ module AssertNavigation
   end
 
 end
- World(AssertNavigation)
-
 
 module AssertSearch
   def assert_search_results  search_word
@@ -93,7 +91,6 @@ module AssertSearch
 
   end
 
-
   def assert_author_name author_name
     selector =  'li.grid-5:nth-child(1)'
     ((find_a_text selector,'author').downcase).should == (author_name).downcase
@@ -103,7 +100,6 @@ module AssertSearch
     selector = 'li.grid-5:nth-child(1)'
     ((find_a_text selector,'title').downcase).should == (book_title).downcase
   end
-
 
   def assert_unique_result
     within(".grid") do
@@ -127,7 +123,6 @@ module AssertSearch
     end
   end
 
-
   def assert_search_word_in_suggestions search_word
     within("#suggestions") do
       page.all('li').to_a.each do |li|
@@ -144,8 +139,6 @@ module AssertSearch
 
 end
 
-World(AssertSearch)
-
 module AssertMyAccount
   def assert_tab_selected(tab_name)
     case tab_name
@@ -160,6 +153,10 @@ module AssertMyAccount
     end
   end
 end
+
+World(AssertNavigation)
+World(AssertSearch)
+World(AssertMyAccount)
 
 
 

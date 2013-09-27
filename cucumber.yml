@@ -1,6 +1,7 @@
-default: -p local
-local: -r features --tags ~@wip GRID=false TEST_ENV=integration --no-multiline -i -s --format progress
-jenkins: -r features --tags ~@wip GRID=true TEST_ENV=integration PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4 --no-color  --format progress -o log/features.log --format junit -o log/ --format html -o log/features.html --format pretty
+default: -p local_debug
+local_debug: -r features --tags ~@wip GRID=false SERVER=QA
+local: -r features --tags ~@wip GRID=false SERVER=integration --no-multiline -i -s --format progress
+jenkins: -r features --tags ~@wip GRID=true SERVER=integration PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4 --no-color  --format progress -o log/features.log --format junit -o log/ --format html -o log/features.html --format pretty
 
 mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
 mac-firefox: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
