@@ -46,7 +46,7 @@ Feature: Navigation around the website
   Scenario: Navigate to categories page
     When I click on the Categories link
     Then I should be on the Categories page
-  AndI should see 'Top categories' and 'All categories' sections
+    And I should see 'Top categories' and 'All categories' sections
     And main footer is displayed
 
   @CWA-71 @smoke

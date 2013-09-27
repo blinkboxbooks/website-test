@@ -15,10 +15,6 @@ When /^I complete registration successfully$/ do
   register_new_user
 end
 
-Given /^I have signed in$/ do
-  sign_in('bkm3@aa.com','test1234')
-end
-
 And /^I enter valid Billing address$/  do
     enter_billing_details
 end

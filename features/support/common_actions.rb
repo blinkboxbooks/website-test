@@ -136,12 +136,20 @@ module ManageAccount
     find("[title='#{link}']").click
     page.execute_script("document.getElementById('options').getElementsByTagName('ul')[0].style.display='none'")
   end
+
+  def edit_personal_details
+    first_name = generate_random_first_name
+    last_name = generate_random_first_name
+    fill_form_element('first_name', first_name)
+    fill_form_element('last_name', last_name)
+    return first_name, last_name
+  end
 end
 
 
 World(Discover)
 World(RegisterAndSignIn)
-World(BuyABook)
+#World(BuyABook)
 World(ManageAccount)
 
 
