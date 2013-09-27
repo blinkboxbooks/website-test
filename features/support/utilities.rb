@@ -21,7 +21,13 @@ module WebUtilities
   end
 
   def generate_random_first_name
-    first_part = 'autotest-'
+    first_part = 'firstname-autotest-'
+    last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
+    return first_part + last_part
+  end
+  
+  def generate_random_last_name
+    first_part = 'lastname-autotest-'
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
     return first_part + last_part
   end
