@@ -29,7 +29,7 @@ IN ORDER TO know my password is safe AS A registering user I WANT TO see a passw
     And password strength indicator colour is <strength_colour>
   Examples:
   |password               |strength_text |strength_colour|
-  |123456                 | Very weak    | Grey          |
+  |123456                 | Very weak    | Red           |
   | sixsix                | Very weak    | Red           |
   | Abc123                | Very weak    | Red           |
   | Abcd987               | Weak         | Red           |
@@ -64,7 +64,7 @@ IN ORDER TO know my password is safe AS A registering user I WANT TO see a passw
     And password strength indicator colour is <strength_colour>
   Examples:
     |password               |strength_text |strength_colour|
-    |123456                 | Very weak    | Grey          |
+    |123456                 | Very weak    | Red           |
     | sixsix                | Very weak    | Red           |
     | Abc123                | Very weak    | Red           |
     | Abcd987               | Weak         | Red           |
