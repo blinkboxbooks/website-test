@@ -1,6 +1,6 @@
 @manual
 Feature: Manual test scenarios for buy flow
- @CWA-226
+@CWA-226
   Scenario Outline: Identifying the type of card being used
     Given I am on the Confirm and pay page
     And I am paying with a new card
