@@ -41,7 +41,8 @@ Given /^I have registered as new user$/ do
   click_sign_in_link
   click_register_button
   @email_address, @first_name, @last_name = enter_personal_details
-  choose_a_valid_password('test1234')
+  @current_password = 'test1234'
+  choose_a_valid_password(@current_password)
   accept_terms_and_conditions
   submit_registration_details
 end
@@ -61,7 +62,6 @@ And /^I am on the Change your password section$/ do
 end
 
 When /^I change password$/ do
-  @current_password = 'test1234'
   @new_password = 'test4321'
   update_password(@current_password,@new_password)
 end
@@ -71,6 +71,7 @@ And /^I click Confirm button$/ do
 end
 
 Then /^password is updated$/  do
+  pending # Submit password change is not available yet.
   click_button('Sign out')
   delete_cookies
   visit('/')
