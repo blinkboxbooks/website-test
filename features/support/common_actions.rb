@@ -5,19 +5,32 @@ module Discover
   end
 
   def click_book_details
-    within('[class="expandable itemsets"]') do
-      within(first('.book')) do
-        @book_href= find('[data-test="book-title-cover"]')[:href]
-        find('[data-test="book-title-cover"]').click
+    within('[data-test="search-results-list"]') do
+       within(first('li')) do
+         @book_href= first('a')[:href]
+         first('a').click
+       end
+    end
+    return @book_href
+  end
+
+  def click_on_a_category
+    within('[data-test="all-categories-list"]') do
+      within(first('li')) do
+        within('[class="cover"]') do
+         @category_name = first('a')[:href]
+          first('img').click
+        end
       end
     end
+    return @category_name
   end
 end
 
 
 module RegisterAndSignIn
   def click_register_button
-    find('[class="blue_button ng-binding"]').click
+   click_button('Register')
   end
 
   def enter_personal_details
@@ -41,10 +54,11 @@ module RegisterAndSignIn
   end
 
   def click_sign_in_button
-    find('[class="yellow_button float-right ng-binding"]').click
-  rescue
-    find("[data-test='#{get_element_id_for("Sign in")}']").click
+    click_button('Sign in')
+  end
 
+  def click_sign_in_link
+    find('[data-test="header-sign-in-link"]').click
   end
 
   def accept_terms_and_conditions
@@ -63,10 +77,17 @@ module RegisterAndSignIn
   end
 
   def sign_in(email_address, password)
-    click_sign_in_button
+    click_sign_in_link
     enter_valid_sign_in_details(email_address, password)
     click_sign_in_button
   end
+
+  def update_password(current_password,new_password)
+    fill_form_element('currentpassword',current_password)
+    fill_form_element('password', new_password)
+    fill_form_element('repassword', new_password)
+  end
+
 end
 
 module Buy
@@ -121,12 +142,12 @@ module Buy
     check('save_details')
   end
 
-  def click_buy_now_in_book_details
-    #TODO: come up with a proper sync instead of always sleep for 2 seconds
-    find('[class="details"]').should be_visible
-    begin
-      sleep(2)
-    end until (find('[data-test="book-buy-button"]', :visible => true).visible?)
+  def click_buy_now_best_seller_book
+    click_link_or_button(get_element_id_for('Best sellers'))
+    within('.bookList') do
+      element= first('[class="book featured"]')
+      page.driver.browser.action.move_to(element.native).perform
+    end
     click_button('BUY NOW')
   end
 end
@@ -134,9 +155,9 @@ end
 
 module ManageAccount
   def click_link_from_my_account_dropdown(link)
-    page.execute_script("document.getElementById('options').getElementsByTagName('ul')[0].style.display='inline-block'")
+    element = find('[id="options"]')
+    page.driver.browser.action.move_to(element.native).perform
     find("[title='#{link}']").click
-    page.execute_script("document.getElementById('options').getElementsByTagName('ul')[0].style.display='none'")
   end
 
   def edit_personal_details
@@ -146,8 +167,35 @@ module ManageAccount
     fill_form_element('last_name', last_name)
     return first_name, last_name
   end
-end
 
+  def navigate_to_my_account_landing_page
+    within(find('[id="username"]')) do
+      first('a').click
+    end
+  end
+
+  def click_on_my_account_tab(tab_name)
+    within('.account_menu') do
+      page.all('li').to_a.each do |li|
+        if li.text.eql?(tab_name)
+          li.click
+        end
+      end
+    end
+  end
+
+  def edit_marketing_preferences
+    before_status = page.has_checked_field?('newsletter')
+    if (before_status)
+      uncheck('newsletter')
+    else
+      check('newsletter')
+    end
+    after_status = page.has_checked_field?('newsletter')
+    return after_status
+  end
+
+end
 
 World(Discover)
 World(RegisterAndSignIn)

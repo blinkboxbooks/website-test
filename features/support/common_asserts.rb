@@ -71,12 +71,12 @@ module AssertNavigation
   end
 
   def assert_book_details
+    find('[class="book-data"]').should be_visible
     find('[id="cover"]').should be_visible
     find('[class="details"]').should be_visible
     find('[id="description"]').should be_visible
     find('[id="sample"]').should be_visible
     find('[id="individual-book"]').should be_visible
-
   end
 
 end
@@ -149,9 +149,22 @@ module AssertMyAccount
       when 'Your payments'
         find('[class = "hide_tablet selected"]').should be_visible
       when 'Your devices'
-        find('[class = "account_menu_last show_tablet selected"]').should be_visible
+        find('[class = "account_menu_last hide_tablet selected"]').should be_visible
     end
   end
+  def assert_marketing_preferences_changed(after_status)
+    check_box = find('#newsletter')
+    if(after_status)
+      check_box.should be_checked
+    else
+      check_box.should_not be_checked
+    end
+  end
+
+  def assert_first_name(first_name)
+    find('[id="username"]').text.should == "Hi "+first_name
+  end
+
 end
 
 World(AssertNavigation)
