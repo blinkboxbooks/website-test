@@ -14,18 +14,20 @@ Feature: Checking for the Search suggestions on the home page.
 
   Scenario: Display the author or book symbol
     Given a predictive search suggestion is available
-    When type = book THEN show book icon before the suggestion
-    When type = author THEN show author icon before the suggestion
+    When type == book 
+    Then show book icon before the suggestion
+    When type == author 
+    Then show author icon before the suggestion
 
   Scenario: Submitting a search by selecting the search suggestion
-    Given the user submits the query with the search button by selecting any of the search suggestions
+    When the user submits the query with the search button by selecting any of the search suggestions
     Then a search is performed using the selected text as search string
     And the user is redirected to the search results page
     And the user can see the search results for the submitted search query
 
 
   Scenario: Submitting a search by pressing the return key on the device
-    Given the user submits the query with the search button by selecting the pressing the return key on the device
+    When the user submits the query with the search button by selecting the pressing the return key on the device
     Then a search is performed using the selected text as search string
     And the user is redirected to the search results page
     And the user can see the search results for the submitted search query
