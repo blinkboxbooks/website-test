@@ -36,6 +36,11 @@ module WebUtilities
     Capybara.current_session.reset_session!
   end
 
+  def delete_access_token_cookie
+    Capybara.current_session.driver.browser.manage.delete_cookie('access_token')
+  rescue
+  end
+
   def fill_form_element (element, value)
     fill_in("#{element}", :with => "#{value}")
   end
@@ -47,7 +52,10 @@ module WebUtilities
   def select_value(element, value)
     select(value, :from => element)
   end
-end
 
+  def mouse_over(element)
+    page.driver.browser.action.move_to(element.native).perform
+  end
+end
 
 World(WebUtilities)

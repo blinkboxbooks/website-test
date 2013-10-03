@@ -3,12 +3,15 @@ Given /^I am a guest user$/ do
 end
 
 Given /^I am not signed in$/ do
-  delete_cookies
+  delete_access_token_cookie
 end
 
 Given /^I have signed in$/ do
-  visit('/#!/signin')
-  sign_in('bkm3@aa.com', 'test1234')
+  sign_in('bkm1@aa.com', 'test1234')
+end
+
+Given /^I (?:have signed|sign) in as returning user$/ do
+  sign_in
 end
 
 Given /^I am on the Sign in page$/ do
@@ -40,7 +43,7 @@ And /^I accept terms and conditions$/ do
 end
 
 Then /^Registration success page is displayed$/ do
-  page.find('.welcome').should have_content("Welcome book lover")
+  page.find('.welcome').should have_content(get_message_text('Welcome'))
   current_url.include?('#!/success').should == true
 end
 
@@ -52,7 +55,7 @@ When /^I enter valid sign in details$/ do
   email = 'happay_path_signin@blinkboxbooks.com'
   password = "test1234"
   @first_name = "Happy-path"
-  enter_sign_in_details(email, password)
+  enter_valid_sign_in_details(email, password)
 end
 
 And /^I click sign in button$/ do
@@ -60,7 +63,7 @@ And /^I click sign in button$/ do
 end
 
 Then /^I am successfully signed in$/ do
-  find('[id="username"]').text.should == "Hi "+@first_name
+  assert_first_name(@first_name)
 end
 
 And /^I am redirected to Home page$/ do
@@ -68,9 +71,7 @@ And /^I am redirected to Home page$/ do
 end
 
 Given /^I am on my account page$/ do
-  within(find('[id="username"]')) do
-    first('a').click
-  end
+  click_link_from_my_account_dropdown('Your personal details')
 end
 
 And /^I click Sign out button$/ do
@@ -80,5 +81,16 @@ end
 Then /^I should be signed out successfully$/ do
   Capybara.current_session.driver.browser.manage.cookie_named('access_token').should be nil
   find('[id="signin"]').should be_visible
+end
+
+And /^I have stored cards$/ do
+  visit('/')
+  click_sign_in_link
+  click_register_button
+  register_new_user
+  buy_first_book
+  click_link_from_my_account_dropdown('Sign out')
+  delete_cookies
+  visit('/')
 end
 

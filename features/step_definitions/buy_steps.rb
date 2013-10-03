@@ -1,14 +1,17 @@
 Given /^I have identified the book to buy$/ do
- visit('#!/book/9781448184668')
- click_buy_now_in_book_details
+  returning_user_selects_a_book
+end
+
+Given /I have identified a best selling book to buy$/ do
+  click_buy_now_best_seller_book
 end
 
 Given /^I choose to register$/ do
   click_register_button
 end
 
-When /^I enter valid New card details$/ do
-    enter_new_payment_details('VISA')
+When /^I enter valid (.*?) card details$/ do |card_type|
+    enter_new_payment_details(card_type)
 end
 
 When /^I complete registration successfully$/ do
@@ -24,5 +27,9 @@ And /^click Confirm & pay button$/ do
 end
 
 When /^I sign in successfully$/ do
-  sign_in('bkm3@aa.com','test1234')
+  sign_in('bkm1@aa.com','test1234')
+end
+
+When /^I choose to pay with saved default card$/ do
+   pay_with_saved_card
 end
