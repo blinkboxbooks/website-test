@@ -11,45 +11,23 @@ Scenario: Display Confirm & Pay page
   Given I choose to register
   When I complete registration successfully
   Then I should be on the Confirm & pay page
-@smoke
-Scenario: First time user buying book with VISA card
-  Given I choose to register
-  When I complete registration successfully
-  Then I should be on the Confirm & pay page
-  When I enter valid VISA card details
-  And I enter valid Billing address
-  And click Confirm & pay button
-  Then I should be on the Payment successful page
 
   @smoke
-  Scenario: First time user buying book with Mastercard card
+  Scenario Outline: First time user buying book
     Given I choose to register
     When I complete registration successfully
     Then I should be on the Confirm & pay page
-    When I enter valid Mastercard card details
+    When I enter valid <card_type> card details
     And I enter valid Billing address
     And click Confirm & pay button
     Then I should be on the Payment successful page
+  Examples:
+    | card_type        |
+    | VISA             |
+    | Mastercard       |
+    | American Express |
+    | VISA Debit       |
 
-  @smoke
-  Scenario: First time user buying book with American Express card
-    Given I choose to register
-    When I complete registration successfully
-    Then I should be on the Confirm & pay page
-    When I enter valid American Express card details
-    And I enter valid Billing address
-    And click Confirm & pay button
-    Then I should be on the Payment successful page
-
-  @smoke
-  Scenario: First time user buying book with VISA Debit card
-    Given I choose to register
-    When I complete registration successfully
-    Then I should be on the Confirm & pay page
-    When I enter valid VISA Debit card details
-    And I enter valid Billing address
-    And click Confirm & pay button
-    Then I should be on the Payment successful page
 
 
 
