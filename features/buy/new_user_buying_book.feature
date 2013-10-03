@@ -6,20 +6,13 @@ Feature: New user buying book from Blinkbox Books
  Background:
    Given I am on the home page
    And I have identified a best selling book to buy
-@smoke
-Scenario: Display Confirm & Pay page
-  Given I choose to register
-  When I complete registration successfully
-  Then I should be on the Confirm & pay page
 
   @smoke
   Scenario Outline: First time user buying book
-    Given I choose to register
-    When I complete registration successfully
-    Then I should be on the Confirm & pay page
-    When I enter valid <card_type> card details
+    When I register to proceed with purchase
+    And I enter valid <card_type> card details
     And I enter valid Billing address
-    And click Confirm & pay button
+    And I confirm my payment details
     Then I should be on the Payment successful page
   Examples:
     | card_type        |

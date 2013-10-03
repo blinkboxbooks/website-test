@@ -3,22 +3,20 @@ Feature: Returning buying book from Blinkbox Books
   I want to the ability to complete register and buy book in one flow
   So that I can read it
   Background:
-    Given I have stored cards
+    Given I have a stored card
 
   @smoke
   Scenario: Returning logged in user buying book
-    Given I have signed in as returning user
+    Given I have signed in
     When I have identified the book to buy
-    Then I should be on the Confirm & pay page
-    When I choose to pay with saved default card
+    When I pay with saved default card
     Then I should be on the Payment successful page
 
   @smoke
   Scenario: Returning user not logged in buying book
     Given I am not signed in
     When I have identified the book to buy
-    And I sign in as returning user
-    Then I should be on the Confirm & pay page
-    When I choose to pay with saved default card
+    And I sign in successfully to proceed with purchase
+    And I pay with saved default card
     Then I should be on the Payment successful page
 
