@@ -52,7 +52,10 @@ module WebUtilities
   def select_value(element, value)
     select(value, :from => element)
   end
-end
 
+  def mouse_over(element)
+    page.driver.browser.action.move_to(element.native).perform
+  end
+end
 
 World(WebUtilities)

@@ -1,7 +1,6 @@
 And(/^I search for term "(.*?)"$/) do |term|
   @search = term
-  fill_in('term', :with => "#{term}")
-  click_button('submit_desk')
+  search_blinkbox_books @search
 end
 
 Then(/^I should have a result page with term "(.*?)" matching$/) do |term|

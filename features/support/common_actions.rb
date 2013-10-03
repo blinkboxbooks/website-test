@@ -6,10 +6,10 @@ module Discover
 
   def click_book_details
     within('[data-test="search-results-list"]') do
-       within(first('li')) do
-         @book_href= first('a')[:href]
-         first('a').click
-       end
+      within(first('li')) do
+        @book_href= first('a')[:href]
+        first('a').click
+      end
     end
     return @book_href
   end
@@ -18,19 +18,42 @@ module Discover
     within('[data-test="all-categories-list"]') do
       within(first('li')) do
         within('[class="cover"]') do
-         @category_name = first('a')[:href]
+          @category_name = first('a')[:href]
           first('img').click
         end
       end
     end
     return @category_name
   end
+
+  def sort_search_results(sort_criteria)
+    element = find('.orderby')
+    mouse_over(element)
+    within('.orderby') do
+      within(first('ul')) do
+        page.all('li').to_a.each do |li|
+          if (li.text.eql?(sort_criteria))
+            li.click
+          end
+        end
+      end
+    end
+  end
+
+  def select_buy_first_book_in_search_results
+    within('.grid') do
+      element= first('[class="book"]')
+      mouse_over(element)
+      click_button('BUY NOW')
+    end
+  end
+
 end
 
 
 module RegisterAndSignIn
   def click_register_button
-   click_button('Register')
+    click_button('Register')
   end
 
   def enter_personal_details
@@ -82,8 +105,8 @@ module RegisterAndSignIn
     click_sign_in_button
   end
 
-  def update_password(current_password,new_password)
-    fill_form_element('currentpassword',current_password)
+  def update_password(current_password, new_password)
+    fill_form_element('currentpassword', current_password)
     fill_form_element('password', new_password)
     fill_form_element('repassword', new_password)
   end
@@ -98,6 +121,14 @@ module Buy
   def select_expiry_date (month, year)
     select_value('card_dates_month', month)
     select_value('card_dates_year', year)
+  end
+
+  def enter_cvv(card_type)
+    cvv='123'
+    if(card_type.eql?('American Express'))
+      cvv='1234'
+    end
+    fill_form_element('number_cvv',cvv)
   end
 
   def enter_name_on_card(name)
@@ -125,6 +156,7 @@ module Buy
     enter_card_number(get_card_number_by_type(card_type))
     select_expiry_date('12', '2023')
     enter_name_on_card('jamie jones')
+    enter_cvv(card_type)
   end
 
   def enter_billing_details
@@ -146,9 +178,30 @@ module Buy
     click_link_or_button(get_element_id_for('Best sellers'))
     within('.bookList') do
       element= first('[class="book featured"]')
-      page.driver.browser.action.move_to(element.native).perform
+      mouse_over(element)
     end
     click_button('BUY NOW')
+  end
+
+  def pay_with_saved_card
+    if (page.has_text?(:visible, 'Your saved card details'))
+      click_button('Confirm & pay')
+    end
+  end
+
+  def buy_first_book
+    search_blinkbox_books('winter')
+    sort_search_results('Price (high to low)')
+    select_buy_first_book_in_search_results
+    enter_new_payment_details('VISA')
+    enter_billing_details
+    click_confirm_and_pay
+  end
+
+  def returning_user_selects_a_book
+    search_blinkbox_books('summer')
+    sort_search_results('Price (high to low)')
+    select_buy_first_book_in_search_results
   end
 end
 
