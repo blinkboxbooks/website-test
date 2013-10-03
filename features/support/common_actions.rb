@@ -57,13 +57,13 @@ module RegisterAndSignIn
   end
 
   def enter_personal_details
-    email_address = generate_random_email_address
+    @email_address = generate_random_email_address
     first_name = generate_random_first_name
     last_name = generate_random_last_name
-    fill_form_element('email', email_address)
+    fill_form_element('email', @email_address)
     fill_form_element('first_name', first_name)
     fill_form_element('last_name', last_name)
-    return email_address, first_name, last_name
+    return @email_address, first_name, last_name
   end
 
   def choose_a_valid_password(value)
@@ -99,13 +99,14 @@ module RegisterAndSignIn
   end
 
   def register_new_user
+    @password = 'test1234'
     enter_personal_details
-    choose_a_valid_password('test1234')
+    choose_a_valid_password(@password)
     accept_terms_and_conditions
     submit_registration_details
   end
 
-  def sign_in(email_address, password)
+  def sign_in(email_address=@email_address, password=@password)
     click_sign_in_link
     enter_valid_sign_in_details(email_address, password)
     click_sign_in_button
@@ -125,10 +126,10 @@ module Buy
 
   def enter_cvv(card_type)
     cvv='123'
-    if (card_type.eql?('American Express'))
+    if(card_type.eql?('American Express'))
       cvv='1234'
     end
-    fill_form_element('number_cvv', cvv)
+    fill_form_element('number_cvv',cvv)
   end
 
   def enter_name_on_card(name)
@@ -167,7 +168,7 @@ module Buy
   end
 
   def click_confirm_and_pay
-    find('[class="yellow_button ng-binding"]')
+    click_button('Confirm & pay')
   end
 
   def save_card_details()
@@ -195,7 +196,10 @@ module Buy
     select_buy_first_book_in_search_results
     enter_new_payment_details('VISA')
     enter_billing_details
+    save_card_details
     click_confirm_and_pay
+
+    click_link('Featured')
   end
 
   def returning_user_selects_a_book

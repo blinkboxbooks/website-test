@@ -7,8 +7,11 @@ Given /^I am not signed in$/ do
 end
 
 Given /^I have signed in$/ do
-   click_sign_in_link
   sign_in('bkm1@aa.com', 'test1234')
+end
+
+Given /^I (?:have signed|sign) in as returning user$/ do
+  sign_in
 end
 
 Given /^I am on the Sign in page$/ do

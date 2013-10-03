@@ -7,7 +7,7 @@ Feature: Returning buying book from Blinkbox Books
 
   @smoke
   Scenario: Returning logged in user buying book
-    Given I have signed in
+    Given I have signed in as returning user
     When I have identified the book to buy
     Then I should be on the Confirm & pay page
     When I choose to pay with saved default card
@@ -17,7 +17,7 @@ Feature: Returning buying book from Blinkbox Books
   Scenario: Returning user not logged in buying book
     Given I am not signed in
     When I have identified the book to buy
-    And I sign in successfully
+    And I sign in as returning user
     Then I should be on the Confirm & pay page
     When I choose to pay with saved default card
     Then I should be on the Payment successful page
