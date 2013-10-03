@@ -71,6 +71,12 @@ module RegisterAndSignIn
     fill_form_element('repassword', value)
   end
 
+  def update_password(current_password, new_password)
+    fill_form_element('currentpassword', current_password)
+    fill_form_element('password', new_password)
+    fill_form_element('repassword', new_password)
+  end
+
   def enter_valid_sign_in_details (email_address, password)
     fill_form_element('email', email_address)
     fill_form_element('password', password)
@@ -105,12 +111,6 @@ module RegisterAndSignIn
     click_sign_in_button
   end
 
-  def update_password(current_password, new_password)
-    fill_form_element('currentpassword', current_password)
-    fill_form_element('password', new_password)
-    fill_form_element('repassword', new_password)
-  end
-
 end
 
 module Buy
@@ -125,10 +125,10 @@ module Buy
 
   def enter_cvv(card_type)
     cvv='123'
-    if(card_type.eql?('American Express'))
+    if (card_type.eql?('American Express'))
       cvv='1234'
     end
-    fill_form_element('number_cvv',cvv)
+    fill_form_element('number_cvv', cvv)
   end
 
   def enter_name_on_card(name)
