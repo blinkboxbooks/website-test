@@ -48,6 +48,28 @@ module Discover
     end
   end
 
+  def read_sample_book
+    first_page = get_reader_page_contents
+    click_reader_next_page
+    click_reader_next_page
+    click_reader_next_page
+    another_page = get_reader_page_contents
+    first_page.should_not eql(another_page)
+  end
+
+  def click_reader_next_page
+    within('#individual-book') do
+      find('[class="right-arrow"]').click
+    end
+  end
+
+  def get_reader_page_contents
+    within('#reader_container') do
+     page_text = page.text
+      return page_text
+    end
+  end
+
 end
 
 
@@ -106,7 +128,9 @@ module RegisterAndSignIn
     submit_registration_details
   end
 
-  def sign_in(email_address=@email_address, password=@password)
+  def sign_in(email_address=@email_address)
+    email_address = 'bkm1@aa.com' if @email_address.eql?(nil)
+    password = 'test1234'
     click_sign_in_link
     enter_valid_sign_in_details(email_address, password)
     click_sign_in_button
@@ -185,6 +209,7 @@ module Buy
   end
 
   def pay_with_saved_card
+    #TODO: add step to click radio button
     if (page.has_text?(:visible, 'Your saved card details'))
       click_button('Confirm & pay')
     end

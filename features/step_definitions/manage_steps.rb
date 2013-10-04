@@ -20,9 +20,8 @@ And /^I submit my personal details$$/ do
 end
 
 Then /^"(.*?)" message is displayed$/ do |message_text|
- find('[id="submit_success"]').text.eql?(message_text)
+  page.should have_content(message_text)
 end
-
 
 Then /^the first name and last name are as submitted$/ do
   find('[id="first_name"]').value.should eql(@first_name)
@@ -77,6 +76,21 @@ Then /^password is updated$/  do
   visit('/')
   sign_in(@email_address,@new_password)
   assert_first_name(@first_name)
+end
+
+When /^I click on delete card$/ do
+  within('.payment_list') do
+    within(first('li')) do
+     find('a').click
+    end
+  end
+  click_button('Delete')
+end
+
+Then /^above card is deleted$/ do
+  within('.payment_list') do
+    page.all('li').count.eql?(0)
+  end
 end
 
 
