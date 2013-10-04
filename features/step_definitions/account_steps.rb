@@ -10,7 +10,7 @@ Given /^I have signed in$/ do
   sign_in(@email_address)
 end
 
-When /^I sign in successfully(?: to proceed with purchase)?$/ do
+When /^I sign in(?: to proceed with purchase)?$/ do
   sign_in
 end
 

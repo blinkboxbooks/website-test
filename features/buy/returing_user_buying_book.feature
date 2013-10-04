@@ -16,7 +16,7 @@ Feature: Returning buying book from Blinkbox Books
   Scenario: Returning user not logged in buying book
     Given I am not signed in
     When I have identified the book to buy
-    And I sign in successfully to proceed with purchase
+    And I sign in to proceed with purchase
     And I pay with saved default card
     Then I should be on the Payment successful page
 

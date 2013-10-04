@@ -48,8 +48,8 @@ Feature: Update the Personal details of the user under 'your account'
     Given I have a stored card
     And I have signed in
     And I am on the Your payments tab
-    When I click on delete card
-    Then above card is deleted
+    When I delete the first card from the list
+    Then there are no cards in my account
     And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
 
   @smoke

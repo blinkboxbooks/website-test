@@ -19,10 +19,6 @@ And /^I submit my personal details$$/ do
  click_button('Update personal details')
 end
 
-Then /^"(.*?)" message is displayed$/ do |message_text|
-  page.should have_content(message_text)
-end
-
 Then /^the first name and last name are as submitted$/ do
   find('[id="first_name"]').value.should eql(@first_name)
   find('[id="last_name"]').value.should eql(@last_name)
@@ -78,7 +74,7 @@ Then /^password is updated$/  do
   assert_first_name(@first_name)
 end
 
-When /^I click on delete card$/ do
+When /^I delete the first card from the list$/ do
   within('.payment_list') do
     within(first('li')) do
      find('a').click
@@ -87,7 +83,7 @@ When /^I click on delete card$/ do
   click_button('Delete')
 end
 
-Then /^above card is deleted$/ do
+Then /^there are no cards in my account$/ do
   within('.payment_list') do
     page.all('li').count.eql?(0)
   end
