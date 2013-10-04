@@ -277,6 +277,26 @@ module ManageAccount
     return after_status
   end
 
+  def set_card_default
+    within('.payment_list') do
+      page.all('li').to_a.each do |li|
+        if not ((li[:class]).include?('payment_alt_row'))
+          within(li) do
+            within('[class="payment_default"]') do
+              find('label').click
+            end
+            within('[class="payment_card_details_container"]') do
+              @default_card = find('[class="payment_name ng-binding"]').text
+            end
+          end
+          break
+         end
+      end
+    end
+     click_button('Update default card')
+    return @default_card
+  end
+
 end
 
 World(Discover)

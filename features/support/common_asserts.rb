@@ -172,6 +172,23 @@ module AssertMyAccount
     find('[id="username"]').text.should == "Hi "+first_name
   end
 
+  def assert_default_card(card)
+    within('.payment_list') do
+      default_card =''
+      page.all('li').to_a.each do |li|
+        if ((li[:class]).include?('payment_alt_row'))
+          within(li) do
+            within('[class="payment_card_details_container"]') do
+              default_card = find('[class="payment_name ng-binding"]').text
+              card.should eql(default_card)
+            end
+          end
+          break
+        end
+      end
+    end
+  end
+
 end
 
 World(AssertNavigation)

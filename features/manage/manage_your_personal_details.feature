@@ -42,3 +42,21 @@ Feature: Update the Personal details of the user under 'your account'
     When I change password
     And I click Confirm button
     Then password is updated
+
+  @smoke
+  Scenario: Delete a stored card
+    Given I have a stored card
+    And I have signed in
+    And I am on the Your payments tab
+    When I click on delete card
+    Then above card is deleted
+    And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
+
+  @smoke
+  Scenario: Update a card as default
+    Given I have multiple stored cards
+    And I have signed in
+    And I am on the Your payments tab
+    When I set a card as my default card
+    Then "Credit card set as default successfully" message is displayed
+    And above card should be my default card

@@ -93,4 +93,14 @@ Then /^above card is deleted$/ do
   end
 end
 
+When /^I set a card as my default card$/ do
+    @default_card = set_card_default
+end
+
+And /^above card should be my default card$/ do
+    click_link('Featured')
+    click_link_from_my_account_dropdown('Your payments')
+    assert_default_card(@default_card)
+end
+
 

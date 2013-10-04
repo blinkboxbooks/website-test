@@ -80,18 +80,23 @@ Feature: Navigation around the website
     And main footer is displayed
 
   @smoke
-  Scenario: Navigate to bok details page
-    Given I am on crime and thriller category page
-    When I click on book details page button of first book displayed
+  Scenario: Navigate to book details page
+    When I click on book details button of a book
     Then I should be on the book details page of above book
     And details of above book are displayed
 
   @smoke
   Scenario: Navigate to a Category page
     Given I am on Categories page
-    When I click on Fantasy Fiction category
-    Then Fantasy Fiction category page is displayed
-    And page heading is All books in Fantasy Fiction
+    When I click on a category
+    Then  above category page is displayed
+
+  @smoke
+  Scenario: Read a sample
+    When I click on book details button of a book
+    Then I should be on the book details page of above book
+    And  book reader is displayed
+    And I am able to read the sample of above book
 
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any

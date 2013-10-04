@@ -191,8 +191,9 @@ Given /^I am on crime and thriller category page$/ do
   find('[data-test="list-button"]').click
 end
 
-When /^I click on book details page button of first book displayed$/ do
-  click_book_details
+When /^I click on book details button of a book$/ do
+  search_blinkbox_books('dan brown')
+  @book_href = click_book_details
 end
 
 Then /^I should be on the book details page of above book$/ do
@@ -209,17 +210,24 @@ Given /^I am on Categories page$/ do
 end
 
 
-When /^I click on Fantasy Fiction category$/ do
-  find('[data-test="category-link-351"]').click
+When /^I click on a category$/ do
+  @category_name = click_on_a_category
 end
 
 
-Then /^Fantasy Fiction category page is displayed$/ do
- assert_page_path('Fantasy Fiction')
+Then /^above category page is displayed$/ do
+ page.current_url.should.eql?(@category_name)
 end
 
-
-And /^page heading is All books in Fantasy Fiction$/ do
-  find('[data-test="category-title"]').text.should.eql?('All books in Fantasy Fiction')
+Given /^I am on a book Category page$/ do
+  click_link_or_button(get_element_id_for('Categories'))
+  click_on_a_category
 end
 
+And /^book reader is displayed$/  do
+  assert_book_reader
+end
+
+And /^I am able to read the sample of above book$/ do
+   read_sample_book
+end
