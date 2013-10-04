@@ -7,10 +7,10 @@ Given /^I am not signed in$/ do
 end
 
 Given /^I have signed in$/ do
-  sign_in('bkm1@aa.com', 'test1234')
+  sign_in(@email_address)
 end
 
-Given /^I (?:have signed|sign) in as returning user$/ do
+When /^I sign in successfully(?: to proceed with purchase)?$/ do
   sign_in
 end
 
@@ -83,7 +83,7 @@ Then /^I should be signed out successfully$/ do
   find('[id="signin"]').should be_visible
 end
 
-And /^I have stored cards$/ do
+And /^I have a stored card$/ do
   visit('/')
   click_sign_in_link
   click_register_button
@@ -94,3 +94,11 @@ And /^I have stored cards$/ do
   visit('/')
 end
 
+Given /^I have multiple stored cards$/ do
+  @email_address = 'cctest1@aa.com'
+end
+
+Given /^I register(?: to proceed with purchase)?$/ do
+  click_register_button
+  register_new_user
+end

@@ -72,11 +72,18 @@ module AssertNavigation
 
   def assert_book_details
     find('[class="book-data"]').should be_visible
-    find('[id="cover"]').should be_visible
-    find('[class="details"]').should be_visible
-    find('[id="description"]').should be_visible
-    find('[id="sample"]').should be_visible
-    find('[id="individual-book"]').should be_visible
+    within('.left-column') do
+      find('[id="cover"]').should be_visible
+      find('[class="details"]').should be_visible
+      find('[id="description"]').should be_visible
+    end
+    assert_book_reader
+  end
+
+  def assert_book_reader
+    within('.right-column') do
+      find('[id="individual-book"]').should be_visible
+    end
   end
 
 end
