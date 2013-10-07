@@ -69,7 +69,7 @@ Then /^password is updated$/  do
   pending # Submit password change is not available yet.
 end
 
-And /^I can sign in successfully with new password$/ do
+And /^I can sign in with the new password successfully$/ do
   click_button('Sign out')
   delete_cookies
   visit('/')
