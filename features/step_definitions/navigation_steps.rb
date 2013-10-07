@@ -191,12 +191,12 @@ Given /^I am on crime and thriller category page$/ do
   find('[data-test="list-button"]').click
 end
 
-When /^I click on book details button of a book$/ do
+When /^I select a book to view book details$/ do
   search_blinkbox_books('dan brown')
   @book_href = click_book_details
 end
 
-Then /^I should be on the book details page of above book$/ do
+Then /^I should be on the book details page of corresponding book$/ do
   (current_url.include?(@book_href)).should == true
 end
 
@@ -215,7 +215,7 @@ When /^I click on a category$/ do
 end
 
 
-Then /^above category page is displayed$/ do
+Then /^corresponding category page is displayed$/ do
  page.current_url.should.eql?(@category_name)
 end
 
@@ -224,10 +224,10 @@ Given /^I am on a book Category page$/ do
   click_on_a_category
 end
 
-And /^book reader is displayed$/  do
+And /^the book reader is displayed$/  do
   assert_book_reader
 end
 
-And /^I am able to read the sample of above book$/ do
+And /^I am able to read the sample of corresponding book$/ do
    read_sample_book
 end

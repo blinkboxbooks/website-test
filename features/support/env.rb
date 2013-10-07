@@ -9,6 +9,8 @@ World(RSpec::Matchers)
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
 
+#overriding the default native events settings for Selenium.
+#This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app,
                                  :desired_capabilities => {:native_events => false})
@@ -73,8 +75,11 @@ if ENV['GRID'] == 'TRUE'
     else
       caps.platform = :MAC
   end
-  caps.native_events=false
+
   caps.version = ENV['BROWSER_VERSION']
+  #Overriding the default native events settings for Selenium.
+  #This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
+  caps.native_events=false
 
   # register the remote driver
   Capybara.register_driver :selenium do |app|

@@ -81,29 +81,29 @@ Feature: Navigation around the website
 
   @smoke
   Scenario: Navigate to book details page
-    When I click on book details button of a book
-    Then I should be on the book details page of above book
+    When I select a book to view book details
+    Then I should be on the book details page of corresponding book
     And details of above book are displayed
 
   @smoke
   Scenario: Navigate to a Category page
     Given I am on Categories page
     When I click on a category
-    Then  above category page is displayed
+    Then corresponding category page is displayed
 
   @smoke
   Scenario: Read a sample
-    When I click on book details button of a book
-    Then I should be on the book details page of above book
-    And  book reader is displayed
-    And I am able to read the sample of above book
+    When I select a book to view book details
+    Then I should be on the book details page of corresponding book
+    And  the book reader is displayed
+    And I am able to read the sample of corresponding book
 
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
-    |words|
-    |da vinci    |
-    |dan brown   |
+      | words     |
+      | da vinci  |
+      | dan brown |
     And I press browser back
     And I should see search results page for "da vinci"
 
@@ -163,8 +163,6 @@ Feature: Navigation around the website
     |New releases |
     |Top free     |
     |Authors      |
-
-
 
   @CWA-71 @wip
   Scenario: Promotable category-All time best selling books

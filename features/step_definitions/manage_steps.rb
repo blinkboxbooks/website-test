@@ -61,12 +61,15 @@ When /^I change password$/ do
   update_password(@current_password,@new_password)
 end
 
-And /^I click Confirm button$/ do
+And /^I confirm changes$/ do
   click_button('Confirm')
 end
 
 Then /^password is updated$/  do
   pending # Submit password change is not available yet.
+end
+
+And /^I can sign in successfully with new password$/ do
   click_button('Sign out')
   delete_cookies
   visit('/')
@@ -89,11 +92,11 @@ Then /^there are no cards in my account$/ do
   end
 end
 
-When /^I set a card as my default card$/ do
+When /^I set a different card as my default card$/ do
     @default_card = set_card_default
 end
 
-And /^above card should be my default card$/ do
+And /^the selected card is displayed as my default card$/ do
     click_link('Featured')
     click_link_from_my_account_dropdown('Your payments')
     assert_default_card(@default_card)
