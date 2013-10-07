@@ -51,24 +51,26 @@ end
 # grid setup
 if ENV['GRID'] =~ /^true$/i
 
+  ENV['BROWSER_NAME'] ||= 'FIREFOX'
   # target browser
-  case ENV['BROWSER_NAME']
+  case ENV['BROWSER_NAME'].upcase
     when 'FIREFOX'
       caps = Selenium::WebDriver::Remote::Capabilities.firefox
     when 'SAFARI'
       caps = Selenium::WebDriver::Remote::Capabilities.safari
-    when 'INTERNET EXPLORER'
+    when 'INTERNET EXPLORER', 'IE'
       caps = Selenium::WebDriver::Remote::Capabilities.ie
     when 'CHROME'
       caps = Selenium::WebDriver::Remote::Capabilities.chrome
     when 'HTMLUNIT'
       caps = Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
     else
-      caps = Selenium::WebDriver::Remote::Capabilities.firefox
+      raise "Not supported browser: #{ENV['BROWSER_NAME']}"
   end
 
+  ENV['PLATFORM'] ||= 'MAC'
 # target platform
-  case ENV['PLATFORM']
+  case ENV['PLATFORM'].upcase
     when 'MAC'
       caps.platform = :MAC
     when 'XP'
@@ -80,7 +82,7 @@ if ENV['GRID'] =~ /^true$/i
     when 'WINDOWS' # synonym for Windows 7
       caps.platform = :WINDOWS
     else
-      caps.platform = :MAC
+      raise "Not supported platform: #{ENV['PLATFORM']}"
   end
 
   caps.version = ENV['BROWSER_VERSION']
