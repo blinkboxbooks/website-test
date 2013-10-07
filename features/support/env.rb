@@ -1,10 +1,10 @@
 $: << "."
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
 
+require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
-require 'selenium-webdriver'
 require 'active_support/core_ext'
 require 'rspec/expectations'
 World(RSpec::Matchers)
@@ -15,15 +15,13 @@ Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
 
 
-
-
 ARGV.each do|a|
   puts "Argument: #{a}"
 end
 
 #TODO: move this to config yml file
 # target environment
-ENV['SERVER'] ||= 'INTEGRATION'
+ENV['SERVER'] ||= 'QA'
 case ENV['SERVER']
 	when 'INTEGRATION'
 		Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
@@ -84,7 +82,3 @@ if ENV['GRID'] == 'TRUE'
     	:desired_capabilities => caps)
   	end
 end
-
-
-
-

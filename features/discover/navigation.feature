@@ -1,4 +1,3 @@
-@smoke
 @navigation
 Feature: Navigation around the website
   As a user
@@ -13,27 +12,93 @@ Feature: Navigation around the website
     When I click on the website logo
     Then I should return to the home page
 
-# Scenario: Navigating with the categories link
-#	Given the categories link is present in the header
-#	Then the link should point to the categories page
+  @smoke
+  Scenario: Clicking on the About Blinkbox Books
+    When I click on the About Blinkbox Books link
+    Then I should return to the home page
 
+  @smoke @wip
+  Scenario: Clicking on the Sitemap link
+    When I click on the Sitemap link
+    Then I should be on the Sitemap page
+
+  @smoke
   Scenario: Navigating to the help site from the footer
     Given the blinkbox books help link is present in the footer
     Then the link should point to the blinkbox books help home page
 
+  @smoke
   Scenario: Navigating to the blinkbox movies site from the footer
     Given the blinkbox movies link is present in the footer
     Then the link should point to the blinkbox movies home page
 
+  @smoke
   Scenario: Navigating to the blinkbox music site from the footer
     Given the blinkbox music link is present in the footer
     Then the link should point to the blinkbox music home page
 
-  @desktop @mobile
+  @smoke
+  Scenario: Navigate to Terms and Conditions page
+    When I click on the Terms & conditions link
+    Then I should be on the Terms and conditions page
 
-  Scenario: Navigating with the categories link
+  @smoke
+  Scenario: Navigate to categories page
     When I click on the Categories link
     Then I should be on the Categories page
+    And I should see 'Top categories' and 'All categories' sections
+    And main footer is displayed
+
+  @CWA-71 @smoke
+  Scenario: Navigate to Best sellers page
+    When I click on the Best sellers link
+    Then I should be on the Best sellers page
+    And Best sellers section header is Best sellers Top 100 this month
+    And I should see 'Fiction' and 'Non-Fiction' tabs
+    And Grid view and List view buttons displayed
+    And main footer is displayed
+
+  @smoke
+  Scenario: Navigate to New releases page
+    When I click on the New releases link
+    Then I should be on the New releases page
+    And New releases section header is New releases in the last 30 days
+    And Grid view and List view buttons displayed
+    And main footer is displayed
+
+  @smoke
+  Scenario: Navigate to Top free page
+    When I click on the Top free link
+    Then I should be on the Top free page
+    And Free books section header is Free books top 100 this month
+    And Grid view and List view buttons displayed
+    And main footer is displayed
+
+  @smoke
+  Scenario: Navigate to Authors page
+    When I click on the Authors link
+    Then I should be on the Authors page
+    And Best selling authors section header is Top 100 bestselling authors this month
+    And main footer is displayed
+
+  @smoke
+  Scenario: Navigate to book details page
+    When I select a book to view book details
+    Then details page of the corresponding book is displayed
+    And details of above book are displayed
+
+  @smoke
+  Scenario: Navigate to a Category page
+    Given I am on Categories page
+    When I click on a category
+    Then corresponding category page is displayed
+
+  @smoke
+  Scenario: Read a sample
+    When I select a book to view book details
+    Then details page of the corresponding book is displayed
+    And  the book reader is displayed
+    And I am able to read the sample of corresponding book
 
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any
@@ -51,8 +116,7 @@ Feature: Navigation around the website
     And main header tabs should not be selected
     And footer is displayed
 
-  @CWA-54
-  @unstable
+  @CWA-54 @smoke
   Scenario: View more books under a Promotable category on homepage
     When a promotable category has more books to display
     And I click on View more button
@@ -72,30 +136,26 @@ Feature: Navigation around the website
     And I click on View less button
     Then the button should change to View more
 
-  @CWA-34
-  @unstable
+  @CWA-34 @manual
   Scenario:Book Component-List view Title display
     When I click on the Best sellers link
     Then I should be on the Best sellers page
     And  I select list view
     Then long titles should be displayed in two lines
 
-  @CWA-34
-  @unstable
+  @CWA-34  @manual
   Scenario:Book Component-Grid view Title display
     When I click on the Best sellers link
     Then I should be on the Best sellers page
     And  I select grid view
     Then long titles should be truncated to fit within image
 
-  @unstable
   @CWA-105
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
     Then "dan brown" should be visible in search bar
     And I click on the <page> link
     Then search term should not be visible in search bar
-
   Examples:
     | page         |
     | Featured     |
@@ -105,19 +165,7 @@ Feature: Navigation around the website
     | Top free     |
     | Authors      |
 
-  #  @unstable
-  @CWA-71
-  @smoke
-  Scenario: Best sellers page displayed
-    When I click on the Best sellers link
-    Then I should be on the Best sellers page
-    And I should see Best sellers section header as Best sellers Top 100 this month
-    And I should see 'Fiction' and 'Non-Fiction' tabs
-    And I should see Grid view and List view buttons
-    And I should see Main Footer
-
-  @unstable
-  @CWA-71
+  @CWA-71 @wip
   Scenario: Promotable category-All time best selling books
     When I click on the Best sellers link
     Then I should be on the Best sellers page
@@ -150,3 +198,5 @@ Feature: Navigation around the website
     Then I should see Fiction books in list view
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
+
+

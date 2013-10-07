@@ -1,32 +1,32 @@
-<% ci_opts = " --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --format progress -o results/features.log --format junit -o results/junit/ --format Cucumber::Formatter::HtmlCustomFormatter -o results/features_report.html --format pretty "  %>
+<% ci_opts = " --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --format progress -o results/features.log --format junit -o results/junit/ --format Cucumber::Formatter::HtmlCustomFormatter
 
+default: -p local_debug
+local_debug: -r features --tags ~@wip GRID=false SERVER=QA DEBUG=true
+local: -r features --tags ~@wip GRID=false SERVER=QA --no-multiline -i -s --format progress
+jenkins: -r features --tags ~@wip GRID=true SERVER=INTEGRATION PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4 --no-color  --format progress -o log/features.log --format junit -o log/ --format html -o log/features.html --format pretty
 
-default: -p local
-local: -r features --tags ~@wip GRID=false TEST_ENV=integration --no-multiline -i -s --format progress
-ci: -r features <%= ci_opts %> GRID=true TEST_ENV=integration PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4
 ci-no-grid: <%= ci_opts %> GRID=false TEST_ENV=integration
 ci-smoke: -p ci-no-grid --tags @smoke
 
-mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
-mac-firefox: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
-mac-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.65 --no-multiline -i -s --format progress
+#mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
+#mac-firefox: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
+#mac-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.65 --no-multiline -i -s --format progress
 
-win7-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=WINDOWS BROWSER_NAME=IE BROWSER_VERSION=9.0.8112.16421 --no-multiline -i -s --format progress
-win7-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=WINDOWS BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
-win7-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=WINDOWS BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
+#win7-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=WINDOWS BROWSER_NAME=IE BROWSER_VERSION=9.0.8112.16421 --no-multiline -i -s --format progress
+#win7-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=WINDOWS BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
+#win7-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=WINDOWS BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
 
-win-vista-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=VISTA BROWSER_NAME=IE BROWSER_VERSION=9.0.8112.16421 --no-multiline -i -s --format progress
-win-vista-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=VISTA BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
-win-vista-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=VISTA BROWSER_NAME=CHROME BROWSER_VERSION=6.0.1410.64 --no-multiline -i -s --format progress
+#win-vista-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=VISTA BROWSER_NAME=IE BROWSER_VERSION=9.0.8112.16421 --no-multiline -i -s --format progress
+#win-vista-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=VISTA BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
+#win-vista-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=VISTA BROWSER_NAME=CHROME BROWSER_VERSION=6.0.1410.64 --no-multiline -i -s --format progress
 
-win8-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=WIN8 BROWSER_NAME=IE BROWSER_VERSION=9.0.8112.16421 --no-multiline -i -s --format progress
-win8-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=WIN8 BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
-win8-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=WIN8 BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
+#win8-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=WIN8 BROWSER_NAME=IE BROWSER_VERSION=9.0.8112.16421 --no-multiline -i -s --format progress
+#win8-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=WIN8 BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
+#win8-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=WIN8 BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
 
-win-vista-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=IE BROWSER_VERSION=8.0.6001.18702 --no-multiline -i -s --format progress
-win-vista-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
-win-vista-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
-
+#win-vista-ie: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=IE BROWSER_VERSION=8.0.6001.18702 --no-multiline -i -s --format progress
+#win-vista-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
+#win-vista-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
 
 # COMMAND LINE OPTIONS 
 # SERVER: INTEGRATION, QA, STAGING, PRODUCTION

@@ -7,3 +7,7 @@ gem 'cucumber'
 gem 'rspec'
 gem 'activesupport'
 gem 'i18n'
+
+group :debug do
+  gem 'debugger'
+end

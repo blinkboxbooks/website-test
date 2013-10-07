@@ -16,10 +16,11 @@ When /^I am viewing in (.*?) mode$/ do |viewing_mode|
 end
 
 And /^page should display (\d+) categories in a row$/ do |top_categories|
+  #TODO Explore how to make this step less brittle
   within('[data-test="recommended-category-container"]') do
    (page.all('li',:visible => false).count).should == top_categories.to_i
    page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft").should == 772
-   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should ==57
+   page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should ==54
   end
 end
 
@@ -60,6 +61,7 @@ end
 
 
 And /^page should display (\d+) categories per a row$/ do |top_categories|
+  #TODO remove this duplicate step
    page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft").should == 20
    page.evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop").should == 376
 
@@ -71,7 +73,7 @@ And /^I select (list|grid) view$/ do |view|
       if find('[data-test="grid-button"]')[:class] =='active'
        page.find('[data-test="list-button"]').click
       end
-    when 'gird'
+    when 'grid'
       if find('[data-test="list-button"]')[:class] == 'active'
        page.find('[ata-test="grid-button"]').click
 
@@ -80,12 +82,9 @@ And /^I select (list|grid) view$/ do |view|
 end
 
 Then /^long titles should be displayed in two lines$/ do
- elem = "document.getElementsByClassName('expandable booksets')[0].children[0].children[35].children[0].children[1].children[1].children[0].children[0]"
-  page.evaluate_script("window.getComputedStyle(#{elem},null).getPropertyValue('white-space')").should == 'normal'
+
 end
 
 Then /^long titles should be truncated to fit within image$/ do
-   find('[data-test="search-results-list"]').visible?
-  elem_gird = "document.getElementsByClassName('expandable booksets')[0].children[0].children[35].children[0].children[1].children[1].children[0].children[0]"
-  page.evaluate_script("window.getComputedStyle(#{elem_gird},null).getPropertyValue('white-space')").should == 'nowrap'
+
 end
