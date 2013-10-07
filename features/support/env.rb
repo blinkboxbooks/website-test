@@ -6,6 +6,11 @@ require 'active_support/core_ext'
 require 'rspec/expectations'
 World(RSpec::Matchers)
 
+TEST_CONFIG = {}
+TEST_CONFIG["debug"] = !!(ENV["DEBUG"] =~ /^on|true$/i)
+puts "TEST_CONFIG: #{TEST_CONFIG}" if TEST_CONFIG["debug"]
+
+
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
 
