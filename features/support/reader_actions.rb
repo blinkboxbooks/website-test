@@ -22,4 +22,5 @@ module ReaderActions
     end
   end
 end
-world(ReaderActions)
+
+World(ReaderActions)
