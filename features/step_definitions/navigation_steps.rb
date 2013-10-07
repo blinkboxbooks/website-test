@@ -196,7 +196,7 @@ When /^I select a book to view book details$/ do
   @book_href = click_book_details
 end
 
-Then /^I should be on the book details page of corresponding book$/ do
+Then /^details page of the corresponding book is displayed$/ do
   (current_url.include?(@book_href)).should == true
 end
 
