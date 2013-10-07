@@ -94,7 +94,7 @@ Feature: Navigation around the website
   @smoke
   Scenario: Read a sample
     When I select a book to view book details
-    Then I should be on the book details page of corresponding book
+    Then details page of the corresponding book is displayed
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
 
