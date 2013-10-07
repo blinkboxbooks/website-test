@@ -41,7 +41,7 @@ Feature: Update the Personal details of the user under 'your account'
     When I change password
     And I confirm changes
     Then password is updated
-    And I can sign in successfully with new password
+    And I can sign in with the new password successfully
 
   @smoke
   Scenario: Delete a stored card
