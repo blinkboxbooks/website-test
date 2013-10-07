@@ -12,8 +12,8 @@ World(RSpec::Matchers)
 
 require 'support/formatters/html_custom_formatter'
 
-TEST_CONFIG = {}
-TEST_CONFIG["debug"] = !!(ENV["DEBUG"] =~ /^on|true$/i)
+TEST_CONFIG = ENV.to_hash || {}
+TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
 puts "TEST_CONFIG: #{TEST_CONFIG}" if TEST_CONFIG["debug"]
 
 Capybara.default_driver = :selenium
@@ -30,67 +30,48 @@ ARGV.each do |a|
   puts "Argument: #{a}"
 end
 
-#TODO: move this to config yml file
+#TODO: move into config/environments.yml once more environments are added
 # target environment
-ENV['SERVER'] ||= 'QA'
-case ENV['SERVER']
-  when 'INTEGRATION'
-    Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
-  when 'QA'
-    Capybara.app_host = 'https://qa.mobcastdev.com'
-  when 'STAGING'
-    raise "STAGING environment does not exist yet"
-  #Capybara.app_host = ''
-  when 'PRODUCTION'
-    raise "PRODUCTION environment does not exist yet"
-  #Capybara.app_host = 'https://www.blinkboxbooks.com'
-  else
-    raise "Undefined environment name: #{ENV['SERVER']}"
-end
+environments = {
+    'DEV' => 'https://nodejs-internal.mobcastdev.com',
+    'QA' => 'https://qa.mobcastdev.com',
+    'STAGING' => nil,
+    'PRODUCTION' => 'https://blinkboxbooks.com'
+}
+TEST_CONFIG['SERVER'] ||= 'QA'
+raise "Environment is not supported: #{TEST_CONFIG['SERVER']}" if environments[TEST_CONFIG['SERVER'].upcase].nil?
+Capybara.app_host = environments[TEST_CONFIG['SERVER'].upcase]
 
 # grid setup
-if ENV['GRID'] =~ /^true$/i
+if TEST_CONFIG['GRID'] =~ /^true|on$/i
 
-  ENV['BROWSER_NAME'] ||= 'FIREFOX'
   # target browser
-  case ENV['BROWSER_NAME'].upcase
-    when 'FIREFOX'
-      caps = Selenium::WebDriver::Remote::Capabilities.firefox
-    when 'SAFARI'
-      caps = Selenium::WebDriver::Remote::Capabilities.safari
-    when 'INTERNET EXPLORER', 'IE'
-      caps = Selenium::WebDriver::Remote::Capabilities.ie
-    when 'CHROME'
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome
+  TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
+  TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
+  caps = case TEST_CONFIG['BROWSER_NAME'].downcase
+    when 'firefox', 'safari', 'ie', 'chrome'
+      Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
     when 'HTMLUNIT'
-      caps = Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
+      Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
     else
-      raise "Not supported browser: #{ENV['BROWSER_NAME']}"
+      raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
   end
 
-  ENV['PLATFORM'] ||= 'MAC'
-# target platform
-  case ENV['PLATFORM'].upcase
-    when 'MAC'
-      caps.platform = :MAC
-    when 'XP'
-      caps.platform = :XP
-    when 'VISTA'
-      caps.platform = :VISTA
-    when 'WIN8'
-      caps.platform = :WIN8
-    when 'WINDOWS' # synonym for Windows 7
-      caps.platform = :WINDOWS
+  # target platform
+  TEST_CONFIG['PLATFORM'] ||= 'MAC'
+  caps.platform = case TEST_CONFIG['PLATFORM'].upcase
+    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS' # *WINDOWS* stands for Windows 7
+      TEST_CONFIG['PLATFORM'].upcase.to_sym
     else
-      raise "Not supported platform: #{ENV['PLATFORM']}"
+      raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
   end
 
-  caps.version = ENV['BROWSER_VERSION']
-#Overriding the default native events settings for Selenium.
-#This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
+  caps.version = TEST_CONFIG['BROWSER_VERSION']
+  # Overriding the default native events settings for Selenium.
+  # This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
   caps.native_events=false
 
-# register the remote driver
+  # register the remote driver
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app,
                                    :browser => :remote,
