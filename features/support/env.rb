@@ -49,7 +49,7 @@ case ENV['SERVER']
 end
 
 # grid setup
-if ENV['GRID'] == 'TRUE'
+if ENV['GRID'] =~ /^true$/i
 
   # target browser
   case ENV['BROWSER_NAME']
