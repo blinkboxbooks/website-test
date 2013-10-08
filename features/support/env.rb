@@ -1,3 +1,6 @@
+$: << "."
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
+
 require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
@@ -6,10 +9,12 @@ require 'active_support/core_ext'
 require 'rspec/expectations'
 World(RSpec::Matchers)
 
-TEST_CONFIG = {}
-TEST_CONFIG["debug"] = !!(ENV["DEBUG"] =~ /^on|true$/i)
-puts "TEST_CONFIG: #{TEST_CONFIG}" if TEST_CONFIG["debug"]
 
+require 'support/formatters/html_custom_formatter'
+
+TEST_CONFIG = ENV.to_hash || {}
+TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
+puts "TEST_CONFIG: #{TEST_CONFIG}" if TEST_CONFIG["debug"]
 
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
@@ -21,69 +26,49 @@ Capybara.register_driver :selenium do |app|
                                  :desired_capabilities => {:native_events => false})
 end
 
-
 ARGV.each do |a|
   puts "Argument: #{a}"
 end
 
-
+#TODO: move into config/environments.yml once more environments are added
 # target environment
-ENV['SERVER'] ||= 'INTEGRATION'
-case ENV['SERVER']
-  when 'INTEGRATION'
-    Capybara.app_host = 'https://nodejs-internal.mobcastdev.com'
-  when 'QA'
-    Capybara.app_host = 'https://qa.mobcastdev.com'
-  when 'STAGING'
-    raise "STAGING environment does not exist yet"
-  #Capybara.app_host = ''
-  when 'PRODUCTION'
-    raise "PRODUCTION environment does not exist yet"
-  #Capybara.app_host = 'https://www.blinkboxbooks.com'
-  else
-    Capybara.app_host = 'https://qa.mobcastdev.com'
-    raise "Undefined environment name: #{ENV['SERVER']}"
-
-end
+environments = {
+    'DEV' => 'https://nodejs-internal.mobcastdev.com',
+    'QA' => 'https://qa.mobcastdev.com',
+    'STAGING' => nil,
+    'PRODUCTION' => 'https://blinkboxbooks.com'
+}
+TEST_CONFIG['SERVER'] ||= 'QA'
+raise "Environment is not supported: #{TEST_CONFIG['SERVER']}" if environments[TEST_CONFIG['SERVER'].upcase].nil?
+Capybara.app_host = environments[TEST_CONFIG['SERVER'].upcase]
 
 # grid setup
-if ENV['GRID'] == 'TRUE'
+if TEST_CONFIG['GRID'] =~ /^true|on$/i
 
   # target browser
-  case ENV['BROWSER_NAME']
-    when 'FIREFOX'
-      caps = Selenium::WebDriver::Remote::Capabilities.firefox
-    when 'SAFARI'
-      caps = Selenium::WebDriver::Remote::Capabilities.safari
-    when 'INTERNET EXPLORER'
-      caps = Selenium::WebDriver::Remote::Capabilities.ie
-    when 'CHROME'
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome
+  TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
+  TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
+  caps = case TEST_CONFIG['BROWSER_NAME'].downcase
+    when 'firefox', 'safari', 'ie', 'chrome'
+      Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
     when 'HTMLUNIT'
-      caps = Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
+      Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
     else
-      caps = Selenium::WebDriver::Remote::Capabilities.firefox
+      raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
   end
 
   # target platform
-  case ENV['PLATFORM']
-    when 'MAC'
-      caps.platform = :MAC
-    when 'XP'
-      caps.platform = :XP
-    when 'VISTA'
-      caps.platform = :VISTA
-    when 'WIN8'
-      caps.platform = :WIN8
-    when 'WINDOWS' # synonym for Windows 7
-      caps.platform = :WINDOWS
+  TEST_CONFIG['PLATFORM'] ||= 'MAC'
+  caps.platform = case TEST_CONFIG['PLATFORM'].upcase
+    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS' # *WINDOWS* stands for Windows 7
+      TEST_CONFIG['PLATFORM'].upcase.to_sym
     else
-      caps.platform = :MAC
+      raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
   end
 
-  caps.version = ENV['BROWSER_VERSION']
-  #Overriding the default native events settings for Selenium.
-  #This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
+  caps.version = TEST_CONFIG['BROWSER_VERSION']
+  # Overriding the default native events settings for Selenium.
+  # This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
   caps.native_events=false
 
   # register the remote driver
@@ -94,7 +79,3 @@ if ENV['GRID'] == 'TRUE'
                                    :desired_capabilities => caps)
   end
 end
-
-
-
-
