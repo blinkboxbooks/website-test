@@ -46,7 +46,7 @@ end
 Then /^the link should point to the blinkbox movies home page$/ do
   @movies_link[:href].should == 'http://www.blinkbox.com/'
   @movies_link[:target].should == '_blank'
-  @movies_link[:title].should == 'Blinkbox movies'
+  @movies_link[:title].should == 'blinkbox movies'
 end
 
 Given /^the blinkbox music link is present in the footer$/ do
@@ -57,7 +57,7 @@ end
 Then /^the link should point to the blinkbox music home page$/ do
   @music_link[:href].should == 'http://www.blinkboxmusic.com/'
   @music_link[:target].should == '_blank'
-  @music_link[:title].should == 'Blinkbox music'
+  @music_link[:title].should == 'blinkbox music'
 end
 
 And /^I click on the (.*) link$/ do |page_name|
@@ -192,8 +192,9 @@ Given /^I am on crime and thriller category page$/ do
 end
 
 When /^I select a book to view book details$/ do
-  search_blinkbox_books('dan brown')
-  @book_href = click_book_details
+  book = page.first('[class="book"]').find('[data-test="book-title-cover"]')
+    @book_href = book[:href]
+    book.click
 end
 
 Then /^details page of the corresponding book is displayed$/ do
