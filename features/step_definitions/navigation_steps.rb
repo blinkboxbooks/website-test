@@ -192,12 +192,9 @@ Given /^I am on crime and thriller category page$/ do
 end
 
 When /^I select a book to view book details$/ do
-  page.all('[class="book"]').to_a.each do |books|
-    book = books.find('[data-test="book-title-cover"]')
+  book = page.first('[class="book"]').find('[data-test="book-title-cover"]')
     @book_href = book[:href]
     book.click
-    break
-  end
 end
 
 Then /^details page of the corresponding book is displayed$/ do
