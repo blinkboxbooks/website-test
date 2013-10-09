@@ -33,7 +33,7 @@ end
 #TODO: move into config/environments.yml once more environments are added
 # target environment
 environments = {
-    'DEV' => 'https://nodejs-internal.mobcastdev.com',
+    'NODEJS-INTERNAL' => 'https://nodejs-internal.mobcastdev.com',
     'QA' => 'https://qa.mobcastdev.com',
     'STAGING' => nil,
     'PRODUCTION' => 'https://blinkboxbooks.com'
