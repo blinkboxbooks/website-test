@@ -1,4 +1,4 @@
-<% ci_opts = " --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --format progress -o results/features.log --format junit -o results/junit/ --format Cucumber::Formatter::HtmlCustomFormatter -o results/features_report.html --format pretty "  %>
+<% ci_opts = " -r features --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --format progress -o results/features.log --format junit -o results/junit/ --format Cucumber::Formatter::HtmlCustomFormatter -o results/features_report.html --format pretty "  %>
 
 default: -p local_debug
 local_debug: -r features --tags ~@wip GRID=false SERVER=QA DEBUG=true
