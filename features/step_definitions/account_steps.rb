@@ -79,8 +79,8 @@ And /^I click Sign out button$/ do
 end
 
 Then /^I should be signed out successfully$/ do
-  Capybara.current_session.driver.browser.manage.cookie_named('access_token').should be nil
   find('[id="signin"]').should be_visible
+  Capybara.current_session.driver.browser.manage.cookie_named('access_token').should be nil
 end
 
 And /^I have a stored card$/ do

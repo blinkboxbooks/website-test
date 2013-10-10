@@ -34,7 +34,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And email address is as submitted
 
-  @smoke
+  @smoke @wip
   Scenario: Successfully change password
     Given I have registered as new user
     And I am on the Change your password section
@@ -52,7 +52,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then there are no cards in my account
     And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
 
-  @smoke
+  @smoke @wip
   Scenario: Update a card as default
     Given I have multiple stored cards
     And I have signed in
