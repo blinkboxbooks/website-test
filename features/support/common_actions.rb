@@ -72,7 +72,7 @@ module RegisterAndSignIn
   end
 
   def update_password(current_password, new_password)
-    fill_form_element('currentpassword', current_password)
+    fill_form_element('currentPassword', current_password)
     fill_form_element('password', new_password)
     fill_form_element('repassword', new_password)
   end
