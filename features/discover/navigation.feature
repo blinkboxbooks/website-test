@@ -116,7 +116,7 @@ Feature: Navigation around the website
     And main header tabs should not be selected
     And footer is displayed
 
-  @CWA-54 @smoke
+  @CWA-54 @data_dependent
   Scenario: View more books under a Promotable category on homepage
     When a promotable category has more books to display
     And I click on View more button
