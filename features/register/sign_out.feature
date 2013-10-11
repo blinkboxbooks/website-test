@@ -13,20 +13,20 @@ Feature: Sign out from Blinkbox books
     Then I should be signed out successfully
     And I am redirected to Home page
 
-  Scenario Outline: : Sign out from blinkbox books
-    Given I am on the <my_account> tab
+  Scenario Outline: Sign out from Manage My Account pages
+    Given I am on the <tab_name> tab
     When I click Sign out button
     Then I should be signed out successfully
     And I am redirected to Home page
 
   @smoke
   Examples: smoke
-    | my_account              |
-    | Order & payment history |
+    | tab_name              |
+    | Your personal details |
 
   @CWA-184
   Examples: Other sign out scenarios
-    | my_account            |
-    | Your personal details |
-    | Your payments         |
-    | Your devices          |
+    | tab_name                |
+    | Your payments           |
+    | Order & payment history |
+    | Your devices            |
