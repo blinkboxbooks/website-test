@@ -107,7 +107,7 @@ module RegisterAndSignIn
   end
 
   def sign_in(email_address=@email_address)
-    email_address = 'bkm1@aa.com' if @email_address.eql?(nil)
+    email_address ||= 'bkm1@aa.com'
     password = 'test1234'
     click_sign_in_link
     enter_valid_sign_in_details(email_address, password)
