@@ -5,10 +5,11 @@ require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
+require 'site_prism'
 require 'active_support/core_ext'
 require 'rspec/expectations'
-World(RSpec::Matchers)
 
+World(RSpec::Matchers)
 
 require 'support/formatters/html_custom_formatter'
 

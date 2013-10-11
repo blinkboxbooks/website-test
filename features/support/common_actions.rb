@@ -128,10 +128,10 @@ module Buy
 
   def enter_cvv(card_type)
     cvv='123'
-    if(card_type.eql?('American Express'))
+    if (card_type.eql?('American Express'))
       cvv='1234'
     end
-    fill_form_element('number_cvv',cvv)
+    fill_form_element('number_cvv', cvv)
   end
 
   def enter_name_on_card(name)
@@ -268,19 +268,26 @@ module ManageAccount
             end
           end
           break
-         end
+        end
       end
     end
-     click_button('Update default card')
+    click_button('Update default card')
     return @default_card
   end
 
+end
+
+module CommonActions
+  def app_version_info
+    first("div.versionInfo.ng-binding", visible: false).text(:all)
+  end
 end
 
 World(Discover)
 World(RegisterAndSignIn)
 World(Buy)
 World(ManageAccount)
+World(CommonActions)
 
 
 
