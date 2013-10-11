@@ -86,6 +86,7 @@ When /^a promotable category has more books to display$/ do
   within("#books_news") do
     @visible_books = page.all('li', :visible => true).count
     @all_books = page.all('li', :visible => false).count
+    #TODO: Given step should not assert
     @all_books.should > @visible_books
   end
 end
