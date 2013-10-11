@@ -1,6 +1,6 @@
-Feature: Sign out from Blinkbox books
+Feature: Sign out from blinkbox books
   As a signed in user
-  I want to sign out from Blinkbox books
+  I want to sign out from blinkbox books
   So that I can prevent unauthorised access to my account
 
   Background:
