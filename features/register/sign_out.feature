@@ -28,5 +28,5 @@ Feature: Sign out from blinkbox books
   Examples: Other sign out scenarios
     | tab_name                |
     | Your payments           |
-    | Order & payment history |
     | Your devices            |
+    | Order & payment history |
