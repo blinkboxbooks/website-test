@@ -27,9 +27,9 @@ module Discover
   end
 
   def sort_search_results(sort_criteria)
-    element = find('.orderby')
+    element = find('div.orderby')
     mouse_over(element)
-    within('.orderby') do
+    within('div.orderby') do
       within(first('ul')) do
         page.all('li').to_a.each do |li|
           if (li.text.eql?(sort_criteria))
@@ -60,9 +60,9 @@ module RegisterAndSignIn
     @email_address = generate_random_email_address
     first_name = generate_random_first_name
     last_name = generate_random_last_name
-    fill_form_element('email', @email_address)
     fill_form_element('first_name', first_name)
     fill_form_element('last_name', last_name)
+    fill_form_element('email', @email_address)
     return @email_address, first_name, last_name
   end
 
@@ -87,7 +87,8 @@ module RegisterAndSignIn
   end
 
   def click_sign_in_link
-    find('[data-test="header-sign-in-link"]').click
+    click_link_from_my_account_dropdown('Sign in')
+    #find('[data-test="header-sign-in-link"]').click
   end
 
   def accept_terms_and_conditions
@@ -178,7 +179,8 @@ module Buy
   end
 
   def click_buy_now_best_seller_book
-    click_link_or_button(get_element_id_for('Best sellers'))
+    click_link "Best sellers"
+    #click_link_or_button(get_element_id_for('Best sellers'))
     within('.bookList') do
       element= first('[class="book featured"]')
       mouse_over(element)
@@ -215,14 +217,21 @@ end
 
 module ManageAccount
   def click_link_from_my_account_dropdown(link)
-    element = find('[id="options"]')
-    page.driver.browser.action.move_to(element.native).perform
-    find("[title='#{link}']").click
+    #element = find('[id="options"]')
+    #page.driver.browser.action.move_to(element.native).perform
+    within(find('div#menu').find('ul#user-navigation-handheld')) do
+      element = first('li').first('a')
+      page.driver.browser.action.move_to(element.native).perform
+      element.click
+      find("a[title=\"#{link}\"]").click
+    end
   end
 
   def edit_personal_details
     first_name = generate_random_first_name
     last_name = generate_random_last_name
+    puts "Changing first name from '#{find('input#first_name').value}' to '#{first_name}'"
+    puts "Changing last name from '#{find('input#last_name').value}' to '#{last_name}'"
     fill_form_element('first_name', first_name)
     fill_form_element('last_name', last_name)
     return first_name, last_name

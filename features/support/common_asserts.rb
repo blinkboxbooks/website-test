@@ -169,7 +169,8 @@ module AssertMyAccount
   end
 
   def assert_first_name(first_name)
-    find('[id="username"]').text.should == "Hi "+first_name
+    #find('[id="username"]').text.should == "Hi "+first_name
+    find('#user-navigation-handheld').first('li').text.should == "Hi "+first_name
   end
 
   def assert_default_card(card)

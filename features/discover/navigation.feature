@@ -44,14 +44,14 @@ Feature: Navigation around the website
 
   @smoke
   Scenario: Navigate to categories page
-    When I click on the Categories link
+    When I click on the Categories header tab
     Then I should be on the Categories page
     And I should see 'Top categories' and 'All categories' sections
     And main footer is displayed
 
   @CWA-71 @smoke
   Scenario: Navigate to Best sellers page
-    When I click on the Best sellers link
+    When I click on the Best sellers header tab
     Then I should be on the Best sellers page
     And Best sellers section header is Best sellers Top 100 this month
     And I should see 'Fiction' and 'Non-Fiction' tabs
@@ -60,7 +60,7 @@ Feature: Navigation around the website
 
   @smoke
   Scenario: Navigate to New releases page
-    When I click on the New releases link
+    When I click on the New releases header tab
     Then I should be on the New releases page
     And New releases section header is New releases in the last 30 days
     And Grid view and List view buttons displayed
@@ -68,7 +68,7 @@ Feature: Navigation around the website
 
   @smoke
   Scenario: Navigate to Top free page
-    When I click on the Top free link
+    When I click on the Top free header tab
     Then I should be on the Top free page
     And Free books section header is Free books top 100 this month
     And Grid view and List view buttons displayed
@@ -76,7 +76,7 @@ Feature: Navigation around the website
 
   @smoke
   Scenario: Navigate to Authors page
-    When I click on the Authors link
+    When I click on the Authors header tab
     Then I should be on the Authors page
     And Best selling authors section header is Top 100 bestselling authors this month
     And main footer is displayed

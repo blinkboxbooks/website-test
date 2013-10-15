@@ -8,7 +8,8 @@ end
 ##############################################################
 
 When /^I click on the website logo$/ do
-  find('[data-test="logo-link"]').click
+  #find('[data-test="logo-link"]').click
+  find('div#logo').first('a').click
 end
 
 Then /^I should return to the home page$/ do
@@ -62,7 +63,12 @@ end
 
 And /^I click on the (.*) link$/ do |page_name|
   click_link_or_button(get_element_id_for(page_name))
+end
 
+When /^I click on the (.*) header tab$/ do |page_name|
+  within('div#main-navigation') do
+    click_link page_name
+  end
 end
 
 And /^I press browser back$/ do
@@ -193,8 +199,8 @@ end
 
 When /^I select a book to view book details$/ do
   book = page.first('[class="book"]').find('[data-test="book-title-cover"]')
-    @book_href = book[:href]
-    book.click
+  @book_href = book[:href]
+  book.click
 end
 
 Then /^details page of the corresponding book is displayed$/ do
@@ -206,7 +212,9 @@ And /^details of above book are displayed$/ do
 end
 
 Given /^I am on Categories page$/ do
-  click_link_or_button(get_element_id_for('Categories'))
+  within('div#main-navigation') do
+    click_link 'Categories'
+  end
   assert_page_path('Categories')
 end
 
@@ -217,7 +225,7 @@ end
 
 
 Then /^corresponding category page is displayed$/ do
- page.current_url.should.eql?(@category_name)
+  page.current_url.should.eql?(@category_name)
 end
 
 Given /^I am on a book Category page$/ do
@@ -225,10 +233,10 @@ Given /^I am on a book Category page$/ do
   click_on_a_category
 end
 
-And /^the book reader is displayed$/  do
+And /^the book reader is displayed$/ do
   assert_book_reader
 end
 
 And /^I am able to read the sample of corresponding book$/ do
-   read_sample_book
+  read_sample_book
 end
