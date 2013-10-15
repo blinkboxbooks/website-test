@@ -16,7 +16,7 @@ When /^I edit the first name and last name$/ do
 end
 
 And /^I submit my personal details$$/ do
- click_button('Update personal details')
+  click_button('Update personal details')
 end
 
 Then /^the first name and last name are as submitted$/ do
