@@ -220,9 +220,7 @@ module ManageAccount
     #element = find('[id="options"]')
     #page.driver.browser.action.move_to(element.native).perform
     within(find('div#menu').find('ul#user-navigation-handheld')) do
-      element = first('li').first('a')
-      page.driver.browser.action.move_to(element.native).perform
-      element.click
+      first('li').first('a').click
       find("a[title=\"#{link}\"]").click
     end
   end
