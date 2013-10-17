@@ -1,6 +1,7 @@
 module Discover
   def search_blinkbox_books(search_word)
     fill_in('term', :with => "#{search_word}")
+    page.should have_selector("button#submit_desk")
     click_button('submit_desk')
   end
 
@@ -27,6 +28,7 @@ module Discover
   end
 
   def sort_search_results(sort_criteria)
+    page.should have_selector("div.orderby")
     element = find('div.orderby')
     mouse_over(element)
     within('div.orderby') do
@@ -91,12 +93,18 @@ module RegisterAndSignIn
     click_link_from_my_account_dropdown('Sign in')
   end
 
+  def navigate_to_register_form
+    navigate_to_sign_in_form
+    click_button('Register')
+  end
+
+
   def accept_terms_and_conditions
     check('termsconditions')
   end
 
   def submit_registration_details
-    find('[class="yellow_button ng-binding"]').click
+    click_button("Register")
   end
 
   def register_new_user
@@ -113,6 +121,7 @@ module RegisterAndSignIn
     navigate_to_sign_in_form
     enter_valid_sign_in_details(email_address, password)
     click_sign_in_button
+    assert_user_greeting_message_displayed(@first_name)
   end
 
 end

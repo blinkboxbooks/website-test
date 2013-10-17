@@ -85,8 +85,7 @@ end
 
 And /^I have a stored card$/ do
   visit('/')
-  click_sign_in_link
-  click_register_button
+  navigate_to_register_form
   register_new_user
   buy_first_book
   click_link_from_my_account_dropdown('Sign out')
