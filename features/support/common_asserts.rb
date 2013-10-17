@@ -165,6 +165,10 @@ module AssertMyAccount
     find('ul#user-navigation-handheld').should have_content(first_name, :visible => true)
   end
 
+  def assert_user_greeting_message_not_displayed()
+    find('ul#user-navigation-handheld').should have_no_content("Hi")
+  end
+
   def assert_default_card(card)
     within('.payment_list') do
       default_card =''
@@ -179,6 +183,15 @@ module AssertMyAccount
           break
         end
       end
+    end
+  end
+
+  def assert_cookie_value(cookie, value)
+    actual = Capybara.current_session.driver.browser.manage.cookie_named(cookie)
+    if value.nil?
+      actual.should be_nil
+    else
+      actual.should == value
     end
   end
 
