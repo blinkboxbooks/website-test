@@ -219,8 +219,10 @@ module ManageAccount
   def click_link_from_my_account_dropdown(link)
     #element = find('[id="options"]')
     #page.driver.browser.action.move_to(element.native).perform
-    within(find('div#menu').find('ul#user-navigation-handheld')) do
-      first('li').first('a').click
+    my_account_dropdown = find('div#menu').find('ul#user-navigation-handheld')
+    within(my_account_dropdown) do
+      dropdown = first('li').first('a')
+      page.driver.browser.action.move_to(dropdown.native).perform
       find("a[title=\"#{link}\"]").click
     end
   end

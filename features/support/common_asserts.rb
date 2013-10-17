@@ -169,9 +169,8 @@ module AssertMyAccount
   end
 
   def assert_user_greeting_message_displayed(first_name)
-    #find('[id="username"]').text.should == "Hi "+first_name
-
-    find('#user-navigation-handheld').first('li').text.should == "Hi "+first_name
+    #find('[id="username"]').should have_content("Hi "+first_name)
+    find('ul#user-navigation-handheld').should have_content(first_name, :visible => true)
   end
 
   def assert_default_card(card)
