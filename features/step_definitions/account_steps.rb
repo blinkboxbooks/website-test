@@ -63,7 +63,7 @@ And /^I click sign in button$/ do
 end
 
 Then /^I am successfully signed in$/ do
-  assert_first_name(@first_name)
+  assert_user_greeting_message_displayed(@first_name)
 end
 
 And /^I am redirected to Home page$/ do
