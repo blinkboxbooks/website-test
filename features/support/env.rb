@@ -5,10 +5,11 @@ require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
+require 'site_prism'
 require 'active_support/core_ext'
 require 'rspec/expectations'
-World(RSpec::Matchers)
 
+World(RSpec::Matchers)
 
 require 'support/formatters/html_custom_formatter'
 
@@ -51,7 +52,7 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
   caps = case TEST_CONFIG['BROWSER_NAME'].downcase
     when 'firefox', 'safari', 'ie', 'chrome'
       Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
-    when 'HTMLUNIT'
+    when 'htmlunit'
       Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
     else
       raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
