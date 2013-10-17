@@ -220,6 +220,7 @@ module ManageAccount
     dropdown = find('ul#user-navigation-handheld').first('li').first('a')
     #page.driver.browser.action.move_to(dropdown.native).perform
     dropdown.click
+    link.gsub!("&", "&amp;")
     find('ul#user-navigation-handheld').find("a[title=\"#{link}\"]").click
   end
 
