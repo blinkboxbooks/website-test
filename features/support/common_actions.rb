@@ -83,12 +83,12 @@ module RegisterAndSignIn
   end
 
   def click_sign_in_button
+    page.should have_selector("button", :text => "Sign in")
     click_button('Sign in')
   end
 
-  def click_sign_in_link
+  def navigate_to_sign_in_form
     click_link_from_my_account_dropdown('Sign in')
-    #find('[data-test="header-sign-in-link"]').click
   end
 
   def accept_terms_and_conditions
@@ -110,7 +110,7 @@ module RegisterAndSignIn
   def sign_in(email_address=@email_address)
     email_address ||= 'bkm1@aa.com'
     password = 'test1234'
-    click_sign_in_link
+    navigate_to_sign_in_form
     enter_valid_sign_in_details(email_address, password)
     click_sign_in_button
   end
@@ -217,14 +217,10 @@ end
 
 module ManageAccount
   def click_link_from_my_account_dropdown(link)
-    #element = find('[id="options"]')
-    #page.driver.browser.action.move_to(element.native).perform
-    my_account_dropdown = find('div#menu').find('ul#user-navigation-handheld')
-    within(my_account_dropdown) do
-      dropdown = first('li').first('a')
-      page.driver.browser.action.move_to(dropdown.native).perform
-      find("a[title=\"#{link}\"]").click
-    end
+    dropdown = find('ul#user-navigation-handheld').first('li').first('a')
+    #page.driver.browser.action.move_to(dropdown.native).perform
+    dropdown.click
+    find('ul#user-navigation-handheld').find("a[title=\"#{link}\"]").click
   end
 
   def edit_personal_details

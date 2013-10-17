@@ -56,7 +56,7 @@ module AssertNavigation
     end
   end
 
-  def assert_section_header(section_id,text)
+  def assert_section_header(section_id, text)
     within("[data-test='#{section_id}']") do
       page.text.should include(text)
     end
@@ -89,23 +89,23 @@ module AssertNavigation
 end
 
 module AssertSearch
-  def assert_search_results  search_word
+  def assert_search_results search_word
     page.should have_content("You searched for \"#{search_word}\"")
     page.find('[data-test="search-results-list"]').visible?
-    within('[data-test="search-results-list"]')  do
-      page.all('li',:visible =>false).count.should >= 1
+    within('[data-test="search-results-list"]') do
+      page.all('li', :visible => false).count.should >= 1
     end
 
   end
 
   def assert_author_name author_name
-    selector =  'li.grid-5:nth-child(1)'
-    ((find_a_text selector,'author').downcase).should == (author_name).downcase
+    selector = 'li.grid-5:nth-child(1)'
+    ((find_a_text selector, 'author').downcase).should == (author_name).downcase
   end
 
   def assert_title book_title
     selector = 'li.grid-5:nth-child(1)'
-    ((find_a_text selector,'title').downcase).should == (book_title).downcase
+    ((find_a_text selector, 'title').downcase).should == (book_title).downcase
   end
 
   def assert_unique_result
@@ -115,7 +115,7 @@ module AssertSearch
   end
 
   def assert_number_of_suggestions number_of_suggestion
-    within("#suggestions")do
+    within("#suggestions") do
       page.all("li").count.should >= number_of_suggestion
     end
   end
@@ -148,20 +148,12 @@ end
 
 module AssertMyAccount
   def assert_tab_selected(tab_name)
-    case tab_name
-      when 'Order & payment'
-        find('[class = "account_menu_first hide_tablet selected"]').should be_visible
-      when 'Your personal details'
-        find('[class = "hide_tablet selected"]').should be_visible
-      when 'Your payments'
-        find('[class = "hide_tablet selected"]').should be_visible
-      when 'Your devices'
-        find('[class = "account_menu_last hide_tablet selected"]').should be_visible
-    end
+    page.should have_selector('.selected', :text => tab_name)
   end
+
   def assert_marketing_preferences_changed(after_status)
     check_box = find('#newsletter')
-    if(after_status)
+    if (after_status)
       check_box.should be_checked
     else
       check_box.should_not be_checked
