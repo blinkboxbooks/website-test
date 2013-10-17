@@ -1,6 +1,7 @@
 module Discover
   def search_blinkbox_books(search_word)
     fill_in('term', :with => "#{search_word}")
+    page.should have_selector("button#submit_desk")
     click_button('submit_desk')
   end
 
@@ -27,6 +28,7 @@ module Discover
   end
 
   def sort_search_results(sort_criteria)
+    page.should have_selector("div.orderby")
     element = find('div.orderby')
     mouse_over(element)
     within('div.orderby') do
@@ -83,20 +85,26 @@ module RegisterAndSignIn
   end
 
   def click_sign_in_button
+    page.should have_selector("button", :text => "Sign in")
     click_button('Sign in')
   end
 
-  def click_sign_in_link
+  def navigate_to_sign_in_form
     click_link_from_my_account_dropdown('Sign in')
-    #find('[data-test="header-sign-in-link"]').click
   end
+
+  def navigate_to_register_form
+    navigate_to_sign_in_form
+    click_button('Register')
+  end
+
 
   def accept_terms_and_conditions
     check('termsconditions')
   end
 
   def submit_registration_details
-    find('[class="yellow_button ng-binding"]').click
+    click_button("Register")
   end
 
   def register_new_user
@@ -110,9 +118,10 @@ module RegisterAndSignIn
   def sign_in(email_address=@email_address)
     email_address ||= 'bkm1@aa.com'
     password = 'test1234'
-    click_sign_in_link
+    navigate_to_sign_in_form
     enter_valid_sign_in_details(email_address, password)
     click_sign_in_button
+    assert_user_greeting_message_displayed(@first_name)
   end
 
 end
@@ -217,12 +226,11 @@ end
 
 module ManageAccount
   def click_link_from_my_account_dropdown(link)
-    #element = find('[id="options"]')
-    #page.driver.browser.action.move_to(element.native).perform
-    within(find('div#menu').find('ul#user-navigation-handheld')) do
-      first('li').first('a').click
-      find("a[title=\"#{link}\"]").click
-    end
+    dropdown = find('ul#user-navigation-handheld').first('li').first('a')
+    #page.driver.browser.action.move_to(dropdown.native).perform
+    dropdown.click
+    link.gsub!("&", "&amp;")
+    find('ul#user-navigation-handheld').find("a[title=\"#{link}\"]").click
   end
 
   def edit_personal_details

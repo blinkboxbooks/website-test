@@ -16,7 +16,8 @@ When /^I edit the first name and last name$/ do
 end
 
 And /^I submit my personal details$$/ do
-  click_button('Update personal details')
+  page.should have_button("Update personal details")
+  click_button("Update personal details")
 end
 
 Then /^the first name and last name are as submitted$/ do
@@ -33,13 +34,13 @@ And /^marketing preferences are as submitted$/  do
 end
 
 Given /^I have registered as new user$/ do
-  click_sign_in_link
-  click_register_button
+  navigate_to_register_form
   @email_address, @first_name, @last_name = enter_personal_details
   @current_password = 'test1234'
   choose_a_valid_password(@current_password)
   accept_terms_and_conditions
   submit_registration_details
+  assert_user_greeting_message_displayed(@first_name)
 end
 
 When /^I edit email address$/ do

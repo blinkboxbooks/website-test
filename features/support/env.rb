@@ -80,3 +80,5 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
                                    :desired_capabilities => caps)
   end
 end
+
+#Capybara.default_wait_time = 10

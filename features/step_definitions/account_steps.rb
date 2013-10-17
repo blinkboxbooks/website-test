@@ -79,14 +79,13 @@ And /^I click Sign out button$/ do
 end
 
 Then /^I should be signed out successfully$/ do
-  find('[id="signin"]').should be_visible
-  Capybara.current_session.driver.browser.manage.cookie_named('access_token').should be nil
+  assert_user_greeting_message_not_displayed
+  assert_cookie_value('access_token', nil)
 end
 
 And /^I have a stored card$/ do
   visit('/')
-  click_sign_in_link
-  click_register_button
+  navigate_to_register_form
   register_new_user
   buy_first_book
   click_link_from_my_account_dropdown('Sign out')

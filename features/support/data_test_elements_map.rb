@@ -76,6 +76,7 @@ module TestElementsMap
       return TEXT_MESSAGES[message_type]
     end
   end
+
 end
 
 World(TestElementsMap)
