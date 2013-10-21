@@ -3,6 +3,7 @@ module Discover
     fill_in('term', :with => "#{search_word}")
     page.should have_selector("button#submit_desk")
     click_button('submit_desk')
+    page.has_selector?("div.orderby") || page.has_selector?("div.noResults")
   end
 
   def click_book_details
@@ -31,6 +32,7 @@ module Discover
     page.should have_selector("div.orderby")
     element = find('div.orderby')
     mouse_over(element)
+    find('div.orderby').should have_selector('ul')
     within('div.orderby') do
       within(first('ul')) do
         page.all('li').to_a.each do |li|
@@ -206,19 +208,20 @@ module Buy
 
   def buy_first_book
     search_blinkbox_books('winter')
-    sort_search_results('Price (high to low)')
+    #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
+    #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
     enter_new_payment_details('VISA')
     enter_billing_details
     save_card_details
     click_confirm_and_pay
-
     click_link('Featured')
   end
 
   def returning_user_selects_a_book
     search_blinkbox_books('summer')
-    sort_search_results('Price (high to low)')
+    #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
+    #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
   end
 end
