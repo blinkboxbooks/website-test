@@ -1,5 +1,4 @@
 Before("~@reset_session") do
-  visit('/')
-  set_cookie("start_cookie_accepted", "true")
+  set_start_cookie_accepted
   maximize_window
 end
