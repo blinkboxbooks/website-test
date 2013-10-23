@@ -1,6 +1,5 @@
 Given /^I am on the home page/ do
   visit('/')
-  page.driver.browser.manage.window.maximize
 end
 
 ##############################################################
