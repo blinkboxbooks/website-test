@@ -1,5 +1,6 @@
 Given /^I am a guest user$/ do
   delete_cookies
+  set_start_cookie_accepted
 end
 
 Given /^I am not signed in$/ do
@@ -52,7 +53,7 @@ And /^I submit registration details$/ do
 end
 
 When /^I enter valid sign in details$/ do
-  email = 'happay_path_signin@blinkboxbooks.com'
+  email = 'happay_path_signin@mobcastdev.com'
   password = "test1234"
   @first_name = "Happy-path"
   enter_valid_sign_in_details(email, password)
@@ -90,7 +91,7 @@ And /^I have a stored card$/ do
   buy_first_book
   click_link_from_my_account_dropdown('Sign out')
   delete_cookies
-  visit('/')
+  set_start_cookie_accepted
 end
 
 Given /^I have multiple stored cards$/ do
