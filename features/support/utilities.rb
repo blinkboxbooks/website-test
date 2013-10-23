@@ -15,7 +15,7 @@ module WebUtilities
 
   def generate_random_email_address
     first_part = 'cucumber_test'
-    last_part = '@blinkboxbooks.com'
+    last_part = '@mobcastdev.com'
     middle_part = rand(1..9999).to_s + (0...10).map { ('a'..'z').to_a[rand(26)] }.join
     return first_part+middle_part+last_part
   end
@@ -76,4 +76,13 @@ module WebUtilities
 
 end
 
+module BlinkboxWebUtilities
+    def set_start_cookie_accepted
+      visit('/') unless current_path == '/'
+      set_cookie("start_cookie_accepted", "true")
+      visit('/')
+    end
+end
+
 World(WebUtilities)
+World(BlinkboxWebUtilities)
