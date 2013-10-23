@@ -1,18 +1,18 @@
 When /^I am viewing in (.*?) mode$/ do |viewing_mode|
   case viewing_mode
     when 'Desktop'
-      page.driver.browser.manage.window.maximize
+      maximize_window
     when 'Mobile Portrait'
-      page.driver.browser.manage.window.resize_to(320,480)
+      resize_window(320,480)
     when 'Mobile Landscape'
-      page.driver.browser.manage.window.resize_to(480,320)
+      resize_window(480,320)
     when '10 inch tablet'
-      page.driver.browser.manage.window.resize_to(800,1024)
+      resize_window(800,1024)
     when '7 inch tablet'
-      page.driver.browser.manage.window.resize_to(550,1024)
+      resize_window(550,1024)
+    else
+      raise "Unsupported browser viewing mode: #{viewing_mode}"
   end
-  #@window = Capybara.current_session.driver.browser.manage.window
-  #@window.maximize
 end
 
 And /^page should display (\d+) categories in a row$/ do |top_categories|
