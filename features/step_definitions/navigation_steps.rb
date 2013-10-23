@@ -1,5 +1,5 @@
 Given /^I am on the home page/ do
-  visit('/')
+  visit('/') unless current_path == '/'
 end
 
 ##############################################################

@@ -1,5 +1,6 @@
 $: << "."
-$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
+support_dir = File.join(File.dirname(__FILE__))
+$LOAD_PATH.unshift File.expand_path(support_dir)
 
 require 'selenium-webdriver'
 require 'capybara'
@@ -11,12 +12,30 @@ require 'rspec/expectations'
 
 World(RSpec::Matchers)
 
-require 'support/formatters/html_custom_formatter'
-
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
 puts "TEST_CONFIG: #{TEST_CONFIG}" if TEST_CONFIG["debug"]
 
+# ======= load common helpers =======
+def require_and_log(lib_array)
+  lib_array = [lib_array] if lib_array.class != Array
+  lib_array.sort!
+  lib_array.each { |file|
+    if !$".include?(file.to_s)
+      puts("Loading #{file}") if TEST_CONFIG["debug"]
+      require file.to_s
+    end
+  }
+end
+
+puts "Loading custom cucumber formatters..."
+require_and_log Dir[File.join(support_dir, 'formatters', '*.rb')]
+
+puts "Loading page models..."
+require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+
+# ======== set up browser driver =======
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
 
