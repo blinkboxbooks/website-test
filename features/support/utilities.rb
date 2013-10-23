@@ -25,11 +25,20 @@ module WebUtilities
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
     return first_part + last_part
   end
-  
+
   def generate_random_last_name
     first_part = 'lastname-autotest-'
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
     return first_part + last_part
+  end
+
+  def set_cookie(name, value)
+    case Capybara.current_session.driver
+      when Capybara::Selenium::Driver
+        page.driver.browser.manage.add_cookie(:name => name, :value => value)
+      else
+        raise "no cookie-setter implemented for driver #{Capybara.current_session.driver.class.name}"
+    end
   end
 
   def delete_cookies
@@ -56,6 +65,15 @@ module WebUtilities
   def mouse_over(element)
     page.driver.browser.action.move_to(element.native).perform
   end
+
+  def maximize_window
+    page.driver.browser.manage.window.maximize
+  end
+
+  def resize_window(x, y)
+    page.driver.browser.manage.window.resize_to(x, y)
+  end
+
 end
 
 World(WebUtilities)
