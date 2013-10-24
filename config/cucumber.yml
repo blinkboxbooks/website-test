@@ -8,7 +8,7 @@ jenkins: -r features --tags ~@wip GRID=true SERVER=NODEJS-INTERNAL PLATFORM=MAC 
 
 ci-no-grid: <%= ci_opts %>
 ci-smoke-nodejs: <%= ci_opts %> <%= grid_opts %> --tags @smoke SERVER=NODEJS-INTERNAL
-ci-smoke-qa: <%= ci_opts %> <%= grid_opts %> --tags @smoke SERVER=NODEJS-INTERNAL
+ci-smoke-qa: <%= ci_opts %> <%= grid_opts %> --tags @smoke SERVER=QA
 ci-smoke-production: <%= ci_opts %> <%= grid_opts %> --tags @smoke --tags @production SERVER=PRODUCTION
 
 #mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
