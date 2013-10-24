@@ -231,9 +231,8 @@ end
 module ManageAccount
   def click_link_from_my_account_dropdown(link)
     page.should have_selector('ul#user-navigation-handheld')
-    dropdown = find('ul#user-navigation-handheld').first('li').first('a')
-    #page.driver.browser.action.move_to(dropdown.native).perform
-    dropdown.click
+    find('ul#user-navigation-handheld').click
+    #page.driver.browser.action.move_to(find('ul#user-navigation-handheld').first('a').native).perform
     link.gsub!("&", "&amp;")
     find('ul#user-navigation-handheld').find("a[title=\"#{link}\"]").click
   end
