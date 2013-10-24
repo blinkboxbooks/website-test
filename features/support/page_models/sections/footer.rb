@@ -1,6 +1,6 @@
 module PageModels
   class Footer < SitePrism::Section
-    element :version_div, "div.versionInfo.ng-binding", visible: false
+    element :version_div, "div.versionInfo", visible: false
 
     def version_info
       version_div.text(:all)
