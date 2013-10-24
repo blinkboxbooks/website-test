@@ -7,49 +7,48 @@ Feature: Navigation around the website
   Background:
     Given I am on the home page
 
-  @smoke
+  @smoke @production
   Scenario: Clicking on the website logo
     When I click on the website logo
     Then I should return to the home page
 
-  @smoke
+  @smoke @production
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books link
     Then I should return to the home page
 
-  @smoke @wip
+  @smoke @wip @production
   Scenario: Clicking on the Sitemap link
     When I click on the Sitemap link
     Then I should be on the Sitemap page
 
-  @smoke
+  @smoke @production
   Scenario: Navigating to the help site from the footer
     Given the blinkbox books help link is present in the footer
     Then the link should point to the blinkbox books help home page
 
-  @smoke
+  @smoke @production
   Scenario: Navigating to the blinkbox movies site from the footer
     Given the blinkbox movies link is present in the footer
     Then the link should point to the blinkbox movies home page
 
-  @smoke
+  @smoke @production
   Scenario: Navigating to the blinkbox music site from the footer
     Given the blinkbox music link is present in the footer
     Then the link should point to the blinkbox music home page
 
-  @smoke
+  @smoke @production
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions link
     Then I should be on the Terms and conditions page
 
-  @smoke
+  @smoke @production
   Scenario: Navigate to categories page
     When I click on the Categories header tab
     Then I should be on the Categories page
-    And I should see 'Top categories' and 'All categories' sections
     And main footer is displayed
 
-  @CWA-71 @smoke
+  @CWA-71 @smoke @production
   Scenario: Navigate to Best sellers page
     When I click on the Best sellers header tab
     Then I should be on the Best sellers page
@@ -58,7 +57,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke
+  @smoke @production
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then I should be on the New releases page
@@ -66,7 +65,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke
+  @smoke @production
   Scenario: Navigate to Free books page
     When I click on the Free books header tab
     Then I should be on the Free books page
@@ -74,26 +73,26 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke
+  @smoke @production
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then I should be on the Authors page
     And Best selling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
-  @smoke
+  @smoke @production
   Scenario: Navigate to book details page
     When I select a book to view book details
     Then details page of the corresponding book is displayed
     And details of above book are displayed
 
-  @smoke
+  @smoke @production
   Scenario: Navigate to a Category page
     Given I am on Categories page
     When I click on a category
     Then corresponding category page is displayed
 
-  @smoke
+  @smoke @production
   Scenario: Read a sample
     When I select a book to view book details
     Then details page of the corresponding book is displayed

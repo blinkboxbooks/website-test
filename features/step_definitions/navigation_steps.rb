@@ -184,11 +184,6 @@ Then /^I should see (Fiction|Non\-Fiction) books in (gird|list) view$/ do |book_
   end
 end
 
-And /^I should see 'Top categories' and 'All categories' sections$/ do
-  (find('[data-test="recommended-category-container"]').visible?).should == true
-  (find('[data-test="all-categories-container"]').visible?).should == true
-end
-
 Given /^I am on crime and thriller category page$/ do
   visit('#!/category/crime-and-thriller/')
   current_path.should.eql?('#!/category/crime-and-thriller/') == true
