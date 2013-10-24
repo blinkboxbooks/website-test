@@ -7,7 +7,7 @@ Feature: Sign into Blinkbox books
     Given I am not signed in
 
   @smoke
-   Scenario: Happy path user sign in
+  Scenario: Happy path user sign in
     Given I am on the Sign in page
     When I enter valid sign in details
     And I click sign in button

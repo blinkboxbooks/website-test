@@ -6,7 +6,7 @@ Feature: Register a new Blinkbox books user
   Background:
    Given I am a guest user
 
- @smoke
+ @smoke @production
  Scenario: Navigate to register page
    Given I am on the Sign in page
    When I click register button
