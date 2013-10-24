@@ -1,5 +1,6 @@
 Given /^I am on the home page/ do
-  visit('/')
+  visit('/') unless current_path == '/'
+  #home_page.load unless home_page.displayed?
 end
 
 ##############################################################

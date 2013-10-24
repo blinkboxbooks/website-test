@@ -67,10 +67,10 @@ Feature: Navigation around the website
     And main footer is displayed
 
   @smoke
-  Scenario: Navigate to Top free page
-    When I click on the Top free header tab
-    Then I should be on the Top free page
-    And Free books section header is Free books top 100 this month
+  Scenario: Navigate to Free books page
+    When I click on the Free books header tab
+    Then I should be on the Free books page
+    And Free books section header is Free books
     And Grid view and List view buttons displayed
     And main footer is displayed
 
