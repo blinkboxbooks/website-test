@@ -298,7 +298,7 @@ end
 
 module CommonActions
   def app_version_info
-    first("div.versionInfo.ng-binding", visible: false).text(:all)
+    PageModels::BlinkboxbooksPage.new.footer.version_info
   end
 end
 

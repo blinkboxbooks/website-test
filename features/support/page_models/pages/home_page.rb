@@ -1,9 +1,7 @@
 module PageModels
-  class HomePage < SitePrism::Page
+  class HomePage < PageModels::BlinkboxbooksPage
     set_url "/"
     set_url_matcher Regexp.new(Capybara.app_host)
-
-    section :footer, Footer, "#footer"
   end
 
   register_model_caller_method(HomePage)
