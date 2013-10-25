@@ -1,6 +1,5 @@
 Given /^I am on the home page/ do
-  visit('/') unless current_path == '/'
-  #home_page.load unless home_page.displayed?
+  home_page.load unless home_page.displayed?
 end
 
 ##############################################################
@@ -22,6 +21,10 @@ end
 
 Then /^I should be on the (.*?) page$/ do |page_name|
   assert_page_path(page_name)
+end
+
+Then /^(?:the )?([\w\s-&]*) page is displayed$/ do |page_name|
+  expect_page_displayed(page_name)
 end
 
 ##############################################################
