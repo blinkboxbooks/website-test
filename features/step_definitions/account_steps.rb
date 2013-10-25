@@ -16,19 +16,16 @@ When /^I sign in(?: to proceed with purchase)?$/ do
 end
 
 Given /^I am on the Sign in page$/ do
-  visit('/#!/signin')
+  sign_in_page.load
 end
 
 When /^I click register button$/ do
   click_register_button
 end
 
-Then /^Register page is displayed$/ do
-  current_url.include?('#!/register').should == true
-end
 
 Given /^I am on Register page$/ do
-  visit('/#!/register')
+  register_page.load
 end
 
 When /^I enter valid personal details$/ do

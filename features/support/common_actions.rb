@@ -58,7 +58,7 @@ end
 
 module RegisterAndSignIn
   def click_register_button
-    click_button('Register')
+    sign_in_page.register_button.click
   end
 
   def enter_personal_details
