@@ -17,10 +17,27 @@ module PageModelHelpers
                     @_#{caller_method} ||= #{class_name}.new
                   end}
   end
+
+  # Determine page class name based on page name
+  #
+  # @param [String] page_name                 page name in plain text. possible page name in the step: AllInclusive, All-Inclusive, All Inclusive, AllInclusivePage, All-Inclusive Page, All Inclusive Page
+  # @return [PageModels::BlinkboxbooksPage]   page class or raises an exception if not found. possible class name options: AllInclusive, AllInclusivePage.
+  def page_model(page_name)
+    page_class = page_name.to_class_name
+    if !PageModels.const_defined?(page_class)
+      page_class << "Page"
+      if !PageModels.const_defined?(page_class)
+        #raise "Page is not registered as a Blinkboxbooks page model: '#{page_name}'"
+        return nil
+      end
+    end
+    PageModels.const_get("#{page_class}").new
+  end
 end
 
 module PageModels
   extend PageModelHelpers
+  include PageModelHelpers
 end
 
 World(PageModels)
