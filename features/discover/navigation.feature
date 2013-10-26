@@ -68,7 +68,7 @@ Feature: Navigation around the website
   @smoke @production
   Scenario: Navigate to Free books page
     When I click on the Free books header tab
-    Then I should be on the Free books page
+    Then Free books page is displayed
     And Free books section header is Free books
     And Grid view and List view buttons displayed
     And main footer is displayed
@@ -90,7 +90,7 @@ Feature: Navigation around the website
   Scenario: Navigate to a Category page
     Given I am on Categories page
     When I click on a category
-    Then corresponding category page is displayed
+    Then Category page is displayed for the selected category
 
   @smoke @production
   Scenario: Read a sample

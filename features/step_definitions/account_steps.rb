@@ -40,9 +40,8 @@ And /^I accept terms and conditions$/ do
   accept_terms_and_conditions
 end
 
-Then /^Registration success page is displayed$/ do
-  page.find('.welcome').should have_content(get_message_text('Welcome'))
-  current_url.include?('#!/success').should == true
+Then /^And welcome message is shown$/ do
+  registration_success_page.welcome_label.should have_content(get_message_text('Welcome'))
 end
 
 And /^I submit registration details$/ do

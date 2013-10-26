@@ -48,7 +48,7 @@ Given /^the blinkbox movies link is present in the footer$/ do
 end
 
 Then /^the link should point to the blinkbox movies home page$/ do
-  @movies_link[:href].should == 'http://www.blinkbox.com/'
+  @movies_link[:href].should include 'www.blinkbox.com'
   @movies_link[:target].should == '_blank'
   @movies_link[:title].should == 'blinkbox movies'
 end
@@ -59,7 +59,7 @@ Given /^the blinkbox music link is present in the footer$/ do
 end
 
 Then /^the link should point to the blinkbox music home page$/ do
-  @music_link[:href].should == 'http://www.blinkboxmusic.com/'
+  @music_link[:href].should include 'www.blinkboxmusic.com'
   @music_link[:target].should == '_blank'
   @music_link[:title].should == 'blinkbox music'
 end
@@ -210,10 +210,8 @@ And /^details of above book are displayed$/ do
 end
 
 Given /^I am on Categories page$/ do
-  within('div#main-navigation') do
-    click_link 'Categories'
-  end
-  assert_page_path('Categories')
+  categories_page.load
+  expect_page_displayed('Categories')
 end
 
 
@@ -221,9 +219,8 @@ When /^I click on a category$/ do
   @category_name = click_on_a_category
 end
 
-
-Then /^corresponding category page is displayed$/ do
-  page.current_url.should.eql?(@category_name)
+Then /^Category page is displayed for the selected category$/ do
+  page.current_url.should include(@category_name)
 end
 
 Given /^I am on a book Category page$/ do
