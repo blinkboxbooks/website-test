@@ -50,11 +50,11 @@ module WebUtilities
   rescue
   end
 
-  def fill_form_element (element, value)
+  def fill_form_element(element, value)
     fill_in("#{element}", :with => "#{value}")
   end
 
-  def click_link_or_button (element_id)
+  def click_link_or_button(element_id)
     find("[data-test='#{element_id}']").click
   end
 
@@ -77,11 +77,11 @@ module WebUtilities
 end
 
 module BlinkboxWebUtilities
-    def set_start_cookie_accepted
-      visit('/') unless current_path == '/'
-      set_cookie("start_cookie_accepted", "true")
-      visit('/')
-    end
+  def set_start_cookie_accepted
+    visit('/') unless current_path == '/'
+    set_cookie("start_cookie_accepted", "true")
+    visit('/')
+  end
 end
 
 World(WebUtilities)

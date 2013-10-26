@@ -1,5 +1,5 @@
 module PageModels
-  class Footer < SitePrism::Section
+  class Footer < PageModels::BlinkboxbooksSection
     element :version_div, "div.versionInfo", visible: false
 
     def version_info
