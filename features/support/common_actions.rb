@@ -58,7 +58,7 @@ end
 
 module RegisterAndSignIn
   def click_register_button
-    click_button('Register')
+    sign_in_page.register_button.click
   end
 
   def enter_personal_details
@@ -82,7 +82,7 @@ module RegisterAndSignIn
     fill_form_element('repassword', new_password)
   end
 
-  def enter_valid_sign_in_details (email_address, password)
+  def enter_valid_sign_in_details(email_address, password)
     fill_form_element('email', email_address)
     fill_form_element('password', password)
   end
@@ -90,6 +90,10 @@ module RegisterAndSignIn
   def click_sign_in_button
     page.should have_selector("button", :text => "Sign in")
     click_button('Sign in')
+  end
+
+  def submit_sign_in_details(email_address, password)
+    sign_in_page.sign_in_form.submit(email_address, password)
   end
 
   def navigate_to_sign_in_form
@@ -122,8 +126,7 @@ module RegisterAndSignIn
     email_address ||= 'bkm1@aa.com'
     password = 'test1234'
     navigate_to_sign_in_form
-    enter_valid_sign_in_details(email_address, password)
-    click_sign_in_button
+    submit_sign_in_details(email_address, password)
     assert_user_greeting_message_displayed(@first_name)
   end
 
@@ -229,12 +232,8 @@ end
 
 
 module ManageAccount
-  def click_link_from_my_account_dropdown(link)
-    page.should have_selector('ul#user-navigation-handheld')
-    find('ul#user-navigation-handheld').click
-    #page.driver.browser.action.move_to(find('ul#user-navigation-handheld').first('a').native).perform
-    link.gsub!("&", "&amp;")
-    find('ul#user-navigation-handheld').find("a[title=\"#{link}\"]").click
+  def click_link_from_my_account_dropdown(link_name)
+    current_page.header.navigate_to_account_option(link_name)
   end
 
   def edit_personal_details
@@ -298,7 +297,7 @@ end
 
 module CommonActions
   def app_version_info
-    PageModels::BlinkboxbooksPage.new.footer.version_info
+    current_page.footer.version_info
   end
 end
 

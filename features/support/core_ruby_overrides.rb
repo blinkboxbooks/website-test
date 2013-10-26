@@ -6,4 +6,9 @@ class String
         tr("-", "_").
         downcase
   end
+
+  #example: "home page" --> "HomePage"
+  def to_class_name
+    to_s.gsub("&", "and").gsub(/[\- ]/, '_').camelize(:upper)
+  end
 end

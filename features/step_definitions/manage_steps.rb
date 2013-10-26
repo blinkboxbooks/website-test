@@ -3,7 +3,7 @@ When /^I select (.*?) link from drop down menu$/ do |link|
 end
 
 And /^(.*?) tab is selected$/ do |tab_name|
-  assert_tab_selected(tab_name)
+  expect_account_tab_selected(tab_name)
 end
 
 
