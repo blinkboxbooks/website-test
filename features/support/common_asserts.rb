@@ -63,7 +63,7 @@ module AssertNavigation
   end
 
   def assert_page_path(page_name)
-    current_url.should match Regexp.new(get_page_url_path_for(page_name)+"$")
+    current_url.should match Regexp.new(get_page_url_path_for(page_name))
   end
 
   def expect_page_displayed(page_name)

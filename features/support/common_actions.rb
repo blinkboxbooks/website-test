@@ -112,7 +112,6 @@ module RegisterAndSignIn
 
   def submit_registration_details
     click_button("Register")
-    find('.welcome').visible?
   end
 
   def register_new_user
