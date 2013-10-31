@@ -20,7 +20,7 @@ Feature: Register a new Blinkbox books user
    And I accept terms and conditions
    And I submit registration details
    Then Registration success page is displayed
-   And welcome message is shown
+
 
 
 
