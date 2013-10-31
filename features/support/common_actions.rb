@@ -112,6 +112,7 @@ module RegisterAndSignIn
 
   def submit_registration_details
     click_button("Register")
+    find('.welcome').visible?
   end
 
   def register_new_user
@@ -187,6 +188,7 @@ module Buy
 
   def click_confirm_and_pay
     click_button('Confirm & pay')
+    find('.welcome').visible?
   end
 
   def save_card_details()
@@ -207,6 +209,7 @@ module Buy
     #TODO: add step to click radio button
     if (page.has_text?(:visible, 'Your saved card details'))
       click_button('Confirm & pay')
+      find('.welcome').visible?
     end
   end
 
