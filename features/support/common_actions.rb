@@ -187,7 +187,7 @@ module Buy
 
   def click_confirm_and_pay
     click_button('Confirm & pay')
-    find('.welcome').visible?
+    find('#order-complete').visible?
   end
 
   def save_card_details()
@@ -208,7 +208,7 @@ module Buy
     #TODO: add step to click radio button
     if (page.has_text?(:visible, 'Your saved card details'))
       click_button('Confirm & pay')
-      find('.welcome').visible?
+      find('#order-complete').visible?
     end
   end
 
@@ -219,7 +219,6 @@ module Buy
     select_buy_first_book_in_search_results
     enter_new_payment_details('VISA')
     enter_billing_details
-    save_card_details
     click_confirm_and_pay
     click_link('Featured')
   end
