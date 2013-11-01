@@ -187,7 +187,8 @@ module Buy
 
   def click_confirm_and_pay
     click_button('Confirm & pay')
-    find('.welcome').visible?
+    page.has_selector?('#order-complete')
+    page.should have_content('Welcome to blinkbox books!')
   end
 
   def save_card_details()
@@ -208,8 +209,16 @@ module Buy
     #TODO: add step to click radio button
     if (page.has_text?(:visible, 'Your saved card details'))
       click_button('Confirm & pay')
-      find('.welcome').visible?
+      page.has_selector?('#order-complete')
+      page.should have_content('Thanks for your order!')
     end
+  end
+
+  def pay_with_new_card(card_type)
+    enter_new_payment_details(card_type)
+    click_button('Confirm & pay')
+    page.has_selector?('#order-complete')
+    page.should have_content('Thanks for your order!')
   end
 
   def buy_first_book
@@ -217,10 +226,8 @@ module Buy
     #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
-    enter_new_payment_details('VISA')
     enter_billing_details
-    save_card_details
-    click_confirm_and_pay
+    pay_with_new_card('VISA')
     click_link('Featured')
   end
 
@@ -230,6 +237,7 @@ module Buy
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
   end
+
 end
 
 
