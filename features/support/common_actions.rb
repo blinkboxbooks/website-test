@@ -58,7 +58,7 @@ end
 
 module RegisterAndSignIn
   def click_register_button
-    click_button('Register')
+    sign_in_page.register_button.click
   end
 
   def enter_personal_details
@@ -82,7 +82,7 @@ module RegisterAndSignIn
     fill_form_element('repassword', new_password)
   end
 
-  def enter_valid_sign_in_details (email_address, password)
+  def enter_valid_sign_in_details(email_address, password)
     fill_form_element('email', email_address)
     fill_form_element('password', password)
   end
@@ -90,6 +90,10 @@ module RegisterAndSignIn
   def click_sign_in_button
     page.should have_selector("button", :text => "Sign in")
     click_button('Sign in')
+  end
+
+  def submit_sign_in_details(email_address, password)
+    sign_in_page.sign_in_form.submit(email_address, password)
   end
 
   def navigate_to_sign_in_form
@@ -122,8 +126,7 @@ module RegisterAndSignIn
     email_address ||= 'bkm1@aa.com'
     password = 'test1234'
     navigate_to_sign_in_form
-    enter_valid_sign_in_details(email_address, password)
-    click_sign_in_button
+    submit_sign_in_details(email_address, password)
     assert_user_greeting_message_displayed(@first_name)
   end
 
@@ -184,6 +187,8 @@ module Buy
 
   def click_confirm_and_pay
     click_button('Confirm & pay')
+    page.has_selector?('#order-complete')
+    page.should have_content('Welcome to blinkbox books!')
   end
 
   def save_card_details()
@@ -204,7 +209,16 @@ module Buy
     #TODO: add step to click radio button
     if (page.has_text?(:visible, 'Your saved card details'))
       click_button('Confirm & pay')
+      page.has_selector?('#order-complete')
+      page.should have_content('Thanks for your order!')
     end
+  end
+
+  def pay_with_new_card(card_type)
+    enter_new_payment_details(card_type)
+    click_button('Confirm & pay')
+    page.has_selector?('#order-complete')
+    page.should have_content('Thanks for your order!')
   end
 
   def buy_first_book
@@ -212,10 +226,8 @@ module Buy
     #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
-    enter_new_payment_details('VISA')
     enter_billing_details
-    save_card_details
-    click_confirm_and_pay
+    pay_with_new_card('VISA')
     click_link('Featured')
   end
 
@@ -225,16 +237,13 @@ module Buy
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
   end
+
 end
 
 
 module ManageAccount
-  def click_link_from_my_account_dropdown(link)
-    page.should have_selector('ul#user-navigation-handheld')
-    find('ul#user-navigation-handheld').click
-    #page.driver.browser.action.move_to(find('ul#user-navigation-handheld').first('a').native).perform
-    link.gsub!("&", "&amp;")
-    find('ul#user-navigation-handheld').find("a[title=\"#{link}\"]").click
+  def click_link_from_my_account_dropdown(link_name)
+    current_page.header.navigate_to_account_option(link_name)
   end
 
   def edit_personal_details
@@ -298,7 +307,7 @@ end
 
 module CommonActions
   def app_version_info
-    PageModels::BlinkboxbooksPage.new.footer.version_info
+    current_page.footer.version_info
   end
 end
 

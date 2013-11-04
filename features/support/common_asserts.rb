@@ -63,7 +63,14 @@ module AssertNavigation
   end
 
   def assert_page_path(page_name)
-    current_path.should.eql?("#{get_page_url_path_for("#{page_name}")}") == true
+    current_url.should match Regexp.new(get_page_url_path_for(page_name))
+  end
+
+  def expect_page_displayed(page_name)
+    page = page_model(page_name)
+    unless page.displayed?
+      raise RSpec::Expectations::ExpectationNotMetError, "Page verification failed\nExpected page: '#{page_name}' with url_matcher #{page.url_matcher}\nCurrent url: #{current_url}"
+    end
   end
 
   def assert_container (section_id)
@@ -147,8 +154,8 @@ module AssertSearch
 end
 
 module AssertMyAccount
-  def assert_tab_selected(tab_name)
-    page.should have_selector('.selected', :text => tab_name)
+  def expect_account_tab_selected(tab_name)
+    your_account_page.account_nav_frame.should have_account_nav_tab_selected(tab_name)
   end
 
   def assert_marketing_preferences_changed(after_status)
@@ -161,8 +168,7 @@ module AssertMyAccount
   end
 
   def assert_user_greeting_message_displayed(first_name)
-    #find('[id="username"]').should have_content("Hi "+first_name)
-    find('ul#user-navigation-handheld').should have_content(first_name, :visible => true)
+    current_page.header.should have_content(first_name, :visible => true)
   end
 
   def assert_user_greeting_message_not_displayed()

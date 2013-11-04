@@ -40,7 +40,7 @@ module TestElementsMap
                     'Sign in' => '#!/signin',
                     'Terms and conditions' => '#!/terms_and_conditions',
                     'Confirm & pay' => '#!/confirm',
-                    'Payment successful' => '#!/order_complete',
+                    'Payment successful' => 'order_complete',
                     'Account' => '#!/account',
                     'Fantacy Fiction' => '#!/category/fantasy-fiction/'}
 

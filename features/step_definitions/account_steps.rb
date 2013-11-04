@@ -16,19 +16,16 @@ When /^I sign in(?: to proceed with purchase)?$/ do
 end
 
 Given /^I am on the Sign in page$/ do
-  visit('/#!/signin')
+  sign_in_page.load
 end
 
 When /^I click register button$/ do
   click_register_button
 end
 
-Then /^Register page is displayed$/ do
-  current_url.include?('#!/register').should == true
-end
 
 Given /^I am on Register page$/ do
-  visit('/#!/register')
+  register_page.load
 end
 
 When /^I enter valid personal details$/ do
@@ -43,13 +40,13 @@ And /^I accept terms and conditions$/ do
   accept_terms_and_conditions
 end
 
-Then /^Registration success page is displayed$/ do
-  page.find('.welcome').should have_content(get_message_text('Welcome'))
-  current_url.include?('#!/success').should == true
+And /^welcome message is shown$/ do
+  registration_success_page.welcome_label.should have_content(get_message_text('Welcome'))
 end
 
 And /^I submit registration details$/ do
   submit_registration_details
+  find('.welcome').visible?
 end
 
 When /^I enter valid sign in details$/ do
