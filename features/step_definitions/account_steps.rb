@@ -40,7 +40,7 @@ And /^I accept terms and conditions$/ do
   accept_terms_and_conditions
 end
 
-Then /^And welcome message is shown$/ do
+And /^welcome message is shown$/ do
   registration_success_page.welcome_label.should have_content(get_message_text('Welcome'))
 end
 
