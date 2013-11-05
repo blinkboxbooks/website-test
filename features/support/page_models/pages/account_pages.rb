@@ -5,23 +5,23 @@ module PageModels
   end
 
   class YourOrderAndPaymentHistoryPage < PageModels::YourAccountPage
-    set_url "/#!/account/paymentHistory"
-    set_url_matcher /account\/paymentHistory$/
+    set_url "/#!/account/order-payment-history"
+    set_url_matcher /account\/order-payment-history/
   end
 
   class YourPersonalDetailsPage < PageModels::YourAccountPage
-    set_url "/#!/account/personalDetails"
-    set_url_matcher /account\/personalDetails$/
+    set_url "/#!/account/personal-details"
+    set_url_matcher /account\/personal-details/
   end
 
   class YourPaymentsPage < PageModels::YourAccountPage
-    set_url "/#!/account/myPayments"
-    set_url_matcher /account\/myPayments$/
+    set_url "/#!/account/your-payments"
+    set_url_matcher /account\/your-payments/
   end
 
   class YourDevicesPage < PageModels::YourAccountPage
-    set_url "/#!/account/myDevices"
-    set_url_matcher /account\/myDevices$/
+    set_url "/#!/account/your-devices"
+    set_url_matcher /account\/your-devices/
   end
 
   register_model_caller_method(YourAccountPage)

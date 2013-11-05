@@ -105,13 +105,13 @@ module RegisterAndSignIn
     click_button('Register')
   end
 
-
   def accept_terms_and_conditions
     check('termsconditions')
   end
 
   def submit_registration_details
     click_button("Register")
+    registration_success_page.has_welcome_message? || register_page.has_errors?
   end
 
   def register_new_user
@@ -210,7 +210,7 @@ module Buy
     if (page.has_text?(:visible, 'Your saved card details'))
       click_button('Confirm & pay')
       page.has_selector?('#order-complete')
-      page.should have_content('Thanks for your order!')
+      page.has_content?('Thanks for your order!')
     end
   end
 
@@ -218,7 +218,7 @@ module Buy
     enter_new_payment_details(card_type)
     click_button('Confirm & pay')
     page.has_selector?('#order-complete')
-    page.should have_content('Thanks for your order!')
+    page.has_content?('Thanks for your order!')
   end
 
   def buy_first_book
