@@ -62,6 +62,7 @@ module RegisterAndSignIn
   end
 
   def enter_personal_details
+    expect_page_displayed("Register page")
     @email_address = generate_random_email_address
     first_name = generate_random_first_name
     last_name = generate_random_last_name
@@ -110,7 +111,7 @@ module RegisterAndSignIn
   end
 
   def submit_registration_details
-    click_button("Register")
+    register_page.register_button.click
     registration_success_page.has_welcome_message? || register_page.has_errors?
   end
 
