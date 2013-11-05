@@ -46,7 +46,6 @@ end
 
 And /^I submit registration details$/ do
   submit_registration_details
-  find('.welcome').visible?
 end
 
 When /^I enter valid sign in details$/ do
