@@ -5,10 +5,13 @@ Feature: Suggestions for user search
   I want to get suggestions when I start searching for a book or author etc
   So that I can find quickly what I am looking for.
 
-
-
   Background: Opens Blinkbox books home page
     Given I am on the home page
+
+  @smoke
+  Scenario: Search suggestions displayed
+    When I type "spring" into search field
+    Then search suggestions should be displayed
 
   @wip
   Scenario: Typing valid sequence of letters returns relevant suggestions
@@ -26,7 +29,7 @@ Feature: Suggestions for user search
      And all suggestions should contain part of "Dan Brown"
      And the last suggestion should be equal to "Dan Brown"
 
-
+  @wip
   Scenario: Typing invalid sequence of letters does not return suggestions
     When I type "#$£%^" into search field
     Then search suggestions should not be displayed
