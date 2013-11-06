@@ -7,11 +7,11 @@ Feature: Verify that search results match search criteria
   Background: Open Blinkbox books home page
     Given I am on the home page
 
-  @smoke @wip @data-dependent
+  @smoke @data-dependent
    Scenario: Search results displayed
     When I search for "spring"
-    Then search results page should be displayed
-    And page displays at least 1 search result
+    Then Search Results page is displayed
+    And at least 1 search result is shown
 
   Scenario: Exact match on author name
     When I search for "graham mort"
@@ -30,6 +30,7 @@ Feature: Verify that search results match search criteria
     Then only one matching search result should be displayed
      And book name should be "Jack Maggs"
      And author name should be "Peter Carey"
+
   @CWA-88 @wip
   Scenario: Editing search url should update search results
     When I search for "alice"

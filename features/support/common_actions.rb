@@ -1,10 +1,12 @@
 module Discover
   def search_blinkbox_books(search_word)
+    puts "Searching for books with search word '#{search_word}'"
     page.should have_selector("#term")
     fill_in('term', :with => "#{search_word}")
     page.should have_selector("button#submit_desk")
     click_button('submit_desk')
-    page.has_selector?("div.orderby") || page.has_selector?("div.noResults")
+    search_results_page.wait_for_results
+    #page.has_selector?("div.orderby") || page.has_selector?("div.noResults")
   end
 
   def click_book_details
@@ -46,12 +48,10 @@ module Discover
   end
 
   def select_buy_first_book_in_search_results
-    page.has_selector?('.book')
-    within('.grid') do
-      element= first('[class="book"]')
-      mouse_over(element)
-      click_button('BUY NOW')
-    end
+    search_results_page.should have_results
+    element = search_results_page.results.first
+    mouse_over(element)
+    element.find('button[data-test="book-buy-button"]').click
   end
 
 end
@@ -229,7 +229,6 @@ module Buy
     select_buy_first_book_in_search_results
     enter_billing_details
     pay_with_new_card('VISA')
-    click_link('Featured')
   end
 
   def returning_user_selects_a_book

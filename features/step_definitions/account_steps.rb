@@ -84,7 +84,9 @@ And /^I have a stored card$/ do
   visit('/')
   navigate_to_register_form
   register_new_user
+  registration_success_page.wait_until_displayed
   buy_first_book
+  order_complete_page.wait_until_displayed
   click_link_from_my_account_dropdown('Sign out')
   delete_cookies
   set_start_cookie_accepted

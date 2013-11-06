@@ -5,5 +5,5 @@ module PageModels
     element :welcome_label, '.welcome'
   end
 
-  register_model_caller_method(RegistrationSuccessPage)
+  register_model_caller_method(RegistrationSuccessPage, :registration_success_page)
 end
