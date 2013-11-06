@@ -53,7 +53,7 @@ Feature: Update the Personal details of the user under 'your account'
     And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
 
   @smoke  @data_dependent
-  Scenario: Update a card as default
+  Scenario: Change default card
     Given I have multiple stored cards
     And I have signed in
     And I am on the Your payments tab
