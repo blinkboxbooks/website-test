@@ -10,6 +10,7 @@ require 'site_prism'
 require 'active_support/core_ext'
 require 'rspec/expectations'
 require 'active_support'
+require 'benchmark'
 
 World(RSpec::Matchers)
 
