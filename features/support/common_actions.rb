@@ -123,9 +123,9 @@ module RegisterAndSignIn
     submit_registration_details
   end
 
-  def sign_in(email_address=@email_address)
+  def sign_in(email_address=@email_address,password=@password)
     email_address ||= 'bkm1@aa.com'
-    password = 'test1234'
+    password ||= 'test1234'
     navigate_to_sign_in_form
     submit_sign_in_details(email_address, password)
     assert_user_greeting_message_displayed(@first_name)
