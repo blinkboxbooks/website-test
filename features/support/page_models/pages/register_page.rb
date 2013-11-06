@@ -3,11 +3,29 @@ module PageModels
     set_url "/#!/register"
     set_url_matcher /register/
 
+    element :first_name, 'first_name'
+    element :last_name, 'last_name'
+    element :email, 'email'
+    element :password, 'password'
+    element :password_repeat, 'repassword'
+    element :terms_and_conditions, 'termsconditions'
     element :register_button, "button", :text => "Register"
+
     element :errors_section, "#error_signin"
 
     def has_errors?
       self.has_selector?("#error_signin")
+    end
+
+    def fill_in_personal_details(first_name, last_name, email_address)
+      self.first_name.set first_name
+      self.last_name.set last_name
+      self.email.set email_address
+    end
+
+    def fill_in_password(password)
+      self.password.set password
+      self.password_repeat.set password
     end
   end
 
