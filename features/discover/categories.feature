@@ -7,7 +7,7 @@ Feature:  Checking Categories page content
   Background: Opens Blinkbox books home page
     Given I am on the home page
     And I click on the Categories link
-    Then I should be on the Categories page
+    Then Categories page is displayed
 
   Scenario: Display Categories in Desktop Mode
     When I am viewing in Desktop mode
