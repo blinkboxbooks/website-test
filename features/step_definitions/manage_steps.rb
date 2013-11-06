@@ -68,10 +68,6 @@ And /^I confirm changes$/ do
   page.has_content?('Signing in to your account')
 end
 
-Then /^password is updated$/  do
-  assert_page_path('Personal details')
-end
-
 And /^I can sign in with the new password successfully$/ do
   click_button('Sign out')
   delete_cookies
