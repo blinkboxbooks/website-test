@@ -52,7 +52,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then there are no cards in my account
     And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
 
-  @smoke @wip
+  @smoke  @data_dependent
   Scenario: Update a card as default
     Given I have multiple stored cards
     And I have signed in
