@@ -7,6 +7,12 @@ Feature: Verify that search results match search criteria
   Background: Open Blinkbox books home page
     Given I am on the home page
 
+  @smoke @wip @data-dependent
+   Scenario: Search results displayed
+    When I search for "spring"
+    Then search results page should be displayed
+    And page displays at least 1 search result
+
   Scenario: Exact match on author name
     When I search for "graham mort"
     Then search results should be displayed
