@@ -125,7 +125,6 @@ module RegisterAndSignIn
 
   def sign_in(email_address=@email_address,password=@password)
     email_address ||= 'bkm1@aa.com'
-    #password = $new_password
     password ||= 'test1234'
     navigate_to_sign_in_form
     submit_sign_in_details(email_address, password)
