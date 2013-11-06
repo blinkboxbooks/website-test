@@ -1,5 +1,5 @@
 Then /^main footer is displayed$/ do
-  assert_main_footer_displayed
+  current_page.should have_footer
 end
 
 Then /^main footer has "(.*?)" displayed$/ do |section|

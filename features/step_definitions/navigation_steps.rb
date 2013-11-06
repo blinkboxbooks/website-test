@@ -15,10 +15,6 @@ end
 # testing main navigation
 ##############################################################
 
-Then /^I should be on the (.*?) page$/ do |page_name|
-  assert_page_path(page_name)
-end
-
 Then /^(?:the )?([-\&\w\s]*) page is displayed$/i do |page_name|
   expect_page_displayed(page_name)
 end

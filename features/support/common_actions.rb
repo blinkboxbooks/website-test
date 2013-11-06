@@ -123,7 +123,7 @@ module RegisterAndSignIn
     submit_registration_details
   end
 
-  def sign_in(email_address=@email_address,password=@password)
+  def sign_in(email_address=@email_address, password=@password)
     email_address ||= 'bkm1@aa.com'
     password ||= 'test1234'
     navigate_to_sign_in_form
@@ -188,8 +188,7 @@ module Buy
 
   def click_confirm_and_pay
     click_button('Confirm & pay')
-    page.has_selector?('#order-complete')
-    page.should have_content('Welcome to blinkbox books!')
+    expect_page_displayed("Order Complete")
   end
 
   def save_card_details()
@@ -209,17 +208,13 @@ module Buy
   def pay_with_saved_card
     #TODO: add step to click radio button
     if (page.has_text?(:visible, 'Your saved card details'))
-      click_button('Confirm & pay')
-      page.has_selector?('#order-complete')
-      page.has_content?('Thanks for your order!')
+      click_confirm_and_pay
     end
   end
 
   def pay_with_new_card(card_type)
     enter_new_payment_details(card_type)
-    click_button('Confirm & pay')
-    page.has_selector?('#order-complete')
-    page.has_content?('Thanks for your order!')
+    click_confirm_and_pay
   end
 
   def buy_first_book
