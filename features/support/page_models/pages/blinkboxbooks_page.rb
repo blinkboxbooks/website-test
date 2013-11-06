@@ -10,19 +10,25 @@ module PageModels
     section :header, Header, "div#header"
 
     def wait_until_displayed(timeout = navigation_timeout)
+      r0 = Time.now
       Timeout.timeout timeout, PageModelHelpers::TimeOutWaitingForPageToAppear do
         Capybara.using_wait_time 0 do
           sleep 0.5 while not displayed?
         end
       end
+    ensure
+      puts "Waiting for #{self.class} page to load took: #{Time.now - r0}"
     end
 
     def wait_until_not_displayed(timeout = navigation_timeout)
+      r0 = Time.now
       Timeout.timeout timeout, PageModelHelpers::TimeOutWaitingForPageToDisappear do
         Capybara.using_wait_time 0 do
           sleep 0.5 while displayed?
         end
       end
+    ensure
+      puts "Processing of #{self.class} page took: #{Time.now - r0}"
     end
   end
 
