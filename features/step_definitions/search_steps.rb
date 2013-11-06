@@ -61,7 +61,7 @@ And(/^(\d+) Bestselling books should be returned$/) do |n|
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
-  find('[data-test="header-container"]').find('[data-test="search-input"]').set(search_word)
+  fill_in('term', :with => "#{search_word}")
 end
 
 And (/^search suggestions should be displayed$/) do
@@ -105,8 +105,10 @@ end
 When (/^I search for "(.*?)"$/) do |word|
   @search_word = word
   search_blinkbox_books @search_word
+end
 
-
+And(/^at least 1 search result is shown$/) do
+  search_results_page.should have_results
 end
 
 Then /^search results should be displayed$/ do

@@ -1,9 +1,12 @@
 module Discover
   def search_blinkbox_books(search_word)
+    puts "Searching for books with search word '#{search_word}'"
+    page.should have_selector("#term")
     fill_in('term', :with => "#{search_word}")
     page.should have_selector("button#submit_desk")
     click_button('submit_desk')
-    page.has_selector?("div.orderby") || page.has_selector?("div.noResults")
+    search_results_page.wait_for_results
+    #page.has_selector?("div.orderby") || page.has_selector?("div.noResults")
   end
 
   def click_book_details
@@ -45,12 +48,10 @@ module Discover
   end
 
   def select_buy_first_book_in_search_results
-    page.has_selector?('.book')
-    within('.grid') do
-      element= first('[class="book"]')
-      mouse_over(element)
-      click_button('BUY NOW')
-    end
+    search_results_page.should have_results
+    element = search_results_page.results.first
+    mouse_over(element)
+    element.find('button[data-test="book-buy-button"]').click
   end
 
 end
@@ -62,18 +63,18 @@ module RegisterAndSignIn
   end
 
   def enter_personal_details
+    expect_page_displayed("Register")
+
     @email_address = generate_random_email_address
     first_name = generate_random_first_name
     last_name = generate_random_last_name
-    fill_form_element('first_name', first_name)
-    fill_form_element('last_name', last_name)
-    fill_form_element('email', @email_address)
+
+    register_page.fill_in_personal_details(first_name, last_name, @email_address)
     return @email_address, first_name, last_name
   end
 
   def choose_a_valid_password(value)
-    fill_form_element('password', value)
-    fill_form_element('repassword', value)
+    register_page.fill_in_password(value)
   end
 
   def update_password(current_password, new_password)
@@ -105,13 +106,13 @@ module RegisterAndSignIn
     click_button('Register')
   end
 
-
   def accept_terms_and_conditions
-    check('termsconditions')
+    register_page.terms_and_conditions.set(true)
   end
 
   def submit_registration_details
-    click_button("Register")
+    register_page.register_button.click
+    #registration_success_page.wait_for_welcome_label || register_page.wait_for_errors_section
   end
 
   def register_new_user
@@ -122,9 +123,9 @@ module RegisterAndSignIn
     submit_registration_details
   end
 
-  def sign_in(email_address=@email_address)
+  def sign_in(email_address=@email_address, password=@password)
     email_address ||= 'bkm1@aa.com'
-    password = 'test1234'
+    password ||= 'test1234'
     navigate_to_sign_in_form
     submit_sign_in_details(email_address, password)
     assert_user_greeting_message_displayed(@first_name)
@@ -187,8 +188,7 @@ module Buy
 
   def click_confirm_and_pay
     click_button('Confirm & pay')
-    page.has_selector?('#order-complete')
-    page.should have_content('Welcome to blinkbox books!')
+    expect_page_displayed("Order Complete")
   end
 
   def save_card_details()
@@ -208,17 +208,13 @@ module Buy
   def pay_with_saved_card
     #TODO: add step to click radio button
     if (page.has_text?(:visible, 'Your saved card details'))
-      click_button('Confirm & pay')
-      page.has_selector?('#order-complete')
-      page.should have_content('Thanks for your order!')
+      click_confirm_and_pay
     end
   end
 
   def pay_with_new_card(card_type)
     enter_new_payment_details(card_type)
-    click_button('Confirm & pay')
-    page.has_selector?('#order-complete')
-    page.should have_content('Thanks for your order!')
+    click_confirm_and_pay
   end
 
   def buy_first_book
@@ -228,7 +224,6 @@ module Buy
     select_buy_first_book_in_search_results
     enter_billing_details
     pay_with_new_card('VISA')
-    click_link('Featured')
   end
 
   def returning_user_selects_a_book

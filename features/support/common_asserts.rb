@@ -62,15 +62,14 @@ module AssertNavigation
     end
   end
 
-  def assert_page_path(page_name)
-    current_url.should match Regexp.new(get_page_url_path_for(page_name))
-  end
-
   def expect_page_displayed(page_name)
     page = page_model(page_name)
-    unless page.displayed?
-      raise RSpec::Expectations::ExpectationNotMetError, "Page verification failed\nExpected page: '#{page_name}' with url_matcher #{page.url_matcher}\nCurrent url: #{current_url}"
-    end
+    #unless page.displayed?
+    #  raise RSpec::Expectations::ExpectationNotMetError, "Page verification failed\n   Expected page: '#{page_name}' with url_matcher #{page.url_matcher}\n   Current url: #{current_url}"
+    #end
+    page.wait_until_displayed
+  rescue PageModelHelpers::TimeOutWaitingForPageToAppear => e
+    raise RSpec::Expectations::ExpectationNotMetError, "Page verification failed\n   Expected page: '#{page_name}' with url_matcher #{page.url_matcher}\n   Current url: #{current_url}\nTimeOutWaitingForPageToAppear: #{e.message}"
   end
 
   def assert_container (section_id)

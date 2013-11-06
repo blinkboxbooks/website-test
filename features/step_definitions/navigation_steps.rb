@@ -11,17 +11,9 @@ When /^I click on the website logo$/ do
   find('div#logo').first('a').click
 end
 
-Then /^I should return to the home page$/ do
-  current_path.should == '/'
-end
-
 ##############################################################
 # testing main navigation
 ##############################################################
-
-Then /^I should be on the (.*?) page$/ do |page_name|
-  assert_page_path(page_name)
-end
 
 Then /^(?:the )?([-\&\w\s]*) page is displayed$/i do |page_name|
   expect_page_displayed(page_name)
