@@ -25,7 +25,7 @@ environments = {
     'NODEJS-INTERNAL' => 'https://nodejs-internal.mobcastdev.com',
     'QA' => 'https://qa.mobcastdev.com',
     'STAGING' => nil,
-    'PRODUCTION' => 'https://blinkboxbooks.com'
+    'PRODUCTION' => 'https://www.blinkboxbooks.com'
 }
 TEST_CONFIG['SERVER'] ||= 'QA'
 raise "Environment is not supported: #{TEST_CONFIG['SERVER']}" if environments[TEST_CONFIG['SERVER'].upcase].nil?
