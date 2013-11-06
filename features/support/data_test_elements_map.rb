@@ -31,18 +31,19 @@ module TestElementsMap
                         'Buy Now' => 'book-buy-button',
                         'Sign in' => 'header-sign-in-link'}
 
-  PAGE_URL_PATHS = {'Categories' => '/#!/categories/',
-                    'Best sellers' => '#!/bestsellers/',
+  PAGE_URL_PATHS = {'Categories' => '/#!/categories',
+                    'Best sellers' => '#!/bestsellers',
                     'New releases' => '/#!/new',
-                    'Top free' => '#!/topfree/',
-                    'Authors' => '#!/authors/',
+                    'Top free' => '#!/topfree',
+                    'Authors' => '#!/authors',
                     'Register' => '#!/register',
                     'Sign in' => '#!/signin',
-                    'Terms and conditions' => '#!/terms_and_conditions',
+                    'Terms and conditions' => '#!/terms-conditions',
                     'Confirm & pay' => '#!/confirm',
-                    'Payment successful' => 'order_complete',
+                    'Payment successful' => 'order-complete',
                     'Account' => '#!/account',
-                    'Fantacy Fiction' => '#!/category/fantasy-fiction/'}
+                    'Fantacy Fiction' => '#!/category/fantasy-fiction',
+                    'Personal details' => '#!/account/personal-details'}
 
   TEST_CARD_NUMBERS = {'VISA' => '4111111111111111',
                        'American Express' => '3782 822463 10005',
