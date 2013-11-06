@@ -121,7 +121,7 @@ module RegisterAndSignIn
     choose_a_valid_password(@password)
     accept_terms_and_conditions
     submit_registration_details
-    registration_success_page.wait_until_displayed
+    register_page.wait_until_not_displayed
   end
 
   def sign_in(email_address=@email_address)
