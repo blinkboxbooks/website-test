@@ -1,4 +1,3 @@
-
 @suggestions @cp-275
 Feature: Suggestions for user search
   As a Blinkbox books user
