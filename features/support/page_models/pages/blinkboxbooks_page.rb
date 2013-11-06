@@ -8,15 +8,15 @@ module PageModels
     def wait_until_displayed(timeout = Capybara.default_wait_time)
       Timeout.timeout timeout, PageModelHelpers::TimeOutWaitingForPageToAppear do
         Capybara.using_wait_time 0 do
-          sleep 0.05 while not displayed?
+          sleep 0.5 while not displayed?
         end
       end
     end
 
-    def wait_until_not_displayed
+    def wait_until_not_displayed(timeout = Capybara.default_wait_time)
       Timeout.timeout timeout, PageModelHelpers::TimeOutWaitingForPageToDisappear do
         Capybara.using_wait_time 0 do
-          sleep 0.05 while displayed?
+          sleep 0.5 while displayed?
         end
       end
     end
