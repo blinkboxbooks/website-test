@@ -58,8 +58,8 @@ And /^I am on the Change your password section$/ do
 end
 
 When /^I change password$/ do
-  $new_password = 'test4321'
-  update_password(@current_password,$new_password)
+  @new_password = 'test4321'
+  update_password(@current_password,@new_password)
 end
 
 And /^I confirm changes$/ do
@@ -77,7 +77,7 @@ And /^I can sign in with the new password successfully$/ do
   delete_cookies
   set_start_cookie_accepted
   visit('/')
-  sign_in(@email_address)
+  sign_in(@email_address,@new_password)
 end
 
 When /^I delete the first card from the list$/ do
