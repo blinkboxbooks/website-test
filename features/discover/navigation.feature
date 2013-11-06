@@ -73,7 +73,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @unstable
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then Authors page is displayed

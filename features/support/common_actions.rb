@@ -187,11 +187,8 @@ module Buy
   end
 
   def click_confirm_and_pay
-    load_time = Benchmark.realtime do
-      click_button('Confirm & pay')
-      expect_page_displayed("Order Complete")
-    end
-    puts "Processing Payment Details page tool: #{load_time}"
+    click_button('Confirm & pay')
+    expect_page_displayed("Order Complete")
   end
 
   def save_card_details()
