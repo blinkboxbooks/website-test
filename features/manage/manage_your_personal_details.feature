@@ -34,13 +34,13 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And email address is as submitted
 
-  @smoke @wip
+  @smoke
   Scenario: Successfully change password
     Given I have registered as new user
     And I am on the Change your password section
     When I change password
     And I confirm changes
-    Then password is updated
+    Then Your personal details page is displayed
     And I can sign in with the new password successfully
 
   @smoke
