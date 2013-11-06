@@ -111,7 +111,7 @@ module RegisterAndSignIn
 
   def submit_registration_details
     register_page.register_button.click
-    registration_success_page.has_welcome_message? || register_page.has_errors?
+    #registration_success_page.wait_for_welcome_label || register_page.wait_for_errors_section
   end
 
   def register_new_user
