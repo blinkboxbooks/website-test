@@ -62,19 +62,18 @@ module RegisterAndSignIn
   end
 
   def enter_personal_details
-    expect_page_displayed("Register page")
+    expect_page_displayed("Register")
+
     @email_address = generate_random_email_address
     first_name = generate_random_first_name
     last_name = generate_random_last_name
-    fill_form_element('first_name', first_name)
-    fill_form_element('last_name', last_name)
-    fill_form_element('email', @email_address)
+
+    register_page.fill_in_personal_details(first_name, last_name, @email_address)
     return @email_address, first_name, last_name
   end
 
   def choose_a_valid_password(value)
-    fill_form_element('password', value)
-    fill_form_element('repassword', value)
+    register_page.fill_in_password(value)
   end
 
   def update_password(current_password, new_password)
@@ -107,12 +106,12 @@ module RegisterAndSignIn
   end
 
   def accept_terms_and_conditions
-    check('termsconditions')
+    register_page.terms_and_conditions.set(true)
   end
 
   def submit_registration_details
     register_page.register_button.click
-    registration_success_page.has_welcome_message? || register_page.has_errors?
+    #registration_success_page.wait_for_welcome_label || register_page.wait_for_errors_section
   end
 
   def register_new_user

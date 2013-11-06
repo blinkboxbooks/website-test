@@ -10,12 +10,12 @@ Feature: Navigation around the website
   @smoke @production
   Scenario: Clicking on the website logo
     When I click on the website logo
-    Then I should return to the home page
+    Then Home page is displayed
 
   @smoke @production
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books link
-    Then I should return to the home page
+    Then Home page is displayed
 
   @smoke @wip @production
   Scenario: Clicking on the Sitemap link

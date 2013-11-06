@@ -11,10 +11,6 @@ When /^I click on the website logo$/ do
   find('div#logo').first('a').click
 end
 
-Then /^I should return to the home page$/ do
-  current_path.should == '/'
-end
-
 ##############################################################
 # testing main navigation
 ##############################################################
