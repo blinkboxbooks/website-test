@@ -58,16 +58,18 @@ And /^I am on the Change your password section$/ do
 end
 
 When /^I change password$/ do
-  @new_password = 'test4321'
-  update_password(@current_password,@new_password)
+  $new_password = 'test4321'
+  update_password(@current_password,$new_password)
 end
 
 And /^I confirm changes$/ do
   click_button('Confirm')
+  page.has_selector?('#ind_details')
+  page.has_content?('Signing in to your account')
 end
 
 Then /^password is updated$/  do
-  pending # Submit password change is not available yet.
+  assert_page_path('Personal details')
 end
 
 And /^I can sign in with the new password successfully$/ do
@@ -75,8 +77,7 @@ And /^I can sign in with the new password successfully$/ do
   delete_cookies
   set_start_cookie_accepted
   visit('/')
-  sign_in(@email_address,@new_password)
-  assert_first_name(@first_name)
+  sign_in(@email_address)
 end
 
 When /^I delete the first card from the list$/ do
