@@ -1,5 +1,6 @@
 module Discover
   def search_blinkbox_books(search_word)
+    page.should have_selector("#term")
     fill_in('term', :with => "#{search_word}")
     page.should have_selector("button#submit_desk")
     click_button('submit_desk')
@@ -120,6 +121,7 @@ module RegisterAndSignIn
     choose_a_valid_password(@password)
     accept_terms_and_conditions
     submit_registration_details
+    registration_success_page.wait_until_displayed
   end
 
   def sign_in(email_address=@email_address)
