@@ -34,7 +34,7 @@ Feature: Navigating through my account pages
     Then Your devices page is displayed
     And Your devices tab is selected
 
-  @wip
+  @pending
   Scenario: Click Got any questions links under Order & payment history
     Given I have signed in
     And I am on the Order & payment history tab
@@ -47,14 +47,11 @@ Feature: Navigating through my account pages
     When I click How do I read books in the app? link
     Then How do I read books in the app? support page opens up in a new window
 
-  @wip
+  @pending
   Scenario: Click Got any questions links under Your personal details
     Given I have signed in
     And I am on the Your personal details tab
     When I click View all FAQs link
-    Then support home page opens in new tab
-    When I click View all FAQs link
-    Then support home page opens up in a new window
     When I click How do I change my billing address? link
     Then How do I change my billing address? support page opens up in a new window
     When I click How can I earn Tesco Clubcard points? link
@@ -62,12 +59,10 @@ Feature: Navigating through my account pages
     When I click Can I delete my blinkbox books account? link
     Then Can I delete my blinkbox books account? support page opens up in a new window
 
-  @wip
+  @pending
   Scenario: Click Got any questions links under Your payments
     Given I have signed in
     And I am on the Your payments tab
-    When I click View all FAQs link
-    Then support home page opens in new tab
     When I click View all FAQs link
     Then support home page opens up in a new window
     When I click How do I add a new payment method? link
@@ -77,12 +72,10 @@ Feature: Navigating through my account pages
     When I click Do you accept gift cards? link
     Then Do you accept gift cards? support page opens up in a new window
 
-  @wip
+  @pending
   Scenario: Click Got any questions links under Your devices
     Given I have signed in
     And I am on the Your devices tab
-    When I click View all FAQs link
-    Then support home page opens in new tab
     When I click View all FAQs link
     Then support home page opens up in a new window
     When I click What devices can I use to read my books? link
