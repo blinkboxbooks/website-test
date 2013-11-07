@@ -56,35 +56,36 @@ require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
 
-# ======== set up browser driver =======
-Capybara.default_driver = :selenium
-Capybara.default_wait_time = 5
-
-#overriding the default native events settings for Selenium.
-#This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app,
-                                 :desired_capabilities => {:native_events => false})
-end
-
 ARGV.each do |a|
   puts "Argument: #{a}"
 end
 
+# ======== set up browser driver =======
+# Capybara browser driver settings
+Capybara.default_driver = :selenium
+Capybara.default_wait_time = 5
+
+# target browser
+TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
+TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
+caps = case TEST_CONFIG['BROWSER_NAME'].downcase
+         when 'firefox', 'safari', 'ie', 'chrome'
+           Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
+         when 'htmlunit'
+           Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
+         else
+           raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
+       end
+browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
+
+caps.version = TEST_CONFIG['BROWSER_VERSION']
+
+# Overriding the default native events settings for Selenium.
+# This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
+caps.native_events=false
+
 # grid setup
 if TEST_CONFIG['GRID'] =~ /^true|on$/i
-
-  # target browser
-  TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
-  TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
-  caps = case TEST_CONFIG['BROWSER_NAME'].downcase
-           when 'firefox', 'safari', 'ie', 'chrome'
-             Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
-           when 'htmlunit'
-             Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
-           else
-             raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
-         end
 
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'MAC'
@@ -95,11 +96,6 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
                       raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
                   end
 
-  caps.version = TEST_CONFIG['BROWSER_VERSION']
-  # Overriding the default native events settings for Selenium.
-  # This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
-  caps.native_events=false
-
   # register the remote driver
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app,
@@ -107,6 +103,13 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
                                    :url => "http://selenium.mobcastdev.local:4444/wd/hub",
                                    :desired_capabilities => caps)
   end
-end
 
-#Capybara.default_wait_time = 10
+else
+  # register local browser driver
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app,
+                                   :browser => browser_name,
+                                   :desired_capabilities => caps)
+  end
+
+end
