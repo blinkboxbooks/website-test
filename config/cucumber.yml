@@ -1,15 +1,15 @@
 <% ci_opts = " -r features --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --format progress -o results/progress.log --format junit -o results/junit/ --format Cucumber::Formatter::HtmlCustomFormatter -o results/features_report.html --format pretty "  %>
-<% grid_opts = " GRID=true PLATFORM=WINDOWS BROWSER_NAME=firefox " %>
+<% grid_opts_nodejs =     " GRID=true PLATFORM=WINDOWS BROWSER_NAME=firefox " %>
+<% grid_opts_qa =         " GRID=true PLATFORM=VISTA BROWSER_NAME=firefox " %>
+<% grid_opts_production = " GRID=true PLATFORM=XP BROWSER_NAME=firefox " %>
 
-default: -p local_debug
-local_debug: -r features --tags ~@wip GRID=false SERVER=QA DEBUG=true
-local: -r features --tags ~@wip GRID=false SERVER=QA --no-multiline -i -s --format progress
-jenkins: -r features --tags ~@wip GRID=true SERVER=NODEJS-INTERNAL PLATFORM=MAC BROWSER_NAME=safari BROWSER_VERSION=6.0.4 --no-color  --format progress -o log/features.log --format junit -o log/ --format html -o log/features.html --format pretty
+default:              -p local_debug
+local_debug:          -r features --tags ~@wip GRID=false SERVER=QA DEBUG=true
 
-ci-no-grid: <%= ci_opts %>
-ci-smoke-nodejs: <%= ci_opts %> <%= grid_opts %> --tags @smoke SERVER=NODEJS-INTERNAL
-ci-smoke-qa: <%= ci_opts %> <%= grid_opts %> --tags @smoke SERVER=QA
-ci-smoke-production: <%= ci_opts %> <%= grid_opts %> --tags @smoke --tags @production SERVER=PRODUCTION
+ci-no-grid:           <%= ci_opts %>
+ci-smoke-nodejs:      <%= ci_opts %> <%= grid_opts_nodejs %> --tags @smoke SERVER=NODEJS-INTERNAL
+ci-smoke-qa:          <%= ci_opts %> <%= grid_opts_qa %> --tags @smoke SERVER=QA
+ci-smoke-production:  <%= ci_opts %> <%= grid_opts_production %> --tags @smoke --tags @production SERVER=PRODUCTION
 
 #mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
 #mac-firefox: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
