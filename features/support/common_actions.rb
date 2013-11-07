@@ -187,6 +187,7 @@ module Buy
   end
 
   def click_confirm_and_pay
+    page.should have_selector("button", :text => "Confirm & pay")
     click_button('Confirm & pay')
     expect_page_displayed("Order Complete")
   end
