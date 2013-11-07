@@ -231,3 +231,7 @@ end
 And /^I am able to read the sample of corresponding book$/ do
   read_sample_book
 end
+
+When /^I click (.*?) link$/ do |link_name|
+  click_link(link_name)
+end
