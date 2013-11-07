@@ -73,10 +73,10 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production @unstable
+  @smoke @production
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
-    Then Authors page is displayed
+    Then I should be on the Authors page
     And Best selling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
