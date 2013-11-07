@@ -10,17 +10,17 @@ Feature: Navigation around the website
   @smoke @production
   Scenario: Clicking on the website logo
     When I click on the website logo
-    Then I should return to the home page
+    Then Home page is displayed
 
   @smoke @production
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books link
-    Then I should return to the home page
+    Then Home page is displayed
 
   @smoke @wip @production
   Scenario: Clicking on the Sitemap link
     When I click on the Sitemap link
-    Then I should be on the Sitemap page
+    Then Sitemap page is displayed
 
   @smoke @production
   Scenario: Navigating to the help site from the footer
@@ -40,18 +40,18 @@ Feature: Navigation around the website
   @smoke @production
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions link
-    Then I should be on the Terms and conditions page
+    Then Terms and conditions page is displayed
 
   @smoke @production
   Scenario: Navigate to categories page
     When I click on the Categories header tab
-    Then I should be on the Categories page
+    Then Categories page is displayed
     And main footer is displayed
 
   @CWA-71 @smoke @production
   Scenario: Navigate to Best sellers page
     When I click on the Best sellers header tab
-    Then I should be on the Best sellers page
+    Then Best sellers page is displayed
     And Best sellers section header is Best sellers Top 100 this month
     And I should see 'Fiction' and 'Non-Fiction' tabs
     And Grid view and List view buttons displayed
@@ -60,7 +60,7 @@ Feature: Navigation around the website
   @smoke @production
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
-    Then I should be on the New releases page
+    Then New releases page is displayed
     And New releases section header is New releases in the last 30 days
     And Grid view and List view buttons displayed
     And main footer is displayed
@@ -98,6 +98,8 @@ Feature: Navigation around the website
     Then details page of the corresponding book is displayed
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
+
+
 
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any
@@ -138,14 +140,14 @@ Feature: Navigation around the website
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
     When I click on the Best sellers link
-    Then I should be on the Best sellers page
+    Then Best sellers page is displayed
     And  I select list view
     Then long titles should be displayed in two lines
 
   @CWA-34  @manual
   Scenario:Book Component-Grid view Title display
     When I click on the Best sellers link
-    Then I should be on the Best sellers page
+    Then Best sellers page is displayed
     And  I select grid view
     Then long titles should be truncated to fit within image
 
@@ -167,14 +169,14 @@ Feature: Navigation around the website
   @CWA-71 @wip
   Scenario: Promotable category-All time best selling books
     When I click on the Best sellers link
-    Then I should be on the Best sellers page
+    Then Best sellers page is displayed
     And I should see Promotions section header as All time best selling books
     And I should see 5 books being displayed
 
   @CWA-71
   Scenario: Best sellers page - Switching views
     When I click on the Best sellers link
-    Then I should be on the Best sellers page
+    Then Best sellers page is displayed
     And I select grid view
     Then I should see Fiction books in gird view
     And I select list view
@@ -183,7 +185,7 @@ Feature: Navigation around the website
   @CWA-71
   Scenario: Best sellers page - Grid view not changing between tabs
     When I click on the Best sellers link
-    Then I should be on the Best sellers page
+    Then Best sellers page is displayed
     And I select grid view
     Then I should see Fiction books in gird view
     And I click on Non-Fiction tab
@@ -192,7 +194,7 @@ Feature: Navigation around the website
   @CWA-71
   Scenario: Best sellers page - List view not changing between tabs
     When I click on the Best sellers link
-    Then I should be on the Best sellers page
+    Then Best sellers page is displayed
     And I select list view
     Then I should see Fiction books in list view
     And I click on Non-Fiction tab

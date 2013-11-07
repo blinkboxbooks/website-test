@@ -13,7 +13,7 @@ Feature: New user buying book from Blinkbox Books
     And I enter valid <card_type> card details
     And I enter valid Billing address
     And I confirm my payment details
-    Then I should be on the Payment successful page
+    Then Order Complete page is displayed
 
   @smoke
   Examples: VISA

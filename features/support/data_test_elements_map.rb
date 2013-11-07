@@ -31,19 +31,6 @@ module TestElementsMap
                         'Buy Now' => 'book-buy-button',
                         'Sign in' => 'header-sign-in-link'}
 
-  PAGE_URL_PATHS = {'Categories' => '/#!/categories/',
-                    'Best sellers' => '#!/bestsellers/',
-                    'New releases' => '/#!/new',
-                    'Top free' => '#!/topfree/',
-                    'Authors' => '#!/authors/',
-                    'Register' => '#!/register',
-                    'Sign in' => '#!/signin',
-                    'Terms and conditions' => '#!/terms_and_conditions',
-                    'Confirm & pay' => '#!/confirm',
-                    'Payment successful' => 'order_complete',
-                    'Account' => '#!/account',
-                    'Fantacy Fiction' => '#!/category/fantasy-fiction/'}
-
   TEST_CARD_NUMBERS = {'VISA' => '4111111111111111',
                        'American Express' => '3782 822463 10005',
                        'Mastercard' => '5555555555554444',
@@ -56,13 +43,6 @@ module TestElementsMap
       return DATA_TEST_ELEMENTS[element_name]
     end
     element_name
-  end
-
-  def get_page_url_path_for(page_name)
-    if PAGE_URL_PATHS.key?(page_name)
-      return PAGE_URL_PATHS[page_name]
-    end
-    page_name
   end
 
   def get_card_number_by_type(card_type)

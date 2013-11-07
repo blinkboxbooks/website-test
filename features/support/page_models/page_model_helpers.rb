@@ -33,6 +33,10 @@ module PageModelHelpers
     end
     PageModels.const_get("#{page_class}").new
   end
+
+  # Additional timeout exceptions for page models
+  class TimeOutWaitingForPageToAppear < StandardError; end
+  class TimeOutWaitingForPageToDisappear < StandardError; end
 end
 
 module PageModels

@@ -64,10 +64,8 @@ end
 
 And /^I confirm changes$/ do
   click_button('Confirm')
-end
-
-Then /^password is updated$/  do
-  pending # Submit password change is not available yet.
+  page.has_selector?('#ind_details')
+  page.has_content?('Signing in to your account')
 end
 
 And /^I can sign in with the new password successfully$/ do
@@ -76,7 +74,6 @@ And /^I can sign in with the new password successfully$/ do
   set_start_cookie_accepted
   visit('/')
   sign_in(@email_address,@new_password)
-  assert_first_name(@first_name)
 end
 
 When /^I delete the first card from the list$/ do

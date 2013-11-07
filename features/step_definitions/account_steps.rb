@@ -46,7 +46,6 @@ end
 
 And /^I submit registration details$/ do
   submit_registration_details
-  find('.welcome').visible?
 end
 
 When /^I enter valid sign in details$/ do
@@ -85,7 +84,9 @@ And /^I have a stored card$/ do
   visit('/')
   navigate_to_register_form
   register_new_user
+  expect_page_displayed("Registration Success")
   buy_first_book
+  expect_page_displayed("Order Complete")
   click_link_from_my_account_dropdown('Sign out')
   delete_cookies
   set_start_cookie_accepted
