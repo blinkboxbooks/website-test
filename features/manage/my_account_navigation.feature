@@ -34,6 +34,58 @@ Feature: Navigating through my account pages
     Then Your devices page is displayed
     And Your devices tab is selected
 
+  @pending
+  Scenario Outline: Click Got any questions links under Order & payment history
+    Given I have signed in
+    And I am on the Order & payment history tab
+    When I click <got_questions> link
+    Then I am redirected to corresponding <support_page> page in a new window
+  Examples:
+    | got_questions                            | support_page                             |
+    | View all FAQs                            | support home                             |
+    | What devices can I use to read my books? | What devices can I use to read my books? |
+    | I bought a book but can't find it        | I bought a book but can't find it        |
+    | How do I read books in the app?          | How do I read books in the app?          |
+
+  @pending
+  Scenario Outline: Click Got any questions links under Your personal details
+    Given I have signed in
+    And I am on the Your personal details tab
+    When I click <got_questions> link
+    Then I am redirected to corresponding <support_page> page in a new window
+  Examples:
+    | got_questions                           | support_page                            |
+    | View all FAQs                           | support home                            |
+    | How do I change my billing address?     | How do I change my billing address?     |
+    | How can I earn Tesco Clubcard points?   | How can I earn Tesco Clubcard points?   |
+    | Can I delete my blinkbox books account? | Can I delete my blinkbox books account? |
+
+  @pending
+  Scenario Outline: Click Got any questions links under Your payments
+    Given I have signed in
+    And I am on the Your payments tab
+    When I click <got_questions> link
+    Then I am redirected to corresponding <support_page> page in a new window
+  Examples:
+    | got_questions                      | support_page                       |
+    | View all FAQs                      | support home                       |
+    | How do I add a new payment method? | How do I add a new payment method? |
+    | What are my payment options?       | What are my payment options?       |
+    | Do you accept gift cards?          | Do you accept gift cards?          |
+
+  @pending
+  Scenario Outline: Click Got any questions links under Your devices
+    Given I have signed in
+    And I am on the Your devices tab
+    When I click <got_questions> link
+    Then I am redirected to corresponding <support_page> page in a new window
+  Examples:
+    | got_questions                            | support_page                             |
+    | View all FAQs                            | support home                             |
+    | What devices can I use to read my books? | What devices can I use to read my books? |
+    | How do I download the app?               | How do I download the app?               |
+    | Problems installing the app              | Problems installing the app              |
+
 
 
 
