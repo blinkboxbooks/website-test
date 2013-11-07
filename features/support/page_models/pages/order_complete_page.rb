@@ -3,7 +3,7 @@ module PageModels
     set_url_matcher /order-complete/
 
     def navigation_timeout
-      15
+      30
     end
   end
 

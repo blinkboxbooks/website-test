@@ -187,6 +187,7 @@ module Buy
   end
 
   def click_confirm_and_pay
+    page.should have_selector("button", :text => "Confirm & pay")
     click_button('Confirm & pay')
     expect_page_displayed("Order Complete")
   end
@@ -197,7 +198,7 @@ module Buy
 
   def click_buy_now_best_seller_book
     click_link "Best sellers"
-    #click_link_or_button(get_element_id_for('Best sellers'))
+    page.has_selector?('.bookList')
     within('.bookList') do
       element= first('[class="book featured"]')
       mouse_over(element)
