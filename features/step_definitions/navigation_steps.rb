@@ -76,7 +76,11 @@ And /^main header tabs should not be selected$/ do
       ((li[:class]).include?("current")).should == false
     end
   end
+end
 
+Then /^I should be on the Authors page$/ do
+  current_page.has_selector?("#featured_authors")
+  expect_page_displayed("Authors")
 end
 
 And /^footer is displayed$/ do
