@@ -70,13 +70,14 @@ TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
 TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
 caps = case TEST_CONFIG['BROWSER_NAME'].downcase
          when 'firefox', 'safari', 'ie', 'chrome'
+           browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
            Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
-         when 'htmlunit'
-           Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
+         #TODO: investigate and introduce a reliable headless driver for blinkboxbooks webstie testing
+         #when 'htmlunit', 'webkit', 'poltergeist' #headless mode
+         #  Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
          else
            raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
        end
-browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
 
 caps.version = TEST_CONFIG['BROWSER_VERSION']
 
