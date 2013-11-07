@@ -79,7 +79,9 @@ And /^main header tabs should not be selected$/ do
 end
 
 Then /^I should be on the Authors page$/ do
-  current_page.has_selector?("#featured_authors")
+  Capybara.using_wait_time 15 do
+    current_page.has_selector?("#featured_authors")
+  end
   expect_page_displayed("Authors")
 end
 
