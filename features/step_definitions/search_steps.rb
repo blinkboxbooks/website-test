@@ -108,6 +108,8 @@ When (/^I search for "(.*?)"$/) do |word|
 end
 
 And(/^at least 1 search result is shown$/) do
+  page.has_selector?("div.itemsets")
+  search_results_page.has_results?
   search_results_page.should have_results
 end
 
