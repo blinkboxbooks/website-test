@@ -15,7 +15,7 @@ Feature: Navigation around the website
   @smoke @production
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books link
-    Then Home page is displayed
+    Then About Blinkbox Books page is displayed
 
   @smoke @wip @production
   Scenario: Clicking on the Sitemap link
