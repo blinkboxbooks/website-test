@@ -7,7 +7,7 @@ Feature: Verify that search results match search criteria
   Background: Open Blinkbox books home page
     Given I am on the home page
 
-  @smoke @data-dependent
+  @smoke @data-dependent @production
    Scenario: Search results displayed
     When I search for "spring"
     Then Search Results page is displayed
