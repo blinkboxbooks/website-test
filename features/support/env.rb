@@ -51,7 +51,9 @@ require_and_log Dir[File.join(support_dir, 'core_ruby_overrides.rb')]
 
 puts "Loading page models..."
 require_and_log Dir[File.join(support_dir, 'page_models', '*.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbooks_section.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
 
 ARGV.each do |a|
