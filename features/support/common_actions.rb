@@ -5,8 +5,7 @@ module Discover
     fill_in('term', :with => "#{search_word}")
     page.should have_selector("button#submit_desk")
     click_button('submit_desk')
-    search_results_page.wait_for_results
-    #page.has_selector?("div.orderby") || page.has_selector?("div.noResults")
+    search_results_page.wait_for_books
   end
 
   def click_book_details
@@ -48,10 +47,17 @@ module Discover
   end
 
   def select_buy_first_book_in_search_results
-    search_results_page.should have_results
-    element = search_results_page.results.first
-    mouse_over(element)
-    element.find('button[data-test="book-buy-button"]').click
+    search_results_page.should have_books
+    found = false
+    search_results_page.books.each do |book|
+      if book.first('button[data-test="book-buy-button"]', :visible => false)
+        mouse_over(book)
+        book.first('button[data-test="book-buy-button"]').click
+        found = true
+        break
+      end
+    end
+    raise "Unable to find a purchasable book in the search results" unless found
   end
 
 end

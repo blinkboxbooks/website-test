@@ -17,7 +17,7 @@ module PageModels
         end
       end
     ensure
-      puts "Load time of #{self.class.name.split('::').last}: #{Time.now - r0} sec"
+      puts "Load time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
     end
 
     def wait_until_not_displayed(timeout = navigation_timeout)
@@ -28,7 +28,7 @@ module PageModels
         end
       end
     ensure
-      puts "Processing time of #{self.class.name.split('::').last}: #{Time.now - r0} sec"
+      puts "Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
     end
   end
 
