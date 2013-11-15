@@ -237,3 +237,6 @@ end
 When /^I click \"(.*?)\" FAQ link$/ do |link_name|
   click_link(link_name)
 end
+
+
+
