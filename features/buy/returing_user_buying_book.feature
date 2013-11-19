@@ -6,7 +6,7 @@ Feature: Returning buying book from Blinkbox Books
   Background:
     Given I have a stored card
 
-  @smoke @regression
+  @smoke @regression @unstable
   Scenario: Returning logged in user buying book with saved payment card
     Given I have signed in
     When I have identified the book to buy
@@ -14,6 +14,7 @@ Feature: Returning buying book from Blinkbox Books
     Then Order Complete page is displayed
 
   @smoke @regression
+  @unstable
   Scenario: Returning user not logged in buying book with saved payment card
     Given I am not signed in
     When I have identified the book to buy
