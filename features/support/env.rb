@@ -17,7 +17,14 @@ World(RSpec::Matchers)
 # ======= Setup Test Config =======
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
-puts "TEST_CONFIG: #{TEST_CONFIG}" if TEST_CONFIG["debug"]
+TEST_CONFIG["fail_fast"] = !!(TEST_CONFIG["FAIL_FAST"] =~ /^on|true$/i)
+if TEST_CONFIG["debug"]
+  ARGV.each do |a|
+    puts "Argument: #{a}"
+  end
+  puts "TEST_CONFIG: #{TEST_CONFIG}"
+end
+
 
 # ======= Setup target environment =======
 #TODO: move into config/environments.yml once more environments are added
@@ -55,10 +62,6 @@ require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbook
 require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
-
-ARGV.each do |a|
-  puts "Argument: #{a}"
-end
 
 # ======== set up browser driver =======
 # Capybara browser driver settings
