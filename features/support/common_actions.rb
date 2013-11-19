@@ -198,6 +198,12 @@ module Buy
     expect_page_displayed("Order Complete")
   end
 
+  def click_confirm_order
+    page.should have_selector("button", :text => "Confirm order")
+    click_button('Confirm & pay')
+    expect_page_displayed("Order Complete")
+  end
+
   def save_card_details()
     check('save_details')
   end
@@ -233,11 +239,15 @@ module Buy
     pay_with_new_card('VISA')
   end
 
-  def returning_user_selects_a_book
-    search_blinkbox_books('summer')
+  def returning_user_selects_a_book(search_word)
+    search_blinkbox_books(search_word)
     #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
+  end
+
+  def click_pay_with_new_card
+    click_button('Pay with a new card')
   end
 
 end

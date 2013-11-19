@@ -86,7 +86,6 @@ And /^I have a stored card$/ do
   register_new_user
   expect_page_displayed("Registration Success")
   buy_first_book
-  expect_page_displayed("Order Complete")
   click_link_from_my_account_dropdown('Sign out')
   delete_cookies
   set_start_cookie_accepted
