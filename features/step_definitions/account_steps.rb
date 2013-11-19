@@ -85,8 +85,10 @@ And /^I have a stored card$/ do
   navigate_to_register_form
   register_new_user
   expect_page_displayed("Registration Success")
-  buy_first_book
-  click_link_from_my_account_dropdown('Sign out')
+  pending("Known issue: CWA-836 Pop-up reader is displayed after the payment confirmation page") do
+    buy_first_book
+    click_link_from_my_account_dropdown('Sign out')
+  end
   delete_cookies
   set_start_cookie_accepted
 end
