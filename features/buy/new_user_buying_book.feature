@@ -12,7 +12,7 @@ Feature: New user buying book from Blinkbox Books
     When I register to proceed with purchase
     And I enter valid <card_type> card details
     And I enter valid Billing address
-    And I confirm my payment details
+    And I submit payment details
     Then Order Complete page is displayed
 
   @smoke @regression
@@ -32,7 +32,7 @@ Feature: New user buying book from Blinkbox Books
     And I enter valid <card_type> card details
     And I enter valid Billing address
     And I choose not to save the payment details
-    And I confirm my payment details
+    And I submit payment details
     Then Order Complete page is displayed
 
   @smoke @regression
