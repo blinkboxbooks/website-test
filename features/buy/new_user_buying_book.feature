@@ -14,7 +14,7 @@ Feature: New user buying book from Blinkbox Books
     And I enter valid Billing address
     And I choose to save payment details
     And I submit payment details
-    Then Order Complete page is displayed
+    Then my payment is successful
 
   @smoke
   Examples: VISA
@@ -34,7 +34,7 @@ Feature: New user buying book from Blinkbox Books
     And I enter valid Billing address
     And I choose not to save payment details
     And I submit payment details
-    Then Order Complete page is displayed
+    Then my payment is successful
 
   @smoke
   Examples: VISA
