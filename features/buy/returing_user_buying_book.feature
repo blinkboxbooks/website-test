@@ -31,7 +31,6 @@ Feature: Returning buying book from Blinkbox Books
 
   Examples: Card types
     | card_type        |
-    | VISA             |
     | Mastercard       |
     | American Express |
     | VISA Debit       |
@@ -46,6 +45,7 @@ Feature: Returning buying book from Blinkbox Books
 
   Examples: Card types
     | card_type  |
+    | VISA       |
     | Mastercard |
 
   Scenario: Returning user logged in buying a free book

@@ -31,7 +31,7 @@ And /^I choose not to save the payment details$/ do
 end
 
 And /^I have identified a free book to buy$/ do
-  returning_user_selects_a_book('Free')
+  returning_user_selects_a_book('free')
 end
 
 When /^I click Confirm order$/ do
@@ -49,13 +49,17 @@ When /^I pay with a new (.*?) card$/ do |card_type|
   enter_billing_details
 end
 
-And /^I choose (to save|not to save) new payment details$/ do |save_payment|
-  uncheck('save_details') if save_payment.eql?('not to save')
-  save_card_details if save_payment.eql?('to save')
+And /^I choose (to save|not to save)(?: new)? payment details$/ do |save_payment|
+  if save_payment.include?('not')
+    choose_not_to_save_card_details
+  else
+    choose_to_save_card_details
+  end
+
 end
 
 Then /^my payment is successful$/ do
   expect_page_displayed('order complete')
-  find('#order-complete').should have_content("Thanks for your order!")
+  assert_order_complete_message
 end
 
