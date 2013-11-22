@@ -80,16 +80,14 @@ module PageModels
     end
 
     def choose_to_save_card_details()
-      save_card = find('#save_details')
-      unless save_card.checked?
-        check('save_details')
+      unless confirm_and_pay_page.save_card.checked?
+        confirm_and_pay_page.save_card.click
       end
     end
 
     def choose_not_to_save_card_details()
-      save_card = find('#save_details')
-      if save_card.checked?
-        uncheck('save_details')
+      if confirm_and_pay_page.save_card.checked?
+        confirm_and_pay_page.save_card.click
       end
     end
 

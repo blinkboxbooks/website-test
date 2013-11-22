@@ -49,10 +49,10 @@ Feature: Returning buying book from Blinkbox Books
   Scenario: Returning user logged in buying a free book
     Given I am buying a free book as a logged in user
     When I click Confirm order
-    Then Order Complete page is displayed
+    Then my payment is successful
 
   Scenario: Returning user not logged in buying a free book
     Given I am buying a free book as a not logged in user
     And I sign in to proceed with purchase
     When I click Confirm order
-    Then Order Complete page is displayed
+    Then my payment is successful
