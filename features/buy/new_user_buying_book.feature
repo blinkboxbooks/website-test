@@ -1,6 +1,6 @@
 @buy
-Feature: New user buying book from Blinkbox Books
-  As a Guest user of Blinkbox books
+Feature: New user buying book from blinkbox books
+  As a Guest user of blinkbox books
   I want to the ability to complete register and buy book in one flow
   So that I can read it
 
@@ -14,7 +14,7 @@ Feature: New user buying book from Blinkbox Books
     And I enter valid Billing address
     And I choose to save payment details
     And I submit payment details
-    Then Order complete page is displayed
+    Then my payment is successful
 
   @smoke
   Examples: VISA
@@ -34,7 +34,7 @@ Feature: New user buying book from Blinkbox Books
     And I enter valid Billing address
     And I choose not to save payment details
     And I submit payment details
-    Then Order complete page is displayed
+    Then my payment is successful
 
   @smoke
   Examples: VISA

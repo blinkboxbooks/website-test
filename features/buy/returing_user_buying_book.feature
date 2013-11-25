@@ -1,7 +1,7 @@
 @buy
-Feature: Returning buying book from Blinkbox Books
-  As a Guest user of Blinkbox books
-  I want to the ability to complete register and buy book in one flow
+Feature: Returning buying book from blinkbox books
+  As a returning user of blinkbox books
+  I want to the ability to sign in and buy a book
   So that I can read it
 
   Background:
