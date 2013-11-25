@@ -92,6 +92,10 @@ module AssertNavigation
     end
   end
 
+  def assert_order_complete_message
+    find('#order-complete').should have_content("Thanks for your order!")
+  end
+
 end
 
 module AssertSearch

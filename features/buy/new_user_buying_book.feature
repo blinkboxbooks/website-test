@@ -12,14 +12,15 @@ Feature: New user buying book from Blinkbox Books
     When I register to proceed with purchase
     And I enter valid <card_type> card details
     And I enter valid Billing address
-    And I confirm my payment details
-    Then Order Complete page is displayed
+    And I choose to save payment details
+    And I submit payment details
+    Then Order complete page is displayed
 
-  @smoke @regression
+  @smoke
   Examples: VISA
     | card_type |
     | VISA      |
-  @regression
+
   Examples: Other card types
     | card_type        |
     | Mastercard       |
@@ -31,26 +32,25 @@ Feature: New user buying book from Blinkbox Books
     When I register to proceed with purchase
     And I enter valid <card_type> card details
     And I enter valid Billing address
-    And I choose not to save the payment details
-    And I confirm my payment details
-    Then Order Complete page is displayed
+    And I choose not to save payment details
+    And I submit payment details
+    Then Order complete page is displayed
 
-  @smoke @regression
+  @smoke
   Examples: VISA
     | card_type |
     | VISA      |
-  @regression
+
   Examples: Other card types
     | card_type        |
     | Mastercard       |
     | American Express |
     | VISA Debit       |
 
-  @regression
   Scenario: First time user buying a free book
     Given I have identified a free book to buy
     And I register to proceed with purchase
     When I click Confirm order
-    Then Order Complete page is displayed
+    Then my payment is successful
 
 
