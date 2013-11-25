@@ -38,7 +38,7 @@ When /^I click Confirm order$/ do
   click_confirm_order
 end
 
-Given /^I am buying a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
+Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
 
   if login_status.eql?('logged')
     sign_in
@@ -68,6 +68,6 @@ end
 
 Then /^my payment is successful$/ do
   expect_page_displayed('order complete')
-  assert_order_complete_message
+  assert_order_complete
 end
 
