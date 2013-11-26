@@ -1,5 +1,5 @@
 Given /^I am a guest user$/ do
-  delete_cookies
+  log_out_current_session
   set_start_cookie_accepted
 end
 
@@ -87,7 +87,7 @@ And /^I have a stored card$/ do
   expect_page_displayed("Registration Success")
   buy_first_book
   click_link_from_my_account_dropdown('Sign out')
-  delete_cookies
+  log_out_current_session
   set_start_cookie_accepted
 end
 

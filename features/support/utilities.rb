@@ -1,18 +1,4 @@
-module WebUtilities
-
-  def find_a_text selector, type
-    within(selector) do
-      case type
-        when 'author'
-          @actual_text = find('[data-test="book-authors"]')[:title]
-
-        when 'title'
-          @actual_text= find('[data-test="book-title"]')[:title]
-      end
-    end
-    return @actual_text
-  end
-
+module Utilities
   def generate_random_email_address
     first_part = 'cucumber_test'
     last_part = '@mobcastdev.com'
@@ -31,23 +17,50 @@ module WebUtilities
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
     return first_part + last_part
   end
+end
 
-  def set_cookie(name, value)
+module WebUtilities
+
+  def cookie_manager
     case Capybara.current_session.driver
       when Capybara::Selenium::Driver
-        page.driver.browser.manage.add_cookie(:name => name, :value => value)
+        cookie_manager = page.driver.browser.manage
       else
         raise "no cookie-setter implemented for driver #{Capybara.current_session.driver.class.name}"
     end
+    cookie_manager
   end
 
-  def delete_cookies
+  def get_cookie(name)
+    cookie_manager.cookie_named('access_token')
+  end
+
+  def set_cookie(name, value)
+    cookie_manager.add_cookie(:name => name, :value => value)
+  end
+
+  def delete_cookie(name)
+    cookie_manager.delete_cookie(name)
+  end
+
+  def delete_all_cookies
+    reset_session
+  end
+
+  def reset_session!
     Capybara.current_session.reset_session!
   end
 
-  def delete_access_token_cookie
-    Capybara.current_session.driver.browser.manage.delete_cookie('access_token')
-  rescue
+  def find_a_text selector, type
+    within(selector) do
+      case type
+        when 'author'
+          actual_text = find('[data-test="book-authors"]')[:title]
+        when 'title'
+          actual_text= find('[data-test="book-title"]')[:title]
+      end
+    end
+    actual_text
   end
 
   def fill_form_element(element, value)
@@ -82,7 +95,22 @@ module BlinkboxWebUtilities
     set_cookie("start_cookie_accepted", "true")
     visit('/')
   end
+
+  def delete_access_token_cookie
+    delete_cookie('access_token')
+  rescue
+  end
+
+  def logged_in_session?
+    !get_cookie('access_token').nil?
+  end
+
+  def log_out_current_session
+    reset_session!
+  end
+
 end
 
+World(Utilities)
 World(WebUtilities)
 World(BlinkboxWebUtilities)

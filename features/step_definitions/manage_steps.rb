@@ -70,7 +70,7 @@ end
 
 And /^I can sign in with the new password successfully$/ do
   click_button('Sign out')
-  delete_cookies
+  log_out_current_session
   set_start_cookie_accepted
   visit('/')
   sign_in(@email_address,@new_password)
