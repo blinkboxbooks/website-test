@@ -7,23 +7,23 @@ Given /I have identified a best selling book to buy$/ do
 end
 
 When /^I enter valid (.*?) card details$/ do |card_type|
-    enter_new_payment_details(card_type)
+  enter_new_payment_details(card_type)
 end
 
-And /^I enter valid Billing address$/  do
-    enter_billing_details
+And /^I enter valid Billing address$/ do
+  enter_billing_details
 end
 
 And /^I submit payment details$/ do
-   click_confirm_and_pay
+  click_confirm_and_pay
 end
 
 When /^I pay with saved default card$/ do
-   pay_with_saved_card
+  pay_with_saved_card
 end
 
 When /^I choose to pay with a new card$/ do
-    click_pay_with_new_card
+  click_pay_with_new_card
 end
 
 And /^I choose not to save the payment details$/ do
@@ -38,7 +38,7 @@ When /^I click Confirm order$/ do
   click_confirm_order
 end
 
-Given /^I am buying a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
+Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
   if login_status.eql?('logged')
     sign_in
   else
@@ -66,6 +66,6 @@ end
 
 Then /^my payment is successful$/ do
   expect_page_displayed('order complete')
-  assert_order_complete_message
+  assert_order_complete
 end
 
