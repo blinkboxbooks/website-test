@@ -7,6 +7,11 @@ Feature:  Unhappy path buy
   Background:
     Given I have a stored card
 
+  Scenario: Returning user buying same book twice
+    Given I am buying a pay for book as a logged in user
+    And I pay with saved default card
+    When I try to buy above book again
+    Then payments page displayed with you already have this book message
 
   Scenario: Returning user submits empty new payment details form
     Given I am buying a pay for book as a not logged in user
@@ -18,7 +23,7 @@ Feature:  Unhappy path buy
 
 
   Scenario Outline: Returning user submits new payment card details form with invalid values
-    Given I am buying a pay for book as a not logged in user
+    Given I am buying a pay for book as a logged in user
     And I sign in to proceed with purchase
     When I choose to pay with a new card
     And I enter payment details with invalid <invalid_value>
@@ -38,7 +43,7 @@ Feature:  Unhappy path buy
 
 
   Scenario Outline: Payment failure
-    Given I am buying a pay for book as a not logged in user
+    Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
     And  I enter card details with failure <cvv>
     And I submit payment details
@@ -53,6 +58,7 @@ Feature:  Unhappy path buy
 
   Scenario Outline: Incorrect digits for CVV
     Given I am buying a pay for book as a not logged in user
+    And I sign in to proceed with purchase
     When I choose to pay with a new card
     And I enter <card_type> card details with <cvv>
     And I submit payment details
