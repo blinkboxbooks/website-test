@@ -68,7 +68,9 @@ module PageModels
     def sign_in(email_address=@email_address, password=@password)
       email_address ||= 'bkm1@aa.com'
       password ||= 'test1234'
-      if (Capybara.current_session.driver.browser.manage.cookie_named('access_token').nil?)
+      if logged_in_session?
+        raise "User is already signed in, which is not expected, please check your flow"
+      else
         navigate_to_sign_in_form
         submit_sign_in_details(email_address, password)
         assert_user_greeting_message_displayed(@first_name)

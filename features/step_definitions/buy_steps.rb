@@ -39,16 +39,14 @@ When /^I click Confirm order$/ do
 end
 
 Given /^I am buying a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
-
   if login_status.eql?('logged')
     sign_in
   else
-    if !(Capybara.current_session.driver.browser.manage.cookie_named('access_token').nil?)
-      Capybara.current_session.reset_session!
+    if logged_in_session?
+      log_out_current_session
     end
   end
   returning_user_selects_a_book(book_type)
-
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
