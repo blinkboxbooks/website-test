@@ -21,6 +21,7 @@ Feature: Redirect to Sign and register page
     Given I am on the home page
     When I click Buy now on a <book_type> book as a not logged in user
     Then Sign in redirect page is displayed
+
   Examples:
     | book_type |
     | pay for   |

@@ -21,7 +21,6 @@ Feature:  Unhappy path buy
     And I submit payment details
     Then validation error messages should be displayed
 
-
   Scenario Outline: Returning user submits new payment card details form with invalid values
     Given I am buying a pay for book as a logged in user
     And I sign in to proceed with purchase
@@ -41,7 +40,6 @@ Feature:  Unhappy path buy
     | town or city   |
     | post code      |
 
-
   Scenario Outline: Payment failure
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
@@ -54,7 +52,6 @@ Feature:  Unhappy path buy
     | 201 |
     | 301 |
     | 200 |
-
 
   Scenario Outline: Incorrect digits for CVV
     Given I am buying a pay for book as a not logged in user
