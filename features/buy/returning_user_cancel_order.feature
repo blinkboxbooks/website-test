@@ -1,5 +1,5 @@
 @buy @wip
-Feature: Returning buying book from blinkbox books
+Feature: Returning user cancels order
   As a returning user of blinkbox books
   I want to the ability to cancel order
   So that I can cancel unwanted order.
