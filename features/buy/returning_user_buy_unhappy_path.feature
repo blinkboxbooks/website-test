@@ -7,15 +7,19 @@ Feature:  Unhappy path buy
   Background:
     Given I have a stored card
 
-  Scenario Outline: Returning user buying same book twice
-    Given I am buying a <book_type> book as a logged in user
+  Scenario: Returning user buying same pay for book twice
+    Given I am buying a pay for book as a logged in user
     And I pay with saved default card
-    When I try to buy above book again
+    Then my payment is successful
+    When I proceed to buy above book again
     Then book already in library page displayed
-    Examples:
-    |book_type|
-    |pay for  |
-    |free     |
+
+  Scenario: Returning user buying same free book twice
+    Given I am buying a free book as a logged in user
+    And I click Confirm order
+    Then my payment is successful
+    When I proceed to buy above book again
+    Then book already in library page displayed
 
   Scenario Outline: Returning user adding same sample twice
     Given I have identified a <book_type> book to get sample
@@ -23,22 +27,25 @@ Feature:  Unhappy path buy
     Then adding sample is successful
     When I add sample of above book again
     Then book already in library page displayed
+
   Examples:
     |book_type|
     |pay for  |
     |free     |
 
-  Scenario Outline: Returning user adding a sample of already purchased book
-    Given I am buying a <book_type> book as a logged in user
+  Scenario: Returning user adding a sample of already purchased pay for book
+    Given I am buying a pay for book as a logged in user
     When I pay with saved default card
     Then my payment is successful
     When I add sample of above book
     Then book already in library page displayed
 
-    Examples:
-    |book_type|
-    |pay for  |
-    |free     |
+  Scenario: Returning user adding a sample of already purchased free book
+    Given I am buying a free book as a logged in user
+    And I click Confirm order
+    Then my payment is successful
+    When I add sample of above book
+    Then book already in library page displayed
 
   Scenario: Returning user submits empty new payment details form
     Given I am buying a pay for book as a not logged in user

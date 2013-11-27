@@ -6,7 +6,8 @@ Feature: Redirect to Sign and register page
 
 
   Scenario Outline: Sign in register redirect for manage actions
-    Given I am on the home page
+    Given I am not signed in
+    And I am on the home page
     When I select <account_option> link from drop down menu
     Then Sign in redirect page is displayed
 
