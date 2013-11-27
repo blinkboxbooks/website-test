@@ -55,7 +55,7 @@ Feature:  Unhappy path buy
     And I submit payment details
     Then validation error messages should be displayed
 
-  Scenario Outline: Returning user submits new payment card details form with invalid values
+  Scenario Outline: Returning user submitting new payment card details form with invalid values
     Given I am buying a pay for book as a logged in user
     And I sign in to proceed with purchase
     When I choose to pay with a new card
