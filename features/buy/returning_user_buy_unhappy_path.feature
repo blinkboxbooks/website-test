@@ -12,21 +12,21 @@ Feature:  Unhappy path buy
     And I pay with saved default card
     Then my payment is successful
     When I proceed to buy above book again
-    Then book already in library page displayed
+    Then book already exists in the library error displayed in confirm page
 
   Scenario: Returning user buying same free book twice
     Given I am buying a free book as a logged in user
     And I click Confirm order
     Then my payment is successful
     When I proceed to buy above book again
-    Then book already in library page displayed
+    Then book already exists in the library error displayed in confirm page
 
   Scenario Outline: Returning user adding same sample twice
     Given I have identified a <book_type> book to get sample
     When I sign in to proceed with adding sample
     Then adding sample is successful
     When I add sample of above book again
-    Then book already in library page displayed
+    Then book already exists in the library error displayed in confirm page
 
   Examples:
     | book_type |
@@ -38,14 +38,14 @@ Feature:  Unhappy path buy
     When I pay with saved default card
     Then my payment is successful
     When I add sample of above book
-    Then book already in library page displayed
+    Then book already exists in the library error displayed in confirm page
 
   Scenario: Returning user adding a sample of already purchased free book
     Given I am buying a free book as a logged in user
     And I click Confirm order
     Then my payment is successful
     When I add sample of above book
-    Then book already in library page displayed
+    Then book already exists in the library error displayed in confirm page
 
   Scenario: Returning user submits empty new payment details form
     Given I am buying a pay for book as a not logged in user
