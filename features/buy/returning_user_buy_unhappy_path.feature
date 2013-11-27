@@ -29,9 +29,9 @@ Feature:  Unhappy path buy
     Then book already in library page displayed
 
   Examples:
-    |book_type|
-    |pay for  |
-    |free     |
+    | book_type |
+    | pay for   |
+    | free      |
 
   Scenario: Returning user adding a sample of already purchased pay for book
     Given I am buying a pay for book as a logged in user
@@ -55,7 +55,7 @@ Feature:  Unhappy path buy
     And I submit payment details
     Then validation error messages should be displayed
 
-  Scenario Outline: Returning user submitting new payment card details form with invalid values
+  Scenario Outline: Returning user submits new payment card details form with invalid values
     Given I am buying a pay for book as a logged in user
     And I sign in to proceed with purchase
     When I choose to pay with a new card
@@ -77,7 +77,7 @@ Feature:  Unhappy path buy
   Scenario Outline: Payment failure
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And  I enter card details with failure <cvv>
+    And I enter card details with failure <cvv>
     And I submit payment details
     Then payment failure message should be displayed
 
@@ -97,8 +97,9 @@ Feature:  Unhappy path buy
 
   Examples:
     | card_type        | cvv  |
-    | American Express | 123  |
     | VISA             | 1234 |
+    | Master card      | 1234 |
+    #| American Express | 123  |
 
 
 
