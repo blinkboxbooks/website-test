@@ -47,21 +47,23 @@ Feature:  Unhappy path buy
     When I add sample of above book
     Then book already exists in the library error displayed in confirm page
 
-  Scenario: Returning user submits empty new payment details form
+  Scenario: Returning user submits empty new payment details form, order not completed
     Given I am buying a pay for book as a not logged in user
     And I sign in to proceed with purchase
     When I choose to pay with a new card
     And my payment details form is empty
     And I submit payment details
     Then validation error messages should be displayed
+    And order completed page not displayed
 
-  Scenario Outline: Returning user submits new payment card details form with invalid values
+  Scenario Outline: Returning user submits new payment card details form with invalid values, order not completed
     Given I am buying a pay for book as a logged in user
     And I sign in to proceed with purchase
     When I choose to pay with a new card
     And I enter payment details with invalid <invalid_value>
     And I submit payment details
     Then <invalid_value> validation error message should be displayed
+    And order completed page not displayed
 
   Examples:
     | invalid_value  |
@@ -74,12 +76,13 @@ Feature:  Unhappy path buy
     | town or city   |
     | post code      |
 
-  Scenario Outline: Payment failure
+  Scenario Outline: Payment failure, returning user buying a book, order not completed
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
     And I enter card details with failure <cvv>
     And I submit payment details
     Then payment failure message should be displayed
+    And order completed page not displayed
 
   Examples:
     | cvv |
@@ -94,6 +97,7 @@ Feature:  Unhappy path buy
     And I enter <card_type> card details with <cvv>
     And I submit payment details
     Then Invalid CVV validation error message should be displayed
+    And order completed page not displayed
 
   Examples:
     | card_type        | cvv  |
