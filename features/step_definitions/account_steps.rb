@@ -11,7 +11,7 @@ Given /^I have signed in$/ do
   sign_in(@email_address)
 end
 
-When /^I sign in(?: to proceed with purchase)?$/ do
+When /^I sign in (?:to proceed with) (?:purchase|adding sample)?$/ do
   sign_in
 end
 
@@ -86,7 +86,6 @@ And /^I have a stored card$/ do
   register_new_user
   expect_page_displayed("Registration Success")
   buy_first_book
-  click_link_from_my_account_dropdown('Sign out')
   log_out_current_session
   set_start_cookie_accepted
 end
@@ -95,7 +94,7 @@ Given /^I have multiple stored cards$/ do
   @email_address = 'cctest1@aa.com'
 end
 
-Given /^I register(?: to proceed with purchase)?$/ do
+Given /^I register (?:to proceed with) (?:purchase|adding sample)?$/ do
   click_register_button
   register_new_user
 end
