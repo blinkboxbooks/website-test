@@ -53,7 +53,7 @@ Feature: Returning buying book from blinkbox books
 
   Scenario: Returning user not logged in buying a free book
     Given I am buying a free book as a not logged in user
-    And I sign in to proceed with adding sample
+    And I sign in to proceed with purchase
     When I click Confirm order
     Then my payment is successful
 
