@@ -53,6 +53,35 @@ Feature: Returning buying book from blinkbox books
 
   Scenario: Returning user not logged in buying a free book
     Given I am buying a free book as a not logged in user
-    And I sign in to proceed with purchase
+    And I sign in to proceed with adding sample
     When I click Confirm order
+    Then my payment is successful
+
+  @wip
+  Scenario Outline: Returning user adding a sample to library
+    Given I have identified a <book_type> book to read sample offline
+    When I select Read offline in book details page
+    And I sign in to proceed with adding sample
+    Then adding sample is successful
+
+  Examples:
+    | book_type |
+    | pay for   |
+    | free      |
+
+  @wip
+   Scenario: Returning user adding a book sample to library first and then buying the book.
+    Given I have identified a pay for book to read sample offline
+    When I select Read offline in book details page
+    And I sign in to proceed with adding sample
+    Then adding sample is successful
+    When I select the above book to buy
+    And I click Confirm order
+    Then my payment is successful
+
+  @manual
+  Scenario: Returning user buying a book with credit
+    Given I have account credit
+    When I click Buy now on a pay for book as a logged in user
+    And I click Confirm order
     Then my payment is successful

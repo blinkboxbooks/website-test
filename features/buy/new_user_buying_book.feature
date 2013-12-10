@@ -53,4 +53,17 @@ Feature: New user buying book from blinkbox books
     When I click Confirm order
     Then my payment is successful
 
+  @wip
+  Scenario Outline: First time user adding a sample to library
+    Given I have identified a <book_type> book to read sample offline
+    When I select Read offline in book details page
+    And I register to proceed with adding sample
+    Then adding sample is successful
+
+    Examples:
+    |book_type|
+    | pay for   |
+    | free      |
+
+
 
