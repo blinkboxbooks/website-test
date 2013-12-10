@@ -29,7 +29,7 @@ Given /^I am on Register page$/ do
 end
 
 When /^I enter valid personal details$/ do
-  enter_personal_details
+  @email_address, @first_name, @last_name = enter_personal_details
 end
 
 And /^I choose a valid password$/ do
