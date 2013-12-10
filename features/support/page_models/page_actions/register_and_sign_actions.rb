@@ -63,6 +63,7 @@ module PageModels
       choose_a_valid_password(@password)
       accept_terms_and_conditions
       submit_registration_details
+      puts "Email address used for user registration: #{@email_address}"
     end
 
     def sign_in(email_address=@email_address, password=@password)
@@ -75,6 +76,7 @@ module PageModels
         submit_sign_in_details(email_address, password)
         assert_user_greeting_message_displayed(@first_name)
       end
+      puts "Email address used for user sign-in: #{email_address}"
     end
 
   end
