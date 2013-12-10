@@ -11,7 +11,7 @@ Given /^I have signed in$/ do
   sign_in(@email_address)
 end
 
-When /^I sign in (?:to proceed with) (?:purchase|adding sample)?$/ do
+When /^I sign in(?: to proceed with purchase| to proceed with adding sample)?$/ do
   sign_in
 end
 
@@ -94,7 +94,7 @@ Given /^I have multiple stored cards$/ do
   @email_address = 'cctest1@aa.com'
 end
 
-Given /^I register (?:to proceed with) (?:purchase|adding sample)?$/ do
+Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$/ do
   click_register_button
   register_new_user
 end
