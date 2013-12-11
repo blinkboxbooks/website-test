@@ -53,7 +53,7 @@ Feature: New user buying book from blinkbox books
     When I click Confirm order
     Then my payment is successful
 
-  @pending
+
   Scenario Outline: First time user adding a sample to library
     Given I have identified a <book_type> book to read sample offline
     When I select Read offline on the book details page
