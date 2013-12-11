@@ -79,16 +79,17 @@ module Discover
     pay_with_new_card('VISA')
   end
 
-  def user_selects_a_book(book_type,user_action='buy')
+  def user_selects_a_book_to_buy(book_type)
     search_word = book_type.eql?('free')?'free':'summer'
     search_blinkbox_books(search_word)
     #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
     #sort_search_results('Price (high to low)')
-    if user_action.include?('buy')
      select_buy_first_book_in_search_results
-    else
-      #TODO: add method to select read offline in book details page in order to add sample to library
-    end
+  end
+
+  def user_selects_a_book_to_read_sample_offline(book_type)
+    search_word = book_type.eql?('free')?'free':'summer'
+    search_blinkbox_books(search_word)
   end
 
 end

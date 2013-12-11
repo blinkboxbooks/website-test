@@ -57,10 +57,10 @@ Feature: Returning buying book from blinkbox books
     When I click Confirm order
     Then my payment is successful
 
-  @wip
+  @pending
   Scenario Outline: Returning user adding a sample to library
     Given I have identified a <book_type> book to read sample offline
-    When I select Read offline in book details page
+    When I select Read offline on the book details page
     And I sign in to proceed with adding sample
     Then adding sample is successful
 
@@ -69,10 +69,10 @@ Feature: Returning buying book from blinkbox books
     | pay for   |
     | free      |
 
-  @wip
+  @pending
    Scenario: Returning user adding a book sample to library first and then buying the book.
     Given I have identified a pay for book to read sample offline
-    When I select Read offline in book details page
+    When I select Read offline on the book details page
     And I sign in to proceed with adding sample
     Then adding sample is successful
     When I select the above book to buy
