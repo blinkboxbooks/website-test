@@ -1,5 +1,5 @@
 Given /^I have identified the book to buy$/ do
-  user_selects_a_book('summer')
+  user_selects_a_book_to_buy('summer')
 end
 
 Given /I have identified a best selling book to buy$/ do
