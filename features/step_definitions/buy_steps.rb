@@ -1,7 +1,3 @@
-Given /^I have identified the book to buy$/ do
-  user_selects_a_book_to_buy('summer')
-end
-
 Given /I have identified a best selling book to buy$/ do
   click_buy_now_best_seller_book
 end
@@ -26,10 +22,13 @@ When /^I choose to pay with a new card$/ do
   click_pay_with_new_card
 end
 
-And /^I have identified a (free|pay for) book to (buy|read sample offline)$/ do |book_type,user_action|
-  user_action = user_action.tr(" ","_")
+And /^I have identified a (free|pay for) book to (buy|read sample offline)$/ do |book_type, user_action|
   search_word = return_search_word_for_book_type(book_type)
- send("user_selects_a_book_to_#{user_action}", search_word)
+  if user_action.include?('buy')
+    user_selects_a_book_to_buy(search_word)
+  else
+    user_selects_a_book_to_read_sample_offline(search_word)
+  end
 end
 
 When /^I click Confirm order$/ do
