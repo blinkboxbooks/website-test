@@ -70,3 +70,7 @@ end
 When /^I select Read offline on the book details page$/ do
 click_read_offline
 end
+
+When /^I select the above book to buy$/ do
+  buy_sample_added_book
+end

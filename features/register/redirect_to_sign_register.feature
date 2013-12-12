@@ -1,4 +1,3 @@
-@wip
 Feature: Redirect to Sign and register page
   As a Blinkbox books application
   I need to be redirect guest users to sign in register page when they try to access secured pages
