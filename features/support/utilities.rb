@@ -17,6 +17,10 @@ module Utilities
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
     return first_part + last_part
   end
+
+  def return_search_word_for_book_type (book_type)
+    return book_type.eql?('free') ? 'free' : 'summer'
+  end
 end
 
 module WebUtilities

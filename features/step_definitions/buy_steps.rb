@@ -28,7 +28,8 @@ end
 
 And /^I have identified a (free|pay for) book to (buy|read sample offline)$/ do |book_type,user_action|
   user_action = user_action.tr(" ","_")
- send("user_selects_a_book_to_#{user_action}", book_type)
+  search_word = return_search_word_for_book_type(book_type)
+ send("user_selects_a_book_to_#{user_action}", search_word)
 end
 
 When /^I click Confirm order$/ do
@@ -43,7 +44,8 @@ Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|
       log_out_current_session
     end
   end
-  user_selects_a_book_to_buy(book_type)
+  search_word = return_search_word_for_book_type(book_type)
+  user_selects_a_book_to_buy(search_word)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -67,6 +69,5 @@ Then /^(?:my payment|adding sample) is successful$/ do
 end
 
 When /^I select Read offline on the book details page$/ do
-click_book_details
 click_read_offline
 end
