@@ -81,7 +81,8 @@ module Discover
 
   def user_selects_a_book_to_buy(search_word)
     search_blinkbox_books(search_word)
-    sort_search_results('Price (high to low)')
+    #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
+    #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
   end
 
