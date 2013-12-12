@@ -91,6 +91,11 @@ module Discover
     click_book_details_for_first_book_in_search_results
   end
 
+  def buy_sample_added_book
+    visit(@book_href)
+    click_buy_now_in_book_details_page
+  end
+
 end
 
 module ManageAccount
