@@ -1,5 +1,5 @@
 Given /^I have identified the book to buy$/ do
-  returning_user_selects_a_book('summer')
+  user_selects_a_book_to_buy('summer')
 end
 
 Given /I have identified a best selling book to buy$/ do
@@ -26,12 +26,10 @@ When /^I choose to pay with a new card$/ do
   click_pay_with_new_card
 end
 
-And /^I choose not to save the payment details$/ do
-  uncheck('save_details')
-end
-
-And /^I have identified a free book to buy$/ do
-  returning_user_selects_a_book('free')
+And /^I have identified a (free|pay for) book to (buy|read sample offline)$/ do |book_type,user_action|
+  user_action = user_action.tr(" ","_")
+  search_word = return_search_word_for_book_type(book_type)
+ send("user_selects_a_book_to_#{user_action}", search_word)
 end
 
 When /^I click Confirm order$/ do
@@ -46,7 +44,8 @@ Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|
       log_out_current_session
     end
   end
-  returning_user_selects_a_book(book_type)
+  search_word = return_search_word_for_book_type(book_type)
+  user_selects_a_book_to_buy(search_word)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -64,8 +63,11 @@ And /^I choose (to save|not to save)(?: new)? payment details$/ do |save_payment
 
 end
 
-Then /^my payment is successful$/ do
+Then /^(?:my payment|adding sample) is successful$/ do
   expect_page_displayed('order complete')
   assert_order_complete
 end
 
+When /^I select Read offline on the book details page$/ do
+click_read_offline
+end

@@ -91,6 +91,10 @@ module PageModels
       end
     end
 
+    def click_read_offline
+      book_details_page.read_offline.click
+    end
+
   end
 end
 World(PageModels::BuyActions)

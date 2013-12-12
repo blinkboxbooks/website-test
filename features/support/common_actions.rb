@@ -8,7 +8,7 @@ module Discover
     search_results_page.wait_for_books
   end
 
-  def click_book_details
+  def click_book_details_for_first_book_in_search_results
     within('[data-test="search-results-list"]') do
       within(first('li')) do
         @book_href= first('a')[:href]
@@ -79,12 +79,16 @@ module Discover
     pay_with_new_card('VISA')
   end
 
-  def returning_user_selects_a_book(book_type)
-    search_word = book_type.eql?('free')?'free':'summer'
+  def user_selects_a_book_to_buy(search_word)
     search_blinkbox_books(search_word)
     #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
+  end
+
+  def user_selects_a_book_to_read_sample_offline(search_word)
+    search_blinkbox_books(search_word)
+    click_book_details_for_first_book_in_search_results
   end
 
 end
