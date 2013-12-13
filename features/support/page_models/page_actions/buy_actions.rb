@@ -53,13 +53,15 @@ module PageModels
     end
 
     def click_confirm_and_pay
-      page.should have_selector("button", :text => "Confirm & pay")
+      selector = confirm_and_pay_page.confirm_and_pay
+      page.should have_selector(selector.tag_name, :text => selector.text)
       confirm_and_pay_page.confirm_and_pay.click
       expect_page_displayed("Order Complete")
     end
 
     def click_confirm_order
-      page.should have_selector("button", :text => "Confirm order")
+      selector = confirm_and_pay_page.confirm_order
+      page.should have_selector(selector.tag_name, :text => selector.text)
       confirm_and_pay_page.confirm_order.click
       expect_page_displayed("Order Complete")
     end
@@ -97,6 +99,7 @@ module PageModels
 
     def click_buy_now_in_book_details_page
       book_details_page.buy_now.click
+      expect_page_displayed("Confirm and Pay")
     end
 
   end

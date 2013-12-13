@@ -54,6 +54,7 @@ module Discover
         mouse_over(book)
         book.first('button[data-test="book-buy-button"]').click
         found = true
+        expect_page_displayed("Confirm and Pay")
         break
       end
     end
@@ -68,6 +69,7 @@ module Discover
       mouse_over(element)
     end
     click_button('BUY NOW')
+    expect_page_displayed("Confirm and Pay")
   end
 
   def buy_first_book
