@@ -60,7 +60,7 @@ module PageModels
 
     def click_confirm_order
       page.should have_selector("button", :text => "Confirm order")
-      confirm_and_pay_page.confirm_and_pay.click
+      confirm_and_pay_page.confirm_order.click
       expect_page_displayed("Order Complete")
     end
 

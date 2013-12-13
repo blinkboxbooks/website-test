@@ -24,7 +24,6 @@ Feature: New user buying book from blinkbox books
   Examples: Other card types
     | card_type        |
     | Mastercard       |
-    | American Express |
     | VISA Debit       |
 
   Scenario Outline: First time user buying book and not saving payment details
@@ -44,7 +43,6 @@ Feature: New user buying book from blinkbox books
   Examples: Other card types
     | card_type        |
     | Mastercard       |
-    | American Express |
     | VISA Debit       |
 
   Scenario: First time user buying a free book

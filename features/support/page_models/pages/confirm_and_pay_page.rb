@@ -4,6 +4,7 @@ module PageModels
     element :save_card, "#save_details"
     element :pay_with_new_card, "button", :text => "Pay with a new card"
     element :confirm_and_pay, "button", :text => "Confirm & pay"
+    element :confirm_order, "button", :text => "Confirm order"
     element :cancel_order, "link", :text => "Cancel order"
   end
 
