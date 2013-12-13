@@ -105,7 +105,7 @@ end
 
 Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
   if (expired_card.include?('non'))
-    email_address ='nondefault_expiredcard@mobcastdev.com'
+    email_address ='nondefault_expired_card@mobcastdev.com'
   else
     email_address ='default_expired_card@mobcastdev.com'
   end

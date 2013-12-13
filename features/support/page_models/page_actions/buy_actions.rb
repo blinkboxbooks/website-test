@@ -53,23 +53,20 @@ module PageModels
     end
 
     def click_confirm_and_pay
-      selector = confirm_and_pay_page.confirm_and_pay
-      page.should have_selector(selector.tag_name, :text => selector.text)
+      confirm_and_pay_page.wait_for_confirm_and_pay
       confirm_and_pay_page.confirm_and_pay.click
       expect_page_displayed("Order Complete")
     end
 
     def click_confirm_order
-      selector = confirm_and_pay_page.confirm_order
-      page.should have_selector(selector.tag_name, :text => selector.text)
+      confirm_and_pay_page.wait_for_confirm_order
       confirm_and_pay_page.confirm_order.click
       expect_page_displayed("Order Complete")
     end
 
     def pay_with_saved_card
-      if (page.has_text?(:visible, 'Your saved card details'))
-        click_confirm_and_pay
-      end
+      page.should have_text(:visible, 'Your saved card details')
+      click_confirm_and_pay
     end
 
     def click_pay_with_new_card
