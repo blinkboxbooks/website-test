@@ -78,6 +78,11 @@ module PageModels
       puts "Email address used for user sign-in: #{email_address}"
     end
 
+    def set_email_and_password(email_address, password)
+      @email_address = email_address
+      @password = password
+    end
+
   end
 end
 World(PageModels::RegisterAndSigninActions)

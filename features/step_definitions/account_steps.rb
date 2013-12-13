@@ -98,3 +98,16 @@ Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$
   click_register_button
   register_new_user
 end
+
+Given /^I have default expired stored card$/ do
+ set_email_and_password('defualt_expiredcard@aa.com', 'test1234')
+end
+
+Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
+  if (expired_card.include?('non'))
+    email_address ='nondefualt_expiredcard@aa.com'
+  else
+    email_address ='multiplecards_defaultexpired@aa.com'
+  end
+  set_email_and_password(email_address, 'test1234')
+end

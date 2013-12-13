@@ -30,7 +30,6 @@ Feature: Returning buying book from blinkbox books
   Examples: Card types
     | card_type        |
     | Mastercard       |
-    | American Express |
     | VISA Debit       |
 
   Scenario Outline: Returning user not logged in, buying book with one off new payment card
