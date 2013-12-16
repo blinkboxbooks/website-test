@@ -14,3 +14,13 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
+  @pending
+  Scenario: Sign in with email address that is not registered
+
+  @pending
+  Scenario: Sign in with incorrect password
+
+  @pending
+  Scenario: Sign in with empty password
+
+

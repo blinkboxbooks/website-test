@@ -63,6 +63,10 @@ Scenario: Trying to delete a registered device when access token has expired
 
 Scenario: Trying to rename a registered device when access token has expired
 
-Scenario: Trying to make a non-default card default when the access token has expired.
+Scenario: Trying to make a non-default card default when the access token has expired
+
+Scenario: Update email address using already registered email address
+
+Scenario: Change password by entering incorrect current password
 
 
