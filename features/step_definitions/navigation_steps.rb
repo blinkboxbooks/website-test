@@ -71,7 +71,7 @@ And /^I press browser back$/ do
 end
 
 And /^main header tabs should not be selected$/ do
-  within("#nav_menu") do
+  within("#main-navigation") do
     page.all('li').to_a.each do |li|
       ((li[:class]).include?("current")).should == false
     end

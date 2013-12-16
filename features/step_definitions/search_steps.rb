@@ -140,11 +140,16 @@ Then /^author name should be "(.*?)"$/ do |author_name|
 end
 
 Then /^"(.*?)" should be visible in search bar$/ do |search_word|
-  find('[data-test="header-container"]').find('[data-test="search-input"]')[:value].should == search_word
+  within('#searchbox') do
+    find('#term')[:value].should eql(search_word)
+  end
+
 end
 
 Then /^search term should not be visible in search bar$/ do
-  find('[data-test="header-container"]').find('[data-test="search-input"]')[:value].should == ""
+  within('#searchbox') do
+    find('#term')[:value].should eql("")
+  end
 end
 
 When /^I change search term in url to "(.*?)"$/ do |edit_word|
