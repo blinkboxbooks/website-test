@@ -39,7 +39,7 @@ Feature:  Checking Categories page content
      When 57 is valid category id
      Then page should display the category
       And page should display category image
-      And category name should be "Thriller-Suspense"
+      And category name should be "Thriller & Suspense"
 
    Scenario: Invalid category is not displayed
      When 123445 is invalid category id
