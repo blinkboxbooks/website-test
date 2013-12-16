@@ -96,7 +96,6 @@ module PageModels
 
     def click_buy_now_in_book_details_page
       book_details_page.buy_now.click
-      expect_page_displayed("Confirm and Pay")
     end
 
   end
