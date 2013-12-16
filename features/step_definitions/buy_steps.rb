@@ -74,3 +74,7 @@ end
 When /^I select the above book to buy$/ do
   buy_sample_added_book
 end
+
+And /^Confirm and pay button should be (enabled|disabled)$/ do |button_status|
+assert_confirm_and_pay_button_status(button_status)
+end
