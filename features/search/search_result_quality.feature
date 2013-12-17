@@ -31,7 +31,7 @@ Feature: Verify that search results match search criteria
     Then page url should have "wonder"
     And search results should be displayed
 
-  @CWA-88
+ @manual @CWA-88
   Scenario: Copy and paste search url to another browser session
     When I search for "dan"
     Then page url should have "dan"
