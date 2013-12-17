@@ -238,5 +238,12 @@ When /^I click \"(.*?)\" FAQ link$/ do |link_name|
   click_link(link_name)
 end
 
+Then /^I am redirected to the "(.*?)" page in a new window$/ do |page_name|
+  new_window=page.driver.browser.window_handles.last
+  page.within_window new_window do
+    current_url.should match Regexp.new(get_support_page_url(page_name))
+  end
+end
+
 
 
