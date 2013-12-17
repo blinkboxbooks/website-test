@@ -1,8 +1,9 @@
 module TestElementsMap
-  DATA_TEST_ELEMENTS = {'Categories' => 'header-categories-link',
+  DATA_TEST_ELEMENTS = {'Featured' => 'header-featured',
+                        'Categories' => 'header-categories-link',
                         'Best sellers' => 'header-bestsellers-link',
                         'New releases' => 'header-new-releases-link',
-                        'Top free' => 'header-top-free-link',
+                        'Free books' => 'header-top-free-link',
                         'Authors' => 'header-authors-link',
                         'Best sellers section' => 'bestsellers-container',
                         'New releases section' => 'newreleases-title',

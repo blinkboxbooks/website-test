@@ -99,8 +99,6 @@ Feature: Navigation around the website
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
 
-
-
   @CWA-87
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
@@ -137,20 +135,6 @@ Feature: Navigation around the website
     And I click on View less button
     Then the button should change to View more
 
-  @CWA-34 @manual
-  Scenario:Book Component-List view Title display
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
-    And  I select list view
-    Then long titles should be displayed in two lines
-
-  @CWA-34  @manual
-  Scenario:Book Component-Grid view Title display
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
-    And  I select grid view
-    Then long titles should be truncated to fit within image
-
   @CWA-105
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
@@ -163,7 +147,7 @@ Feature: Navigation around the website
     | Categories   |
     | Best sellers |
     | New releases |
-    | Top free     |
+    | Free books   |
     | Authors      |
 
   @CWA-71 @wip
@@ -200,4 +184,16 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
+  @CWA-34 @manual
+  Scenario:Book Component-List view Title display
+    When I click on the Best sellers link
+    Then Best sellers page is displayed
+    And  I select list view
+    Then long titles should be displayed in two lines
 
+  @CWA-34  @manual
+  Scenario:Book Component-Grid view Title display
+    When I click on the Best sellers link
+    Then Best sellers page is displayed
+    And  I select grid view
+    Then long titles should be truncated to fit within image

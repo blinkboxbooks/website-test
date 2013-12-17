@@ -70,12 +70,12 @@ end
 And /^I select (list|grid) view$/ do |view|
   case view
     when 'list'
-      if find('[data-test="grid-button"]')[:class] =='active'
-       page.find('[data-test="list-button"]').click
+      if !((find('.list-view')[:class]).include?('active'))
+       page.find('.list-view').click
       end
     when 'grid'
-      if find('[data-test="list-button"]')[:class] == 'active'
-       page.find('[ata-test="grid-button"]').click
+      if !((find('.grid-view')[:class]).include?('active'))
+       page.find('.grid-view').click
 
      end
   end
