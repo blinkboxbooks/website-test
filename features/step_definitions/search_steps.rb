@@ -49,7 +49,7 @@ end
 
 Then(/^I should get a message$/) do
   page.should have_content(@search)
-  page.should have_content(find('h5.ng-binding').text)
+  page.should have_selector("#noResults")
 end
 
 And(/^the options of switching view mode should not appear$/) do

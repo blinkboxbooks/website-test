@@ -1,10 +1,10 @@
 @search
 Feature:
-  As a Blinkbox book user
+  As a blinkbox book user
   I want to be able to search using a term associated with book
   So that I can see list of books with that search term
 
-  The purpose of the search functionality is to enable users of Blinkbox book, to search and retrieve a specific book
+  The purpose of the search functionality is to enable users of blinkbox book, to search and retrieve a specific book
   or list of books with the search term present in the author, title or description section.
 
   Background:
@@ -44,12 +44,6 @@ Feature:
       And I change from Grid mode to List mode
      Then the result should be displayed in List mode
       And the Tesco clubcard logo should be visible
-
-  Scenario: Search for a word that does not return any results
-    Given I search for term "blahblahblahblah"
-     Then I should get a message
-      And the options of switching view mode should not appear
-      And 10 Bestselling books should be returned
 
   Scenario: When user selects List view mode to display search results it should be set as default
     Given I change from Grid mode to List mode

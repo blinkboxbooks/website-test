@@ -8,30 +8,21 @@ Feature: Verify that search results match search criteria
     Given I am on the home page
 
   @smoke @data-dependent @production
-   Scenario: Search results displayed
+  Scenario: Search results displayed
     When I search for "spring"
     Then Search Results page is displayed
     And at least 1 search result is shown
 
-  Scenario: Exact match on author name
-    When I search for "graham mort"
-    Then search results should be displayed
-     And the author name of first book displayed should contain "graham mort"
+  @CWA-866
+  Scenario: Search for a word that does not return any results
+    Given I search for term "blahblahblahblah"
+    Then I should get a message
+    And the options of switching view mode should not appear
 
+  @CWA-866 @pending
+  Scenario: Suggested word for misspelled search words
 
-  Scenario: Exact match on title
-    When I search for "fifty shades of grey"
-    Then search results should be displayed
-    And the title of first book displayed should contain "fifty shades of grey"
-
-
-  Scenario: Exact match on ISBN
-    When I search for "9780571267064"
-    Then only one matching search result should be displayed
-     And book name should be "Jack Maggs"
-     And author name should be "Peter Carey"
-
-  @CWA-88 @wip
+  @CWA-88
   Scenario: Editing search url should update search results
     When I search for "alice"
     Then page url should have "alice"
@@ -49,6 +40,22 @@ Feature: Verify that search results match search criteria
     Then page url should have "dan"
     And search results should be displayed
 
+  @manual @data-dependent
+  Scenario: Exact match on author name
+    When I search for "graham mort"
+    Then search results should be displayed
+    And the author name of first book displayed should contain "graham mort"
 
+  @manual @data-dependent
+  Scenario: Exact match on title
+    When I search for "fifty shades of grey"
+    Then search results should be displayed
+    And the title of first book displayed should contain "fifty shades of grey"
 
+  @manual @data-dependent
+  Scenario: Exact match on ISBN
+    When I search for "9780571267064"
+    Then only one matching search result should be displayed
+    And book name should be "Jack Maggs"
+    And author name should be "Peter Carey"
 

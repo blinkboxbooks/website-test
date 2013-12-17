@@ -147,7 +147,7 @@ Feature: Navigation around the website
     | Categories   |
     | Best sellers |
     | New releases |
-    |Free books    |
+    | Free books   |
     | Authors      |
 
   @CWA-71 @wip

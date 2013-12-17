@@ -173,12 +173,12 @@ end
 Then /^I should see (Fiction|Non\-Fiction) books in (gird|list) view$/ do |book_type, view|
   case view
     when 'grid'
-      (find('[data-test="grid-button"]')[:class]).should =='active'
+      (find('.grid-view')[:class]).should include('active')
       within('[data-test="bestsellers-container"]') do
         find('.selected').text.should == book_type
       end
     when 'list'
-      (find('[data-test="list-button"]')[:class]).should == 'active'
+      (find('.list-view')[:class]).should include('active')
       within('[data-test="bestsellers-container"]') do
         find('.selected').text.should == book_type
       end
