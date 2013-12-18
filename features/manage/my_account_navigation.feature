@@ -34,7 +34,6 @@ Feature: Navigating through my account pages
     Then Your devices page is displayed
     And Your devices tab is selected
 
-  @pending
   Scenario Outline: Navigate through FAQ links under Order & payment history
     Given I have signed in
     And I am on the Order & payment history tab
@@ -47,7 +46,6 @@ Feature: Navigating through my account pages
     | I bought a book but can't find it        | I bought a book but can't find it        |
     | How do I read books in the app?          | How do I read books in the app?          |
 
-  @pending
   Scenario Outline: Navigate through FAQ links under Your personal details
     Given I have signed in
     And I am on the Your personal details tab
@@ -60,7 +58,6 @@ Feature: Navigating through my account pages
     | How can I earn Tesco Clubcard points?   | How can I earn Tesco Clubcard points?   |
     | Can I delete my blinkbox books account? | Can I delete my blinkbox books account? |
 
-  @pending
   Scenario Outline: Navigate through FAQ links under Your payments
     Given I have signed in
     And I am on the Your payments tab
@@ -73,7 +70,6 @@ Feature: Navigating through my account pages
     | What are my payment options?       | What are my payment options?       |
     | Do you accept gift cards?          | Do you accept gift cards?          |
 
-  @pending
   Scenario Outline: Navigate through FAQ links under Your devices
     Given I have signed in
     And I am on the Your devices tab
