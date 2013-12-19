@@ -239,7 +239,6 @@ Then /^I am redirected to the "(.*?)" page in a new window$/ do |page_name|
   page.within_window new_window do
     current_url.should match Regexp.new(get_support_page_url(page_name))
     page.driver.browser.close
-    #page.execute_script "window.close();"
   end
 end
 
