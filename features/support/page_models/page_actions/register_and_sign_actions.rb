@@ -91,7 +91,6 @@ module PageModels
       page.should have_selector('#delete-card')
       register_page.confirm_cancel_registration.click
     end
-
   end
 end
 World(PageModels::RegisterAndSigninActions)
