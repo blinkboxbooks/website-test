@@ -102,16 +102,16 @@ module Discover
       when 'Home'
         select_buy_first_book_from_a_page(home_page.book_in_the_news)
       when 'Category'
-        main_page_navigation('Categories')
+        current_page.header.main_page_navigation('Categories')
         click_on_a_category
         select_buy_first_book_from_a_page(category_page.category_books)
       when 'Best sellers'
         click_buy_now_best_seller_book
       when 'New releases'
-        main_page_navigation(page_name)
+        current_page.header.main_page_navigation(page_name)
         select_buy_first_book_from_a_page(new_releases_page.new_releases_last_30days)
       when 'Free books'
-        main_page_navigation(page_name)
+        current_page.header.main_page_navigation(page_name)
         select_buy_first_book_from_a_page(free_books_page.top_free_books)
       when 'Search results'
         search_word = return_search_word_for_book_type(book_type)
@@ -121,12 +121,6 @@ module Discover
         user_navigates_to_book_details(search_word)
         book_details_page.buy_now.click
 
-    end
-  end
-
-  def main_page_navigation(page_name)
-    within('div#main-navigation') do
-      click_link page_name
     end
   end
 
