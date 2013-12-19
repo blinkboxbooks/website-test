@@ -27,7 +27,7 @@ And /^I have identified a (free|pay for) book to (buy|read sample offline)$/ do 
   if user_action.include?('buy')
     user_selects_a_book_to_buy(search_word)
   else
-    user_selects_a_book_to_read_sample_offline(search_word)
+    user_navigates_to_book_details(search_word)
   end
 end
 
@@ -78,3 +78,25 @@ end
 And /^Confirm and pay button should be (enabled|disabled)$/ do |button_status|
 assert_confirm_and_pay_button_status(button_status)
 end
+
+When /^I cancel (order|registration)$/ do |cancel_action|
+  if cancel_action.include?('registration')
+    cancel_registration
+  else
+    cancel_order
+  end
+end
+
+And /^confirm cancel (order|registration)$/ do |confirm_action|
+  if confirm_action.include?('registration')
+    confirm_cancel_registration
+  else
+    confirm_cancel_order
+  end
+end
+
+Given /^I have selected to buy a (pay for|free) book from (.*?) page$/ do |book_type,page_name|
+  select_book_to_buy_from_a_page(book_type, page_name)
+end
+
+
