@@ -31,7 +31,7 @@ end
 Then /^the link should point to the blinkbox books help home page$/ do
   @help_link[:href].should include 'support.blinkboxbooks.com'
   @help_link[:target].should == '_blank'
-  @help_link[:title].should == 'Help'
+  @help_link.text.should == 'Help'
 end
 
 Given /^the blinkbox movies link is present in the footer$/ do
@@ -61,9 +61,7 @@ And /^I click on the (.*) link$/ do |page_name|
 end
 
 When /^I click on the (.*) header tab$/ do |page_name|
-  within('div#main-navigation') do
-    click_link page_name
-  end
+  main_page_navigation(page_name)
 end
 
 And /^I press browser back$/ do
