@@ -10,6 +10,8 @@ module PageModels
     element :password_repeat, '#repassword'
     element :terms_and_conditions, '#termsconditions'
     element :register_button, "button", :text => "Register"
+    element :cancel_registration, "a", :text => "Cancel registration"
+    element :confirm_cancel_registration, "button", :text =>  "Leave this page"
 
     element :errors_section, "#error_signin"
 
