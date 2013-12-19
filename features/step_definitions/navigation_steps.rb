@@ -42,7 +42,7 @@ end
 Then /^the link should point to the blinkbox movies home page$/ do
   @movies_link[:href].should include 'www.blinkbox.com'
   @movies_link[:target].should == '_blank'
-  @movies_link[:title].should == 'blinkbox movies'
+  @movies_link.text.should == 'blinkbox movies'
 end
 
 Given /^the blinkbox music link is present in the footer$/ do
@@ -53,7 +53,7 @@ end
 Then /^the link should point to the blinkbox music home page$/ do
   @music_link[:href].should include 'www.blinkboxmusic.com'
   @music_link[:target].should == '_blank'
-  @music_link[:title].should == 'blinkbox music'
+  @music_link.text.should == 'blinkbox music'
 end
 
 And /^I click on the (.*) link$/ do |page_name|
@@ -136,9 +136,9 @@ And /^(.*?) header is (.*?)$/ do |section_name, text|
 end
 
 And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/ do
-  within('[data-test="bestsellers-container"]') do
-    page.find('[title="Fiction"]').visible?
-    page.find('[title="Non-Fiction"]').visible?
+  within('.tabbed') do
+    page.should have_selector("a", :text => "Fiction")
+    page.should have_selector("a", :text => "Non-Fiction")
   end
 end
 
@@ -161,10 +161,8 @@ And /^I should see (\d+) books being displayed$/ do |books|
 end
 
 And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
-  case tab
-    when 'Fiction'
-    when 'Non-Fiction'
-      find('[title="Non-Fiction"]').click
+  within('.tabbed') do
+    find("a", :text =>"#{tab}").click
   end
 end
 
@@ -240,6 +238,8 @@ Then /^I am redirected to the "(.*?)" page in a new window$/ do |page_name|
   new_window=page.driver.browser.window_handles.last
   page.within_window new_window do
     current_url.should match Regexp.new(get_support_page_url(page_name))
+    page.driver.browser.close
+    #page.execute_script "window.close();"
   end
 end
 
