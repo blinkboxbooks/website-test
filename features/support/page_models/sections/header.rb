@@ -10,7 +10,7 @@ module PageModels
     def navigate_to_account_option(link_name)
       self.should have_account_options_dropdown
       account_options_dropdown.click
-      account_nav_link(link_name).click
+      click_link(link_name)
     end
   end
 end
