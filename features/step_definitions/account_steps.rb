@@ -19,7 +19,7 @@ Given /^I am on the Sign in page$/ do
   sign_in_page.load
 end
 
-When /^I click register button$/ do
+When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
 
@@ -63,8 +63,8 @@ Then /^I am successfully signed in$/ do
   assert_user_greeting_message_displayed(@first_name)
 end
 
-And /^I am redirected to Home page$/ do
-  current_path.should == '/'
+And /^I am redirected to (.*?) page$/ do |page_name|
+  expect_page_displayed(page_name)
 end
 
 Given /^I am on my account page$/ do

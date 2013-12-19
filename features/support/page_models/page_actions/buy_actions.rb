@@ -98,6 +98,14 @@ module PageModels
       book_details_page.buy_now.click
     end
 
+    def cancel_order
+      confirm_and_pay_page.cancel_order_link.click
+    end
+
+    def confirm_cancel_order
+      page.should have_selector('#delete-card')
+      confirm_and_pay_page.confirm_cancel_button.click
+    end
   end
 end
 World(PageModels::BuyActions)

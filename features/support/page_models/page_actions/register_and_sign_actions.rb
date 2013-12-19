@@ -83,6 +83,14 @@ module PageModels
       @password = password
     end
 
+    def cancel_registration
+      register_page.cancel_registration.click
+    end
+
+    def confirm_cancel_registration
+      page.should have_selector('#delete-card')
+      register_page.confirm_cancel_registration.click
+    end
   end
 end
 World(PageModels::RegisterAndSigninActions)

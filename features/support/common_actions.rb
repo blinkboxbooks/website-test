@@ -86,7 +86,7 @@ module Discover
     select_buy_first_book_in_search_results
   end
 
-  def user_selects_a_book_to_read_sample_offline(search_word)
+  def user_navigates_to_book_details(search_word)
     search_blinkbox_books(search_word)
     click_book_details_for_first_book_in_search_results
   end
@@ -94,6 +94,44 @@ module Discover
   def buy_sample_added_book
     visit(@book_href)
     click_buy_now_in_book_details_page
+  end
+
+  def select_book_to_buy_from_a_page(book_type, page_name)
+
+    case page_name
+      when 'Home'
+        select_buy_first_book_from_a_page(home_page.book_in_the_news)
+      when 'Category'
+        current_page.header.main_page_navigation('Categories')
+        click_on_a_category
+        select_buy_first_book_from_a_page(category_page.category_books)
+      when 'Best sellers'
+        click_buy_now_best_seller_book
+      when 'New releases'
+        current_page.header.main_page_navigation(page_name)
+        select_buy_first_book_from_a_page(new_releases_page.new_releases_last_30days)
+      when 'Free books'
+        current_page.header.main_page_navigation(page_name)
+        select_buy_first_book_from_a_page(free_books_page.top_free_books)
+      when 'Search results'
+        search_word = return_search_word_for_book_type(book_type)
+        user_selects_a_book_to_buy(search_word)
+      when 'Book details'
+        search_word = return_search_word_for_book_type(book_type)
+        user_navigates_to_book_details(search_word)
+        book_details_page.buy_now.click
+
+    end
+  end
+
+  def select_buy_first_book_from_a_page(section)
+    within(section) do
+      within(first('li')) do
+        element = find('[class="book"]')
+        mouse_over(element)
+        click_button('BUY NOW')
+      end
+    end
   end
 
 end
