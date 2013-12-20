@@ -113,6 +113,14 @@ module BlinkboxWebUtilities
     reset_session!
   end
 
+  def assert_support_page(page_name)
+    new_window=page.driver.browser.window_handles.last
+    page.within_window new_window do
+      current_url.should match Regexp.new(get_support_page_url(page_name))
+      page.driver.browser.close
+    end
+  end
+
 end
 
 World(Utilities)

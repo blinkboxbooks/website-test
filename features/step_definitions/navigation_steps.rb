@@ -61,7 +61,7 @@ And /^I click on the (.*) link$/ do |page_name|
 end
 
 When /^I click on the (.*) header tab$/ do |page_name|
-  main_page_navigation(page_name)
+  current_page.header.main_page_navigation(page_name)
 end
 
 And /^I press browser back$/ do
@@ -235,11 +235,7 @@ When /^I click \"(.*?)\" FAQ link$/ do |link_name|
 end
 
 Then /^I am redirected to the "(.*?)" page in a new window$/ do |page_name|
-  new_window=page.driver.browser.window_handles.last
-  page.within_window new_window do
-    current_url.should match Regexp.new(get_support_page_url(page_name))
-    page.driver.browser.close
-  end
+  assert_support_page(page_name)
 end
 
 
