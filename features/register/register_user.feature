@@ -31,58 +31,55 @@ Feature: Register a new Blinkbox books user
     Then Registration success page is displayed
     And welcome message is shown
 
-  @pending
+  @negative @pending
   Scenario: Submit registration details with already existing email address
     Given I am on Register page
     When I enter registration details with already registered email address
     And I submit registration details by accepting terms and conditions
-    Then "This email address is already registered with blinkbox books" message is displayed
+    Then registration is not successful
+    And "This email address is already registered with blinkbox books" message is displayed
     And link to sign in with already registered email address is displayed
-    And registration is not successful
 
-  @pending
+
+  @negative @pending
   Scenario: Submit registration details without accepting blinkbox books terms and conditions
     Given I am on Register page
     When I enter valid registration details
-    And I submit registration details without accepting terms and conditions
-    Then "Please accept the blinkbox books terms & conditions" message is displayed
-    And registration is not successful
+    And I submit registration details by not accepting terms and conditions
+    Then registration is not successful
+    And "Please accept the blinkbox books terms & conditions" message is displayed
 
-  @pending
+  @negative @pending
   Scenario: Submit registration details when passwords not matching
     Given I am on Register page
     When I enter valid personal details
     And type passwords that are not matching
     And I submit registration details by accepting terms and conditions
-    Then "Your passwords don't match, please check and try again" message is displayed
-    And registration is not successful
+    Then registration is not successful
+    And  "Your passwords don't match, please check and try again" message is displayed
 
-  @pending
+  @negative @pending
   Scenario: Submit registration details with password less than 6 characters
     Given I am on Register page
     When I enter valid personal details
     And type passwords that are less than 6 characters
     And I submit registration details by accepting terms and conditions
-    Then "Your password is too short" message is displayed
-    And registration is not successful
+    Then registration is not successful
+    And "Your password is too short" message is displayed
 
-  @pending
+  @negative @pending
   Scenario: Submit registration details with empty password
     Given I am on Register page
     When I enter valid personal details
     And I submit registration details by accepting terms and conditions
-    Then "Please enter your password" message is displayed
-    And registration is not successful
+    Then registration is not successful
+    And "Please enter your password" message is displayed
 
-  @pending
-  Scenario:Submit registration details with invalid clubcard number
+  @negative @pending
+  Scenario: Submit registration details with invalid clubcard number
     Given I am on Register page
     When I enter personal details with invalid clubcard number
     And I choose a valid password
     And I submit registration details by accepting terms and conditions
-    Then "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
-    And registration is not successful
-
-
-
-
+    Then registration is not successful
+    And "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
