@@ -6,6 +6,7 @@ module PageModels
     element :first_name, '#first_name'
     element :last_name, '#last_name'
     element :email, '#email'
+    element :club_card, '#clubcard'
     element :password, '#password'
     element :password_repeat, '#repassword'
     element :terms_and_conditions, '#termsconditions'
@@ -28,6 +29,10 @@ module PageModels
     def fill_in_password(password)
       self.password.set password
       self.password_repeat.set password
+    end
+
+    def fill_in_club_card(club_card)
+      self.club_card.set club_card
     end
   end
 

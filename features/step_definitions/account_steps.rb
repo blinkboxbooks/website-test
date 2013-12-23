@@ -33,11 +33,11 @@ When /^I enter valid personal details$/ do
 end
 
 And /^I choose a valid password$/ do
-  choose_a_valid_password('test1234')
+  enter_password('test1234')
 end
 
 And /^I accept terms and conditions$/ do
-  accept_terms_and_conditions
+  accept_terms_and_conditions(true)
 end
 
 And /^welcome message is shown$/ do
@@ -110,4 +110,49 @@ Given /^I have multiple saved cards with (default|non-default) card expired$/ do
     email_address ='default_expired_card@mobcastdev.com'
   end
   set_email_and_password(email_address, 'test1234')
+end
+
+When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
+  club_card = 634004024023421292
+  if club_card_type.include?('invalid')
+    club_card = '434004024023421292'
+  end
+  @email_address, @first_name, @last_name = enter_personal_details
+  register_page.fill_in_club_card(club_card)
+end
+
+And /^I submit registration details by (accepting|not accepting) terms and conditions$/ do |accept_terms|
+  if accept_terms.include?('not')
+    accept_terms_and_conditions(false)
+  else
+    accept_terms_and_conditions(true)
+  end
+  submit_registration_details
+end
+
+When /^I enter registration details with already registered email address$/ do
+  @email_address, @first_name, @last_name = enter_personal_details('bkm1@aa.com')
+  enter_password('test1234')
+end
+
+Then /^registration is not successful$/ do
+  expect_page_displayed('Register')
+end
+
+When /^I enter valid registration details$/ do
+  @email_address, @first_name, @last_name = enter_personal_details
+  enter_password('test1234')
+end
+
+And(/^link to sign in with already registered email address is displayed$/) do
+   page.should have_selector('a', :text =>"Sign in with #{@email_address}")
+end
+
+And /^type passwords that are less than 6 characters$/ do
+  enter_password('test1')
+end
+
+And /^type passwords that are not matching$/ do
+  register_page.password.set 'test1234'
+  register_page.password_repeat.set 'test2345'
 end

@@ -13,18 +13,16 @@ module PageModels
       sign_in_page.sign_in_form.submit(email_address, password)
     end
 
-    def enter_personal_details
+    def enter_personal_details(email_address=@email_address)
       expect_page_displayed("Register")
-
-      email_address = generate_random_email_address
+      email_address ||= generate_random_email_address
       first_name = generate_random_first_name
       last_name = generate_random_last_name
-
       register_page.fill_in_personal_details(first_name, last_name, email_address)
       return email_address, first_name, last_name
     end
 
-    def choose_a_valid_password(value)
+    def enter_password(value)
       register_page.fill_in_password(value)
     end
 
@@ -48,8 +46,8 @@ module PageModels
       click_button('Register')
     end
 
-    def accept_terms_and_conditions
-      register_page.terms_and_conditions.set(true)
+    def accept_terms_and_conditions(accept_terms)
+      register_page.terms_and_conditions.set(accept_terms)
     end
 
     def submit_registration_details
@@ -60,8 +58,8 @@ module PageModels
     def register_new_user
       @password = 'test1234'
       @email_address, @first_name, @last_name = enter_personal_details
-      choose_a_valid_password(@password)
-      accept_terms_and_conditions
+      enter_password(@password)
+      accept_terms_and_conditions(true)
       submit_registration_details
       puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
     end

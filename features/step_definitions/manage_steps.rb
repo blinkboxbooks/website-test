@@ -37,8 +37,8 @@ Given /^I have registered as new user$/ do
   navigate_to_register_form
   @email_address, @first_name, @last_name = enter_personal_details
   @current_password = 'test1234'
-  choose_a_valid_password(@current_password)
-  accept_terms_and_conditions
+  enter_password(@current_password)
+  accept_terms_and_conditions(true)
   submit_registration_details
   assert_user_greeting_message_displayed(@first_name)
 end
