@@ -1,4 +1,4 @@
-@buy @pending
+@buy
 Feature: New user cancels order
   As a new user of blinkbox books
   I want to the ability to cancel order
