@@ -114,7 +114,7 @@ module BlinkboxWebUtilities
   end
 
   def assert_support_page(page_name)
-    assert page.driver.browser.window_handles.size == 2
+    page.driver.browser.window_handles.size.should be == 2
     new_window = page.driver.browser.window_handles.last
     page.within_window new_window do
       current_url.should match Regexp.new(get_support_page_url(page_name))
