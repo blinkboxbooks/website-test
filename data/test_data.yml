@@ -1,0 +1,16 @@
+  emails:
+    happypath_user: happay_path_signin@mobcastdev.com
+    multiple_storedcards: cctest1@aa.com
+    one_default_expired_card: one_default_expired_card@mobcastdev.com
+    multiple_cards_default_expired: default_expired_card@mobcastdev.com
+    multiple_cards_non_default_expired: nondefault_expired_card@mobcastdev.com
+
+  passwords:
+      valid_password: test1234
+      five_digit_password: test1
+      not_matching_password: test2345
+
+  club_cards:
+    valid_clubcard_number: 634004024023421292
+    invalid_clubcard_number: 434004024023421292
+

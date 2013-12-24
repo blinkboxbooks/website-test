@@ -15,6 +15,7 @@ module PageModels
     element :confirm_cancel_registration, "button", :text =>  "Leave this page"
 
     element :errors_section, "#error_signin"
+    element :sign_email_link, "a", :text => "Sign in with"
 
     def has_errors?
       self.has_errors_section?

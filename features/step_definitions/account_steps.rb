@@ -100,22 +100,22 @@ Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$
 end
 
 Given /^I have default expired stored card$/ do
- set_email_and_password('one_default_expired_card@mobcastdev.com', 'test1234')
+ set_email_and_password(test_data("emails", "one_default_expired_card"), test_data("passwords", "valid_password"))
 end
 
 Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
   if (expired_card.include?('non'))
-    email_address ='nondefault_expired_card@mobcastdev.com'
+    email_address = test_data("emails", "multiple_cards_non_default_expired")
   else
-    email_address ='default_expired_card@mobcastdev.com'
+    email_address = test_data("emails", "multiple_cards_default_expired")
   end
   set_email_and_password(email_address, 'test1234')
 end
 
 When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
-  club_card = 634004024023421292
+  club_card = test_data("club_cards", "valid_clubcard_number")
   if club_card_type.include?('invalid')
-    club_card = '434004024023421292'
+    club_card = test_data("club_cards", "invalid_clubcard_number")
   end
   @email_address, @first_name, @last_name = enter_personal_details
   register_page.fill_in_club_card(club_card)
@@ -131,8 +131,8 @@ And /^I submit registration details by (accepting|not accepting) terms and condi
 end
 
 When /^I enter registration details with already registered email address$/ do
-  @email_address, @first_name, @last_name = enter_personal_details('bkm1@aa.com')
-  enter_password('test1234')
+  @email_address, @first_name, @last_name = enter_personal_details(test_data("emails", "happypath_user"))
+  enter_password(test_data("passwords", "valid_password"))
 end
 
 Then /^registration is not successful$/ do
@@ -141,11 +141,12 @@ end
 
 When /^I enter valid registration details$/ do
   @email_address, @first_name, @last_name = enter_personal_details
-  enter_password('test1234')
+  enter_password(test_data("passwords", "valid_password"))
 end
 
 And(/^link to sign in with already registered email address is displayed$/) do
-   page.should have_selector('a', :text =>"Sign in with #{@email_address}")
+   #page.should have_selector('a', :text =>"Sign in with #{@email_address}")
+  register_page.sign_email_link.text.should include(@email_address)
 end
 
 And /^type passwords that are less than 6 characters$/ do
@@ -153,8 +154,8 @@ And /^type passwords that are less than 6 characters$/ do
 end
 
 And /^type passwords that are not matching$/ do
-  register_page.password.set 'test1234'
-  register_page.password_repeat.set 'test2345'
+  register_page.password.set test_data("passwords", "valid_password")
+  register_page.password_repeat.set test_data("passwords", "not_matching_password")
 end
 
 But /^I leave the password field empty$/ do
