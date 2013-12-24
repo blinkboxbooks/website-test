@@ -36,9 +36,9 @@ end
 Given /^I have registered as new user$/ do
   navigate_to_register_form
   @email_address, @first_name, @last_name = enter_personal_details
-  @current_password = 'test1234'
-  choose_a_valid_password(@current_password)
-  accept_terms_and_conditions
+  @current_password =  test_data("passwords", "valid_password")
+  enter_password(@current_password)
+  accept_terms_and_conditions(true)
   submit_registration_details
   assert_user_greeting_message_displayed(@first_name)
 end
@@ -58,7 +58,7 @@ And /^I am on the Change your password section$/ do
 end
 
 When /^I change password$/ do
-  @new_password = 'test4321'
+  @new_password = test_data("passwords", "not_matching_password")
   update_password(@current_password,@new_password)
 end
 

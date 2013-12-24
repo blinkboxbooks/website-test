@@ -6,6 +6,7 @@ module PageModels
     element :first_name, '#first_name'
     element :last_name, '#last_name'
     element :email, '#email'
+    element :club_card, '#clubcard'
     element :password, '#password'
     element :password_repeat, '#repassword'
     element :terms_and_conditions, '#termsconditions'
@@ -14,6 +15,7 @@ module PageModels
     element :confirm_cancel_registration, "button", :text =>  "Leave this page"
 
     element :errors_section, "#error_signin"
+    element :sign_email_link, "a", :text => "Sign in with"
 
     def has_errors?
       self.has_errors_section?
@@ -28,6 +30,10 @@ module PageModels
     def fill_in_password(password)
       self.password.set password
       self.password_repeat.set password
+    end
+
+    def fill_in_club_card(club_card)
+      self.club_card.set club_card
     end
   end
 

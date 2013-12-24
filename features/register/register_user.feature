@@ -22,8 +22,7 @@ Feature: Register a new Blinkbox books user
     Then Registration success page is displayed
     And welcome message is shown
 
-  @pending
-  Scenario: Happy path register user with valid club card number
+  Scenario: Happy path register user with a valid club card number
     Given I am on Register page
     When I enter personal details with valid clubcard number
     And I choose a valid password
@@ -31,7 +30,7 @@ Feature: Register a new Blinkbox books user
     Then Registration success page is displayed
     And welcome message is shown
 
-  @negative @pending
+  @negative
   Scenario: Submit registration details with already existing email address
     Given I am on Register page
     When I enter registration details with already registered email address
@@ -40,8 +39,7 @@ Feature: Register a new Blinkbox books user
     And "This email address is already registered with blinkbox books" message is displayed
     And link to sign in with already registered email address is displayed
 
-
-  @negative @pending
+  @negative
   Scenario: Submit registration details without accepting blinkbox books terms and conditions
     Given I am on Register page
     When I enter valid registration details
@@ -49,7 +47,7 @@ Feature: Register a new Blinkbox books user
     Then registration is not successful
     And "Please accept the blinkbox books terms & conditions" message is displayed
 
-  @negative @pending
+  @negative
   Scenario: Submit registration details when passwords not matching
     Given I am on Register page
     When I enter valid personal details
@@ -58,7 +56,7 @@ Feature: Register a new Blinkbox books user
     Then registration is not successful
     And  "Your passwords don't match, please check and try again" message is displayed
 
-  @negative @pending
+  @negative
   Scenario: Submit registration details with password less than 6 characters
     Given I am on Register page
     When I enter valid personal details
@@ -67,15 +65,17 @@ Feature: Register a new Blinkbox books user
     Then registration is not successful
     And "Your password is too short" message is displayed
 
-  @negative @pending
+  @negative
   Scenario: Submit registration details with empty password
     Given I am on Register page
     When I enter valid personal details
+    But I leave the password field empty
     And I submit registration details by accepting terms and conditions
     Then registration is not successful
     And "Please enter your password" message is displayed
+    And "Your passwords don't match, please check and try again" message is displayed
 
-  @negative @pending
+  @negative
   Scenario: Submit registration details with invalid clubcard number
     Given I am on Register page
     When I enter personal details with invalid clubcard number

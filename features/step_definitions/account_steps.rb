@@ -33,11 +33,11 @@ When /^I enter valid personal details$/ do
 end
 
 And /^I choose a valid password$/ do
-  choose_a_valid_password('test1234')
+  enter_password(test_data("passwords", "valid_password"))
 end
 
 And /^I accept terms and conditions$/ do
-  accept_terms_and_conditions
+  accept_terms_and_conditions(true)
 end
 
 And /^welcome message is shown$/ do
@@ -49,10 +49,10 @@ And /^I submit registration details$/ do
 end
 
 When /^I enter valid sign in details$/ do
-  email = 'happay_path_signin@mobcastdev.com'
-  password = "test1234"
+  email = test_data("emails", "happypath_user")
+  password = test_data("passwords", "valid_password")
   @first_name = "Happy-path"
-  enter_valid_sign_in_details(email, password)
+  enter_sign_in_details(email, password)
 end
 
 And /^I click sign in button$/ do
@@ -91,7 +91,7 @@ And /^I have a stored card$/ do
 end
 
 Given /^I have multiple stored cards$/ do
-  @email_address = 'cctest1@aa.com'
+  @email_address = test_data("emails", "multiple_storedcards")
 end
 
 Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$/ do
@@ -100,14 +100,75 @@ Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$
 end
 
 Given /^I have default expired stored card$/ do
- set_email_and_password('one_default_expired_card@mobcastdev.com', 'test1234')
+ set_email_and_password(test_data("emails", "one_default_expired_card"), test_data("passwords", "valid_password"))
 end
 
 Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
   if (expired_card.include?('non'))
-    email_address ='nondefault_expired_card@mobcastdev.com'
+    email_address = test_data("emails", "multiple_cards_non_default_expired")
   else
-    email_address ='default_expired_card@mobcastdev.com'
+    email_address = test_data("emails", "multiple_cards_default_expired")
   end
-  set_email_and_password(email_address, 'test1234')
+  set_email_and_password(email_address, test_data("passwords", "valid_password"))
+end
+
+When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
+  club_card = test_data("club_cards", "valid_clubcard_number")
+  if club_card_type.include?('invalid')
+    club_card = test_data("club_cards", "invalid_clubcard_number")
+  end
+  @email_address, @first_name, @last_name = enter_personal_details
+  register_page.fill_in_club_card(club_card)
+end
+
+And /^I submit registration details by (accepting|not accepting) terms and conditions$/ do |accept_terms|
+  if accept_terms.include?('not')
+    accept_terms_and_conditions(false)
+  else
+    accept_terms_and_conditions(true)
+  end
+  submit_registration_details
+end
+
+When /^I enter registration details with already registered email address$/ do
+  @email_address, @first_name, @last_name = enter_personal_details(test_data("emails", "happypath_user"))
+  enter_password(test_data("passwords", "valid_password"))
+end
+
+Then /^registration is not successful$/ do
+  expect_page_displayed('Register')
+end
+
+When /^I enter valid registration details$/ do
+  @email_address, @first_name, @last_name = enter_personal_details
+  enter_password(test_data("passwords", "valid_password"))
+end
+
+And(/^link to sign in with already registered email address is displayed$/) do
+  register_page.sign_email_link.text.should include(@email_address)
+end
+
+And /^type passwords that are less than 6 characters$/ do
+  enter_password('test1')
+end
+
+And /^type passwords that are not matching$/ do
+  register_page.password.set test_data("passwords", "valid_password")
+  register_page.password_repeat.set test_data("passwords", "not_matching_password")
+end
+
+But /^I leave the password field empty$/ do
+  enter_password('')
+end
+
+Then /^sign in is not successful$/ do
+  expect_page_displayed('Signin')
+end
+
+When /^I try to sign in with email address that is not registered$/ do
+  enter_sign_in_details(generate_random_email_address, test_data("passwords", "valid_password"))
+end
+
+And /^link to reset password is displayed$/ do
+   sign_in_page.send_reset_link.should
 end
