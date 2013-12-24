@@ -4,7 +4,7 @@ module PageModels
       sign_in_page.register_button.click
     end
 
-    def enter_valid_sign_in_details(email_address, password)
+    def enter_sign_in_details(email_address, password)
       fill_form_element('email', email_address)
       fill_form_element('password', password)
     end
@@ -56,7 +56,7 @@ module PageModels
     end
 
     def register_new_user
-      @password = 'test1234'
+      @password = test_data("passwords", "valid_password")
       @email_address, @first_name, @last_name = enter_personal_details
       enter_password(@password)
       accept_terms_and_conditions(true)
@@ -65,8 +65,8 @@ module PageModels
     end
 
     def sign_in(email_address=@email_address, password=@password)
-      email_address ||= 'bkm1@aa.com'
-      password ||= 'test1234'
+      email_address ||= test_data("emails", "user_with_devices")
+      password ||= test_data("passwords", "valid_password")
       if logged_in_session?
         raise "User is already signed in, which is not expected, please check your flow"
       else
