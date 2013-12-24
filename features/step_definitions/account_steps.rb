@@ -33,7 +33,7 @@ When /^I enter valid personal details$/ do
 end
 
 And /^I choose a valid password$/ do
-  enter_password('test1234')
+  enter_password(test_data("passwords", "valid_password"))
 end
 
 And /^I accept terms and conditions$/ do
@@ -49,8 +49,8 @@ And /^I submit registration details$/ do
 end
 
 When /^I enter valid sign in details$/ do
-  email = 'happay_path_signin@mobcastdev.com'
-  password = "test1234"
+  email = test_data("emails", "happypath_user")
+  password = test_data("passwords", "valid_password")
   @first_name = "Happy-path"
   enter_valid_sign_in_details(email, password)
 end
@@ -91,7 +91,7 @@ And /^I have a stored card$/ do
 end
 
 Given /^I have multiple stored cards$/ do
-  @email_address = 'cctest1@aa.com'
+  @email_address = test_data("emails", "multiple_storedcards")
 end
 
 Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$/ do
@@ -109,7 +109,7 @@ Given /^I have multiple saved cards with (default|non-default) card expired$/ do
   else
     email_address = test_data("emails", "multiple_cards_default_expired")
   end
-  set_email_and_password(email_address, 'test1234')
+  set_email_and_password(email_address, test_data("passwords", "valid_password"))
 end
 
 When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
@@ -145,7 +145,6 @@ When /^I enter valid registration details$/ do
 end
 
 And(/^link to sign in with already registered email address is displayed$/) do
-   #page.should have_selector('a', :text =>"Sign in with #{@email_address}")
   register_page.sign_email_link.text.should include(@email_address)
 end
 
