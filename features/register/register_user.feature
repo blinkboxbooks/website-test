@@ -69,6 +69,7 @@ Feature: Register a new Blinkbox books user
   Scenario: Submit registration details with empty password
     Given I am on Register page
     When I enter valid personal details
+    But I leave the password field empty
     And I submit registration details by accepting terms and conditions
     Then registration is not successful
     And "Please enter your password" message is displayed

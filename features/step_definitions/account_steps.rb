@@ -156,3 +156,7 @@ And /^type passwords that are not matching$/ do
   register_page.password.set 'test1234'
   register_page.password_repeat.set 'test2345'
 end
+
+But /^I leave the password field empty$/ do
+  enter_password('')
+end
