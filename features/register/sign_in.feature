@@ -14,13 +14,34 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
-  @pending
+  @negative
   Scenario: Sign in with email address that is not registered
+    Given I am on the Sign in page
+    When I try to sign in with email address that is not registered
+    Then sign in is not successful
+    And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
+    And link to reset password is displayed
 
-  @pending
+  @negative
   Scenario: Sign in with incorrect password
+    Given I am on the Sign in page
+    When I try to sign in with incorrect password
+    Then sign in is not successful
+    And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
+    And link to reset password is displayed
 
-  @pending
+  @negative
   Scenario: Sign in with empty password
+    Given I am on the Sign in page
+    When I try to sign in with empty password field
+    Then sign in is not successful
+    And "Please enter your password" message is displayed
+
+  Scenario: Click send me a reset link
+    Given I am on the Sign in page
+    And I have attempted to sign in with incorrect password
+    And link to reset password is displayed
+    When I click on Send me a reset link
+    Then reset password page is displayed
 
 

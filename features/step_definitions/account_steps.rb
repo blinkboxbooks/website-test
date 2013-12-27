@@ -162,13 +162,25 @@ But /^I leave the password field empty$/ do
 end
 
 Then /^sign in is not successful$/ do
-  expect_page_displayed('Signin')
+  expect_page_displayed('sign in')
 end
 
 When /^I try to sign in with email address that is not registered$/ do
-  enter_sign_in_details(generate_random_email_address, test_data("passwords", "valid_password"))
+  submit_sign_in_details(generate_random_email_address, test_data("passwords", "valid_password"))
 end
 
 And /^link to reset password is displayed$/ do
    sign_in_page.send_reset_link.should
+end
+
+When /^I (?:try|have attempted) to sign in with incorrect password$/ do
+  submit_sign_in_details(test_data("emails", "happypath_user"), test_data("passwords", "not_matching_password"))
+end
+
+When /^I try to sign in with empty password field$/ do
+  submit_sign_in_details(test_data("emails", "happypath_user"),'')
+end
+
+When /^I click on Send me a reset link$/ do
+  sign_in_page.send_reset_link.click
 end
