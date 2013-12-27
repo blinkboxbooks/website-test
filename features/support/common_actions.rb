@@ -125,6 +125,7 @@ module Discover
   end
 
   def select_buy_first_book_from_a_page(section)
+    section.should be_visible
     within(section) do
       within(first('li')) do
         element = find('[class="book"]')
