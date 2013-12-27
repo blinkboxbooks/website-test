@@ -113,9 +113,9 @@ Given /^I have multiple saved cards with (default|non-default) card expired$/ do
 end
 
 When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
-  club_card = test_data("club_cards", "valid_clubcard_number")
+  club_card = test_data("clubcards", "valid_clubcard_number")
   if club_card_type.include?('invalid')
-    club_card = test_data("club_cards", "invalid_clubcard_number")
+    club_card = test_data("clubcards", "invalid_clubcard_number")
   end
   @email_address, @first_name, @last_name = enter_personal_details
   register_page.fill_in_club_card(club_card)
