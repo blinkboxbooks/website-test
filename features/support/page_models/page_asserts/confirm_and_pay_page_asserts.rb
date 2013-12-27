@@ -5,7 +5,7 @@ module PageModels
         if (button_status.include?('disabled'))
           find_button(selector.text, disabled: true)[:disabled].eql?('true')
         else
-          find_button('Confirm & pay')[:disabled].should_not be
+          find_button(selector.text)[:disabled].should_not be
         end
       rescue Capybara::ElementNotFound
         raise "Confirm and Pay button is not #{button_status} as expected"

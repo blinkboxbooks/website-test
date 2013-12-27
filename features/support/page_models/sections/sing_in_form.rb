@@ -3,9 +3,11 @@ module PageModels
     element :email, "input#email"
     element :password, "input#password"
     element :sign_in_button, "button", :text => "Sign in"
+    element :show_password,'#showPassword'
 
     def submit(email, password)
       self.email.set email
+      self.show_password.set true
       self.password.set password
       self.should have_sign_in_button
       self.sign_in_button.click

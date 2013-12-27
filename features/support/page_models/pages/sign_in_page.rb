@@ -3,7 +3,8 @@ module PageModels
     set_url "/#!/signin"
     set_url_matcher /signin/
     element :register_button, "button", :text => "Register"
-
+    element :send_reset_link, "a", :text => "Send me a reset link"
+    element :show_password,'#showPassword'
     section :sign_in_form, SignInForm, "#signin"
   end
 
