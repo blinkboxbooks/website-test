@@ -19,6 +19,7 @@ module Discover
   end
 
   def click_on_a_category
+   find('[data-test="all-categories-list"]').should be_visible
     within('[data-test="all-categories-list"]') do
       within(first('li')) do
         within('[class="cover"]') do
@@ -127,10 +128,12 @@ module Discover
   def select_buy_first_book_from_a_page(section)
     section.should be_visible
     within(section) do
-      within(first('li')) do
-        element = find('[class="book"]')
-        mouse_over(element)
-        click_button('BUY NOW')
+      within(first('ul')) do
+        within(first('li')) do
+          element = find('[class="book"]')
+          mouse_over(element)
+          click_button('BUY NOW')
+        end
       end
     end
   end
