@@ -16,3 +16,12 @@
     valid_clubcard_number: 634004024023421292
     invalid_clubcard_number: 434004024023421292
 
+  payment:
+    expiry_month: 12
+    expiry_year: 2023
+    name_on_card: jamie jones
+    address_lineone: my address line one
+    address_linetwo: my address line two
+    town_or_city: My town
+    postcode: WC18AQ
+    cvv_does_not_match: 200

@@ -106,6 +106,21 @@ module PageModels
       page.should have_selector('#delete-card')
       confirm_and_pay_page.confirm_cancel_button.click
     end
+
+    def submit_new_payment_with_not_matching_cvv
+      confirm_and_pay_page.pay_with_new_card.click
+      enter_card_number(get_card_number_by_type('VISA'))
+      select_expiry_date(test_data("payment", "expiry_month"),test_data("payment", "expiry_year"))
+      confirm_and_pay_page.cvv.set(test_data("payment", "cvv_does_not_match"))
+      enter_name_on_card(test_data("payment", "name_on_card"))
+      enter_billing_details
+      choose_not_to_save_card_details
+      confirm_and_pay_page.confirm_and_pay.click
+    end
+
+    def submit_empty_new_payments_form
+      confirm_and_pay_page.confirm_and_pay.click
+    end
   end
 end
 World(PageModels::BuyActions)
