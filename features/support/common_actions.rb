@@ -19,6 +19,7 @@ module Discover
   end
 
   def click_on_a_category
+   page.find('[data-test="all-categories-list"]').should be_visible
     within('[data-test="all-categories-list"]') do
       within(first('li')) do
         within('[class="cover"]') do
