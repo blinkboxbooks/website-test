@@ -184,3 +184,7 @@ end
 When /^I click on Send me a reset link$/ do
   sign_in_page.send_reset_link.click
 end
+
+Given /^I am returning user with saved payment details$/ do
+  set_email_and_password(test_data("emails", "no_expired_cards"), test_data("passwords", "valid_password"))
+end

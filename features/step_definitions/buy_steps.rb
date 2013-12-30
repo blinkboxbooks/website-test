@@ -99,4 +99,11 @@ Given /^I have selected to buy a (pay for|free) book from (.*?) page$/ do |book_
   select_book_to_buy_from_a_page(book_type, page_name)
 end
 
+And /^my payment failed at Braintree for not matching CVV$/ do
+  submit_new_payment_with_not_matching_cvv
+  expect(page).to have_content "We're sorry but your payment did not go through"
+end
 
+And /^I have validation error messages on the page$/ do
+  submit_empty_new_payments_form
+end
