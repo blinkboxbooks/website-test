@@ -7,7 +7,7 @@ Feature: Returning user cancels order
   Background:
     Given I am returning user with saved payment details
 
-  Scenario Outline: Returning paying with saved card, user cancels order
+  Scenario Outline: Returning user paying with saved card, user cancels order
     Given I have selected to buy a <book_type> book from <page_name> page
     And I sign in to proceed with purchase
     When I cancel order
