@@ -21,7 +21,7 @@ Feature: New user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Best sellers   | pay for   |
+    | Bestsellers   | pay for   |
     | New releases   | pay for   |
     | Search results | free      |
     | Book details   | free      |
@@ -40,7 +40,7 @@ Feature: New user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Best sellers   | pay for   |
+    | Bestsellers   | pay for   |
     | New releases   | pay for   |
     | Search results | free      |
     | Book details   | free      |

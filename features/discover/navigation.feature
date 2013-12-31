@@ -49,10 +49,10 @@ Feature: Navigation around the website
     And main footer is displayed
 
   @CWA-71 @smoke @production
-  Scenario: Navigate to Best sellers page
-    When I click on the Best sellers header tab
-    Then Best sellers page is displayed
-    And Best sellers section header is Best sellers Top 100 this month
+  Scenario: Navigate to Bestsellers page
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
+    And Bestsellers section header is Bestsellers Top 100 this month
     And I should see 'Fiction' and 'Non-Fiction' tabs
     And Grid view and List view buttons displayed
     And main footer is displayed
@@ -77,7 +77,7 @@ Feature: Navigation around the website
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then I should be on the Authors page
-    And Best selling authors section header is Top 100 bestselling authors this month
+    And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
   @smoke @production
@@ -145,40 +145,40 @@ Feature: Navigation around the website
     | page         |
     | Featured     |
     | Categories   |
-    | Best sellers |
+    | Bestsellers |
     | New releases |
     | Free books   |
     | Authors      |
 
   @CWA-71 @wip
   Scenario: Promotable category-All time best selling books
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
+    When I click on the Bestsellers link
+    Then Bestsellers page is displayed
     And I should see Promotions section header as All time best selling books
     And I should see 5 books being displayed
 
   @CWA-71
-  Scenario: Best sellers page - Switching views
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
+  Scenario: Bestsellers page - Switching views
+    When I click on the Bestsellers link
+    Then Bestsellers page is displayed
     And I select grid view
     Then I should see Fiction books in gird view
     And I select list view
     Then I should see Fiction books in list view
 
   @CWA-71
-  Scenario: Best sellers page - Grid view not changing between tabs
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
+  Scenario: Bestsellers page - Grid view not changing between tabs
+    When I click on the Bestsellers link
+    Then Bestsellers page is displayed
     And I select grid view
     Then I should see Fiction books in gird view
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in gird view
 
   @CWA-71
-  Scenario: Best sellers page - List view not changing between tabs
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
+  Scenario: Bestsellers page - List view not changing between tabs
+    When I click on the Bestsellers link
+    Then Bestsellers page is displayed
     And I select list view
     Then I should see Fiction books in list view
     And I click on Non-Fiction tab
@@ -186,14 +186,14 @@ Feature: Navigation around the website
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
+    When I click on the Bestsellers link
+    Then Bestsellers page is displayed
     And  I select list view
     Then long titles should be displayed in two lines
 
   @CWA-34  @manual
   Scenario:Book Component-Grid view Title display
-    When I click on the Best sellers link
-    Then Best sellers page is displayed
+    When I click on the Bestsellers link
+    Then Bestsellers page is displayed
     And  I select grid view
     Then long titles should be truncated to fit within image

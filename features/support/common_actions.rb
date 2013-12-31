@@ -62,7 +62,7 @@ module Discover
   end
 
   def click_buy_now_best_seller_book
-    click_link "Best sellers"
+    click_link "Bestsellers"
     page.has_selector?('.bookList')
     within('.bookList') do
       element= first('[class="book featured"]')
