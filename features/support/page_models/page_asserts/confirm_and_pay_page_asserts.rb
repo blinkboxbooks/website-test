@@ -11,6 +11,10 @@ module PageModels
         raise "Confirm and Pay button is not #{button_status} as expected"
 
       end
+
+      def assert_payment_failure_message
+        expect(page).to have_content "We're sorry but your payment did not go through"
+      end
     end
 end
 World(PageModels::ConfirmAndPayPageAsserts)
