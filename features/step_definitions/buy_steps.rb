@@ -100,10 +100,46 @@ Given /^I have selected to buy a (pay for|free) book from (.*?) page$/ do |book_
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
+  confirm_and_pay_page.pay_with_new_card.click
   submit_new_payment_with_not_matching_cvv
-  expect(page).to have_content "We're sorry but your payment did not go through"
+  assert_payment_failure_message
 end
 
 And /^I have validation error messages on the page$/ do
   submit_empty_new_payments_form
+end
+
+When /^I select above (pay for|free) book to buy$/ do |book_type|
+  isbn = test_data('library_isbns', 'pay_for_book')
+  if book_type.include?('free')
+    isbn = test_data('library_isbns', 'free_book')
+  end
+  user_navigates_to_book_details(isbn)
+  book_details_page.buy_now.click
+end
+
+And /^book already exists in the library message displayed in confirm and pay page$/ do
+  find('#already-purchased').should be_visible
+  page.should have_text('You already have this book in your library')
+end
+
+When /^I select above (pay for|free) book to add sample$/ do |book_type|
+  isbn = test_data('library_isbns', 'pay_for_sample')
+  if book_type.include?('free')
+    isbn = test_data('library_isbns', 'free_sample')
+  end
+  user_navigates_to_book_details(isbn)
+  click_read_offline
+end
+
+And /^payment failure message should be displayed$/ do
+  assert_payment_failure_message
+end
+
+And /^I submit payment details with not matching cvv (\d+)$/ do |cvv_number|
+  submit_new_payment_with_not_matching_cvv(cvv_number)
+end
+
+Then /^my payment is not successful$/ do
+  expect_page_displayed('Confirm and pay')
 end

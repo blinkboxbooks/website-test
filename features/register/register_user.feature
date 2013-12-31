@@ -83,3 +83,10 @@ Feature: Register a new Blinkbox books user
     And I submit registration details by accepting terms and conditions
     Then registration is not successful
     And "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
+
+  Scenario: Click sign in with already registered email link
+    Given I am on Register page
+    And I have attempted to register with already registered email address
+    And link to sign in with already registered email address is displayed
+    When I click on link to sign in with already registered email
+    Then Sign in page is displayed
