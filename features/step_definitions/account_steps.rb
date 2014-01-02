@@ -11,7 +11,7 @@ Given /^I have signed in$/ do
   sign_in(@email_address)
 end
 
-When /^I sign in(?: to proceed with purchase| to proceed with adding sample)?$/ do
+When /^(?:I sign in|sign in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
   sign_in
 end
 
@@ -188,3 +188,19 @@ end
 Given /^I am returning user with saved payment details$/ do
   set_email_and_password(test_data("emails", "no_expired_cards"), test_data("passwords", "valid_password"))
 end
+
+Given /^I have attempted to register with already registered email address$/ do
+  @email_address, @first_name, @last_name = enter_personal_details(test_data("emails", "happypath_user"))
+  enter_password(test_data("passwords", "valid_password"))
+  accept_terms_and_conditions(true)
+  submit_registration_details
+end
+
+When /^I click on link to sign in with already registered email$/ do
+ register_page.sign_email_link.click
+end
+
+Given /^I have a (?:pay for|free) (?:book|book sample) in my library$/ do
+  set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
+end
+
