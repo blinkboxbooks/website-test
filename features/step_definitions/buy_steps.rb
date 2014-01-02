@@ -118,9 +118,9 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
   book_details_page.buy_now.click
 end
 
-And /^book already exists in the library message displayed in confirm and pay page$/ do
+And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
   find('#already-purchased').should be_visible
-  page.should have_text('You already have this book in your library')
+  page.should have_text("You already have this #{type} in your library")
 end
 
 When /^I select above (pay for|free) book to add sample$/ do |book_type|
