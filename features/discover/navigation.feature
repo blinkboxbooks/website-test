@@ -51,7 +51,7 @@ Feature: Navigation around the website
   @CWA-71 @smoke @production
   Scenario: Navigate to Bestsellers page
     When I click on the Bestsellers header tab
-    Then Bestsellers page is displayed
+    Then Best sellers page is displayed
     And Bestsellers section header is Bestsellers Top 100 this month
     And I should see 'Fiction' and 'Non-Fiction' tabs
     And Grid view and List view buttons displayed
