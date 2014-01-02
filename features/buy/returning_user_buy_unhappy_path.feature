@@ -25,7 +25,7 @@ Feature:  Unhappy path buy
     Given  I have a <book_type> book sample in my library
     When I select above <book_type> book to add sample
     And sign in to proceed with adding sample
-    Then book already exists in the library message displayed in confirm and pay page
+    Then sample already exists in the library message displayed in confirm and pay page
 
   Examples:
     | book_type |
@@ -37,7 +37,7 @@ Feature:  Unhappy path buy
     Given  I have a <book_type> book in my library
     When I select above <book_type> book to add sample
     And  sign in to proceed with adding sample
-    Then book already exists in the library message displayed in confirm and pay page
+    Then sample already exists in the library message displayed in confirm and pay page
 
   Examples:
     | book_type |

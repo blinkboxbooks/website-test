@@ -106,7 +106,7 @@ module Discover
         current_page.header.main_page_navigation('Categories')
         click_on_a_category
         select_buy_first_book_from_a_page(category_page.category_books)
-      when 'Best sellers'
+      when 'Bestsellers'
         click_buy_now_best_seller_book
       when 'New releases'
         current_page.header.main_page_navigation(page_name)
