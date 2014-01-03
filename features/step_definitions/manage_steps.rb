@@ -15,14 +15,14 @@ When /^I edit the first name and last name$/ do
   @first_name, @last_name = edit_personal_details
 end
 
-And /^I submit my personal details$$/ do
+And /^(?:I submit|submit) my personal details$$/ do
   page.should have_button("Update personal details")
-  click_button("Update personal details")
+  your_personal_details_page.update_personal_details.click
 end
 
 Then /^the first name and last name are as submitted$/ do
-  find('[id="first_name"]').value.should eql(@first_name)
-  find('[id="last_name"]').value.should eql(@last_name)
+  your_personal_details_page.first_name.value.should eql(@first_name)
+  your_personal_details_page.last_name.value.should eql(@last_name)
 end
 
 When /^I edit marketing preferences$/ do
@@ -33,11 +33,15 @@ And /^marketing preferences are as submitted$/  do
   assert_marketing_preferences_changed(@after_status)
 end
 
-Given /^I have registered as new user$/ do
+Given /^I have registered as new user (without|by) providing clubcard/ do |provide_clubcard|
   navigate_to_register_form
   @email_address, @first_name, @last_name = enter_personal_details
   @current_password =  test_data("passwords", "valid_password")
   enter_password(@current_password)
+  if provide_clubcard.include?('by')
+    @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
+    your_personal_details_page.fill_in_club_card(@valid_clubcard)
+  end
   accept_terms_and_conditions(true)
   submit_registration_details
   assert_user_greeting_message_displayed(@first_name)
@@ -99,6 +103,43 @@ And /^the selected card is displayed as my default card$/ do
     click_link('Featured')
     click_link_from_my_account_dropdown('Your payments')
     assert_default_card(@default_card)
+end
+
+When /^I enter valid clubcard number$/ do
+  @valid_clubcard = test_data('clubcards', 'valid_clubcard_number')
+  your_personal_details_page.fill_in_club_card(@valid_clubcard)
+end
+
+Then /^clubcard added to my account$/ do
+  expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
+end
+
+Then /^my clubcard updated$/ do
+  expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
+end
+
+When /^I attempt to update my clubcard with invalid (\d+)$/ do |clubcard_number|
+  @club_card_before = your_personal_details_page.club_card.value
+  your_personal_details_page.fill_in_club_card(clubcard_number)
+  your_personal_details_page.update_personal_details.click
+end
+
+And /^my clubcard is not updated$/ do
+  click_link('Featured')
+  click_link_from_my_account_dropdown('Your personal details')
+  your_personal_details_page.club_card.value.should eql(@club_card_before)
+end
+
+And /^my email is not updated$/ do
+  click_link('Featured')
+  click_link_from_my_account_dropdown('Your personal details')
+  your_personal_details_page.email_address.value.should eql(@email_before)
+end
+
+When /^I attempt to update email address with already registered email address$/ do
+  @email_before = your_personal_details_page.email_address.value
+  your_personal_details_page.email_address.set(test_data('emails', 'happypath_user'))
+  your_personal_details_page.update_personal_details.click
 end
 
 

@@ -53,6 +53,7 @@ module PageModels
 
     def submit_registration_details
       register_page.register_button.click
+      puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
       #registration_success_page.wait_for_welcome_label || register_page.wait_for_errors_section
     end
 

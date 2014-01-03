@@ -148,10 +148,10 @@ module ManageAccount
   def edit_personal_details
     first_name = generate_random_first_name
     last_name = generate_random_last_name
-    puts "Changing first name from '#{find('input#first_name').value}' to '#{first_name}'"
-    puts "Changing last name from '#{find('input#last_name').value}' to '#{last_name}'"
-    fill_form_element('first_name', first_name)
-    fill_form_element('last_name', last_name)
+    puts "Changing first name from '#{your_personal_details_page.first_name.value}' to '#{first_name}'"
+    puts "Changing last name from '#{your_personal_details_page.first_name.value}' to '#{last_name}'"
+    your_personal_details_page.first_name set first_name
+    your_personal_details_page.last_name set last_name
     return first_name, last_name
   end
 
