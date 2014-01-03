@@ -1,7 +1,7 @@
 Feature: Update the Personal details of the user under 'your account'
   As a singed in Blinkbox books user
-  I need the ability to view my account page
-  So I can view and update my personal details details
+  I need the ability to update my personal details
+  So I can keep my account up to date
   #- Manage - Your personal details (8.3.0.0-L 1)
 
   Background:
@@ -26,37 +26,50 @@ Feature: Update the Personal details of the user under 'your account'
     And marketing preferences are as submitted
 
   @smoke
-  Scenario: Successfully update Email address
-    Given I have registered as new user
-    And I am on the Your personal details tab
-    When I edit email address
-    And I submit my personal details
-    Then "Your personal details have been successfully updated." message is displayed
-    And email address is as submitted
-
-  @smoke
   Scenario: Successfully change password
-    Given I have registered as new user
+    Given I have registered as new user without providing clubcard
     And I am on the Change your password section
     When I change password
     And I confirm changes
     Then Your personal details page is displayed
     And I can sign in with the new password successfully
 
-  @smoke
-  Scenario: Delete a stored card
-    Given I have a stored card
-    And I have signed in
-    And I am on the Your payments tab
-    When I delete the first card from the list
-    Then there are no cards in my account
-    And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
+  Scenario: Add clubcard to existing blinkbox books account
+    Given I have registered as new user without providing clubcard
+    And I am on the Your personal details tab
+    When I enter valid clubcard number
+    And submit my personal details
+    Then clubcard added to my account
+    And "Your personal details have been successfully updated." message is displayed
 
-  @smoke  @data_dependent
-  Scenario: Change default card
-    Given I have multiple stored cards
+  Scenario: Update clubcard associated with existing blinkbox books account
+    Given I have registered as new user by providing clubcard
+    And I am on the Your personal details tab
+    When I enter valid clubcard number
+    And submit my personal details
+    Then my clubcard updated
+    And "Your personal details have been successfully updated." message is displayed
+
+  @negative
+  Scenario Outline: Update the Clubcard number with an invalid Clubcard
+    Given I have registered as new user by providing clubcard
+    And I am on the Your personal details tab
+    When I attempt to update my clubcard with invalid <clubcard_number>
+    Then "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
+    And my clubcard is not updated
+
+  Examples:
+    | clubcard_number    |
+    | 123456789012345678 |
+    | 634004025023057563 |
+    | 634004025023057562 |
+
+  @negative
+  Scenario: Update email address using already registered email address
+    Given I am returning user
     And I have signed in
-    And I am on the Your payments tab
-    When I set a different card as my default card
-    Then "Credit card set as default successfully" message is displayed
-    And the selected card is displayed as my default card
+    And I am on the Your personal details tab
+    When I attempt to update email address with already registered email address
+    Then "This email address is already registered to another Blinkbox books account" message is displayed
+    And my email is not updated
+
