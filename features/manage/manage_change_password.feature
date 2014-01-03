@@ -7,13 +7,13 @@ Feature: Unhappy path scenarios for manage personal details
     Given I am on the home page
 
   @smoke
-  Scenario: Successfully update Email address
+  Scenario: Successfully change password
     Given I have registered as new user without providing clubcard
-    And I am on the Your personal details tab
-    When I edit email address
-    And I submit my personal details
-    Then "Your personal details have been successfully updated." message is displayed
-    And email address is as submitted
+    And I am on the Change your password section
+    When I change password
+    And I confirm changes
+    Then Your personal details page is displayed
+    And I can sign in with the new password successfully
 
   @negative
   Scenario: Change password by entering incorrect current password
