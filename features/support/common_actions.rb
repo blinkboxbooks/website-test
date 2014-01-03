@@ -150,8 +150,8 @@ module ManageAccount
     last_name = generate_random_last_name
     puts "Changing first name from '#{your_personal_details_page.first_name.value}' to '#{first_name}'"
     puts "Changing last name from '#{your_personal_details_page.first_name.value}' to '#{last_name}'"
-    your_personal_details_page.first_name set first_name
-    your_personal_details_page.last_name set last_name
+    your_personal_details_page.first_name.set first_name
+    your_personal_details_page.last_name.set last_name
     return first_name, last_name
   end
 
