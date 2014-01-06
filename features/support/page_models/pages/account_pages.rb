@@ -36,9 +36,20 @@ module PageModels
     set_url_matcher /account\/your-devices/
   end
 
+  class ChangePasswordPage < PageModels::YourAccountPage
+    set_url "/#!/account/change-password"
+    set_url_matcher /account\/change-password/
+    element :current_password, '#currentPassword'
+    element :enter_new_password, '#password'
+    element :re_enter_new_password, '#repassword'
+    element :show_password, '#show'
+    element :confirm_button, "button", :text => "Confirm"
+  end
+
   register_model_caller_method(YourAccountPage)
   register_model_caller_method(YourOrderAndPaymentHistoryPage)
   register_model_caller_method(YourPersonalDetailsPage)
   register_model_caller_method(YourPaymentsPage)
   register_model_caller_method(YourDevicesPage)
+  register_model_caller_method(ChangePasswordPage)
 end

@@ -62,7 +62,7 @@ And /^I am on the Change your password section$/ do
 end
 
 When /^I change password$/ do
-  @new_password = test_data("passwords", "not_matching_password")
+  @new_password = test_data('passwords', 'change_password')
   update_password(@current_password,@new_password)
 end
 
@@ -141,5 +141,35 @@ When /^I attempt to update email address with already registered email address$/
   your_personal_details_page.email_address.set(test_data('emails', 'happypath_user'))
   your_personal_details_page.update_personal_details.click
 end
+
+When /^I attempt to update password by providing incorrect current password$/ do
+  update_password(test_data('passwords', 'invalid_password'), test_data('passwords', 'change_password'))
+  change_password_page.confirm_button.click
+end
+
+When /^I attempt to update password by providing not matching passwords$/ do
+  change_password_page.current_password.set @current_password
+  change_password_page.enter_new_password.set test_data('passwords', 'change_password')
+  change_password_page.re_enter_new_password.set test_data('passwords', 'not_matching_password')
+  change_password_page.confirm_button.click
+end
+
+When /^I attempt to update password by providing passwords less than 6 characters$/ do
+  change_password_page.current_password.set @current_password
+  change_password_page.enter_new_password.set test_data('passwords', 'five_digit_password')
+  change_password_page.re_enter_new_password.set test_data('passwords', 'five_digit_password')
+  change_password_page.confirm_button.click
+end
+
+And /^my password is not updated$/ do
+  click_button('Sign out')
+  log_out_current_session
+  set_start_cookie_accepted
+  visit('/')
+  sign_in(@email_address,@current_password)
+end
+
+
+
 
 
