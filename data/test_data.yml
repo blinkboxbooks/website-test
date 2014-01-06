@@ -10,8 +10,10 @@
 
   passwords:
       valid_password: test1234
+      invalid_password: password
       five_digit_password: test1
       not_matching_password: test2345
+      change_password: mypassword123
 
   clubcards:
     valid_clubcard_number: 634004024023421292

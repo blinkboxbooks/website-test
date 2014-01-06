@@ -27,10 +27,10 @@ module PageModels
       register_page.fill_in_password(value)
     end
 
-    def update_password(current_password, new_password)
-      fill_form_element('currentPassword', current_password)
-      fill_form_element('password', new_password)
-      fill_form_element('repassword', new_password)
+    def update_password(current_password, new_password, re_enter_password = new_password)
+      change_password_page.current_password.set current_password
+      change_password_page.enter_new_password.set new_password
+      change_password_page.re_enter_new_password.set re_enter_password
     end
 
     def click_sign_in_button
@@ -90,6 +90,13 @@ module PageModels
     def confirm_cancel_registration
       page.should have_selector('#delete-card')
       register_page.confirm_cancel_registration.click
+    end
+
+    def sign_out_and_start_new_session
+      your_account_page.sign_out_button.click
+      log_out_current_session
+      set_start_cookie_accepted
+      visit('/')
     end
   end
 end
