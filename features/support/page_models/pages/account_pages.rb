@@ -2,6 +2,7 @@ module PageModels
   class YourAccountPage < PageModels::BlinkboxbooksPage
     set_url_matcher /account\//
     section :account_nav_frame, AccountNavFrame, ".account_frame"
+    element :sign_out_button, "button", :text => "Sign out"
   end
 
   class YourOrderAndPaymentHistoryPage < PageModels::YourAccountPage

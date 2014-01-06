@@ -27,10 +27,10 @@ module PageModels
       register_page.fill_in_password(value)
     end
 
-    def update_password(current_password, new_password)
+    def update_password(current_password, new_password, re_enter_password = new_password)
       change_password_page.current_password.set current_password
       change_password_page.enter_new_password.set new_password
-      change_password_page.re_enter_new_password.set new_password
+      change_password_page.re_enter_new_password.set re_enter_password
     end
 
     def click_sign_in_button

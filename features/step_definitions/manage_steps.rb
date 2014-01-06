@@ -73,7 +73,7 @@ And /^I confirm changes$/ do
 end
 
 And /^I can sign in with the new password successfully$/ do
-  click_button('Sign out')
+  your_account_page.sign_out_button.click
   log_out_current_session
   set_start_cookie_accepted
   visit('/')
@@ -148,21 +148,17 @@ When /^I attempt to update password by providing incorrect current password$/ do
 end
 
 When /^I attempt to update password by providing not matching passwords$/ do
-  change_password_page.current_password.set @current_password
-  change_password_page.enter_new_password.set test_data('passwords', 'change_password')
-  change_password_page.re_enter_new_password.set test_data('passwords', 'not_matching_password')
+  update_password(@current_password, test_data('passwords', 'change_password'),test_data('passwords', 'not_matching_password'))
   change_password_page.confirm_button.click
 end
 
 When /^I attempt to update password by providing passwords less than 6 characters$/ do
-  change_password_page.current_password.set @current_password
-  change_password_page.enter_new_password.set test_data('passwords', 'five_digit_password')
-  change_password_page.re_enter_new_password.set test_data('passwords', 'five_digit_password')
+  update_password(@current_password,test_data('passwords', 'five_digit_password'))
   change_password_page.confirm_button.click
 end
 
 And /^my password is not updated$/ do
-  click_button('Sign out')
+  your_account_page.sign_out_button.click
   log_out_current_session
   set_start_cookie_accepted
   visit('/')
