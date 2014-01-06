@@ -73,10 +73,7 @@ And /^I confirm changes$/ do
 end
 
 And /^I can sign in with the new password successfully$/ do
-  your_account_page.sign_out_button.click
-  log_out_current_session
-  set_start_cookie_accepted
-  visit('/')
+  sign_out_and_start_new_session
   sign_in(@email_address,@new_password)
 end
 
@@ -158,11 +155,9 @@ When /^I attempt to update password by providing passwords less than 6 character
 end
 
 And /^my password is not updated$/ do
-  your_account_page.sign_out_button.click
-  log_out_current_session
-  set_start_cookie_accepted
-  visit('/')
+  sign_out_and_start_new_session
   sign_in(@email_address,@current_password)
+  assert_user_greeting_message_displayed(@first_name)
 end
 
 

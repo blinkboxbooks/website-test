@@ -91,6 +91,13 @@ module PageModels
       page.should have_selector('#delete-card')
       register_page.confirm_cancel_registration.click
     end
+
+    def sign_out_and_start_new_session
+      your_account_page.sign_out_button.click
+      log_out_current_session
+      set_start_cookie_accepted
+      visit('/')
+    end
   end
 end
 World(PageModels::RegisterAndSigninActions)
