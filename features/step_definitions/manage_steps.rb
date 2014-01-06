@@ -75,6 +75,7 @@ end
 And /^I can sign in with the new password successfully$/ do
   sign_out_and_start_new_session
   sign_in(@email_address,@new_password)
+  assert_user_greeting_message_displayed(@first_name)
 end
 
 When /^I delete the first card from the list$/ do
