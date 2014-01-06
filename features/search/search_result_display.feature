@@ -1,5 +1,5 @@
 @search
-Feature:
+Feature: Search Results page
   As a blinkbox book user
   I want to be able to search using a term associated with book
   So that I can see list of books with that search term
