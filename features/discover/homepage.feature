@@ -19,6 +19,15 @@ Feature: Checking home page contents
     And banner has background images
     And homepage hero banner has navigation buttons
 
+  Scenario Outline: Books under Home page promotable categories
+    When I am viewing in Desktop mode
+    Then <category_name> promotable category has 8 books
+    And all the books displayed
+
+  Examples:
+    | category_name     |
+    | Books in the news |
+    | Editor's Picks    |
 
   @manual @CWA-33
   Scenario: Homepage hero banner manual navigation
