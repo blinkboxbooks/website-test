@@ -87,49 +87,6 @@ And /^footer is displayed$/ do
   find('[data-test="bottom-footer-container"]').visible?
 end
 
-#When /^a promotable category has books to display$/ do
-#  within("#books_news") do
-#    @visible_books = page.all('li', :visible => true).count
-#    @all_books = page.all('li', :visible => false).count
-#    #TODO: Given step should not assert
-#    @all_books.should > @visible_books
-#  end
-#end
-
-#And /^I click on View (.*) button$/ do |arg1|
-#  within("#books_news") do
-#    if (@all_books > @visible_books)
-#      find('[data-test="expand-list-button"]').click
-#    end
-#  end
-#end
-
-#Then /^I should see more books displayed$/ do
-#  within('#books_news') do
-#    (page.all('li', :visible => true).count).should > (@visible_books)
-#  end
-#end
-
-#And /^I click on view more button until all the books are displayed$/ do
-#  within('#books_news') do
-#    until  @all_books == page.all('li', :visible => true).count
-#      find('[data-test="expand-list-button"]').click
-#    end
-#  end
-#end
-
-#Then /^the button should change to View less$/ do
-#  within('#books_news') do
-#    ((find('[data-test="expand-list-button"]'))[:title]).should =="View less"
-#  end
-#end
-
-#Then /^the button should change to View more$/ do
-#  within('#books_news') do
-#    ((find('[data-test="expand-list-button"]'))[:title]).should =="View more"
-#  end
-#end
-
 And /^(.*?) header is (.*?)$/ do |section_name, text|
   assert_container(get_element_id_for(section_name))
   assert_section_header(get_element_id_for(section_name), text)
