@@ -48,4 +48,20 @@ And /^each banner image has Find out more button$/ do
  pending
 end
 
+Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_books|
+     selector = home_page.book_in_the_news
+    if category_name.include?('Editor')
+      selector = home_page.editors_picks
+    end
+      within(selector) do
+        @visible_books = page.all('li', :visible => true).count
+        @all_books = page.all('li', :visible => false).count
+        @all_books.should eql(no_of_books.to_i)
+      end
+end
+
+And /^all the books displayed$/ do
+  @all_books.should eql(@visible_books)
+end
+
 
