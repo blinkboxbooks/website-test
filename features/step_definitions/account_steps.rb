@@ -12,7 +12,7 @@ Given /^I have signed in$/ do
 end
 
 When /^(?:I sign in|sign in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
-  sign_in
+  sign_in_from_redirected_page
 end
 
 Given /^I am on the Sign in page$/ do
