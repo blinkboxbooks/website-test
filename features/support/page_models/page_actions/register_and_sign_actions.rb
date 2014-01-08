@@ -98,6 +98,10 @@ module PageModels
       set_start_cookie_accepted
       visit('/')
     end
+
+    def sign_in_from_redirected_page
+      sign_in_page.sign_in_form.submit(@email_address, @password)
+    end
   end
 end
 World(PageModels::RegisterAndSigninActions)

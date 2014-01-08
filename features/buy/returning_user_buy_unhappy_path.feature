@@ -46,7 +46,8 @@ Feature:  Unhappy path buy
 
   @negative
   Scenario Outline: Returning user buying a book, cvv not matching payment failure error from Braintree
-    Given I have selected to buy a pay for book from Home page
+    Given I am returning user
+    And I have selected to buy a pay for book from Home page
     And sign in to proceed with purchase
     When I choose to pay with a new card
     And I submit payment details with not matching cvv <cvv_number>

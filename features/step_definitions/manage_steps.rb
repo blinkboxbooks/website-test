@@ -126,6 +126,7 @@ end
 And /^my clubcard is not updated$/ do
   click_link('Featured')
   click_link_from_my_account_dropdown('Your personal details')
+  your_personal_details_page.club_card.should be_visible
   your_personal_details_page.club_card.value.should eql(@club_card_before)
 end
 

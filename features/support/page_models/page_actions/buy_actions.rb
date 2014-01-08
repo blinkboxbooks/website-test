@@ -91,6 +91,7 @@ module PageModels
     end
 
     def click_read_offline
+      book_details_page.read_offline.should be_visible
       book_details_page.read_offline.click
     end
 
