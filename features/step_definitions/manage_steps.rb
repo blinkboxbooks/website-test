@@ -117,6 +117,7 @@ Then /^my clubcard updated$/ do
 end
 
 When /^I attempt to update my clubcard with invalid (\d+)$/ do |clubcard_number|
+  your_personal_details_page.club_card.should be_visible
   @club_card_before = your_personal_details_page.club_card.value
   your_personal_details_page.fill_in_club_card(clubcard_number)
   your_personal_details_page.update_personal_details.click
