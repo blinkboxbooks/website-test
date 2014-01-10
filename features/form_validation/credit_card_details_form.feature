@@ -10,7 +10,7 @@ Feature: Credit card details form validation
   Scenario Outline: Submit Payment details with empty values
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit payment details with empty <card_field>
+    And submit the payment details with empty <card_field>
     Then my payment is not successful
     And "<error_message>" message is displayed
 
@@ -23,7 +23,7 @@ Feature: Credit card details form validation
   Scenario Outline: Incorrect number of digits for card number of a supported card type
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit payment details with incorrect numbered card <credit_card>
+    And submit the payment details with incorrect digits card number <credit_card>
     Then my payment is not successful
     And "Your credit card number must be a valid credit card number" message is displayed
 
@@ -40,7 +40,7 @@ Feature: Credit card details form validation
   Scenario Outline: Incorrect digits for CVV
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit payment details with incorrected numbered cvv <cvv> for <card_type> card
+    And submit the payment details with incorrect digits cvv <cvv> for <card_type> card
     Then my payment is not successful
     And "Your CVV number must have exactly 3 characters in length" message is displayed
 
@@ -52,7 +52,7 @@ Feature: Credit card details form validation
   Scenario Outline: Mall formed CVV
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit payment details with mall formed cvv <cvv>
+    And submit the payment details with a mall formed cvv <cvv>
     Then my payment is not successful
     And "Your CVV number must be a number" message is displayed
 
@@ -66,14 +66,14 @@ Feature: Credit card details form validation
   Scenario: Returning user submits new payment details form with empty credit card form
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit payment details with empty credit card form
+    And submit the payment details with empty credit card form
     Then my payment is not successful
     And validation error messages displayed for credit card details
 
   Scenario: Card number of not supported card type
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit payment details with not supported card number
+    And submit the payment details with a card number that is not supported
     Then my payment is not successful
     And "We're sorry but your payment did not go through. Try contacting your card issuer or try using a different card." message is displayed
 
@@ -81,7 +81,7 @@ Feature: Credit card details form validation
   Scenario: Expiry date in the past
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit payment details with expiry date in the past
+    And submit the payment details with expiry date in the past
     Then my payment is not successful
     And "Your expiry date should not be in the past" message is displayed
 
