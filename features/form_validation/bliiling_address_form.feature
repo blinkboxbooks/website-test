@@ -4,17 +4,47 @@ Feature: Billing address form validation
   As a blinkbox books product owner
   I want the ability to validate billing address form
 
-  Scenario: Empty address line one
+  Background:
+    Given I am returning user
+    And I am buying a pay for book as a logged in user
 
-  Scenario: Numeric input only for address line one
+  Scenario Outline: Submit the payment with empty address field
+    When I choose to pay with a new card
+    And submit the payment details with empty <address_field>
+    Then my payment is not successful
+    And "<validation_error>" message is displayed
 
-  Scenario: Numeric input only for address line two
+  Examples:
+    | address_field    | validation_error           |
+    | Address line one | Please enter your address  |
+    | Town or city     | Please enter your city     |
+    | Postcode         | Please enter your postcode |
 
-  Scenario: Empty town or city
+  Scenario Outline: Submit payment with numeric input only for address fields
+    When I choose to pay with a new card
+    And submit the payment details with numeric input only for <address_field>
+    Then my payment is not successful
+    And "<validation_error>" message is displayed
 
-  Scenario: Empty post code
+  Examples:
+    | address_field    | validation_error                              |
+    | Address line one | Your address must not be a number             |
+    | Address line two | Your address second line must not be a number |
+    | Town or city     | Your city must not be a number                |
+    | Postcode         | Your postcode is not a valid postcode         |
 
-  Scenario: Numeric input only for town
+  Scenario Outline: Malformed post code
+    When I choose to pay with a new card
+    And submit the payment details with malformed post code <value>
+    Then my payment is not successful
+    And "Your postcode is not a valid postcode." message is displayed
 
-  Scenario: Mall formed post code
-
+  Examples:
+    | value     |
+    | W5TA      |
+    | W55A      |
+    | W5555B    |
+    | CR20 61AB |
+    | CR20 61A  |
+    | HA2       |
+    | WC$X8AQ   |
