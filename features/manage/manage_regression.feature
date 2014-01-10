@@ -6,34 +6,11 @@ Feature: Update the Personal details of the user
   Background:
     Given I am on the home page
 
-Scenario: Successfully update the Clubcard number
-  Given I am signed in
-  And I am on the Your personal details tab
-  When I edit my Clubcard number
-  And I submit my personal details
-  Then "Your personal details have been successfully updated." message is displayed
-  And Clubcard number are as submitted
 
-Scenario Outline: Update the Clubcard number with an invalid Clubcard
-  Given I am signed in
-  And I am on Your personal details tab
-  When I edit my Clubcard number to <number>
-  And I submit my personal details
-  Then "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
-  And the <number> is not saved
-
-Examples:
-|number            |
-|123456789012345678|
-|634004025023057563|
-|634004025023057562|
-
-Scenario: Successfully delete a registered device
-
-Scenario: Successfully rename a registered device
-
+@manual
 Scenario: Trying to update the Clubcard number when the access token has expired
 
+@manual
 Scenario: Trying to delete a card when the access token has expired
   Given I have a stored card
   And I have signed in
@@ -42,7 +19,7 @@ Scenario: Trying to delete a card when the access token has expired
   Then there are no cards in my account
   And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
 
-
+@manual
 Scenario: Trying to update personal information when the access token has expired
   Given I have signed in
   And I am on the Your personal details tab
@@ -51,6 +28,7 @@ Scenario: Trying to update personal information when the access token has expire
   But the access token has expired
   ## Then I should see the soft sign in pop up
 
+@manual
 Scenario: Trying to update the Email address when access token has expired
   Given I have signed in
   And I am on the Your personal details tab
@@ -59,14 +37,14 @@ Scenario: Trying to update the Email address when access token has expired
   But the access token has expired
 ##  Then I should see the soft sin in pop up
 
+@manual
 Scenario: Trying to delete a registered device when access token has expired
 
+@manual
 Scenario: Trying to rename a registered device when access token has expired
 
+@manual
 Scenario: Trying to make a non-default card default when the access token has expired
 
-Scenario: Update email address using already registered email address
-
-Scenario: Change password by entering incorrect current password
 
 
