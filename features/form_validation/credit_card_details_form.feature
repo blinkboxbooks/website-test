@@ -23,7 +23,7 @@ Feature: Credit card details form validation
   Scenario Outline: Incorrect number of digits for card number of a supported card type
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit the payment details with incorrect digits card number <credit_card>
+    And submit the payment details with card number <credit_card>
     Then my payment is not successful
     And "Your credit card number must be a valid credit card number" message is displayed
 
@@ -40,7 +40,7 @@ Feature: Credit card details form validation
   Scenario Outline: Incorrect digits for CVV
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit the payment details with incorrect digits cvv <cvv> for <card_type> card
+    And submit the payment details with cvv <cvv> for <card_type> card
     Then my payment is not successful
     And "Your CVV number must have exactly 3 characters in length" message is displayed
 
@@ -49,10 +49,10 @@ Feature: Credit card details form validation
     | VISA             | 1234 |
     | Master card      | 1234 |
 
-  Scenario Outline: Mall formed CVV
+  Scenario Outline: Malformed CVV
     Given I am buying a pay for book as a logged in user
     When I choose to pay with a new card
-    And submit the payment details with a mall formed cvv <cvv>
+    And submit the payment details with a malformed cvv <cvv>
     Then my payment is not successful
     And "Your CVV number must be a number" message is displayed
 
