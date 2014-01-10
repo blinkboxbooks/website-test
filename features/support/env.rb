@@ -11,6 +11,7 @@ require 'active_support/core_ext'
 require 'rspec/expectations'
 require 'active_support'
 require 'benchmark'
+require 'yaml'
 
 World(RSpec::Matchers)
 
@@ -25,6 +26,17 @@ if TEST_CONFIG["debug"]
   puts "TEST_CONFIG: #{TEST_CONFIG}"
 end
 
+def load_yaml_file
+  path = File.join(File.dirname(__FILE__), "../../data/test_data.yml")
+  YAML.load_file(path)
+rescue ArgumentError => e
+  puts "Could not parse YAML: #{e.message}"
+end
+
+def test_data(data_type, data)
+  test_data = load_yaml_file
+  test_data[data_type][data]
+end
 
 # ======= Setup target environment =======
 #TODO: move into config/environments.yml once more environments are added
