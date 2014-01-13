@@ -18,7 +18,7 @@ module PageModels
     element :last_name, '#last_name'
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
-    element :update_personal_details, "button", :text => "Update personal details"
+    element :update_personal_details, "button", :text => "UPDATE PERSONAL DETAILS"
     element :change_password_link, "button", :text => "Change password"
 
     def fill_in_club_card(club_card)
@@ -44,7 +44,7 @@ module PageModels
     element :enter_new_password, '#password'
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
-    element :confirm_button, "button", :text => "Confirm"
+    element :confirm_button, "button", :text => "CONFIRM"
   end
 
   register_model_caller_method(YourAccountPage)

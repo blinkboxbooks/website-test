@@ -12,10 +12,10 @@ module PageModels
     element :town_or_city, '#address_three'
     element :postcode, '#address_four'
     element :pay_with_new_card, "button", :text => "Pay with a new card"
-    element :confirm_and_pay, "button", :text => "Confirm & pay"
-    element :confirm_order, "button", :text => "Confirm order"
+    element :confirm_and_pay, "button", :text => "CONFIRM & PAY"
+    element :confirm_order, "button", :text => "CONFIRM ORDER"
     element :cancel_order_link, "a", :text => "Cancel order"
-    element :confirm_cancel_button, "button", :text => "Cancel order"
+    element :confirm_cancel_button, "button", :text => "CANCEL ORDER"
   end
 
   register_model_caller_method(ConfirmAndPayPage)
