@@ -37,7 +37,7 @@ module TestElementsMap
                        'Mastercard' => '5555555555554444',
                        'VISA Debit' => '4012000033330125'}
 
-  TEXT_MESSAGES = {'Welcome' => 'Welcome, book lover Your account is now set up. Feel free to discover a world of books with our helpful reviews and recommendations. We hope you get the most out of blinkbox books. Start shopping'}
+  TEXT_MESSAGES = {'Welcome' => 'Welcome, book lover Your account is now set up. Feel free to discover a world of books with our helpful reviews and recommendations. We hope you get the most out of blinkbox books. START SHOPPING'}
 
   SUPPORT_PAGE_URLS = {'support home' => 'support.blinkboxbooks.com/home',
                        'What devices can I use to read my books?' => 'support.blinkboxbooks.com/entries/25400608',

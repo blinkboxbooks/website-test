@@ -34,7 +34,7 @@ module PageModels
     end
 
     def click_sign_in_button
-      page.should have_selector("button", :text => "Sign in")
+      page.should have_selector("button", :text => "SIGN IN")
       click_button('Sign in')
     end
 
