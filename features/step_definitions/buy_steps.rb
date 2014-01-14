@@ -145,6 +145,7 @@ Then /^my payment is not successful$/ do
 end
 
 And(/^submit the payment details with empty credit card form$/) do
+  enter_billing_details
   confirm_and_pay_page.wait_for_confirm_and_pay
   confirm_and_pay_page.confirm_and_pay.click
 end
