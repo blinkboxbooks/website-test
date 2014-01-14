@@ -143,3 +143,17 @@ end
 Then /^my payment is not successful$/ do
   expect_page_displayed('Confirm and pay')
 end
+
+And(/^submit the payment details with empty credit card form$/) do
+  enter_billing_details
+  confirm_and_pay_page.wait_for_confirm_and_pay
+  confirm_and_pay_page.confirm_and_pay.click
+end
+
+And(/^following validation error messages are displayed for credit card details:$/) do |table|
+  table.hashes.each do |row|
+    page.should have_content row['Error message']
+  end
+end
+
+
