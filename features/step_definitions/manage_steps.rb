@@ -30,6 +30,8 @@ When /^I edit marketing preferences$/ do
 end
 
 And /^marketing preferences are as submitted$/  do
+  click_link('Featured')
+  click_link_from_my_account_dropdown('Your personal details')
   assert_marketing_preferences_changed(@after_status)
 end
 
