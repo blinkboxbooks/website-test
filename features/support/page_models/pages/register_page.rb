@@ -12,7 +12,7 @@ module PageModels
     element :terms_and_conditions, '#termsconditions'
     element :register_button, "button", :text => "REGISTER"
     element :cancel_registration, "a", :text => "Cancel registration"
-    element :confirm_cancel_registration, "button", :text =>  "Leave this page"
+    element :confirm_cancel_registration, "button", :text =>  "LEAVE THIS PAGE"
 
     element :errors_section, "#error_signin"
     element :sign_email_link, "a", :text => "Sign in with"

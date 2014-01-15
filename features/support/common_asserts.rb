@@ -175,7 +175,7 @@ module AssertMyAccount
   end
 
   def assert_user_greeting_message_not_displayed()
-    find('ul#user-navigation-handheld').should have_no_content("Hi")
+    home_page.welcome.text.should be_eql("")
   end
 
   def assert_default_card(card)
