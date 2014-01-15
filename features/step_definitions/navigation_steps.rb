@@ -102,8 +102,6 @@ end
 And /^Grid view and List view buttons displayed$/ do
   page.find('.list-view').should be_visible
   page.find('.grid-view').should be_visible
-  #page.find('[title="Set view to list"]').visible?
-  #page.find('[title="Set view to grid"]').visible?
 
 end
 
