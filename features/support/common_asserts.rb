@@ -175,7 +175,8 @@ module AssertMyAccount
   end
 
   def assert_user_greeting_message_not_displayed()
-    find('ul#user-navigation-handheld').should have_no_content("Hi")
+    #current_page.header.should have_content('Hi, anonymous', :visible => true)
+    find('.username').text.should be_eql("")
   end
 
   def assert_default_card(card)

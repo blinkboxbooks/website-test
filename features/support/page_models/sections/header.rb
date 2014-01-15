@@ -9,6 +9,7 @@ module PageModels
     end
 
     def navigate_to_account_option(link_name)
+      page.find('#outer-header').should be_visible
       account_logo.should be_visible
       account_logo.click
       account_options_dropdown.should be_visible
