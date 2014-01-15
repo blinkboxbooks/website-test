@@ -1,4 +1,4 @@
-<% ci_opts = " -r features --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending --format progress -o results/progress.log --format junit -o results/junit/ --format Cucumber::Formatter::HtmlCustomFormatter -o results/features_report.html --format pretty "  %>
+<% ci_opts = " -r features --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending --format progress -o results/progress.log --format junit -o results/junit/ --format json -o results/cucumber.json --format Cucumber::Formatter::HtmlCustomFormatter -o results/features_report.html --format pretty "  %>
 <% grid_opts_nodejs =     " GRID=true PLATFORM=WINDOWS BROWSER_NAME=firefox " %>
 <% grid_opts_qa =         " GRID=true PLATFORM=VISTA BROWSER_NAME=firefox " %>
 <% grid_opts_production = " GRID=true PLATFORM=XP BROWSER_NAME=firefox " %>
