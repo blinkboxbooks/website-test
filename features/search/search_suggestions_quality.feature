@@ -7,7 +7,7 @@ Feature: Suggestions for user search
   Background: Opens Blinkbox books home page
     Given I am on the home page
 
-  @smoke @production @data-dependent @wip
+  @smoke @production @data-dependent
   Scenario: Search suggestions displayed
     When I type "spring" into search field
     Then search suggestions should be displayed
