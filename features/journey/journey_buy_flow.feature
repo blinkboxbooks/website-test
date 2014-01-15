@@ -28,7 +28,7 @@ Scenario: Returning user checking Order history, Payment details after buying a 
   When I complete purchase by paying with saved card
   Then book added to my Order & Payment history
   And  my saved Payment details are not updated
-.
+
 Scenario: Returning user checking Order history, Payment details after buying a book with new payment and saving payments
   Given I have a stored card
   And I have selected to buy a pay for book from Home page
