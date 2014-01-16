@@ -12,5 +12,10 @@ module PageModels
       self.should have_sign_in_button
       self.sign_in_button.click
     end
+
+    def click_sign_in_button
+      self.should have_sign_in_button
+      self.sign_in_button.click
+    end
   end
 end
