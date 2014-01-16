@@ -45,15 +45,3 @@ Feature: New user cancels order
     | Search results | free      |
     | Book details   | free      |
     | Free books     | free      |
-
-  @wip @CWA-971
-  Scenario Outline: First time user cancels adding sample
-    Given I have identified a <book_type> book to read sample offline
-    And I am on Register page
-    When I cancel registration
-    Then I am redirected to Book details page
-
-  Examples:
-    | book_type |
-    | pay for   |
-    | free      |
