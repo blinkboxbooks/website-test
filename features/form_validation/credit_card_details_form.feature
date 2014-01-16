@@ -75,7 +75,7 @@ Feature: Credit card details form validation
 
   Scenario: Card number of not supported card type
     When I choose to pay with a new card
-    And submit the payment details with not supported card type <card_type>
+    And submit the payment details with not supported card type JCB
     Then my payment is not successful
     And "We're sorry, but we couldn't complete your payment due to an issue at our end. You haven't been charged - please try again" message is displayed
 
