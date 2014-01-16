@@ -91,6 +91,10 @@ module WebUtilities
     page.driver.browser.manage.window.resize_to(x, y)
   end
 
+  def refresh_current_page
+    page.driver.browser.navigate.refresh
+  end
+
 end
 
 module BlinkboxWebUtilities

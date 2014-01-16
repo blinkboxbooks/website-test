@@ -30,7 +30,7 @@ When /^I edit marketing preferences$/ do
 end
 
 And /^marketing preferences are as submitted$/  do
-  page.driver.browser.navigate.refresh
+  refresh_current_page
   assert_marketing_preferences_changed(@after_status)
 end
 
