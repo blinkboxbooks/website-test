@@ -156,4 +156,9 @@ And(/^following validation error messages are displayed for credit card details:
   end
 end
 
-
+And(/^submit the payment details with not supported card type (.*?)$/) do |card_type|
+  enter_new_payment_details(card_type)
+  enter_billing_details
+  confirm_and_pay_page.wait_for_confirm_and_pay
+  confirm_and_pay_page.confirm_and_pay.click
+end

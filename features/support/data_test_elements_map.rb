@@ -35,7 +35,8 @@ module TestElementsMap
   TEST_CARD_NUMBERS = {'VISA' => '4111111111111111',
                        'American Express' => '3782 822463 10005',
                        'Mastercard' => '5555555555554444',
-                       'VISA Debit' => '4012000033330125'}
+                       'VISA Debit' => '4012000033330125',
+                       'JCB' => '6011111111111117'}
 
   TEXT_MESSAGES = {'Welcome' => 'Welcome, book lover Your account is now set up. Feel free to discover a world of books with our helpful reviews and recommendations. We hope you get the most out of blinkbox books. START SHOPPING'}
 

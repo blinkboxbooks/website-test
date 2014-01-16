@@ -20,21 +20,22 @@ Feature: Credit card details form validation
     | CVV          | Please enter your CVV number         |
     | Name on card | Please enter your full name          |
 
-  Scenario Outline: Incorrect number of digits for card number of a supported card type
+  Scenario Outline: Invalid card number
     When I choose to pay with a new card
     And submit the payment details with card number <credit_card>
     Then my payment is not successful
     And "Your credit card number must be a valid credit card number" message is displayed
 
   Examples:
-    | credit_card       |
-    | 4111              |
-    | 411111111111      |
-    | 411111111111111   |
-    | 41111111111111111 |
-    | 555555555554444   |
-    | 55555555555544445 |
-    | 5555              |
+    | credit_card       | details                   |
+    | 4111              | less digits than required |
+    | 411111111111      | less digits than required |
+    | 411111111111111   | less digits than required |
+    | 41111111111111111 | more digits than required |
+    | 555555555554444   | less digits than required |
+    | 55555555555544445 | more digits than required |
+    | 5555              | less digits than required |
+    | 4222222222222222  | invalid number            |
 
   Scenario Outline: Incorrect digits for CVV
     When I choose to pay with a new card
@@ -43,9 +44,9 @@ Feature: Credit card details form validation
     And "Your CVV number must have exactly 3 characters in length" message is displayed
 
   Examples:
-    | card_type        | cvv  |
-    | VISA             | 1234 |
-    | Master card      | 1234 |
+    | card_type   | cvv  |
+    | VISA        | 1234 |
+    | Master card | 1234 |
 
   Scenario Outline: Malformed CVV
     When I choose to pay with a new card
@@ -65,18 +66,18 @@ Feature: Credit card details form validation
     And submit the payment details with empty credit card form
     Then my payment is not successful
     And following validation error messages are displayed for credit card details:
-    |Error messages|
-    | Your credit card number must be a valid credit card number |
-    | Please enter your credit card number                       |
-    | Your CVV number must have exactly 3 characters in length   |
-    | Please enter your CVV number                               |
-    | Please enter your full name                                |
+      | Error messages                                             |
+      | Your credit card number must be a valid credit card number |
+      | Please enter your credit card number                       |
+      | Your CVV number must have exactly 3 characters in length   |
+      | Please enter your CVV number                               |
+      | Please enter your full name                                |
 
   Scenario: Card number of not supported card type
     When I choose to pay with a new card
-    And submit the payment details with a card number that is not supported
+    And submit the payment details with not supported card type JCB
     Then my payment is not successful
-    And "We're sorry but your payment did not go through. Try contacting your card issuer or try using a different card." message is displayed
+    And "We're sorry, but we couldn't complete your payment due to an issue at our end. You haven't been charged - please try again" message is displayed
 
   @manual
   Scenario: Expiry date in the past
