@@ -11,11 +11,11 @@ module PageModels
     element :address_line_two, '#address_two'
     element :town_or_city, '#address_three'
     element :postcode, '#address_four'
-    element :pay_with_new_card, "button", :text => "Pay with a new card"
-    element :confirm_and_pay, "button", :text => "CONFIRM & PAY"
-    element :confirm_order, "button", :text => "CONFIRM ORDER"
-    element :cancel_order_link, "a", :text => "Cancel order"
-    element :confirm_cancel_button, "button", :text => "CANCEL ORDER"
+    element :pay_with_new_card, "button", :text => /Pay with a new card/i
+    element :confirm_and_pay, "button", :text => /Confirm & Pay/i
+    element :confirm_order, "button", :text => /Confirm Order/i
+    element :cancel_order_link, "a", :text => /Cancel Order/i
+    element :confirm_cancel_button, "button", :text => /Cancel Order/i
   end
 
   register_model_caller_method(ConfirmAndPayPage)
