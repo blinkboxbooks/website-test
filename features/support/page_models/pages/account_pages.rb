@@ -44,7 +44,7 @@ module PageModels
     element :enter_new_password, '#password'
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
-    element :confirm_button, "button", :text => "CONFIRM"
+    element :confirm_button, "button", :text => /Confirm/i
   end
 
   register_model_caller_method(YourAccountPage)
