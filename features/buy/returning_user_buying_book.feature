@@ -56,6 +56,7 @@ Feature: Returning buying book from blinkbox books
     When I click Confirm order
     Then my payment is successful
 
+   @wip
    Scenario: Returning user adding a book sample to library first and then buying the book.
     Given I have identified a pay for book to read sample offline
     When I select Read offline on the book details page
