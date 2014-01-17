@@ -34,6 +34,7 @@ Feature: Navigating through my account pages
     Then Your devices page is displayed
     And Your devices tab is selected
 
+  @wip @CWA-1027
   Scenario Outline: Navigate through FAQ links under Order & payment history
     Given I have signed in
     And I am on the Order & payment history tab

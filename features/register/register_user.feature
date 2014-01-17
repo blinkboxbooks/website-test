@@ -30,7 +30,7 @@ Feature: Register a new Blinkbox books user
     Then Registration success page is displayed
     And welcome message is shown
 
-  @negative
+  @negative @wip @CWA-1026
   Scenario: Submit registration details with already existing email address
     Given I am on Register page
     When I enter registration details with already registered email address
@@ -84,6 +84,7 @@ Feature: Register a new Blinkbox books user
     Then registration is not successful
     And "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
 
+  @wip @CWA-1026
   Scenario: Click sign in with already registered email link
     Given I am on Register page
     And I have attempted to register with already registered email address
