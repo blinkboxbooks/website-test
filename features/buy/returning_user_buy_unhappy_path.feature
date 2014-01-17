@@ -21,30 +21,6 @@ Feature:  Unhappy path buy
     |free     |
 
   @negative
-  Scenario Outline: Returning user attempting to a add book sample that already exists his in library
-    Given  I have a <book_type> book sample in my library
-    When I select above <book_type> book to add sample
-    And sign in to proceed with adding sample
-    Then sample already exists in the library message displayed in confirm and pay page
-
-  Examples:
-    | book_type |
-    | pay for   |
-    | free      |
-
-  @negative
-  Scenario Outline: Returning user attempting to a add book sample of which full book already exists in his library
-    Given  I have a <book_type> book in my library
-    When I select above <book_type> book to add sample
-    And  sign in to proceed with adding sample
-    Then sample already exists in the library message displayed in confirm and pay page
-
-  Examples:
-    | book_type |
-    | pay for   |
-    | free      |
-
-  @negative
   Scenario Outline: Returning user buying a book, cvv not matching payment failure error from Braintree
     Given I am returning user
     And I have selected to buy a pay for book from Home page
