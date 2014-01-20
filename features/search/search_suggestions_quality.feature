@@ -12,7 +12,7 @@ Feature: Suggestions for user search
     When I type "spring" into search field
     Then search suggestions should be displayed
 
-  @wip
+  @pending
   Scenario: Typing valid sequence of letters returns relevant suggestions
     When I type "Gon" into search field
     Then search suggestions should be displayed
@@ -20,7 +20,7 @@ Feature: Suggestions for user search
      And all suggestions should contain search word "Gon"
      And the last suggestion should be equal to "Gon"
 
-   @wip
+   @pending
   Scenario: Exact match of letters should be first suggestion
     When I type "Dan Brown" into search field
     Then search suggestions should be displayed
@@ -28,21 +28,21 @@ Feature: Suggestions for user search
      And all suggestions should contain part of "Dan Brown"
      And the last suggestion should be equal to "Dan Brown"
 
-  @wip
+  @pending
   Scenario: Typing invalid sequence of letters does not return suggestions
     When I type "#$£%^" into search field
     Then search suggestions should not be displayed
 
-  @wip
+  @pending
   Scenario: Entering search term without space
     When I type "Davinci" into search field
     Then in auto completion correct value "Da vinci" is displayed
-  @wip
+  @pending
   Scenario: Entering misspelled search term
     When I type "addikted" into search field
     Then in auto completion correct value "addicted" is displayed
 
-  @wip
+  @pending
   Scenario: Entering misspelled search term with apostrophe
     When I type "childrn's tresure" into search field
     Then in auto completion correct values "children's" and "treasure" are displayed
