@@ -119,6 +119,14 @@ module PageModels
       confirm_and_pay_page.confirm_and_pay.click
     end
 
+    def enter_card_details(card_number,cvv,expiry_month, expiry_year,name_on_card)
+      confirm_and_pay_page.card_number.set card_number
+      confirm_and_pay_page.cvv.set cvv
+      confirm_and_pay_page.expiry_month.select expiry_month
+      confirm_and_pay_page.expiry_year.select expiry_year
+      confirm_and_pay_page.name_on_card.set name_on_card
+    end
+
     def submit_empty_new_payments_form
       confirm_and_pay_page.confirm_and_pay.click
     end
