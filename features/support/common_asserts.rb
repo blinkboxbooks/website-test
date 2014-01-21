@@ -99,13 +99,12 @@ module AssertNavigation
 end
 
 module AssertSearch
-  def assert_search_results search_word
-    page.should have_content("You searched for \"#{search_word}\"")
-    page.find('[data-test="search-results-list"]').visible?
-    within('[data-test="search-results-list"]') do
-      page.all('li', :visible => false).count.should >= 1
-    end
-
+  def assert_search_results(search_word)
+    expect_page_displayed("Search Results")
+    search_results_page.should have_content("You searched for")
+    search_results_page.searched_term.should have_content(search_word)
+    search_results_page.should have_books
+    search_results_page.books.count.should >= 1
   end
 
   def assert_author_name author_name
