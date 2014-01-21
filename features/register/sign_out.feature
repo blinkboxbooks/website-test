@@ -13,7 +13,6 @@ Feature: Sign out from blinkbox books
     Then I should be signed out successfully
     And I am redirected to Home page
 
-  @unstable
   Scenario Outline: Sign out from Manage My Account pages
     Given I am on the <tab_name> tab
     When I click Sign out button
