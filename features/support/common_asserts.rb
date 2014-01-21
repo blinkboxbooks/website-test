@@ -170,12 +170,13 @@ module AssertMyAccount
     end
   end
 
-  def assert_user_greeting_message_displayed(first_name)
-    current_page.header.should have_content(first_name, :visible => true)
+  def assert_user_greeting_message_displayed(first_name=nil)
+    first_name ||= "Hi,"
+    current_page.header.welcome.should have_content(first_name, :visible => true)
   end
 
   def assert_user_greeting_message_not_displayed()
-    home_page.welcome.text.should be_eql("")
+    current_page.header.welcome.text.should be_eql("")
   end
 
   def assert_default_card(card)

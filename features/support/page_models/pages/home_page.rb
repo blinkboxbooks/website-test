@@ -4,7 +4,6 @@ module PageModels
     set_url_matcher Regexp.new("#{Capybara.app_host}\/?(?:#!/)?$")
     element :book_in_the_news, '#books_news'
     element :editors_picks, '#editors_picks'
-    element :welcome, '.username'
   end
 
   register_model_caller_method(HomePage)

@@ -1,4 +1,4 @@
-Feature: Unhappy path scenarios for manage personal details
+Feature: Manage personal details - change password
   As a singed in Blinkbox books user
   I need the ability to update my
   So I can keep my account up to date

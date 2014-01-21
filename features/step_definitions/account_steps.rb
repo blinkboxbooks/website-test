@@ -9,6 +9,7 @@ end
 
 Given /^I have signed in$/ do
   sign_in(@email_address)
+  assert_user_greeting_message_displayed
 end
 
 When /^(?:I sign in|sign in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
@@ -41,7 +42,7 @@ And /^I accept terms and conditions$/ do
 end
 
 And /^welcome message is shown$/ do
-  registration_success_page.welcome_label.should have_content(get_message_text('Welcome'))
+  registration_success_page.welcome_label.should have_content(get_message_text('Welcome'), :visible => true)
 end
 
 And /^I submit registration details$/ do
