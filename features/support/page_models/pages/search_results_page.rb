@@ -3,6 +3,7 @@ module PageModels
     set_url "/#!/search{?q}"
     set_url_matcher /search\?q\=/
 
+    element :searched_term, ".searched_term"
     elements :books, "div.itemsets div[book=\"book\"]"
 
     #did not make it to work, gave up due to lack of time
