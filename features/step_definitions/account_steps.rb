@@ -42,7 +42,7 @@ And /^I accept terms and conditions$/ do
 end
 
 And /^welcome message is shown$/ do
-  registration_success_page.header.welcome_label.should have_content(get_message_text('Welcome'), :visible => true)
+  registration_success_page.welcome_label.should have_content(get_message_text('Welcome'), :visible => true)
 end
 
 And /^I submit registration details$/ do
