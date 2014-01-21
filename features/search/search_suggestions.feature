@@ -1,4 +1,4 @@
-@manual @CWA-66 @to_refactor
+@pending @CWA-66 @to_refactor
 Feature: Checking for the Search suggestions on the home page.
   As a Blinkbox books user
   I want view the Search suggestions as I type in the Search text box
