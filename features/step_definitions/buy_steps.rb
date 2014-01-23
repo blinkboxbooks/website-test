@@ -3,7 +3,7 @@ Given /I have identified a best selling book to buy$/ do
 end
 
 When /^I enter valid (.*?) card details$/ do |card_type|
-  enter_new_payment_details(card_type)
+  enter_card_details(set_valid_card_details(card_type))
 end
 
 And /^I enter valid Billing address$/ do
@@ -49,7 +49,7 @@ end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
   click_pay_with_new_card
-  enter_new_payment_details(card_type)
+  enter_card_details(set_valid_card_details(card_type))
   enter_billing_details
 end
 
@@ -152,7 +152,7 @@ And(/^following validation error messages are displayed for credit card details:
 end
 
 And(/^submit the payment details with not supported card type (.*?)$/) do |card_type|
-  enter_new_payment_details(card_type)
+  enter_card_details(set_valid_card_details(card_type))
   enter_billing_details
   confirm_and_pay_page.wait_for_confirm_and_pay
   confirm_and_pay_page.confirm_and_pay.click

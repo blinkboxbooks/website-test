@@ -38,15 +38,6 @@ module PageModels
       fill_form_element('address_four', post_code)
     end
 
-    def enter_new_payment_details(card_type)
-      name_on_card =  generate_random_first_name
-      enter_card_number(test_data('payment',card_type.downcase))
-      select_expiry_date(test_data('payment', 'expiry_month'), test_data('payment', 'expiry_year'))
-      enter_name_on_card(name_on_card)
-      enter_cvv(card_type)
-      return name_on_card
-    end
-
     def enter_billing_details
       enter_address_line_one(test_data('payment', 'address_lineone'))
       enter_address_line_two(test_data('payment', 'address_linetwo'))
@@ -76,7 +67,7 @@ module PageModels
     end
 
     def pay_with_new_card(card_type)
-      enter_new_payment_details(card_type)
+      enter_card_details(set_valid_card_details(card_type))
       click_confirm_and_pay
     end
 
@@ -113,7 +104,7 @@ module PageModels
     def submit_new_payment_with_not_matching_cvv (cvv_number = :cvv)
       cvv_number ||= test_data("payment", "cvv_does_not_match")
       enter_card_number(get_card_number_by_type('VISA'))
-      select_expiry_date(test_data("payment", "expiry_month"),test_data("payment", "expiry_year"))
+      select_expiry_date(test_data("payment", "expiry_month"), test_data("payment", "expiry_year"))
       confirm_and_pay_page.cvv.set cvv_number
       enter_name_on_card(test_data("payment", "name_on_card"))
       enter_billing_details
@@ -148,11 +139,11 @@ module PageModels
 
     def set_valid_card_details(card_type)
       card_type=card_type.gsub(' ', '').downcase
-       payment_details = {
+      payment_details = {
           :card_number => test_data('payment', card_type),
           :expiry_month => test_data('payment', 'expiry_month'),
           :expiry_year => test_data('payment', 'expiry_year'),
-          :name_on_card =>  generate_random_first_name,
+          :name_on_card => generate_random_first_name,
           :cvv => test_data('payment', 'cvv')
       }
       return payment_details
@@ -167,7 +158,7 @@ module PageModels
       confirm_and_pay_page.confirm_and_pay.click
       expect_page_displayed('order complete')
       assert_order_complete
-      return name_on_card, card_count,card_type
+      return name_on_card, card_count, card_type
     end
 
 
