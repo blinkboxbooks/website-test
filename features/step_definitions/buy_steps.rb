@@ -174,7 +174,6 @@ And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
 end
 
 And(/^submit the payment details with cvv (.*?) for (.*?) card$/) do |cvv, card_type|
-  card_type=card_type.gsub(' ','').downcase
   card_number= test_data('payment', card_type)
   expiry_month= test_data('payment', 'expiry_month')
   expiry_year= test_data('payment', 'expiry_year')
