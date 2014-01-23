@@ -54,12 +54,7 @@ When /^I pay with a new (.*?) card$/ do |card_type|
 end
 
 And /^I choose (to save|not to save)(?: new)? payment details$/ do |save_payment|
-  if save_payment.include?('not')
-    choose_not_to_save_card_details
-  else
-    choose_to_save_card_details
-  end
-
+  save_card?(save_payment)
 end
 
 Then /^(?:my payment|adding sample) is successful$/ do
@@ -96,7 +91,7 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
 end
 
 Given /^I have selected to buy a (pay for|free) book from (.*?) page$/ do |book_type,page_name|
-  select_book_to_buy_from_a_page(book_type, page_name)
+  @book_title = select_book_to_buy_from_a_page(book_type, page_name)
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
@@ -164,11 +159,32 @@ And(/^submit the payment details with not supported card type (.*?)$/) do |card_
 end
 
 And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
-  card_number = test_data('payment', 'visa')
-  expiry_month= test_data('payment', 'expiry_month')
-  expiry_year= test_data('payment', 'expiry_year')
-  name_on_card= test_data('payment', 'name_on_card')
-  enter_card_details(card_number,cvv,expiry_month,expiry_year,name_on_card)
+  card_details = set_valid_card_details('VISA')
+  card_details[:cvv] = cvv
+  enter_card_details(card_details)
   enter_billing_details
   confirm_and_pay_page.confirm_and_pay.click
+end
+
+When /^I complete purchase by selecting (to save|not to save) the card details$/ do |save_payment|
+  @name_on_card, @card_count, @card_type = successful_new_payment(save_payment)
+end
+
+Then /^I can see this book in my Order & Payment history$/ do
+  click_link_from_my_account_dropdown('Order & payment history')
+  assert_book_order_and_payment_history(@book_title)
+end
+
+When /^I complete purchase by paying with saved card$/ do
+  pay_with_saved_card
+end
+
+Then /^I can see the payment card saved in my Payment details$/ do
+  click_link_from_my_account_dropdown('Your payments')
+  assert_payment_card_saved(@card_count,@name_on_card, @card_type)
+end
+
+When /^I complete purchase with new card by selecting (to save|not to save) Payment details$/ do |save_payment|
+  confirm_and_pay_page.pay_with_new_card.click
+  @name_on_card, @card_count, @card_type = successful_new_payment(save_payment, 'mastercard')
 end

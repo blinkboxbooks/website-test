@@ -39,17 +39,19 @@ module PageModels
     end
 
     def enter_new_payment_details(card_type)
-      enter_card_number(get_card_number_by_type(card_type))
-      select_expiry_date('12', '2023')
-      enter_name_on_card('jamie jones')
+      name_on_card =  generate_random_first_name
+      enter_card_number(test_data('payment',card_type.downcase))
+      select_expiry_date(test_data('payment', 'expiry_month'), test_data('payment', 'expiry_year'))
+      enter_name_on_card(name_on_card)
       enter_cvv(card_type)
+      return name_on_card
     end
 
     def enter_billing_details
-      enter_address_line_one('my address line one')
-      enter_address_line_two('my address line two')
-      enter_town_or_city('My town')
-      enter_post_code('WC18AQ')
+      enter_address_line_one(test_data('payment', 'address_lineone'))
+      enter_address_line_two(test_data('payment', 'address_linetwo'))
+      enter_town_or_city(test_data('payment', 'town_or_city'))
+      enter_post_code(test_data('payment', 'postcode'))
     end
 
     def click_confirm_and_pay
@@ -119,17 +121,56 @@ module PageModels
       confirm_and_pay_page.confirm_and_pay.click
     end
 
-    def enter_card_details(card_number,cvv,expiry_month, expiry_year,name_on_card)
-      confirm_and_pay_page.card_number.set card_number
-      confirm_and_pay_page.cvv.set cvv
-      confirm_and_pay_page.expiry_month.select expiry_month
-      confirm_and_pay_page.expiry_year.select expiry_year
-      confirm_and_pay_page.name_on_card.set name_on_card
+    def enter_card_details(card_details)
+      confirm_and_pay_page.card_number.set card_details[:card_number]
+      confirm_and_pay_page.cvv.set card_details[:cvv]
+      confirm_and_pay_page.expiry_month.select card_details[:expiry_month]
+      confirm_and_pay_page.expiry_year.select card_details[:expiry_year]
+      confirm_and_pay_page.name_on_card.set card_details[:name_on_card]
     end
 
     def submit_empty_new_payments_form
       confirm_and_pay_page.confirm_and_pay.click
     end
+
+    def save_card?(save_payment)
+      if @card_count.nil?
+        @card_count =0
+      end
+      if save_payment.include?('not')
+        choose_not_to_save_card_details
+      else
+        choose_to_save_card_details
+        @card_count = @card_count+1
+      end
+      return @card_count
+    end
+
+    def set_valid_card_details(card_type)
+      card_type=card_type.gsub(' ', '').downcase
+       payment_details = {
+          :card_number => test_data('payment', card_type),
+          :expiry_month => test_data('payment', 'expiry_month'),
+          :expiry_year => test_data('payment', 'expiry_year'),
+          :name_on_card =>  generate_random_first_name,
+          :cvv => test_data('payment', 'cvv')
+      }
+      return payment_details
+    end
+
+    def successful_new_payment(save_payment, card_type = 'VISA')
+      card_details = set_valid_card_details(card_type)
+      name_on_card = card_details[:name_on_card]
+      enter_card_details(card_details)
+      enter_billing_details
+      card_count = save_card?(save_payment)
+      confirm_and_pay_page.confirm_and_pay.click
+      expect_page_displayed('order complete')
+      assert_order_complete
+      return name_on_card, card_count,card_type
+    end
+
+
   end
 end
 World(PageModels::BuyActions)
