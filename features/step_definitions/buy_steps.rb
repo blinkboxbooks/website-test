@@ -172,3 +172,14 @@ And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
   enter_billing_details
   confirm_and_pay_page.confirm_and_pay.click
 end
+
+And(/^submit the payment details with cvv (.*?) for (.*?) card$/) do |cvv, card_type|
+  card_type=card_type.gsub(' ','').downcase
+  card_number= test_data('payment', card_type)
+  expiry_month= test_data('payment', 'expiry_month')
+  expiry_year= test_data('payment', 'expiry_year')
+  name_on_card= test_data('payment', 'name_on_card')
+  enter_card_details(card_number,cvv,expiry_month,expiry_year,name_on_card)
+  enter_billing_details
+  confirm_and_pay_page.confirm_and_pay.click
+end
