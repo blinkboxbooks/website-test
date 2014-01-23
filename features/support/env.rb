@@ -33,9 +33,10 @@ rescue ArgumentError => e
   puts "Could not parse YAML: #{e.message}"
 end
 
-def test_data(data_type, data)
+def test_data(data_type, param)
   test_data = load_yaml_file
-  test_data[data_type][data]
+  param = param.gsub(' ','_').downcase
+  test_data[data_type][param]
 end
 
 # ======= Setup target environment =======
