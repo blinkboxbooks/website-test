@@ -46,7 +46,7 @@ Feature: Credit card details form validation
   Examples:
     | card_type   | cvv  |
     | VISA        | 1234 |
-    | Master card | 1234 |
+    | MasterCard | 1234 |
 
   Scenario Outline: Malformed CVV
     When I choose to pay with a new card

@@ -22,9 +22,8 @@
 
   payment:
     visa: 4111111111111111
-    visa_cvv: 123
+    cvv: 123
     mastercard: 5555555555554444
-    mastercard_cvv: 1234
     expiry_month: 12
     expiry_year: 2023
     name_on_card: jamie jones
