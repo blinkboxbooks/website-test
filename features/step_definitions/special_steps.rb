@@ -1,3 +1,3 @@
-Given /^PENDING(?:\: )(.*)$/i do |reason|
+Given /^PENDING(?:: )(.*)$/i do |reason|
   pending(reason)
 end
