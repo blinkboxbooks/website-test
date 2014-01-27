@@ -76,8 +76,7 @@ module Discover
     #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
-    enter_billing_details
-    pay_with_new_card('VISA')
+    successful_new_payment('save')
   end
 
   def user_selects_a_book_to_buy(search_word)
@@ -123,6 +122,7 @@ module Discover
         book_details_page.buy_now.click
 
     end
+    return @book_title
   end
 
   def select_buy_first_book_from_a_page(section)
@@ -130,6 +130,7 @@ module Discover
     within(section) do
       within(first('ul')) do
         within(first('li')) do
+          @book_title = find('[class="title"]').text
           element = find('[class="book"]')
           mouse_over(element)
           click_button('BUY NOW')

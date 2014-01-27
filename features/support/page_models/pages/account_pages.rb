@@ -3,11 +3,15 @@ module PageModels
     set_url_matcher /account\//
     section :account_nav_frame, AccountNavFrame, ".account_frame"
     element :sign_out_button, "button", :text => "Sign out"
+    element :spinner, '.load_spinner'
   end
 
   class YourOrderAndPaymentHistoryPage < PageModels::YourAccountPage
     set_url "/#!/account/order-payment-history"
     set_url_matcher /account\/order-payment-history/
+    element :ordered_books, '.order_books'
+    element :book_list, '.expandable'
+
   end
 
   class YourPersonalDetailsPage < PageModels::YourAccountPage
@@ -30,6 +34,10 @@ module PageModels
   class YourPaymentsPage < PageModels::YourAccountPage
     set_url "/#!/account/your-payments"
     set_url_matcher /account\/your-payments/
+    element :saved_cards_list, '.payment_list li '
+    element :saved_cards_container, '.payment_list'
+    element :card_holder_name, '.payment_holder'
+    element :card_details, '.payment_card_details'
   end
 
   class YourDevicesPage < PageModels::YourAccountPage
