@@ -1,4 +1,4 @@
-@wip
+@manual
 Feature: Update the Personal details of the user
   As a singed in blinkbox books user
   I need the ability to access and edit my account pages

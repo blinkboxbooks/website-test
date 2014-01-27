@@ -40,8 +40,9 @@ Feature: Returning user cancels order
     | Bestsellers   | pay for   |
     | New releases   | pay for   |
 
-  @wip @CWA-980
+  @CWA-980
   Scenario Outline: Returning user's new payment has failed, user cancels order
+    Given PENDING: CWA-980 Buy Process - Cancel Option - No Buttons
     Given I have selected to buy a <book_type> book from <page_name> page
     And I sign in to proceed with purchase
     And my payment failed at Braintree for not matching CVV
