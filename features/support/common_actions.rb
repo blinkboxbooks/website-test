@@ -25,6 +25,7 @@ module Discover
         within('[class="cover"]') do
           @category_name = first('a')[:href]
           first('img').click
+          #expect_page_displayed("Category")
         end
       end
     end
@@ -76,7 +77,7 @@ module Discover
     #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
     #sort_search_results('Price (high to low)')
     select_buy_first_book_in_search_results
-    successful_new_payment('save')
+    successful_new_payment(save_payment = true)
   end
 
   def user_selects_a_book_to_buy(search_word)
@@ -100,28 +101,34 @@ module Discover
 
     case page_name
       when 'Home'
-        select_buy_first_book_from_a_page(home_page.book_in_the_news)
+        home_page.book_results.click_buy_now_first_book
       when 'Category'
         current_page.header.main_page_navigation('Categories')
         click_on_a_category
-        select_buy_first_book_from_a_page(category_page.category_books)
+        category_page.wait_until_book_results_visible
+        category_page.book_results.click_buy_now_first_book
       when 'Bestsellers'
-        click_buy_now_best_seller_book
+        current_page.header.main_page_navigation(page_name)
+        bestsellers_page.wait_until_book_results_visible
+        bestsellers_page.book_results.click_buy_now_first_book
       when 'New releases'
         current_page.header.main_page_navigation(page_name)
-        select_buy_first_book_from_a_page(new_releases_page.new_releases_last_30days)
+        category_page.wait_until_book_results_visible
+        new_releases_page.book_results.click_buy_now_first_book
       when 'Free books'
         current_page.header.main_page_navigation(page_name)
-        select_buy_first_book_from_a_page(free_books_page.top_free_books)
+        free_books_page.wait_until_book_results_visible
+        free_books_page.book_results.click_buy_now_first_book
       when 'Search results'
         search_word = return_search_word_for_book_type(book_type)
-        user_selects_a_book_to_buy(search_word)
+        search_blinkbox_books(search_word)
+        search_results_page.wait_until_book_results_visible
+        search_results_page.book_results.click_buy_now_first_book
       when 'Book details'
-        search_word = return_search_word_for_book_type(book_type)
-        user_navigates_to_book_details(search_word)
+        home_page.book_results.click_book_details_first_book
         book_details_page.buy_now.click
-
     end
+
     return @book_title
   end
 

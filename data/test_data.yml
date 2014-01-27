@@ -24,6 +24,9 @@
     visa: 4111111111111111
     cvv: 123
     mastercard: 5555555555554444
+    visadebit: 4012000033330125
+    jcb: 6011111111111117
+    mastercard_cvv: 1234
     expiry_month: 12
     expiry_year: 2023
     name_on_card: jamie jones

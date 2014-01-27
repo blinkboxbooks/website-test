@@ -81,16 +81,6 @@ Then /^I should be signed out successfully$/ do
   assert_cookie_value('access_token', nil)
 end
 
-And /^I have a stored card$/ do
-  visit('/')
-  navigate_to_register_form
-  register_new_user
-  expect_page_displayed("Registration Success")
-  buy_first_book
-  log_out_current_session
-  set_start_cookie_accepted
-end
-
 Given /^I have multiple stored cards$/ do
   @email_address = test_data("emails", "multiple_storedcards")
 end

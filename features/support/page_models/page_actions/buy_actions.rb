@@ -124,17 +124,12 @@ module PageModels
       confirm_and_pay_page.confirm_and_pay.click
     end
 
-    def save_card?(save_payment)
-      if @card_count.nil?
-        @card_count =0
-      end
-      if save_payment.include?('not')
-        choose_not_to_save_card_details
-      else
+    def save_card(save_payment)
+      if save_payment
         choose_to_save_card_details
-        @card_count = @card_count+1
+      else
+        choose_not_to_save_card_details
       end
-      return @card_count
     end
 
     def set_valid_card_details(card_type)
@@ -154,11 +149,11 @@ module PageModels
       name_on_card = card_details[:name_on_card]
       enter_card_details(card_details)
       enter_billing_details
-      card_count = save_card?(save_payment)
+      save_card(save_payment)
       confirm_and_pay_page.confirm_and_pay.click
       expect_page_displayed('order complete')
       assert_order_complete
-      return name_on_card, card_count, card_type
+      return name_on_card, card_type
     end
 
 
