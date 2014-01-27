@@ -8,6 +8,7 @@ gem 'rspec'
 gem 'activesupport'
 gem 'i18n'
 gem 'site_prism'
+gem 'cuporter'
 
 group :debug do
   gem 'debugger'
