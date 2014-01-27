@@ -6,11 +6,11 @@ Feature: User adding sample to Library
 
   @CWA-971
   Scenario Outline: First time user cancels adding sample
+    Given PENDING: CWA-971 First time user cancelling adding sample to library not redirected to the correct page
     Given I am on the home page
     And I have identified a <book_type> book to read sample offline
     And I am on Register page
     When I cancel registration
-    Then PENDING: CWA-971 First time user cancelling adding sample to library not redirected to the correct page
     Then I am redirected to Book details page
 
   Examples:
