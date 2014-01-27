@@ -192,10 +192,7 @@ When /^I click \"(.*?)\" FAQ link$/ do |link_name|
 end
 
 Then /^I am redirected to the "(.*?)" page in a new window$/ do |page_name|
-  pending ('') do
     assert_support_page(page_name)
-  end
-
 end
 
 
