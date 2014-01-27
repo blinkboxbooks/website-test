@@ -20,11 +20,3 @@ Feature: Manage Order and Payment history under My account section.
     When I complete purchase by paying with saved card
     Then I can see this book in my Order & Payment history
 
-  Scenario: Clubcard points added to account
-    #clubcard points should only be added and displayed in order history if the user's account is associated with a valid club card at the time of purchase
-  #register by providing clubcard
-  #buy a book
-  #check clubcard points are added and displayed in order history against this book
-  #remove clubcard
-  #buy another book
-  #check that clubcard points not added and displayed in order history against this book.
