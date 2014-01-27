@@ -25,7 +25,6 @@ module Discover
         within('[class="cover"]') do
           @category_name = first('a')[:href]
           first('img').click
-          #expect_page_displayed("Category")
         end
       end
     end
