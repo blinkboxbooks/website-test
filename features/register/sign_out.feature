@@ -21,7 +21,7 @@ Feature: Sign out from blinkbox books
 
   Examples:
     | tab_name                |
-    | Your personal details   |
-    | Your payments           |
-    | Your devices            |
-    | Order & payment history |
+    | Personal details   |
+    | Saved cards           |
+    | Devices            |
+    | Order history |

@@ -9,35 +9,35 @@ Feature: Navigating through my account pages
   @smoke
   Scenario: Navigate to Order & Payment history
     Given I have signed in
-    When I select Order & payment history link from drop down menu
+    When I select Order history link from drop down menu
     Then Your order & payment history page is displayed
     And Order & payment history tab is selected
 
   @smoke
-  Scenario: Navigate to Your personal details
+  Scenario: Navigate to Personal details
     Given I have signed in
-    When I select Your personal details link from drop down menu
+    When I select Personal details link from drop down menu
     Then Your personal details page is displayed
     And Your personal details tab is selected
 
   @smoke
   Scenario: Navigate to Your payments
     Given I have signed in
-    When I select Your payments link from drop down menu
+    When I select Saved cards link from drop down menu
     Then Your payments page is displayed
     And Your payments tab is selected
 
   @smoke
   Scenario: Navigate to Your devices
     Given I have signed in
-    When I select Your devices link from drop down menu
+    When I select Devices link from drop down menu
     Then Your devices page is displayed
     And Your devices tab is selected
 
   @CWA-1027
   Scenario Outline: Navigate through FAQ links under Order & payment history
     Given I have signed in
-    And I am on the Order & payment history tab
+    And I am on the Order history tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
   Examples:
@@ -47,9 +47,9 @@ Feature: Navigating through my account pages
     | I bought a book but can’t find it        | I bought a book but can't find it        |
     | How do I read books in the app?          | How do I read books in the app?          |
 
-  Scenario Outline: Navigate through FAQ links under Your personal details
+  Scenario Outline: Navigate through FAQ links under Personal details
     Given I have signed in
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
   Examples:
@@ -61,7 +61,7 @@ Feature: Navigating through my account pages
 
   Scenario Outline: Navigate through FAQ links under Your payments
     Given I have signed in
-    And I am on the Your payments tab
+    And I am on the Saved cards tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
   Examples:
@@ -73,7 +73,7 @@ Feature: Navigating through my account pages
 
   Scenario Outline: Navigate through FAQ links under Your devices
     Given I have signed in
-    And I am on the Your devices tab
+    And I am on the Devices tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
   Examples:

@@ -12,10 +12,10 @@ Feature: Redirect to Sign and register page
 
   Examples:
     | account_option          |
-    | Order & payment history |
-    | Your personal details   |
-    | Your payments           |
-    | Your devices            |
+    | Order history |
+    | Personal details   |
+    | Saved cards           |
+    | Devices            |
 
   Scenario Outline: Sign in register redirect for buy action
     Given I am on the home page

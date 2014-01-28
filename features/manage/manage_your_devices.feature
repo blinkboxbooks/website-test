@@ -10,7 +10,7 @@ Feature: Update the devices of the user under 'your account'
   Scenario: Successfully rename a registered device
     Given I am returning user with a device linked to my account
     And I have signed in
-    And I am on the Your devices tab of My account page
+    And I am on the Devices tab of My account page
     When I edit my device name
     And click Rename
     Then my device should be renamed

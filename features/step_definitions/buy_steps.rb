@@ -215,4 +215,3 @@ And /^I have a stored card$/ do
   set_start_cookie_accepted
 end
 
-

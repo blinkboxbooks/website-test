@@ -60,7 +60,7 @@ And /^email address is as submitted$/ do
 end
 
 And /^I am on the Change your password section$/ do
-  click_link_from_my_account_dropdown('Your personal details')
+  click_link_from_my_account_dropdown('Personal details')
   find('.arrowedlink').click
 end
 
@@ -102,7 +102,7 @@ end
 
 And /^the selected card is displayed as my default card$/ do
   click_link('Featured')
-  click_link_from_my_account_dropdown('Your payments')
+  click_link_from_my_account_dropdown('Saved cards')
   assert_default_card(@default_card)
 end
 
@@ -128,14 +128,14 @@ end
 
 And /^my clubcard is not updated$/ do
   click_link('Featured')
-  click_link_from_my_account_dropdown('Your personal details')
+  click_link_from_my_account_dropdown('Personal details')
   your_personal_details_page.club_card.should be_visible
   your_personal_details_page.club_card.value.should eql(@club_card_before)
 end
 
 And /^my email is not updated$/ do
   click_link('Featured')
-  click_link_from_my_account_dropdown('Your personal details')
+  click_link_from_my_account_dropdown('Personal details')
   your_personal_details_page.email_address.value.should eql(@email_before)
 end
 

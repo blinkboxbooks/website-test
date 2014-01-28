@@ -14,7 +14,3 @@ gem 'cuporter'
 group :debug do
   gem 'debugger'
 end
-
-
-
-

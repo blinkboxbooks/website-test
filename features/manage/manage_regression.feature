@@ -14,7 +14,7 @@ Scenario: Trying to update the Clubcard number when the access token has expired
 Scenario: Trying to delete a card when the access token has expired
   Given I have a stored card
   And I have signed in
-  And I am on the Your payments tab
+  And I am on the Saved cards tab
   When I delete the first card from the list
   Then there are no cards in my account
   And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
@@ -22,7 +22,7 @@ Scenario: Trying to delete a card when the access token has expired
 @manual
 Scenario: Trying to update personal information when the access token has expired
   Given I have signed in
-  And I am on the Your personal details tab
+  And I am on the Personal details tab
   When I edit the first name and last name
   And I submit my personal details
   But the access token has expired
@@ -31,7 +31,7 @@ Scenario: Trying to update personal information when the access token has expire
 @manual
 Scenario: Trying to update the Email address when access token has expired
   Given I have signed in
-  And I am on the Your personal details tab
+  And I am on the Personal details tab
   When I edit email address
   And I submit my personal details
   But the access token has expired
