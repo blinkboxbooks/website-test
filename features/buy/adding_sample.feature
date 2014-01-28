@@ -41,7 +41,7 @@ Feature: User adding sample to Library
     | pay for   |
     | free      |
 
-  @negative
+  @negative @CWA-1105
   Scenario Outline: Returning user attempting to a add book sample that already exists his in library
     Given  I have a <book_type> book sample in my library
     When I select above <book_type> book to add sample
@@ -53,7 +53,7 @@ Feature: User adding sample to Library
     | pay for   |
     | free      |
 
-  @negative
+  @negative  @CWA-1105
   Scenario Outline: Returning user attempting to a add book sample of which full book already exists in his library
     Given  I have a <book_type> book in my library
     When I select above <book_type> book to add sample
