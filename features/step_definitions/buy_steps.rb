@@ -118,10 +118,8 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
 end
 
 And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
-  pending ('@CWA-1105, Sample already exists in library page not displayed') do
   find('#already-purchased').should be_visible
   page.should have_text("You already have this #{type} in your library")
-  end
 end
 
 When /^I select above (pay for|free) book to add sample$/ do |book_type|

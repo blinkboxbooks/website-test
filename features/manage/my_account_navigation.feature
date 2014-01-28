@@ -36,7 +36,6 @@ Feature: Navigating through my account pages
 
   @CWA-1027
   Scenario Outline: Navigate through FAQ links under Order & payment history
-    Given PENDING: CWA-1027 My Account - Missing FAQ Links
     Given I have signed in
     And I am on the Order & payment history tab
     When I click "<link_text>" FAQ link
@@ -45,7 +44,7 @@ Feature: Navigating through my account pages
     | link_text                                | support_page                             |
     | View all FAQs                            | support home                             |
     | What devices can I use to read my books? | What devices can I use to read my books? |
-    | I bought a book but can't find it        | I bought a book but can't find it        |
+    | I bought a book but can’t find it        | I bought a book but can't find it        |
     | How do I read books in the app?          | How do I read books in the app?          |
 
   Scenario Outline: Navigate through FAQ links under Your personal details
