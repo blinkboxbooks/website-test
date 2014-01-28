@@ -12,6 +12,7 @@ Feature: Navigating through my account pages
     When I select <my_account_option> link from drop down menu
     Then <my_account_page> page is displayed
     And <my_account_page> tab is selected
+
   Examples:
     | my_account_option | my_account_page         |
     | Order history     | Order & payment history |
@@ -25,6 +26,7 @@ Feature: Navigating through my account pages
     When I select <my_account_option> link from Your account under main Menu
     Then <my_account_page> page is displayed
     And <my_account_option> tab is selected
+
   Examples:
       | my_account_option | my_account_page         |
       | Order history     | Order & payment history |

@@ -82,7 +82,7 @@ Feature: Navigation around the website
 
   @smoke @production @pending
   Scenario Outline: Navigating through site by clicking Shop links from main Menu
-    When I select <shop_link> link  from Shop under main Menu
+    When I select <shop_link> link from Shop under main Menu
     Then <shop_link> page is displayed
     And main footer is displayed
 
@@ -103,6 +103,13 @@ Feature: Navigation around the website
     | support_link |
     | FAQs         |
     | Contact us   |
+
+  @smoke
+    Scenario: Navigate to home page from main Menu
+    Given I am on Categories page
+    When I select Featured link from Shop under main Menu
+    Then Home page is displayed
+    And main footer is displayed
 
   @smoke @production
   Scenario: Navigate to book details page
