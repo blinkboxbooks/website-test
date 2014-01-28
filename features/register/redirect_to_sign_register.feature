@@ -4,18 +4,18 @@ Feature: Redirect to Sign and register page
   So that unauthorised access to secured pages can be prevented.
 
 
-  Scenario Outline: Sign in register redirect for manage actions
+  Scenario Outline: Sign in register redirect for manage actions under Account menu
     Given I am not signed in
     And I am on the home page
     When I select <account_option> link from drop down menu
     Then Sign in redirect page is displayed
 
   Examples:
-    | account_option          |
-    | Order history |
-    | Personal details   |
-    | Saved cards           |
-    | Devices            |
+    | account_option   |
+    | Order history    |
+    | Personal details |
+    | Saved cards      |
+    | Devices          |
 
   Scenario Outline: Sign in register redirect for buy action
     Given I am on the home page
@@ -27,3 +27,16 @@ Feature: Redirect to Sign and register page
     | pay for   |
     | free      |
 
+  @pending
+  Scenario Outline: Sign in register redirect for manage actions under main Menu
+    Given I am not signed in
+    And I am on the home page
+    When I select <account_option> link from Your account under main Menu
+    Then Sign in redirect page is displayed
+
+  Examples:
+    | account_option   |
+    | Order history    |
+    | Personal details |
+    | Saved cards      |
+    | Devices          |

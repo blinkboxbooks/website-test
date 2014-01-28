@@ -198,7 +198,7 @@ module AssertMyAccount
   def assert_book_order_and_payment_history(book_title)
     within(your_order_and_payment_history_page.ordered_books) do
       your_account_page.wait_until_spinner_invisible
-      within(your_order_and_payment_history_page.book_list) do
+      within(order_and_payment_history_page.book_list) do
         page.text should match /#{book_title}/i
       end
     end
