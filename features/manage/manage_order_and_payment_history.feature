@@ -12,7 +12,6 @@ Feature: Manage Order and Payment history under My account section.
     And I register to proceed with purchase
     When I complete purchase by selecting to save the card details
     Then I can see this book in my Order & Payment history
-    And I can see the payment card saved in my Payment details
 
   Scenario: Returning user checking Order history, Payment details after buying a book with saved payments
     Given I have a stored card
@@ -20,4 +19,4 @@ Feature: Manage Order and Payment history under My account section.
     And I sign in to proceed with purchase
     When I complete purchase by paying with saved card
     Then I can see this book in my Order & Payment history
-    And my saved Payment details are not updated
+

@@ -8,8 +8,13 @@ gem 'rspec'
 gem 'activesupport'
 gem 'i18n'
 gem 'site_prism'
+gem 'selendroid', '~>0.4.0'
 gem 'cuporter'
 
 group :debug do
   gem 'debugger'
 end
+
+
+
+

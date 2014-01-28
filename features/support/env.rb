@@ -85,7 +85,7 @@ Capybara.default_wait_time = 10
 TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
 TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
 caps = case TEST_CONFIG['BROWSER_NAME'].downcase
-         when 'firefox', 'safari', 'ie', 'chrome'
+         when 'firefox', 'safari', 'ie', 'chrome', 'android'
            browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
            Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
          #TODO: investigate and introduce a reliable headless driver for blinkboxbooks webstie testing
@@ -103,21 +103,23 @@ caps.native_events=false
 
 # grid setup
 if TEST_CONFIG['GRID'] =~ /^true|on$/i
-
+  remote_url = "http://selenium.mobcastdev.local:4444/wd/hub"
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'MAC'
   caps.platform = case TEST_CONFIG['PLATFORM'].upcase
                     when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS' # *WINDOWS* stands for Windows 7
                       TEST_CONFIG['PLATFORM'].upcase.to_sym
+                    when 'ANDROID'
+                      TEST_CONFIG['PLATFORM'].downcase.to_sym
+                      remote_url = "http://localhost:4444/wd/hub"
                     else
                       raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
                   end
-
   # register the remote driver
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app,
                                    :browser => :remote,
-                                   :url => "http://selenium.mobcastdev.local:4444/wd/hub",
+                                   :url => remote_url,
                                    :desired_capabilities => caps)
   end
 

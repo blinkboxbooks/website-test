@@ -54,7 +54,11 @@ When /^I pay with a new (.*?) card$/ do |card_type|
 end
 
 And /^I choose (to save|not to save)(?: new)? payment details$/ do |save_payment|
-  save_card?(save_payment)
+  if save_payment.include?('not')
+    save_card(false)
+  else
+    save_card(true)
+  end
 end
 
 Then /^(?:my payment|adding sample) is successful$/ do
@@ -167,7 +171,12 @@ And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
 end
 
 When /^I complete purchase by selecting (to save|not to save) the card details$/ do |save_payment|
-  @name_on_card, @card_count, @card_type = successful_new_payment(save_payment)
+  if save_payment.include?('not')
+    @name_on_card, @card_type = successful_new_payment(save_payment = false)
+  else
+    @name_on_card, @card_type = successful_new_payment(save_payment = true)
+    @card_count = 1;
+  end
 end
 
 Then /^I can see this book in my Order & Payment history$/ do
@@ -186,5 +195,24 @@ end
 
 When /^I complete purchase with new card by selecting (to save|not to save) Payment details$/ do |save_payment|
   confirm_and_pay_page.pay_with_new_card.click
-  @name_on_card, @card_count, @card_type = successful_new_payment(save_payment, 'mastercard')
+
+  if save_payment.include?('not')
+    @name_on_card, @card_type = successful_new_payment(save_payment = false)
+  else
+    @name_on_card, @card_type = successful_new_payment(save_payment = true)
+    @card_count += 1
+  end
 end
+
+And /^I have a stored card$/ do
+  visit('/')
+  navigate_to_register_form
+  register_new_user
+  expect_page_displayed("Registration Success")
+  buy_first_book
+  @card_count = 1
+  log_out_current_session
+  set_start_cookie_accepted
+end
+
+
