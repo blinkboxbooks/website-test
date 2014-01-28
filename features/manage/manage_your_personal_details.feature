@@ -2,7 +2,7 @@ Feature: Update the Personal details of the user under 'your account'
   As a singed in Blinkbox books user
   I need the ability to update my personal details
   So I can keep my account up to date
-  #- Manage - Your personal details (8.3.0.0-L 1)
+  #- Manage - Personal details (8.3.0.0-L 1)
 
   Background:
     Given I am on the home page
@@ -10,7 +10,7 @@ Feature: Update the Personal details of the user under 'your account'
   @CWA-213 @smoke
   Scenario: Successfully update Your personal information
     Given I have signed in
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I edit the first name and last name
     And I submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
@@ -19,7 +19,7 @@ Feature: Update the Personal details of the user under 'your account'
   @smoke @CWA-1014
   Scenario: Successfully update Your marketing preferences
     Given I have signed in
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I edit marketing preferences
     And I submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
@@ -28,7 +28,7 @@ Feature: Update the Personal details of the user under 'your account'
   @smoke
   Scenario: Successfully update Email address
     Given I have registered as new user without providing clubcard
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I edit email address
     And I submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
@@ -36,7 +36,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   Scenario: Add clubcard to existing blinkbox books account
     Given I have registered as new user without providing clubcard
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
     Then clubcard added to my account
@@ -44,7 +44,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   Scenario: Update clubcard associated with existing blinkbox books account
     Given I have registered as new user by providing clubcard
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
     Then my clubcard updated
@@ -53,7 +53,7 @@ Feature: Update the Personal details of the user under 'your account'
   @negative
   Scenario Outline: Update the Clubcard number with an invalid Clubcard
     Given I have registered as new user by providing clubcard
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I attempt to update my clubcard with invalid <clubcard_number>
     Then "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
     And my clubcard is not updated
@@ -68,7 +68,7 @@ Feature: Update the Personal details of the user under 'your account'
   Scenario: Update email address using already registered email address
     Given I am returning user
     And I have signed in
-    And I am on the Your personal details tab
+    And I am on the Personal details tab
     When I attempt to update email address with already registered email address
     Then "This email address is already registered to another Blinkbox books account" message is displayed
     And my email is not updated
