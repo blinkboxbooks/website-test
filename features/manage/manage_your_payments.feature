@@ -59,5 +59,5 @@ Feature: Update the Payment details of the user under 'your account'
     Given I have a stored card
     And I have selected to buy a pay for book from Home page
     And I sign in to proceed with purchase
-    When I complete purchase with new card by selecting not to to save card details
+    When I complete purchase with new card by selecting not to save Payment details
     Then I do not see the payment card in my Payment details
