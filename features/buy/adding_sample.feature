@@ -1,4 +1,3 @@
-@wip
 Feature: User adding sample to Library
   As a blink box books user
   I should be able add a sample to my library
