@@ -20,8 +20,8 @@ Feature: Sign out from blinkbox books
     And I am redirected to Home page
 
   Examples:
-    | tab_name                |
-    | Personal details   |
-    | Saved cards           |
-    | Devices            |
-    | Order history |
+    | tab_name         |
+    | Personal details |
+    | Saved cards      |
+    | Devices          |
+    | Order history    |

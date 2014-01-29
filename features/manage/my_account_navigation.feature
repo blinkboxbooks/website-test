@@ -7,32 +7,32 @@ Feature: Navigating through my account pages
     Given I am on the home page
 
   @smoke
-  Scenario: Navigate to Order & Payment history
+  Scenario Outline: Signed in user accessing account navigation links from Account Menu
     Given I have signed in
-    When I select Order history link from drop down menu
-    Then Your order & payment history page is displayed
-    And Order & payment history tab is selected
+    When I select <my_account_option> link from drop down menu
+    Then <my_account_page> page is displayed
+    And <my_account_page> tab is selected
 
-  @smoke
-  Scenario: Navigate to Personal details
-    Given I have signed in
-    When I select Personal details link from drop down menu
-    Then Your personal details page is displayed
-    And Your personal details tab is selected
+  Examples:
+    | my_account_option | my_account_page         |
+    | Order history     | Order & payment history |
+    | Personal details  | Your personal details   |
+    | Saved cards       | Your payments           |
+    | Devices           | Your devices            |
 
-  @smoke
-  Scenario: Navigate to Your payments
+  @smoke @pending
+  Scenario Outline: Signed in user accessing account navigation links from main Menu
     Given I have signed in
-    When I select Saved cards link from drop down menu
-    Then Your payments page is displayed
-    And Your payments tab is selected
+    When I select <my_account_option> link from Your account under main Menu
+    Then <my_account_page> page is displayed
+    And <my_account_option> tab is selected
 
-  @smoke
-  Scenario: Navigate to Your devices
-    Given I have signed in
-    When I select Devices link from drop down menu
-    Then Your devices page is displayed
-    And Your devices tab is selected
+  Examples:
+      | my_account_option | my_account_page         |
+      | Order history     | Order & payment history |
+      | Personal details  | Your personal details   |
+      | Saved cards       | Your payments           |
+      | Devices           | Your devices            |
 
   @CWA-1027
   Scenario Outline: Navigate through FAQ links under Order & payment history

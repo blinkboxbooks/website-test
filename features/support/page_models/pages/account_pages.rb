@@ -6,7 +6,7 @@ module PageModels
     element :spinner, '.load_spinner'
   end
 
-  class YourOrderAndPaymentHistoryPage < PageModels::YourAccountPage
+  class OrderAndPaymentHistoryPage < PageModels::YourAccountPage
     set_url "/#!/account/order-payment-history"
     set_url_matcher /account\/order-payment-history/
     element :ordered_books, '.order_books'
@@ -56,7 +56,7 @@ module PageModels
   end
 
   register_model_caller_method(YourAccountPage)
-  register_model_caller_method(YourOrderAndPaymentHistoryPage)
+  register_model_caller_method(OrderAndPaymentHistoryPage)
   register_model_caller_method(YourPersonalDetailsPage)
   register_model_caller_method(YourPaymentsPage)
   register_model_caller_method(YourDevicesPage)

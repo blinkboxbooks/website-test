@@ -80,6 +80,37 @@ Feature: Navigation around the website
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
+  @smoke @production @pending
+  Scenario Outline: Navigating through site by clicking Shop links from main Menu
+    When I select <shop_link> link from Shop under main Menu
+    Then <shop_link> page is displayed
+    And main footer is displayed
+
+  Examples:
+    | shop_link    |
+    | Categories   |
+    | Bestsellers  |
+    | Free books   |
+    | Authors      |
+    | New releases |
+
+  @smoke @production @pending
+  Scenario Outline: Clicking Support links from main Menu
+    When I select "<support_link>" link from Support under main Menu
+    Then I am redirected to the "<support_page>" page in a new window
+
+  Examples:
+    | support_link | support_page |
+    | FAQs         | support home |
+    | Contact us   | Contact us   |
+
+  @pending
+    Scenario: Navigate to home page from main Menu
+    Given I am on Categories page
+    When I select Featured link from Shop under main Menu
+    Then Home page is displayed
+    And main footer is displayed
+
   @smoke @production
   Scenario: Navigate to book details page
     When I select a book to view book details

@@ -7,6 +7,7 @@
     multiple_cards_non_default_expired: nondefault_expired_card@mobcastdev.com
     user_with_devices: user_with_devices@mobcastdev.com
     books_in_library: books_in_library@mobcastdev.com
+    empty_library_no_devices: empty_library_no_devices@mobcastdev.com
 
   passwords:
       valid_password: test1234
