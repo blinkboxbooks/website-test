@@ -100,11 +100,11 @@ Feature: Navigation around the website
     Then I am redirected to the "<support_page>" page in a new window
 
   Examples:
-    | support_link |
-    | FAQs         |
-    | Contact us   |
+    | support_link | support_page |
+    | FAQs         | support home |
+    | Contact us   | Contact us   |
 
-  @smoke
+  @pending
     Scenario: Navigate to home page from main Menu
     Given I am on Categories page
     When I select Featured link from Shop under main Menu
