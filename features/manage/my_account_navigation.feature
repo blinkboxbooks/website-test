@@ -83,6 +83,31 @@ Feature: Navigating through my account pages
     | How do I download the app?               | How do I download the app?               |
     | Problems installing the app              | Problems installing the app              |
 
+   @pending @CWA-615
+  Scenario: User with empty Order history, no saved payments and devices checking Order history
+    Given I am returning user with empty library no devices
+    And I have signed in
+    When I select Order history link from drop down menu
+    Then Order & payment history page is displayed
+    And Order & payment history tab is selected
+    And "You have no books" message is displayed
+   #place holder message, needs to be updated with actual message when issue is fixed.
 
+  @pending @CWA-615
+  Scenario: User with empty Order history, no saved payments and devices checking Your payments
+    Given I am returning user with empty library no devices
+    And I have signed in
+    When I select Saved cards link from drop down menu
+    Then Your payments page is displayed
+    And Your payments tab is selected
+    And "You have no payment cards saved to your account" message is displayed
 
+  @pending @CWA-615
+  Scenario: User with empty Order history, no saved payments and devices checking Your devices
+    Given I am returning user with empty library no devices
+    And I have signed in
+    When I select Devices link from drop down menu
+    Then Your devices page is displayed
+    And Your devices tab is selected
+    And "You currently have 0 devices linked to your account" message is displayed
 

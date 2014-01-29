@@ -34,7 +34,7 @@ When /^I enter valid personal details$/ do
 end
 
 And /^I choose a valid password$/ do
-  enter_password(test_data("passwords", "valid_password"))
+  enter_password(test_data('passwords', 'valid_password'))
 end
 
 And /^I accept terms and conditions$/ do
@@ -50,9 +50,9 @@ And /^I submit registration details$/ do
 end
 
 When /^I enter valid sign in details$/ do
-  email = test_data("emails", "happypath_user")
-  password = test_data("passwords", "valid_password")
-  @first_name = "Happy-path"
+  email = test_data('emails', 'happypath_user')
+  password = test_data('passwords', 'valid_password')
+  @first_name = 'Happy-path'
   enter_sign_in_details(email, password)
 end
 
@@ -82,7 +82,7 @@ Then /^I should be signed out successfully$/ do
 end
 
 Given /^I have multiple stored cards$/ do
-  @email_address = test_data("emails", "multiple_storedcards")
+  @email_address = test_data('emails', 'multiple_storedcards')
 end
 
 Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$/ do
@@ -91,22 +91,22 @@ Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$
 end
 
 Given /^I have default expired stored card$/ do
- set_email_and_password(test_data("emails", "one_default_expired_card"), test_data("passwords", "valid_password"))
+ set_email_and_password(test_data('emails', 'one_default_expired_card'), test_data('passwords', 'valid_password'))
 end
 
 Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
   if (expired_card.include?('non'))
-    email_address = test_data("emails", "multiple_cards_non_default_expired")
+    email_address = test_data('emails', 'multiple_cards_non_default_expired')
   else
-    email_address = test_data("emails", "multiple_cards_default_expired")
+    email_address = test_data('emails', 'multiple_cards_default_expired')
   end
-  set_email_and_password(email_address, test_data("passwords", "valid_password"))
+  set_email_and_password(email_address, test_data('passwords', 'valid_password'))
 end
 
 When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
-  club_card = test_data("clubcards", "valid_clubcard_number")
+  club_card = test_data('clubcards', 'valid_clubcard_number')
   if club_card_type.include?('invalid')
-    club_card = test_data("clubcards", "invalid_clubcard_number")
+    club_card = test_data('clubcards', 'invalid_clubcard_number')
   end
   @email_address, @first_name, @last_name = enter_personal_details
   register_page.fill_in_club_card(club_card)
@@ -122,8 +122,8 @@ And /^I submit registration details by (accepting|not accepting) terms and condi
 end
 
 When /^I enter registration details with already registered email address$/ do
-  @email_address, @first_name, @last_name = enter_personal_details(test_data("emails", "happypath_user"))
-  enter_password(test_data("passwords", "valid_password"))
+  @email_address, @first_name, @last_name = enter_personal_details(test_data('emails', 'happypath_user'))
+  enter_password(test_data('passwords', 'valid_password'))
 end
 
 Then /^registration is not successful$/ do
@@ -132,7 +132,7 @@ end
 
 When /^I enter valid registration details$/ do
   @email_address, @first_name, @last_name = enter_personal_details
-  enter_password(test_data("passwords", "valid_password"))
+  enter_password(test_data('passwords', 'valid_password'))
 end
 
 And(/^link to sign in with already registered email address is displayed$/) do
@@ -144,8 +144,8 @@ And /^type passwords that are less than 6 characters$/ do
 end
 
 And /^type passwords that are not matching$/ do
-  register_page.password.set test_data("passwords", "valid_password")
-  register_page.password_repeat.set test_data("passwords", "not_matching_password")
+  register_page.password.set test_data('passwords', 'valid_password')
+  register_page.password_repeat.set test_data('passwords', 'not_matching_password')
 end
 
 But /^I leave the password field empty$/ do
@@ -157,7 +157,7 @@ Then /^sign in is not successful$/ do
 end
 
 When /^I try to sign in with email address that is not registered$/ do
-  submit_sign_in_details(generate_random_email_address, test_data("passwords", "valid_password"))
+  submit_sign_in_details(generate_random_email_address, test_data('passwords', 'valid_password'))
 end
 
 And /^link to reset password is displayed$/ do
@@ -165,11 +165,11 @@ And /^link to reset password is displayed$/ do
 end
 
 When /^I (?:try|have attempted) to sign in with incorrect password$/ do
-  submit_sign_in_details(test_data("emails", "happypath_user"), test_data("passwords", "not_matching_password"))
+  submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
 end
 
 When /^I try to sign in with empty password field$/ do
-  submit_sign_in_details(test_data("emails", "happypath_user"),'')
+  submit_sign_in_details(test_data('emails', 'happypath_user'),'')
 end
 
 When /^I click on Send me a reset link$/ do
@@ -177,12 +177,12 @@ When /^I click on Send me a reset link$/ do
 end
 
 Given /^I am returning user(?: with saved payment details)?$/ do
-  set_email_and_password(test_data("emails", "no_expired_cards"), test_data("passwords", "valid_password"))
+  set_email_and_password(test_data('emails', 'no_expired_cards'), test_data('passwords', 'valid_password'))
 end
 
 Given /^I have attempted to register with already registered email address$/ do
-  @email_address, @first_name, @last_name = enter_personal_details(test_data("emails", "happypath_user"))
-  enter_password(test_data("passwords", "valid_password"))
+  @email_address, @first_name, @last_name = enter_personal_details(test_data('emails', 'happypath_user'))
+  enter_password(test_data('passwords', 'valid_password'))
   accept_terms_and_conditions(true)
   submit_registration_details
 end
@@ -195,3 +195,6 @@ Given /^I have a (?:pay for|free) (?:book|book sample) in my library$/ do
   set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
 end
 
+Given /^I am returning user with empty library no devices$/ do
+  set_email_and_password(test_data('emails', 'empty_library_no_devices'), test_data('passwords', 'valid_password'))
+end
