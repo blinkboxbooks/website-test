@@ -28,11 +28,11 @@ Feature: Navigating through my account pages
     And <my_account_option> tab is selected
 
   Examples:
-      | my_account_option | my_account_page         |
-      | Order history     | Order & payment history |
-      | Personal details  | Your personal details   |
-      | Saved cards       | Your payments           |
-      | Devices           | Your devices            |
+    | my_account_option | my_account_page         |
+    | Order history     | Order & payment history |
+    | Personal details  | Your personal details   |
+    | Saved cards       | Your payments           |
+    | Devices           | Your devices            |
 
   @CWA-1027
   Scenario Outline: Navigate through FAQ links under Order & payment history
@@ -40,6 +40,7 @@ Feature: Navigating through my account pages
     And I am on the Order history tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                                | support_page                             |
     | View all FAQs                            | support home                             |
@@ -52,6 +53,7 @@ Feature: Navigating through my account pages
     And I am on the Personal details tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                               | support_page                            |
     | View all FAQs                           | support home                            |
@@ -64,6 +66,7 @@ Feature: Navigating through my account pages
     And I am on the Saved cards tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                          | support_page                       |
     | View all FAQs                      | support home                       |
@@ -76,6 +79,7 @@ Feature: Navigating through my account pages
     And I am on the Devices tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                                | support_page                             |
     | View all FAQs                            | support home                             |
@@ -83,6 +87,20 @@ Feature: Navigating through my account pages
     | How do I download the app?               | How do I download the app?               |
     | Problems installing the app              | Problems installing the app              |
 
+  @CWA-615
+  Scenario Outline: User with no associated payment, order or device information check their account information
+    Given I am returning user with no <user_type>
+    And I have signed in
+    When I select <account_link> link from drop down menu
+    Then <account_page> page is displayed
+    And <account_page> tab is selected
+    And "<account_message>" message is displayed
+
+  Examples:
+    | user_type           | account_link  | account_page            | account_message                                     |
+    | associated devices  | Devices       | Your devices            | You currently have 0 devices linked to your account |
+    | orders in the past  | Order history | Order & payment history | You haven't bought anything from blinkbox books yet |
+    | saved payment cards | Saved cards   | Your payments           | You have no payment cards saved to your account     |
 
 
 

@@ -31,9 +31,7 @@ end
 
 And /^marketing preferences are as submitted$/ do
   refresh_current_page
-  pending("CWA-1014 Marketing preference changes not updated ") do
-    assert_marketing_preferences_changed(@after_status)
-  end
+  assert_marketing_preferences_changed(@after_status)
 end
 
 Given /^I have registered as new user (without|by) providing clubcard/ do |provide_clubcard|
