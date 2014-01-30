@@ -88,7 +88,7 @@ Feature: Navigating through my account pages
     | Problems installing the app              | Problems installing the app              |
 
   @CWA-615
-  Scenario Outline: User with no orders in the past, no saved payments, no associated devices checking account information
+  Scenario Outline: User with no associated payment, order or device information check their account information
     Given I am returning user with no <user_type>
     And I have signed in
     When I select <account_link> link from drop down menu
