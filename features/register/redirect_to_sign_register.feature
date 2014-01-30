@@ -27,7 +27,6 @@ Feature: Redirect to Sign and register page
     | pay for   |
     | free      |
 
-  @pending
   Scenario Outline: Sign in register redirect for manage actions under main Menu
     Given I am not signed in
     And I am on the home page

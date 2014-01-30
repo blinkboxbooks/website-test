@@ -195,5 +195,9 @@ Then /^I am redirected to the "(.*?)" page in a new window$/ do |page_name|
     assert_support_page(page_name)
 end
 
+When /^I select (.*?) link from (Your account|Shop|Support) under main Menu$/ do|link_name,sub_menu|
+  current_page.header.navigate_to_main_menu_option(sub_menu, link_name)
+end
+
 
 
