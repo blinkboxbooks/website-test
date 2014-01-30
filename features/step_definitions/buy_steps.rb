@@ -223,7 +223,7 @@ And /^submit the payment details with cvv (.*?) for (.*?) card$/ do |cvv, card_t
   confirm_and_pay_page.confirm_and_pay.click
 end
 
-And(/^submit the payment details with card number (.*?)$/) do |credit_card|
+And /^submit the payment details with card number (.*?)$/ do |credit_card|
   card_details = set_valid_card_details('VISA')
   card_details[:card_number] = credit_card
   enter_card_details(card_details)
