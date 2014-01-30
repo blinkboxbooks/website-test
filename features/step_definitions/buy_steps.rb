@@ -215,3 +215,18 @@ And /^I have a stored card$/ do
   set_start_cookie_accepted
 end
 
+And /^submit the payment details with cvv (\d+) for (.*?) card$/ do |cvv, card_type|
+  card_details = set_valid_card_details(card_type)
+  card_details[:cvv] = cvv
+  enter_card_details(card_details)
+  enter_billing_details
+  confirm_and_pay_page.confirm_and_pay.click
+end
+
+And /^submit the payment details with card number (\d+)$/ do |card_number|
+  card_details = set_valid_card_details('VISA')
+  card_details[:card_number] = card_number
+  enter_card_details(card_details)
+  enter_billing_details
+  confirm_and_pay_page.confirm_and_pay.click
+end

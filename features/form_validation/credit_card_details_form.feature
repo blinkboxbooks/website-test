@@ -22,12 +22,12 @@ Feature: Credit card details form validation
 
   Scenario Outline: Invalid card number
     When I choose to pay with a new card
-    And submit the payment details with card number <credit_card>
+    And submit the payment details with card number <card_number>
     Then my payment is not successful
     And "Your credit card number must be a valid credit card number" message is displayed
 
   Examples:
-    | credit_card       | details                   |
+    | card_number       | details                   |
     | 4111              | less digits than required |
     | 411111111111      | less digits than required |
     | 411111111111111   | less digits than required |
