@@ -73,3 +73,9 @@ Feature: Update the Personal details of the user under 'your account'
     Then "This email address is already registered to another Blinkbox books account" message is displayed
     And my email is not updated
 
+  @pending
+  Scenario: Check correct marketing preferences status displayed, user opted in
+    Given I am opted in for blinkbox marketing
+    And I have signed in
+  @pending
+  Scenario: Check correct marketing preferences status displayed, user not opted in

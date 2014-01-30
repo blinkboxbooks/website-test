@@ -195,6 +195,6 @@ Given /^I have a (?:pay for|free) (?:book|book sample) in my library$/ do
   set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
 end
 
-Given /^I am returning user with empty library no devices$/ do
+Given /^I am returning user with no (?:associated devices|saved payment cards|orders in the past)$/ do
   set_email_and_password(test_data('emails', 'empty_library_no_devices'), test_data('passwords', 'valid_password'))
 end

@@ -83,31 +83,45 @@ Feature: Navigating through my account pages
     | How do I download the app?               | How do I download the app?               |
     | Problems installing the app              | Problems installing the app              |
 
-   @pending @CWA-615
-  Scenario: User with empty Order history, no saved payments and devices checking Order history
-    Given I am returning user with empty library no devices
+  @CWA-615
+  Scenario: User with no orders in the past checking Order history
+    Given I am returning user with no orders in the past
     And I have signed in
     When I select Order history link from drop down menu
     Then Order & payment history page is displayed
     And Order & payment history tab is selected
-    And "You have no books" message is displayed
-   #place holder message, needs to be updated with actual message when issue is fixed.
+    And "You haven't bought anything from blinkbox books yet." message is displayed
 
-  @pending @CWA-615
-  Scenario: User with empty Order history, no saved payments and devices checking Your payments
-    Given I am returning user with empty library no devices
+  @CWA-615
+  Scenario: User with no saved payment cards checking Your payments
+    Given I am returning user with no saved payment cards
     And I have signed in
     When I select Saved cards link from drop down menu
     Then Your payments page is displayed
     And Your payments tab is selected
     And "You have no payment cards saved to your account" message is displayed
 
-  @pending @CWA-615
-  Scenario: User with empty Order history, no saved payments and devices checking Your devices
-    Given I am returning user with empty library no devices
+  @CWA-615
+  Scenario: User with no associated devices checking Your devices
+    Given I am returning user with no associated devices
     And I have signed in
     When I select Devices link from drop down menu
     Then Your devices page is displayed
     And Your devices tab is selected
     And "You currently have 0 devices linked to your account" message is displayed
+
+  Scenario Outline: Users with no orders in the past, no saved payments, no associated devices checking account information
+    Given I am returning user with no <user_type>
+    And I have signed in
+    When I select <account_link> link from drop down menu
+    Then <account_page> page is displayed
+    And <account_page> tab is selected
+    And "<account_message>" message is displayed
+  Examples:
+    | user_type           | account_link  | account_page            | account_message                                     |
+    | associated devices  | Devices       | Your devices            | You currently have 0 devices linked to your account |
+    | orders in the past  | Order history | Order & payment history | You haven't bought anything from blinkbox books yet |
+    | saved payment cards | Saved cards   | Your payments           | You have no payment cards saved to your account     |
+
+
 
