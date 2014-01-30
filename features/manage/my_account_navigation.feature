@@ -28,11 +28,11 @@ Feature: Navigating through my account pages
     And <my_account_option> tab is selected
 
   Examples:
-      | my_account_option | my_account_page         |
-      | Order history     | Order & payment history |
-      | Personal details  | Your personal details   |
-      | Saved cards       | Your payments           |
-      | Devices           | Your devices            |
+    | my_account_option | my_account_page         |
+    | Order history     | Order & payment history |
+    | Personal details  | Your personal details   |
+    | Saved cards       | Your payments           |
+    | Devices           | Your devices            |
 
   @CWA-1027
   Scenario Outline: Navigate through FAQ links under Order & payment history
@@ -40,6 +40,7 @@ Feature: Navigating through my account pages
     And I am on the Order history tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                                | support_page                             |
     | View all FAQs                            | support home                             |
@@ -52,6 +53,7 @@ Feature: Navigating through my account pages
     And I am on the Personal details tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                               | support_page                            |
     | View all FAQs                           | support home                            |
@@ -64,6 +66,7 @@ Feature: Navigating through my account pages
     And I am on the Saved cards tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                          | support_page                       |
     | View all FAQs                      | support home                       |
@@ -76,6 +79,7 @@ Feature: Navigating through my account pages
     And I am on the Devices tab
     When I click "<link_text>" FAQ link
     Then I am redirected to the "<support_page>" page in a new window
+
   Examples:
     | link_text                                | support_page                             |
     | View all FAQs                            | support home                             |
@@ -84,39 +88,14 @@ Feature: Navigating through my account pages
     | Problems installing the app              | Problems installing the app              |
 
   @CWA-615
-  Scenario: User with no orders in the past checking Order history
-    Given I am returning user with no orders in the past
-    And I have signed in
-    When I select Order history link from drop down menu
-    Then Order & payment history page is displayed
-    And Order & payment history tab is selected
-    And "You haven't bought anything from blinkbox books yet." message is displayed
-
-  @CWA-615
-  Scenario: User with no saved payment cards checking Your payments
-    Given I am returning user with no saved payment cards
-    And I have signed in
-    When I select Saved cards link from drop down menu
-    Then Your payments page is displayed
-    And Your payments tab is selected
-    And "You have no payment cards saved to your account" message is displayed
-
-  @CWA-615
-  Scenario: User with no associated devices checking Your devices
-    Given I am returning user with no associated devices
-    And I have signed in
-    When I select Devices link from drop down menu
-    Then Your devices page is displayed
-    And Your devices tab is selected
-    And "You currently have 0 devices linked to your account" message is displayed
-
-  Scenario Outline: Users with no orders in the past, no saved payments, no associated devices checking account information
+  Scenario Outline: User with no orders in the past, no saved payments, no associated devices checking account information
     Given I am returning user with no <user_type>
     And I have signed in
     When I select <account_link> link from drop down menu
     Then <account_page> page is displayed
     And <account_page> tab is selected
     And "<account_message>" message is displayed
+
   Examples:
     | user_type           | account_link  | account_page            | account_message                                     |
     | associated devices  | Devices       | Your devices            | You currently have 0 devices linked to your account |
