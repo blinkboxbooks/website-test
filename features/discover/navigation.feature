@@ -80,7 +80,7 @@ Feature: Navigation around the website
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
-  @smoke @production @pending
+  @smoke @production
   Scenario Outline: Navigating through site by clicking Shop links from main Menu
     When I select <shop_link> link from Shop under main Menu
     Then <shop_link> page is displayed
@@ -104,7 +104,6 @@ Feature: Navigation around the website
     | FAQs         | support home |
     | Contact us   | Contact us   |
 
-  @pending
     Scenario: Navigate to home page from main Menu
     Given I am on Categories page
     When I select Featured link from Shop under main Menu
