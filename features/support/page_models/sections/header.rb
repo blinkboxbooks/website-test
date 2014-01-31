@@ -6,6 +6,8 @@ module PageModels
     element :main_menu, '#main-menu'
     element :main_menu_option_dropdown, 'ul#main-navigation-handheld'
     element :welcome, '.username'
+    element :faqs, '[href="https://support.blinkboxbooks.com/home"]'
+    element :contact_us, '[href="https://support.blinkboxbooks.com/anonymous_requests/new"]'
 
     def account_nav_link(menu,link_name)
       menu.find("a", :text => "#{link_name}")
@@ -29,7 +31,19 @@ module PageModels
       main_menu.click
       main_menu_option_dropdown.should be_visible
       account_nav_link(main_menu_option_dropdown,sub_menu).click
-      account_nav_link(main_menu_option_dropdown,link_name).click
+      if sub_menu.include?('Support')
+        click_support_link(link_name)
+      else
+        account_nav_link(main_menu_option_dropdown,link_name).click
+      end
+    end
+
+    def click_support_link(link_name)
+      if link_name.include?('Contact')
+        contact_us.click
+      else
+        faqs.click
+      end
     end
   end
 end

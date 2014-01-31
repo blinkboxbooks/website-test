@@ -94,7 +94,7 @@ Feature: Navigation around the website
     | Authors      |
     | New releases |
 
-  @smoke @production @pending
+  @smoke @production
   Scenario Outline: Clicking Support links from main Menu
     When I select "<support_link>" link from Support under main Menu
     Then I am redirected to the "<support_page>" page in a new window
@@ -104,6 +104,7 @@ Feature: Navigation around the website
     | FAQs         | support home |
     | Contact us   | Contact us   |
 
+  @production
     Scenario: Navigate to home page from main Menu
     Given I am on Categories page
     When I select Featured link from Shop under main Menu

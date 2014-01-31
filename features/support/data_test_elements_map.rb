@@ -52,7 +52,8 @@ module TestElementsMap
                        'Do you accept gift cards?' => 'support.blinkboxbooks.com/entries/25385517',
                        'What devices can I use to read my books?' => 'support.blinkboxbooks.com/entries/25400608',
                        'How do I download the app?' => 'support.blinkboxbooks.com/entries/25378706',
-                       'Problems installing the app' => 'support.blinkboxbooks.com/entries/25378726'}
+                       'Problems installing the app' => 'support.blinkboxbooks.com/entries/25378726',
+                       'Contact us' => 'https://support.blinkboxbooks.com/anonymous_requests/new'}
 
   def get_element_id_for(element_name)
     if DATA_TEST_ELEMENTS.key?(element_name)
