@@ -104,6 +104,7 @@ Feature: Navigation around the website
     | FAQs         | support home |
     | Contact us   | Contact us   |
 
+  @production
     Scenario: Navigate to home page from main Menu
     Given I am on Categories page
     When I select Featured link from Shop under main Menu
