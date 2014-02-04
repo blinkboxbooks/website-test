@@ -8,6 +8,7 @@ default:              -p local_debug
 local_debug:          -r features --tags ~@wip GRID=false SERVER=QA DEBUG=true
 
 ci-no-grid:           <%= ci_opts %>
+ci-smoke-local:       <%= ci_opts %> --tags @smoke SERVER=LOCALHOST
 ci-smoke-nodejs:      <%= ci_opts %> <%= grid_opts_nodejs %> --tags @smoke SERVER=NODEJS-INTERNAL FAIL_FAST=true
 ci-smoke-qa:          <%= ci_opts %> <%= grid_opts_qa %> --tags @smoke SERVER=QA
 ci-smoke-production:  <%= ci_opts %> <%= grid_opts_production %> --tags @smoke --tags @production SERVER=PRODUCTION
@@ -37,6 +38,6 @@ local_debug_tablet:  <%= ci_opts %> <%= grid_opts_tablet_qa %> --tags @smoke SER
 #win-vista-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
 
 # COMMAND LINE OPTIONS 
-# SERVER: NODEJS-INTERNAL, QA, STAGING, PRODUCTION
+# SERVER: LOCALHOST, NODEJS-INTERNAL, QA, STAGING, PRODUCTION
 # DEVICE: MOBILE, TABLET-PORTRAIT, TABLET-LANDSCAPE, DESKTOP
 
