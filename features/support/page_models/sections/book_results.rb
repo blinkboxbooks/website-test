@@ -6,17 +6,24 @@ module PageModels
     element :book_details_button, '[data-test="book-details-button"]'
 
     def click_buy_now_first_book
+      wait_until_books_visible(10)
       page.driver.browser.action.move_to(books.first.native).perform
+      get_book_title
       buy_now_button.click
+      return @book_title
     end
 
     def click_book_details_first_book
       page.driver.browser.action.move_to(books.first.native).perform
+      get_book_title
       book_details_button.click
     end
 
     def click_first_book
       books.first.click
+    end
+    def get_book_title
+      @book_title = books.first.find('[class="title"]').text
     end
 
   end

@@ -97,38 +97,24 @@ module Discover
   end
 
   def select_book_to_buy_from_a_page(book_type, page_name)
-
     case page_name
-      when 'Home'
-        home_page.book_results.click_buy_now_first_book
       when 'Category'
         current_page.header.main_page_navigation('Categories')
         click_on_a_category
-        category_page.wait_until_book_results_visible
-        category_page.book_results.click_buy_now_first_book
-      when 'Bestsellers'
-        current_page.header.main_page_navigation(page_name)
-        bestsellers_page.wait_until_book_results_visible
-        bestsellers_page.book_results.click_buy_now_first_book
-      when 'New releases'
-        current_page.header.main_page_navigation(page_name)
-        category_page.wait_until_book_results_visible
-        new_releases_page.book_results.click_buy_now_first_book
-      when 'Free books'
-        current_page.header.main_page_navigation(page_name)
-        free_books_page.wait_until_book_results_visible
-        free_books_page.book_results.click_buy_now_first_book
       when 'Search results'
         search_word = return_search_word_for_book_type(book_type)
         search_blinkbox_books(search_word)
-        search_results_page.wait_until_book_results_visible
-        search_results_page.book_results.click_buy_now_first_book
-      when 'Book details'
-        home_page.book_results.click_book_details_first_book
-        book_details_page.buy_now.click
+      when 'Bestsellers', 'New releases', 'Free books'
+        current_page.header.main_page_navigation(page_name)
     end
-
-    return @book_title
+    current_page.wait_until_book_results_visible(10)
+    if page_name.include?('Book details')
+      current_page.book_results.first.click_book_details_first_book
+      book_title= book_details_page.buy_now.click
+    else
+      book_title = current_page.book_results.first.click_buy_now_first_book
+    end
+    return book_title
   end
 
   def select_buy_first_book_from_a_page(section)
