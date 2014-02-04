@@ -16,6 +16,49 @@ require 'yaml'
 World(RSpec::Matchers)
 
 # ======= Setup Test Config =======
+module KnowsAboutConfig
+  path_to_root = File.dirname(__FILE__) + '/../../'
+  $LOAD_PATH.unshift File.expand_path(path_to_root)
+
+  def require_and_log(lib_array)
+    lib_array = [lib_array] if lib_array.class != Array
+    lib_array.sort!
+    lib_array.each { |file|
+      if !$".include?(file.to_s)
+        puts("Loading #{file}") if TEST_CONFIG["debug"]
+        require file.to_s
+      end
+    }
+  end
+
+  def load_yaml_file(dir, filename)
+    path = "#{dir}/#{filename}"
+    YAML.load_file(path)
+  end
+
+  def initialise_test_data
+    @_test_data ||= load_yaml_file("data", "test_data.yml")
+  end
+
+  def test_data(data_type, param)
+    initialise_test_data
+    param = param.to_s.gsub(' ', '_').downcase
+    raise "Unable to find data_type [#{data_type}] in the test data" if @_test_data[data_type.to_s].nil?
+    raise "Unable to find parameter [#{param}] in the test data set of [#{data_type}]" if @_test_data[data_type.to_s][param].nil?
+    @_test_data[data_type.to_s][param]
+  end
+
+  def environments(name)
+    @_environments ||= load_yaml_file("config", "environments.yml")
+    env = @_environments[name.upcase]
+    raise "Environment '#{name}' is not defined in environments.yml" if env.nil?
+    env
+  end
+end
+include KnowsAboutConfig
+World(KnowsAboutConfig)
+initialise_test_data
+
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
 TEST_CONFIG["fail_fast"] = !!(TEST_CONFIG["FAIL_FAST"] =~ /^on|true$/i)
@@ -26,42 +69,12 @@ if TEST_CONFIG["debug"]
   puts "TEST_CONFIG: #{TEST_CONFIG}"
 end
 
-def load_yaml_file
-  path = File.join(File.dirname(__FILE__), "../../data/test_data.yml")
-  YAML.load_file(path)
-rescue ArgumentError => e
-  puts "Could not parse YAML: #{e.message}"
-end
-
-def test_data(data_type, param)
-  test_data = load_yaml_file
-  param = param.gsub(' ','_').downcase
-  test_data[data_type][param]
-end
-
 # ======= Setup target environment =======
-#TODO: move into config/environments.yml once more environments are added
-environments = {
-    'NODEJS-INTERNAL' => 'https://nodejs-internal.mobcastdev.com',
-    'QA' => 'https://qa.mobcastdev.com',
-    'STAGING' => nil,
-    'PRODUCTION' => 'https://www.blinkboxbooks.com'
-}
+
 TEST_CONFIG['SERVER'] ||= 'QA'
-raise "Environment is not supported: #{TEST_CONFIG['SERVER']}" if environments[TEST_CONFIG['SERVER'].upcase].nil?
-Capybara.app_host = environments[TEST_CONFIG['SERVER'].upcase]
+Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
 
 # ======= load common helpers =======
-def require_and_log(lib_array)
-  lib_array = [lib_array] if lib_array.class != Array
-  lib_array.sort!
-  lib_array.each { |file|
-    if !$".include?(file.to_s)
-      puts("Loading #{file}") if TEST_CONFIG["debug"]
-      require file.to_s
-    end
-  }
-end
 
 puts "Loading custom cucumber formatters..."
 require_and_log Dir[File.join(support_dir, 'formatters', '*.rb')]
