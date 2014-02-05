@@ -10,7 +10,7 @@ module PageModels
       categories[index]
     end
 
-    def select_category(index)
+    def select_category_by_index(index)
       wait_until_all_categories_list_visible
       category_by_index(index).click
     end

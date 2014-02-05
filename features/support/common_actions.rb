@@ -98,30 +98,32 @@ module Discover
 
   def select_book_to_buy_from_a_page(book_type, page_name)
     book_page = page_model(page_name)
-    if page_name.eql?('Book details')
-      home_page.wait_until_book_results_sections_visible(10)
-      book_title = home_page.book_results_sections.first.title_for_book(0)
-      home_page.book_results_sections.first.click_book_details_for_book(0)
-      book_page.buy_now.click
-    else
-      case page_name
-        when 'Category'
-          book_page.header.main_page_navigation('Categories')
-          categories_page.select_category(0)
-        when 'Search results'
-          search_word = return_search_word_for_book_type(book_type)
-          search_blinkbox_books(search_word)
-        when 'Bestsellers', 'New releases', 'Free books'
-          book_page.header.main_page_navigation(page_name)
-      end
-      expect_page_displayed(page_name)
-      book_page.wait_until_book_results_sections_visible(10)
-      book_title = book_page.book_results_sections.first.title_for_book(0)
-      book_page.book_results_sections.first.click_buy_now_for_book(0)
+    case page_name
+      when 'Home'
+        book_title = book_page.book_results_sections.first.title_for_book(0)
+        book_page.book_results_sections.first.click_buy_now_for_book(0)
+      when 'Book details'
+        book_title = home_page.book_results_sections.first.title_for_book(0)
+        home_page.book_results_sections.first.click_book_details_for_book(0)
+        book_page.buy_now.click
+      when 'Category'
+        book_page.header.main_page_navigation('Categories')
+        categories_page.select_category_by_index(0)
+        expect_page_displayed(page_name)
+        book_title = book_page.book_results_sections.first.title_for_book(0)
+        book_page.book_results_sections.first.click_buy_now_for_book(0)
+      when 'Search results'
+        search_word = return_search_word_for_book_type(book_type)
+        search_blinkbox_books(search_word)
+        book_title = book_page.book_results_sections.first.title_for_book(0)
+        book_page.book_results_sections.first.click_buy_now_for_book(0)
+      when 'Bestsellers', 'New releases', 'Free books'
+        book_page.header.main_page_navigation(page_name)
+        book_title = book_page.book_results_sections.first.title_for_book(0)
+        book_page.book_results_sections.first.click_buy_now_for_book(0)
     end
     return book_title
   end
-
 end
 
 module ManageAccount
