@@ -20,15 +20,15 @@ module Discover
 
   def click_on_a_category
    find('[data-test="all-categories-list"]').should be_visible
-    within('[data-test="all-categories-list"]') do
+   within('[data-test="all-categories-list"]') do
       within(first('li')) do
         within('[class="cover"]') do
           @category_name = first('a')[:href]
           first('img').click
         end
       end
-    end
-    return @category_name
+   end
+   return @category_name
   end
 
   def sort_search_results(sort_criteria)
@@ -97,38 +97,29 @@ module Discover
   end
 
   def select_book_to_buy_from_a_page(book_type, page_name)
-    case page_name
-      when 'Category'
-        current_page.header.main_page_navigation('Categories')
-        click_on_a_category
-      when 'Search results'
-        search_word = return_search_word_for_book_type(book_type)
-        search_blinkbox_books(search_word)
-      when 'Bestsellers', 'New releases', 'Free books'
-        current_page.header.main_page_navigation(page_name)
-    end
-    current_page.wait_until_book_results_visible(10)
-    if page_name.include?('Book details')
-      current_page.book_results.first.click_book_details_first_book
-      book_title= book_details_page.buy_now.click
+    current_page = page_model(page_name)
+    if page_name.eql?('Book details')
+      home_page.wait_until_book_results_sections_visible(10)
+      book_title = home_page.book_results_sections.first.title_for_book(0)
+      home_page.book_results_sections.first.click_book_details_for_book(0)
+      current_page.buy_now.click
     else
-      book_title = current_page.book_results.first.click_buy_now_first_book
+      case page_name
+        when 'Category'
+          current_page.header.main_page_navigation('Categories')
+          categories_page.select_category(0)
+        when 'Search results'
+          search_word = return_search_word_for_book_type(book_type)
+          search_blinkbox_books(search_word)
+        when 'Bestsellers', 'New releases', 'Free books'
+          current_page.header.main_page_navigation(page_name)
+      end
+      expect_page_displayed(page_name)
+      current_page.wait_until_book_results_sections_visible(10)
+      book_title = current_page.book_results_sections.first.title_for_book(0)
+      current_page.book_results_sections.first.click_buy_now_for_book(0)
     end
     return book_title
-  end
-
-  def select_buy_first_book_from_a_page(section)
-    section.should be_visible
-    within(section) do
-      within(first('ul')) do
-        within(first('li')) do
-          @book_title = find('[class="title"]').text
-          element = find('[class="book"]')
-          mouse_over(element)
-          click_button('BUY NOW')
-        end
-      end
-    end
   end
 
 end

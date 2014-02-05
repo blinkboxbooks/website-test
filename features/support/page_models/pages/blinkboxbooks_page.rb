@@ -8,7 +8,6 @@ module PageModels
 
     section :footer, Footer, "div#footer"
     section :header, Header, "header#outer-header"
-    sections :book_results, BookResults,'[data-test="search-results-list"]'
 
     def wait_until_displayed(timeout = navigation_timeout)
       r0 = Time.now

@@ -4,6 +4,7 @@ module PageModels
     set_url_matcher /search\?q\=/
     element :searched_term, ".searched_term"
     elements :books, "div.itemsets div[book=\"book\"]"
+    sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
 
     #did not make it to work, gave up due to lack of time
     #section :book_results, BookItems, "div.itemsets"

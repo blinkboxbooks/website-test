@@ -5,25 +5,26 @@ module PageModels
     element :buy_now_button, '[data-test="book-buy-button"]'
     element :book_details_button, '[data-test="book-details-button"]'
 
-    def click_buy_now_first_book
-      wait_until_books_visible(10)
-      page.driver.browser.action.move_to(books.first.native).perform
-      get_book_title
-      buy_now_button.click
-      return @book_title
+    private
+    def book_by_index(index)
+      raise "Cannot find book with index #{index}" if books[index].nil?
+      books[index]
     end
 
-    def click_book_details_first_book
-      page.driver.browser.action.move_to(books.first.native).perform
-      get_book_title
+    public
+    def click_buy_now_for_book(index)
+      wait_until_books_visible(10)
+      page.driver.browser.action.move_to(book_by_index(index).native).perform
+      buy_now_button.click
+    end
+
+    def click_book_details_for_book(index)
+      page.driver.browser.action.move_to(book_by_index(index).native).perform
       book_details_button.click
     end
 
-    def click_first_book
-      books.first.click
-    end
-    def get_book_title
-      @book_title = books.first.find('[class="title"]').text
+    def title_for_book(index)
+      book_by_index(index).find('[class="title"]').text
     end
 
   end
