@@ -15,8 +15,5 @@ module PageModels
       category_by_index(index).click
     end
   end
-
-
-
   register_model_caller_method(CategoriesPage)
 end
