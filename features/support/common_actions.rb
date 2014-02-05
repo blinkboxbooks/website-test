@@ -97,27 +97,27 @@ module Discover
   end
 
   def select_book_to_buy_from_a_page(book_type, page_name)
-    current_page = page_model(page_name)
+    book_page = page_model(page_name)
     if page_name.eql?('Book details')
       home_page.wait_until_book_results_sections_visible(10)
       book_title = home_page.book_results_sections.first.title_for_book(0)
       home_page.book_results_sections.first.click_book_details_for_book(0)
-      current_page.buy_now.click
+      book_page.buy_now.click
     else
       case page_name
         when 'Category'
-          current_page.header.main_page_navigation('Categories')
+          book_page.header.main_page_navigation('Categories')
           categories_page.select_category(0)
         when 'Search results'
           search_word = return_search_word_for_book_type(book_type)
           search_blinkbox_books(search_word)
         when 'Bestsellers', 'New releases', 'Free books'
-          current_page.header.main_page_navigation(page_name)
+          book_page.header.main_page_navigation(page_name)
       end
       expect_page_displayed(page_name)
-      current_page.wait_until_book_results_sections_visible(10)
-      book_title = current_page.book_results_sections.first.title_for_book(0)
-      current_page.book_results_sections.first.click_buy_now_for_book(0)
+      book_page.wait_until_book_results_sections_visible(10)
+      book_title = book_page.book_results_sections.first.title_for_book(0)
+      book_page.book_results_sections.first.click_buy_now_for_book(0)
     end
     return book_title
   end
