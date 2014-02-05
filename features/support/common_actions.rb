@@ -121,6 +121,8 @@ module Discover
         book_page.header.main_page_navigation(page_name)
         book_title = book_page.book_results_sections.first.title_for_book(0)
         book_page.book_results_sections.first.click_buy_now_for_book(0)
+      else
+        raise "Not handled page type #{page_name}"
     end
     return book_title
   end
