@@ -42,6 +42,14 @@ Feature: Update the Personal details of the user under 'your account'
     Then clubcard added to my account
     And "Your personal details have been successfully updated." message is displayed
 
+  Scenario: Delete clubcard from existing blinkbox account
+    Given I have registered as new user by providing clubcard
+    And I am on the Personal details tab
+    When I remove clubcard number
+    And submit my personal details
+    Then my clubcard field is empty
+    And "Your personal details have been successfully updated." message is displayed
+
   Scenario: Update clubcard associated with existing blinkbox books account
     Given I have registered as new user by providing clubcard
     And I am on the Personal details tab
@@ -73,9 +81,12 @@ Feature: Update the Personal details of the user under 'your account'
     Then "This email address is already registered to another Blinkbox books account" message is displayed
     And my email is not updated
 
-  @pending
-  Scenario: Check correct marketing preferences status displayed, user opted in
-    Given I am opted in for blinkbox marketing
+  Scenario Outline: Check marketing preferences status for returning in user
+    Given I have <opt_status> for blinkbox books marketing
     And I have signed in
-  @pending
-  Scenario: Check correct marketing preferences status displayed, user not opted in
+    When I am on the Personal details tab
+    Then my marketing preferences checkbox is <checkbox_status>
+  Examples:
+    | opt_status   | checkbox_status |
+    | opted in     | selected        |
+    | not opted in | not selected    |
