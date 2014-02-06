@@ -10,7 +10,6 @@ gem 'i18n'
 gem 'site_prism'
 gem 'selendroid', '~>0.4.0'
 gem 'cuporter'
-gem 'parallel_tests'
 
 group :debug do
   gem 'debugger'
