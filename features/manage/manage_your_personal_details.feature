@@ -81,7 +81,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "This email address is already registered to another Blinkbox books account" message is displayed
     And my email is not updated
 
-  Scenario Outline: Check marketing preferences status for returning in user
+  Scenario Outline: Check marketing preferences status for returning user
     Given I have <opt_status> for blinkbox books marketing
     And I have signed in
     When I am on the Personal details tab
