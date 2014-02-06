@@ -110,10 +110,12 @@ When /^I enter valid clubcard number$/ do
 end
 
 Then /^clubcard added to my account$/ do
+  refresh_current_page
   expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
 end
 
 Then /^my clubcard updated$/ do
+  refresh_current_page
   expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
 end
 
@@ -169,6 +171,7 @@ When /^I remove clubcard number$/ do
 end
 
 Then /^my clubcard field is empty$/ do
+  refresh_current_page
   your_personal_details_page.club_card.value.should be_blank
 end
 

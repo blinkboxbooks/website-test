@@ -39,24 +39,24 @@ Feature: Update the Personal details of the user under 'your account'
     And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
-    Then clubcard added to my account
-    And "Your personal details have been successfully updated." message is displayed
+    Then "Your personal details have been successfully updated." message is displayed
+    And clubcard added to my account
 
-  Scenario: Delete clubcard from existing blinkbox account
+  Scenario: Delete clubcard from existing blinkbox books account
     Given I have registered as new user by providing clubcard
     And I am on the Personal details tab
     When I remove clubcard number
     And submit my personal details
-    Then my clubcard field is empty
-    And "Your personal details have been successfully updated." message is displayed
+    Then "Your personal details have been successfully updated." message is displayed
+    And my clubcard field is empty
 
   Scenario: Update clubcard associated with existing blinkbox books account
     Given I have registered as new user by providing clubcard
     And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
-    Then my clubcard updated
-    And "Your personal details have been successfully updated." message is displayed
+    Then "Your personal details have been successfully updated." message is displayed
+    And my clubcard updated
 
   @negative
   Scenario Outline: Update the Clubcard number with an invalid Clubcard
@@ -86,6 +86,7 @@ Feature: Update the Personal details of the user under 'your account'
     And I have signed in
     When I am on the Personal details tab
     Then my marketing preferences checkbox is <checkbox_status>
+    
   Examples:
     | opt_status   | checkbox_status |
     | opted in     | selected        |
