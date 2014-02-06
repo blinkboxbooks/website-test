@@ -198,3 +198,11 @@ end
 Given /^I am returning user with no (?:associated devices|saved payment cards|orders in the past)$/ do
   set_email_and_password(test_data('emails', 'empty_library_no_devices'), test_data('passwords', 'valid_password'))
 end
+
+Given /^I have (not opted|opted) in for blinkbox books marketing$/ do |opt_status|
+  if opt_status.include? ('not')
+    set_email_and_password(test_data('emails', 'opted_out_marketing'), test_data('passwords', 'valid_password'))
+  else
+    set_email_and_password(test_data('emails', 'opted_in_marketing'), test_data('passwords', 'valid_password'))
+  end
+end

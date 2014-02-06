@@ -31,15 +31,15 @@ end
 
 And /^marketing preferences are as submitted$/ do
   refresh_current_page
-  assert_marketing_preferences_changed(@after_status)
+  assert_marketing_preferences(@after_status)
 end
 
-Given /^I have registered as new user (without|by) providing clubcard/ do |provide_clubcard|
+Given /^I have registered as new user (without|with) a clubcard/ do |provide_clubcard|
   navigate_to_register_form
   @email_address, @first_name, @last_name = enter_personal_details
   @current_password = test_data("passwords", "valid_password")
   enter_password(@current_password)
-  if provide_clubcard.include?('by')
+  if provide_clubcard.include?('with')
     @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
     your_personal_details_page.fill_in_club_card(@valid_clubcard)
   end
@@ -110,10 +110,12 @@ When /^I enter valid clubcard number$/ do
 end
 
 Then /^clubcard added to my account$/ do
+  refresh_current_page
   expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
 end
 
 Then /^my clubcard updated$/ do
+  refresh_current_page
   expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
 end
 
@@ -164,7 +166,21 @@ And /^my password is not updated$/ do
   assert_user_greeting_message_displayed(@first_name)
 end
 
+When /^I remove clubcard number$/ do
+  your_personal_details_page.fill_in_club_card("")
+end
 
+Then /^my clubcard field is empty$/ do
+  refresh_current_page
+  your_personal_details_page.club_card.value.should be_blank
+end
 
-
+Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_status|
+  if mrkt_status.include?('not')
+    status = false
+  else
+    status = true
+  end
+  assert_marketing_preferences(status)
+end
 

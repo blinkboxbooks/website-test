@@ -162,12 +162,11 @@ module AssertMyAccount
     your_account_page.account_nav_frame.should have_account_nav_tab_selected(tab_name)
   end
 
-  def assert_marketing_preferences_changed(after_status)
-    check_box = find('#newsletter')
+  def assert_marketing_preferences(after_status)
     if (after_status)
-      check_box.should be_checked
+      your_personal_details_page.marketing_prefs.should be_checked
     else
-      check_box.should_not be_checked
+      your_personal_details_page.marketing_prefs.should_not be_checked
     end
   end
 
