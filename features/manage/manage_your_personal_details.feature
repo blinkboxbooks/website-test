@@ -27,7 +27,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   @smoke
   Scenario: Successfully update Email address
-    Given I have registered as new user without providing clubcard
+    Given I have registered as new user without a clubcard
     And I am on the Personal details tab
     When I edit email address
     And I submit my personal details
@@ -35,7 +35,7 @@ Feature: Update the Personal details of the user under 'your account'
     And email address is as submitted
 
   Scenario: Add clubcard to existing blinkbox books account
-    Given I have registered as new user without providing clubcard
+    Given I have registered as new user without a clubcard
     And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
@@ -43,7 +43,7 @@ Feature: Update the Personal details of the user under 'your account'
     And clubcard added to my account
 
   Scenario: Delete clubcard from existing blinkbox books account
-    Given I have registered as new user by providing clubcard
+    Given I have registered as new user with a clubcard
     And I am on the Personal details tab
     When I remove clubcard number
     And submit my personal details
@@ -51,7 +51,7 @@ Feature: Update the Personal details of the user under 'your account'
     And my clubcard field is empty
 
   Scenario: Update clubcard associated with existing blinkbox books account
-    Given I have registered as new user by providing clubcard
+    Given I have registered as new user with a clubcard
     And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
@@ -60,7 +60,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   @negative
   Scenario Outline: Update the Clubcard number with an invalid Clubcard
-    Given I have registered as new user by providing clubcard
+    Given I have registered as new user with a clubcard
     And I am on the Personal details tab
     When I attempt to update my clubcard with invalid <clubcard_number>
     Then "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
@@ -86,7 +86,7 @@ Feature: Update the Personal details of the user under 'your account'
     And I have signed in
     When I am on the Personal details tab
     Then my marketing preferences checkbox is <checkbox_status>
-    
+
   Examples:
     | opt_status   | checkbox_status |
     | opted in     | selected        |

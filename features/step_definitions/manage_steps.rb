@@ -34,12 +34,12 @@ And /^marketing preferences are as submitted$/ do
   assert_marketing_preferences(@after_status)
 end
 
-Given /^I have registered as new user (without|by) providing clubcard/ do |provide_clubcard|
+Given /^I have registered as new user (without|with) a clubcard/ do |provide_clubcard|
   navigate_to_register_form
   @email_address, @first_name, @last_name = enter_personal_details
   @current_password = test_data("passwords", "valid_password")
   enter_password(@current_password)
-  if provide_clubcard.include?('by')
+  if provide_clubcard.include?('with')
     @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
     your_personal_details_page.fill_in_club_card(@valid_clubcard)
   end
