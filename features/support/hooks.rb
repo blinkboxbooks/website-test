@@ -14,7 +14,7 @@ After do |scenario|
       Cucumber.wants_to_quit = true
     end
   end
-  if (logged_in_session?)
-    click_link_from_my_account_dropdown('Sign out')
+  if logged_in_session?
+    log_out_current_session
   end
 end
