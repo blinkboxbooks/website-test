@@ -27,7 +27,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   @smoke
   Scenario: Successfully update Email address
-    Given I have registered as new user without providing clubcard
+    Given I have registered as new user without a clubcard
     And I am on the Personal details tab
     When I edit email address
     And I submit my personal details
@@ -35,24 +35,32 @@ Feature: Update the Personal details of the user under 'your account'
     And email address is as submitted
 
   Scenario: Add clubcard to existing blinkbox books account
-    Given I have registered as new user without providing clubcard
+    Given I have registered as new user without a clubcard
     And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
-    Then clubcard added to my account
-    And "Your personal details have been successfully updated." message is displayed
+    Then "Your personal details have been successfully updated." message is displayed
+    And clubcard added to my account
+
+  Scenario: Delete clubcard from existing blinkbox books account
+    Given I have registered as new user with a clubcard
+    And I am on the Personal details tab
+    When I remove clubcard number
+    And submit my personal details
+    Then "Your personal details have been successfully updated." message is displayed
+    And my clubcard field is empty
 
   Scenario: Update clubcard associated with existing blinkbox books account
-    Given I have registered as new user by providing clubcard
+    Given I have registered as new user with a clubcard
     And I am on the Personal details tab
     When I enter valid clubcard number
     And submit my personal details
-    Then my clubcard updated
-    And "Your personal details have been successfully updated." message is displayed
+    Then "Your personal details have been successfully updated." message is displayed
+    And my clubcard updated
 
   @negative
   Scenario Outline: Update the Clubcard number with an invalid Clubcard
-    Given I have registered as new user by providing clubcard
+    Given I have registered as new user with a clubcard
     And I am on the Personal details tab
     When I attempt to update my clubcard with invalid <clubcard_number>
     Then "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
@@ -73,9 +81,13 @@ Feature: Update the Personal details of the user under 'your account'
     Then "This email address is already registered to another Blinkbox books account" message is displayed
     And my email is not updated
 
-  @pending
-  Scenario: Check correct marketing preferences status displayed, user opted in
-    Given I am opted in for blinkbox marketing
+  Scenario Outline: Check marketing preferences status for returning user
+    Given I have <opt_status> for blinkbox books marketing
     And I have signed in
-  @pending
-  Scenario: Check correct marketing preferences status displayed, user not opted in
+    When I am on the Personal details tab
+    Then my marketing preferences checkbox is <checkbox_status>
+
+  Examples:
+    | opt_status   | checkbox_status |
+    | opted in     | selected        |
+    | not opted in | not selected    |

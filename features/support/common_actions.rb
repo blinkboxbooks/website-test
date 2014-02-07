@@ -119,6 +119,8 @@ module Discover
         book_page.book_results_sections.first.click_buy_now_for_book(0)
       when 'Bestsellers', 'New releases', 'Free books'
         book_page.header.main_page_navigation(page_name)
+        expect_page_displayed(page_name)
+        book_page.wait_until_book_results_sections_visible(10)
         book_title = book_page.book_results_sections.first.title_for_book(0)
         book_page.book_results_sections.first.click_buy_now_for_book(0)
       else

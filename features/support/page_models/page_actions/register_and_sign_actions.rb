@@ -93,8 +93,6 @@ module PageModels
 
     def sign_out_and_start_new_session
       your_account_page.sign_out_button.click
-      log_out_current_session
-      set_start_cookie_accepted
       visit('/')
     end
 
