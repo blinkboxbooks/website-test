@@ -114,7 +114,6 @@ module BlinkboxWebUtilities
   end
 
   def log_out_current_session
-    reset_session!
     click_link_from_my_account_dropdown('Sign out')
   end
 
