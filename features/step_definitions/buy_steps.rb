@@ -36,7 +36,9 @@ When /^I click Confirm order$/ do
 end
 
 Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
-  if login_status.eql?('not logged')
+  if login_status.eql?('logged')
+    sign_in
+  else
     if logged_in_session?
       log_out_current_session
     end
