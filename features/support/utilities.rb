@@ -110,11 +110,11 @@ module BlinkboxWebUtilities
   end
 
   def logged_in_session?
-    !get_cookie('access_token').nil?
+    !current_page.header.welcome.text(:visible).empty?
   end
 
   def log_out_current_session
-    reset_session!
+    click_link_from_my_account_dropdown('Sign out')
   end
 
   def assert_support_page(page_name)
