@@ -1,6 +1,7 @@
 Given /^I am a guest user$/ do
+  if logged_in_session?
   log_out_current_session
-  set_start_cookie_accepted
+  end
 end
 
 Given /^I am not signed in$/ do
