@@ -15,7 +15,7 @@ end
       Cucumber.wants_to_quit = true
     end
     end
-     if(current_page.header.find('.welcome', :text =>'Hi', :wait =>0))
+     if(current_page.header.find('.username', :text =>'Hi', :wait =>0))
       click_link_from_my_account_dropdown('Sign out')
       raise "User is already signed out, continue with test execution"
      end
