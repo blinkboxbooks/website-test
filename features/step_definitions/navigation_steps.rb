@@ -184,7 +184,7 @@ And /^the book reader is displayed$/ do
 end
 
 And /^I am able to read the sample of corresponding book$/ do
-  pending ('@CP-CP-924, CP-1091. Currently samples are not returned for some books on QA') do
+  pending ('@CP-924, CP-1091. Currently samples are not returned for some books on QA') do
   read_sample_book
   end
 end
