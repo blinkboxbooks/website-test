@@ -4,7 +4,7 @@ Before("~@reset_session") do
   puts "Web App Version: #{app_version_info}"
   if logged_in_session?
     log_out_current_session
-    current_page.header.account_options_dropdown.click
+    current_page.header.user_account_logo.click
   end
 end
 
@@ -18,5 +18,5 @@ After do |scenario|
       Cucumber.wants_to_quit = true
     end
   end
-  
+
 end
