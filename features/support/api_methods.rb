@@ -1,9 +1,12 @@
 module APIMethods
   require "httpclient/include_client"
+  class User
+    @@auth_uri = "https://auth.mobcastdev.com//oauth2/token"
+    @@credit_card_uri = "https://qa.mobcastdev.com/service/my/creditcards"
+
   def create_user_without_client
     @email_address = generate_random_email_address
     @password = "test1234"
-    uri = "https://auth.mobcastdev.com//oauth2/token"
     params = {
         grant_type: "urn:blinkbox:oauth:grant-type:registration",
         first_name: generate_random_first_name,
@@ -14,14 +17,13 @@ module APIMethods
         allow_marketing_communications: false
     }
     headers = { "Content-Type" => "application/x-www-form-urlencoded", "Accept" => "application/json" }
-    response = http_client.post(uri, body: params, header: headers)
+    response = http_client.post(@@auth_uri, body: params, header: headers)
     raise "Test Error: Failed to register new user" unless response.status == 200
     user_props = MultiJson.load(response.body)
     @access_token = user_props["access_token"]
   end
 
   def add_credit_card
-    uri = "https://qa.mobcastdev.com/service/my/creditcards"
     params = {
         default:true,
         number:"$bt4|javascript_1_3_6$T0sAOQTAbp17QIqyTh1DUX57xSnXZtoxYqyHiPq8olfaRs4lVxuYZ26CpU2LLGhZelIhWjomHA1ijMPo6It54sqr7XklIaRFZm7WaAgu0KbOrpCpnIxW7oV8d2kqI8cD9BryXlGcapoNb4eQqr52XX+0h041Q0qXvZmKutSlfobD9jOx7z8ljHB6eMEiOj767yun/VI6QDE5v2urAtYfmmxm3Y3pYiPKaw9p2lfkXk5ukgINqU1RYEP2fl+7xXxyEYEu/CuJi29Qvz7HT7tnIygM8yDhmylBp96bZQaC8WZ/KgRCPAtDfIGB+QC1mcb5NfaaBv6ay5jithW6dFn8Eg==$nh4XZjZ+9jLELu3dqQJ+MLxRGfsJXsDR6sUBsth00+DFFa8k+DU3sa/mA5DU2171$7l1vE44chSTexQiFgznXbROyHEFX7D9toVBtOJSKbjg=",
@@ -33,7 +35,7 @@ module APIMethods
     }
     headers = { "Content-Type" => "application/vnd.blinkboxbooks.data.v1+json", "Authorization" => "Bearer #{@access_token}" }
     body = {"type" => "urn:blinkboxbooks:schema:creditcard"}.merge(params)
-    response = http_client.post(uri,body: format_body(body), header: headers)
+    response = http_client.post(@@credit_card_uri,body: format_body(body), header: headers)
     raise "Adding credit card failed" unless response.status == 201
 
   end
@@ -57,6 +59,8 @@ module APIMethods
       body
     end
   end
-
 end
-World(APIMethods)
+end
+World do
+  APIMethods::User.new
+end
