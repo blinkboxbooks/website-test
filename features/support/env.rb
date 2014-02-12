@@ -15,7 +15,6 @@ require 'yaml'
 
 World(RSpec::Matchers)
 
-
 # ======= Setup Test Config =======
 module KnowsAboutConfig
   path_to_root = File.dirname(__FILE__) + '/../../'

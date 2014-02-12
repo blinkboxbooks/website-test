@@ -4,7 +4,7 @@ require "Utilities"
 
 module APIMethods
   class User
-   include Utilities
+    include Utilities
 
     @@auth_uri = "https://auth.mobcastdev.com//oauth2/token"
     @@credit_card_uri = "https://qa.mobcastdev.com/service/my/creditcards"
