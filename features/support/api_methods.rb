@@ -1,7 +1,7 @@
 module APIMethods
   require "httpclient"
   require "multi_json"
-  require "Utilities"
+  require "utilities.rb"
 
   class User
     include Utilities
@@ -77,6 +77,4 @@ module APIMethods
   end
 end
 World(APIMethods)
-#World do
-#  APIMethods::User.new
-#end
+
