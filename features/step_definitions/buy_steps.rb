@@ -189,7 +189,7 @@ When /^I complete purchase by paying with saved card$/ do
 end
 
 Then /^I can see the payment card saved in my Payment details$/ do
-  click_link_from_my_account_dropdown('Your payments')
+  click_link_from_my_account_dropdown('Saved cards')
   assert_payment_card_saved(@card_count,@name_on_card, @card_type)
 end
 
@@ -205,14 +205,9 @@ When /^I complete purchase with new card by selecting (to save|not to save) Paym
 end
 
 And /^I have a stored card$/ do
-  visit('/')
-  navigate_to_register_form
-  register_new_user
-  expect_page_displayed("Registration Success")
-  buy_first_book
+  @email_address, @password = api_helper.create_user_without_client
+  api_helper.add_credit_card
   @card_count = 1
-  log_out_current_session
-  set_start_cookie_accepted
 end
 
 And /^submit the payment details with cvv (\d+) for (.*?) card$/ do |cvv, card_type|
