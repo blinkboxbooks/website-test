@@ -1,8 +1,10 @@
+require "httpclient"
+require "multi_json"
+require "Utilities"
+
 module APIMethods
-  require "httpclient"
-  require "multi_json"
-  include Utilities
   class User
+   include Utilities
 
     @@auth_uri = "https://auth.mobcastdev.com//oauth2/token"
     @@credit_card_uri = "https://qa.mobcastdev.com/service/my/creditcards"
@@ -28,6 +30,7 @@ module APIMethods
       raise "Test Error: Failed to register new user" unless response.status == 200
       user_props = MultiJson.load(response.body)
       @access_token = user_props["access_token"]
+      return @email_address, @password
     end
 
     def add_credit_card(access_token = @access_token)
@@ -66,10 +69,11 @@ module APIMethods
         body
       end
     end
+  end
 
-    def api_helper
-      @api_helper||=APIMethods::User.new
-    end
+
+  def api_helper
+    @api_helper||=APIMethods::User.new
   end
 end
 World(APIMethods)
