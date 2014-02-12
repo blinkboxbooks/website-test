@@ -1,8 +1,8 @@
-require "httpclient"
-require "multi_json"
-require "Utilities"
-
 module APIMethods
+  require "httpclient"
+  require "multi_json"
+  require "Utilities"
+
   class User
     include Utilities
 
