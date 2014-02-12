@@ -12,10 +12,9 @@ require 'rspec/expectations'
 require 'active_support'
 require 'benchmark'
 require 'yaml'
-require "multi_json"
-require "httpclient"
 
 World(RSpec::Matchers)
+
 
 # ======= Setup Test Config =======
 module KnowsAboutConfig

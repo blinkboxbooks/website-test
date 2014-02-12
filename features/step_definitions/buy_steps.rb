@@ -205,8 +205,8 @@ When /^I complete purchase with new card by selecting (to save|not to save) Paym
 end
 
 And /^I have a stored card$/ do
-  create_user_without_client
-  add_credit_card
+  api_helper.create_user_without_client
+  api_helper.add_credit_card
   @card_count = 1
 end
 
