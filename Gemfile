@@ -10,7 +10,10 @@ gem 'i18n'
 gem 'site_prism'
 gem 'selendroid', '~>0.4.0'
 gem 'cuporter'
-gem "parallel_tests"
+
+group :ci do
+  gem "parallel_tests"
+end
 
 group :api do
   gem 'multi_json'
