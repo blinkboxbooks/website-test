@@ -118,12 +118,14 @@ module BlinkboxWebUtilities
   end
 
   def assert_support_page(page_name)
-    page.driver.browser.window_handles.size.should be == 2
-    new_window = page.driver.browser.window_handles.last
+    browser_windows = page.driver.browser.window_handles
+    expect(browser_windows.count).to be == 2, "expected support page to open in new browser window, got #{browser_windows.inspect}"
+    new_window = browser_windows.last
     page.within_window new_window do
       current_url.should match Regexp.new(get_support_page_url(page_name))
       page.driver.browser.close
-      page.driver.browser.window_handles.size.should be == 1
+      browser_windows = page.driver.browser.window_handles
+      expect(browser_windows.count).to be == 1, "expected only 1 browser window to be opened, got #{browser_windows.inspect}"
     end
   end
 
