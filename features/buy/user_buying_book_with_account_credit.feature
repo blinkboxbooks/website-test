@@ -25,7 +25,7 @@ Feature: Returning buying book from blinkbox books with account credit
     And I submit payment details
     Then my payment is successful
 
-  Scenario : User cancels order while buying book with account credit
+  Scenario: User cancels order while buying book with account credit
     Given I have signed as user with £50 account credit
     When I select to buy a book with price less than £50
     Then Confirm and pay page displayed showing my account credit as £50
