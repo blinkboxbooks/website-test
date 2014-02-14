@@ -48,7 +48,7 @@ Feature: Navigating through my account pages
 
   Scenario: Navigate through FAQ links under Personal details
     Given I have signed in
-    And I am on the Personal details tab
+    When I am on the Personal details tab
     Then following FAQ links are displayed:
       | support links                           |
       | View all FAQs                           |
@@ -59,7 +59,7 @@ Feature: Navigating through my account pages
 
   Scenario: Navigate through FAQ links under Your payments
     Given I have signed in
-    And I am on the Saved cards tab
+    When I am on the Saved cards tab
     Then following FAQ links are displayed:
       | support links                      |
       | View all FAQs                      |
@@ -70,7 +70,7 @@ Feature: Navigating through my account pages
 
   Scenario: Navigate through FAQ links under Your devices
     Given I have signed in
-    And I am on the Devices tab
+    When I am on the Devices tab
     Then following FAQ links are displayed:
       | support links                            |
       | View all FAQs                            |
