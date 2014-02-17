@@ -39,7 +39,7 @@ Given /^I have registered as new user (without|with) a clubcard/ do |provide_clu
   @email_address, @first_name, @last_name = enter_personal_details
   @current_password = test_data("passwords", "valid_password")
   enter_password(@current_password)
-  if provide_clubcard.include?('with')
+  if provide_clubcard.eql?('with')
     @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
     your_personal_details_page.fill_in_club_card(@valid_clubcard)
   end
