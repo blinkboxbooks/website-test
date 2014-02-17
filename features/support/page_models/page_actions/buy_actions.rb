@@ -101,12 +101,10 @@ module PageModels
       confirm_and_pay_page.confirm_cancel_button.click
     end
 
-    def submit_new_payment_with_not_matching_cvv (cvv_number = :cvv)
-      cvv_number ||= test_data("payment", "cvv_does_not_match")
-      enter_card_number(get_card_number_by_type('VISA'))
-      select_expiry_date(test_data("payment", "expiry_month"), test_data("payment", "expiry_year"))
-      confirm_and_pay_page.cvv.set cvv_number
-      enter_name_on_card(test_data("payment", "name_on_card"))
+    def submit_new_payment_with_not_matching_cvv (cvv_number = '200')
+      card_details = set_valid_card_details('VISA')
+      card_details[:cvv] = cvv_number
+      enter_card_details(card_details)
       enter_billing_details
       choose_not_to_save_card_details
       confirm_and_pay_page.confirm_and_pay.click
