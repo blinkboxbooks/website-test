@@ -11,7 +11,7 @@ Feature: Returning user buying book from blinkbox books with account credit
     Given I have signed as user with £50 account credit
     When I select a book to buy with price less than £50
     Then Confirm and pay page displays my account credit as £50
-    And payment method is account credit
+    And my payment method is account credit
     When I click Confirm order
     Then my payment is successful
 
