@@ -11,6 +11,9 @@
     empty_library_no_devices: empty_library_no_devices@mobcastdev.com
     opted_in_marketing: opted_in_marketing@mobcastdev.com
     opted_out_marketing: opted_out_marketing@mobcastdev.com
+    fifty_account_credit: user_with_50_credit@mobcastdev.com
+    ten_account_credit: user_with_10_credit@mobcastd
+    five_account_credit: user_with_5_credit@mobcastdev.com
 
   passwords:
       valid_password: test1234
