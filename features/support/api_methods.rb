@@ -47,7 +47,7 @@ module APIMethods
       body = {"type" => "urn:blinkboxbooks:schema:creditcard"}.merge(params)
       response = http_client.post(@@credit_card_uri, body: format_body(body), header: headers)
       raise "Adding credit card failed" unless response.status == 201
-
+     return params[:cardholderName]
     end
 
     def buy_a_book

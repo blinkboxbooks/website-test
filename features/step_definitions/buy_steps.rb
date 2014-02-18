@@ -206,7 +206,8 @@ end
 
 And /^I have a stored card$/ do
   @email_address, @password = api_helper.create_user_without_client
-  api_helper.add_credit_card
+  @name_on_card = api_helper.add_credit_card
+  @card_type = 'VISA'
   @card_count = 1
 end
 
@@ -224,4 +225,15 @@ And /^submit the payment details with card number (\d+)$/ do |card_number|
   enter_card_details(card_details)
   enter_billing_details
   confirm_and_pay_page.confirm_and_pay.click
+end
+
+Then /^I have no saved payment cards in my account$/ do
+  click_link_from_my_account_dropdown('Saved cards')
+  your_payments_page.should have_no_saved_cards_container
+  page.should have_text ('You have no payment cards saved to your account')
+end
+
+Then /^my saved Payment details are not updated$/ do
+  click_link_from_my_account_dropdown('Saved cards')
+  assert_payment_card_saved(@card_count,@name_on_card, @card_type)
 end
