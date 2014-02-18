@@ -38,7 +38,7 @@ Feature: Update the devices of the user under 'your account'
     And delete my device
     And cancel delete device by closing pop-up
     Then my device is not deleted
-    
+
   @manual
   Scenario: Trying to delete a registered device when access token has expired
 
