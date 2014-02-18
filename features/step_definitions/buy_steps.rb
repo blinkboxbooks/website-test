@@ -227,7 +227,7 @@ And /^submit the payment details with card number (\d+)$/ do |card_number|
   confirm_and_pay_page.confirm_and_pay.click
 end
 
-But /^I have no saved payment cards in my account$/ do
+Then /^I have no saved payment cards in my account$/ do
   click_link_from_my_account_dropdown('Saved cards')
   your_payments_page.should have_no_saved_cards_container
   page.should have_text ('You have no payment cards saved to your account')
