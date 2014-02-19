@@ -189,7 +189,7 @@ When /^I complete purchase by paying with saved card$/ do
 end
 
 Then /^I can see the payment card saved in my Payment details$/ do
-  click_link_from_my_account_dropdown('Your payments')
+  click_link_from_my_account_dropdown('Saved cards')
   assert_payment_card_saved(@card_count,@name_on_card, @card_type)
 end
 
@@ -205,14 +205,10 @@ When /^I complete purchase with new card by selecting (to save|not to save) Paym
 end
 
 And /^I have a stored card$/ do
-  visit('/')
-  navigate_to_register_form
-  register_new_user
-  expect_page_displayed("Registration Success")
-  buy_first_book
+  @email_address, @password = api_helper.create_user_without_client
+  @name_on_card = api_helper.add_credit_card
+  @card_type = 'VISA'
   @card_count = 1
-  log_out_current_session
-  set_start_cookie_accepted
 end
 
 And /^submit the payment details with cvv (\d+) for (.*?) card$/ do |cvv, card_type|
@@ -229,4 +225,15 @@ And /^submit the payment details with card number (\d+)$/ do |card_number|
   enter_card_details(card_details)
   enter_billing_details
   confirm_and_pay_page.confirm_and_pay.click
+end
+
+Then /^I have no saved payment cards in my account$/ do
+  click_link_from_my_account_dropdown('Saved cards')
+  your_payments_page.should have_no_saved_cards_container
+  page.should have_text ('You have no payment cards saved to your account')
+end
+
+Then /^my saved Payment details are not updated$/ do
+  click_link_from_my_account_dropdown('Saved cards')
+  assert_payment_card_saved(@card_count,@name_on_card, @card_type)
 end

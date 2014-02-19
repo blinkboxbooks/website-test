@@ -101,7 +101,7 @@ Feature: Navigation around the website
 
   Examples:
     | support_link | support_page |
-    | FAQs         | support home |
+    | FAQs         | View all FAQs|
     | Contact us   | Contact us   |
 
   @production
