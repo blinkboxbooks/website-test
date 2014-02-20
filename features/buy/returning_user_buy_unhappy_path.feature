@@ -5,8 +5,7 @@ Feature:  Unhappy path buy
   So that I can edit payment details or payment method.
 
   Background:
-    Given I am not signed in
-    And I am on the home page
+    Given I am on the home page
 
   @negative
   Scenario Outline: Returning user attempting to buy a book that already exists in his library

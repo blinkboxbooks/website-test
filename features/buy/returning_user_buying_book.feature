@@ -66,10 +66,3 @@ Feature: Returning buying book from blinkbox books
     When I select the above book to buy
     And I submit payment details
     Then my payment is successful
-
-  @manual
-  Scenario: Returning user buying a book with credit
-    Given I have account credit
-    When I click Buy now on a pay for book as a logged in user
-    And I click Confirm order
-    Then my payment is successful
