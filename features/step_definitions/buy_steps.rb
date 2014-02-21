@@ -197,7 +197,7 @@ When /^I complete purchase with new card by selecting (to save|not to save) Paym
   confirm_and_pay_page.pay_with_new_card.click
 
   if save_payment.include?('not')
-    @name_on_card, @card_type = successful_new_payment(save_payment = false)
+     successful_new_payment(save_payment = false)
   else
     @name_on_card, @card_type = successful_new_payment(save_payment = true)
     @card_count += 1
