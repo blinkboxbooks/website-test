@@ -14,13 +14,13 @@ module PageModels
     public
     def click_buy_now_for_book(index)
       wait_until_books_visible
-      page.driver.browser.action.move_to(book_by_index(index).native).perform
+      book_by_index(index).hover
       buy_now_button.click
     end
 
     def click_book_details_for_book(index)
       wait_until_books_visible
-      page.driver.browser.action.move_to(book_by_index(index).native).perform
+      book_by_index(index).hover
       book_details_button.click
     end
 

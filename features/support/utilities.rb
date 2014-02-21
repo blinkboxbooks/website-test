@@ -80,7 +80,7 @@ module WebUtilities
   end
 
   def mouse_over(element)
-    page.driver.browser.action.move_to(element.native).perform
+    element.hover
   end
 
   def maximize_window
