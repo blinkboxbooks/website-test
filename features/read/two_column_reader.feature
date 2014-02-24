@@ -8,13 +8,9 @@ Background:
 Given I am on the home page
 
 
-Scenario Outline: Opening the sample in full screen mode
-  <page>
-  <full_screen_option>
-  Examples:
-  |page| full_screen_option|
-  |book details page| view_full_screen|
-  |search list view | try_it_for_free|
+  Scenario: Launching the sample in full screen mode from the book details page
+
+  Scenario: Launching the sample in full screen mode from the Try it for free link
 
   Scenario: Close the full screen view
 
