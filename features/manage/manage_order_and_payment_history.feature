@@ -21,13 +21,13 @@ Feature: Manage Order and Payment history under My account section.
     Then I can see this book in my Order & Payment history
 
   @pending @CWA-1209
-  Scenario: Show more button for a user with 9 books
+  Scenario: Checking for Show more button in the Order history for a user with 9 books
 
   @pending @CWA-1209
-  Scenario: Show more button for a user with 10 books
+  Scenario: Checking for Show more button in the Order history for a user with 10 books
 
   @pending @CWA-1209
-  Scenario: Show more button for a user with 11 books
+  Scenario: Checking for Show more button in the Order history for a user with 11 books
 
   @pending @CWA-1209
-  Scenario: Show more button for a user with 20 books
+  Scenario: Checking for Show more button in the Order history for a user with 20 books
