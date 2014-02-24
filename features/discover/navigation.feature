@@ -1,4 +1,4 @@
-@navigation
+@navigation @ie @safari
 Feature: Navigation around the website
   As a user
   I want to be able to navigate around the website

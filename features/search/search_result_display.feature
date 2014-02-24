@@ -1,4 +1,4 @@
-@search
+@search @ie @safari
 Feature: Search Results page
   As a blinkbox book user
   I want to be able to search using a term associated with book

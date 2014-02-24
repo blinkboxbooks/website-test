@@ -1,4 +1,4 @@
-@searchresults
+@searchresults @ie @safari
 Feature: Verify that search results match search criteria
   As a Blinkbox books user
   I want to see the search results matching my search criteria
