@@ -1,3 +1,4 @@
+@manage
 Feature: Manage Order and Payment history under My account section.
   As a blinkbox books user
   I need to ability to check Order and Payment history

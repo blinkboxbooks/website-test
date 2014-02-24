@@ -1,3 +1,4 @@
+@manage @ie @safari
 Feature: Update the Payment details of the user under 'your account'
   As a singed in Blinkbox books user
   I need the ability to update my payment details

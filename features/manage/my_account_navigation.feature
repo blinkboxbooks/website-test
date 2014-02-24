@@ -1,3 +1,4 @@
+@manage @ie @safari
 Feature: Navigating through my account pages
   As a singed in Blinkbox books user
   I need the ability to view my account page

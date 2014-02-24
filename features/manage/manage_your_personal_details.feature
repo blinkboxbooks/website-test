@@ -1,3 +1,4 @@
+@manage @ie @safari
 Feature: Update the Personal details of the user under 'your account'
   As a singed in Blinkbox books user
   I need the ability to update my personal details
@@ -37,6 +38,7 @@ Feature: Update the Personal details of the user under 'your account'
   Scenario: Add clubcard to existing blinkbox books account
     Given I have registered as new user without a clubcard
     And I am on the Personal details tab
+    And my clubcard field is empty
     When I enter valid clubcard number
     And submit my personal details
     Then "Your personal details have been successfully updated." message is displayed

@@ -1,4 +1,4 @@
-@pending
+@pending @manage @ie @safari
 Feature: Update the devices of the user under 'your account'
   As a singed in Blinkbox books user
   I need the ability to update my device details
