@@ -1,4 +1,4 @@
-@manage @ie @safari
+@manage
 Feature: Update the Payment details of the user under 'your account'
   As a singed in Blinkbox books user
   I need the ability to update my payment details
@@ -7,6 +7,7 @@ Feature: Update the Payment details of the user under 'your account'
   Background:
     Given I am on the home page
 
+  @ie @safari
   @smoke
   Scenario: Delete a stored card
     Given I have a stored card
@@ -16,7 +17,7 @@ Feature: Update the Payment details of the user under 'your account'
     Then there are no cards in my account
     And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
 
-  @smoke  @data_dependent
+  @smoke  @data_dependent @ie @safari
   Scenario: Change default card
     Given I have multiple stored cards
     And I have signed in
