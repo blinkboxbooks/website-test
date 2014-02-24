@@ -1,3 +1,4 @@
+@register @ie @safari
 Feature: Sign into Blinkbox books
   As a registered user of Blinkbox books
   I want to sign in

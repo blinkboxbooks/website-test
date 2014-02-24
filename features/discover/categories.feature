@@ -1,4 +1,4 @@
-@CWA-37
+@CWA-37 @ie @safari
 Feature:  Checking Categories page content
   As a Blinkbox books user
   I want view all categories that have a valid id on categories page
