@@ -55,7 +55,7 @@ Feature: Sign into Blinkbox books
     When I enter my email address
     And click send reset link button
     Then reset password response page is displayed
-    And rest email confirmation message displayed
+    And reset email confirmation message is displayed
 
 
 
