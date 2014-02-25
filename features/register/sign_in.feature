@@ -45,11 +45,13 @@ Feature: Sign into Blinkbox books
     When I click on Send me a reset link
     Then reset password page is displayed
 
+  @pending
   Scenario:  Forgotten password link
     Given I am on the Sign in page
     When I click on Forgotton your password? link
     Then reset password page is displayed
-
+    
+  @pending
   Scenario: Request Reset my password
     Given I am on reset password page
     When I enter my email address
