@@ -1,4 +1,5 @@
 Before("~@reset_session") do
+  visit('/') unless current_path == '/'
   maximize_window
   puts "Web App Version: #{app_version_info}"
   if logged_in_session?
