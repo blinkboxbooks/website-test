@@ -171,10 +171,8 @@ When /^I remove clubcard number$/ do
 end
 
 Then /^my clubcard field is empty$/ do
-  pending('Delete clubcard is pending on CWA-1135') do
     refresh_current_page
     your_personal_details_page.club_card.value.should be_blank
-  end
 end
 
 Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_status|
