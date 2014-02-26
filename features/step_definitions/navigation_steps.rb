@@ -192,16 +192,20 @@ When /^I select (.*?) link from (Your account|Shop|Support) under main Menu$/ do
   current_page.header.navigate_to_main_menu_option(sub_menu, link_name)
 end
 
-Then(/^following FAQ links are displayed:$/) do |table|
+Then /^following FAQ links are displayed:$/ do |table|
   @support_links = table
   @support_links.hashes.each do |row|
     find_link(row['support links']).should be_visible
   end
 end
 
-And(/^clicking above FAQ link opens relevant support page in a new window$/) do
+And /^clicking above FAQ link opens relevant support page in a new window$/ do
   @support_links.hashes.each do |row|
     click_link(row['support links'])
     assert_support_page(row['support links'])
   end
+end
+
+Given /^I am on reset password page$/  do
+  reset_password_page.load
 end

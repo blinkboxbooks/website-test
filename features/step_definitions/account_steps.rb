@@ -207,3 +207,22 @@ Given /^I have (not opted|opted) in for blinkbox books marketing$/ do |opt_statu
     set_email_and_password(test_data('emails', 'opted_in_marketing'), test_data('passwords', 'valid_password'))
   end
 end
+
+When /^I click on Forgotton your password\? link$/ do
+  sign_in_page.forgotten_password_link.click
+end
+
+When /^I enter "(.*?)" for email address$/ do |reset_password_email|
+  @reset_email = reset_password_email
+   reset_password_page.email_address.set @reset_email
+end
+
+And /^click send reset link button$/  do
+  reset_password_page.send_reset_link.click
+end
+
+And /^reset email confirmation message is displayed$/  do
+  reset_password_response_page.should have_email_confirm_message
+  reset_password_response_page.assert_reset_password_message @reset_email
+end
+
