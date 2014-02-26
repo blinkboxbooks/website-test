@@ -50,11 +50,11 @@ Feature: Sign into Blinkbox books
     Given I am on the Sign in page
     When I click on Forgotton your password? link
     Then reset password page is displayed
-    
+
   @pending
   Scenario: Request Reset my password
     Given I am on reset password page
-    When I enter my email address
+    When I enter "happy_path_signin@mobcastdev.com" for email address
     And click send reset link button
     Then reset password response page is displayed
     And reset email confirmation message is displayed
