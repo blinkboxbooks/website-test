@@ -45,7 +45,6 @@ Feature: Sign into Blinkbox books
     When I click on Send me a reset link
     Then reset password page is displayed
 
-  @pending
   Scenario:  Forgotten password link
     Given I am on the Sign in page
     When I click on Forgotton your password? link
@@ -53,6 +52,7 @@ Feature: Sign into Blinkbox books
 
   @pending
   Scenario: Request Reset my password
+    Given PENDING: CWA-1213 Reset Password - Not working - Firefox and IE
     Given I am on reset password page
     When I enter "happy_path_signin@mobcastdev.com" for email address
     And click send reset link button
