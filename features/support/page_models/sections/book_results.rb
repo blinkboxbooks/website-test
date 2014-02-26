@@ -12,14 +12,14 @@ module PageModels
     end
 
     public
-    def click_buy_now_for_book(index = random_book)
+    def click_buy_now_for_book(index = random_book_index)
       book_title = title_for_book(index)
       book_by_index(index).hover
       buy_now_button.click
       return book_title
     end
 
-    def click_book_details_for_book(index = random_book)
+    def click_book_details_for_book(index = random_book_index)
       book_title = title_for_book(index)
       book_by_index(index).hover
       book_details_button.click
@@ -30,7 +30,7 @@ module PageModels
       book_by_index(index).find('[class="title"]').text
     end
 
-    def random_book
+    def random_book_index
       wait_until_books_visible(10)
       rand(0...books.count)
     end
