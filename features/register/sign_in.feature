@@ -50,7 +50,6 @@ Feature: Sign into Blinkbox books
     When I click on Forgotton your password? link
     Then reset password page is displayed
 
-  @pending
   Scenario: Request Reset my password
     Given PENDING: CWA-1213 Reset Password - Not working - Firefox and IE
     Given I am on reset password page
