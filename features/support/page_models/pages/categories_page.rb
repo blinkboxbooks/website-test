@@ -10,10 +10,15 @@ module PageModels
       categories[index]
     end
 
-    def select_category_by_index(index)
-      wait_until_all_categories_list_visible
+    def select_category_by_index(index = random_category)
       category_by_index(index).click
     end
+
+    def random_category
+      wait_until_all_categories_list_visible(10)
+      rand(0...categories.count)
+    end
+
   end
   register_model_caller_method(CategoriesPage)
 end

@@ -100,29 +100,24 @@ module Discover
     book_page = page_model(page_name)
     case page_name
       when 'Home'
-        book_title = book_page.book_results_sections.first.title_for_book(0)
-        book_page.book_results_sections.first.click_buy_now_for_book(0)
+        book_title = book_page.book_results_sections.first.click_buy_now_for_book
       when 'Book details'
-        book_title = home_page.book_results_sections.first.title_for_book(0)
-        home_page.book_results_sections.first.click_book_details_for_book(0)
+        book_title = home_page.book_results_sections.first.click_book_details_for_book
         book_page.buy_now.click
       when 'Category'
         book_page.header.main_page_navigation('Categories')
-        categories_page.select_category_by_index(0)
+        categories_page.select_category_by_index
         expect_page_displayed(page_name)
-        book_title = book_page.book_results_sections.first.title_for_book(0)
-        book_page.book_results_sections.first.click_buy_now_for_book(0)
+        book_title = book_page.book_results_sections.first.click_buy_now_for_book
       when 'Search results'
         search_word = return_search_word_for_book_type(book_type)
         search_blinkbox_books(search_word)
-        book_title = book_page.book_results_sections.first.title_for_book(0)
-        book_page.book_results_sections.first.click_buy_now_for_book(0)
+        book_title  = book_page.book_results_sections.first.click_buy_now_for_book
       when 'Bestsellers', 'New releases', 'Free books'
         book_page.header.main_page_navigation(page_name)
         expect_page_displayed(page_name)
         book_page.wait_until_book_results_sections_visible(10)
-        book_title = book_page.book_results_sections.first.title_for_book(0)
-        book_page.book_results_sections.first.click_buy_now_for_book(0)
+        book_title = book_page.book_results_sections.first.click_buy_now_for_book
       else
         raise "Not handled page type #{page_name}"
     end
