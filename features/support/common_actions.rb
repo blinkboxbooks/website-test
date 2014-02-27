@@ -123,6 +123,17 @@ module Discover
     end
     return book_title
   end
+
+  def buy_book_by_price(condition, price)
+    search_word = return_search_word_for_book_type('pay for')
+    search_blinkbox_books(search_word)
+    if condition.eql?('more')
+      book_price = page_model('Search results').book_results_sections.first.buy_now_book_price_more_than price
+    elsif condition.eql?('less')
+      book_price = page_model('Search results').book_results_sections.first.buy_now_book_price_less_than price
+    end
+    return book_price
+  end
 end
 
 module ManageAccount

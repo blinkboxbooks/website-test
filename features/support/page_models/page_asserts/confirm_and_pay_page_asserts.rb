@@ -12,6 +12,17 @@ module PageModels
       expect(page).to have_content "We're sorry but your payment did not go through"
     end
 
+    def assert_credit_on_confirm_pay_page(account_credit)
+      within(confirm_and_pay_page.account_credit_payment) do
+        (confirm_and_pay_page.account_credit_amount.text.gsub(/\.[0-9][0-9]/, '')).should be_eql( account_credit)
+      end
+    end
+
+    def assert_amount_left_to_pay(account_credit, book_price)
+      amount_to_pay = confirm_and_pay_page.amount_left_to_pay.text.gsub(/£/, '').to_f
+      amount_to_pay.should be_eql (book_price-account_credit.to_f).round(2)
+    end
+
   end
 end
 World(PageModels::ConfirmAndPayPageAsserts)

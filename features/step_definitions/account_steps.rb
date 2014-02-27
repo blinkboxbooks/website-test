@@ -226,3 +226,10 @@ And /^reset email confirmation message is displayed$/  do
   reset_password_response_page.assert_reset_password_message @reset_email
 end
 
+Given /^I have £(\d+) account credit$/ do |account_credit|
+  if account_credit.to_i.eql?(5)
+    set_email_and_password(test_data('emails', 'five_account_credit'), test_data('passwords', 'valid_password'))
+  elsif account_credit.to_i.eql?(50)
+    set_email_and_password(test_data('emails', 'fifty_account_credit'), test_data('passwords', 'valid_password'))
+  end
+end

@@ -1,4 +1,4 @@
-@buy  @pending
+@buy
 Feature: Returning user buying book from blinkbox books with account credit
   As a returning user of blinkbox books
   I want to the ability to buy a book with account credit
@@ -22,6 +22,7 @@ Feature: Returning user buying book from blinkbox books with account credit
     And amount left to pay is displayed
     And my payment method is partial payment
 
+  @pending
   Scenario: User cancels order while buying book with account credit
     Given I have £50 account credit
     And I selected a book from home page with price less than £50
