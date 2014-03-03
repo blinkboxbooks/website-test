@@ -20,3 +20,14 @@ Feature: Manage Order and Payment history under My account section.
     When I complete purchase by paying with saved card
     Then I can see this book in my Order & Payment history
 
+  @pending @CWA-1209
+  Scenario: Checking for Show more button in the Order history for a user with 9 books
+
+  @pending @CWA-1209
+  Scenario: Checking for Show more button in the Order history for a user with 10 books
+
+  @pending @CWA-1209
+  Scenario: Checking for Show more button in the Order history for a user with 11 books
+
+  @pending @CWA-1209
+  Scenario: Checking for Show more button in the Order history for a user with 20 books

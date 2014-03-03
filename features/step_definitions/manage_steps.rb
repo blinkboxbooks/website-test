@@ -167,10 +167,6 @@ And /^my password is not updated$/ do
 end
 
 When /^I remove clubcard number$/ do
-  while your_personal_details_page.club_card.value.length > 0 do
-    your_personal_details_page.club_card.native.send_keys(:backspace)
-  end
-
   your_personal_details_page.club_card.native.send_keys(:control, 'a')
   your_personal_details_page.club_card.native.send_keys(:command, 'a')
   your_personal_details_page.club_card.native.send_keys(:delete)
