@@ -25,8 +25,8 @@ Feature: Returning user buying book from blinkbox books with account credit
   @pending
   Scenario: User cancels order while buying book with account credit
     Given I have £50 account credit
-    And I selected a book from home page with price less than £50
-    And I have signed in to proceed with purchase
+    And I selected a book to buy from search results with price less than £50
+    And  signed in to proceed with purchase
     When I cancel order
     And confirm cancel order
-    Then I am redirected to Home page
+    Then I am redirected to search results page
