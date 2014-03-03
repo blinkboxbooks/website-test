@@ -10,7 +10,6 @@ Feature: Update the Personal details of the user under 'your account'
 
   @CWA-213 @smoke
   Scenario: Successfully update Your personal information
-    Given PENDING: PATCH for personal details and rename devices are failing pending on LINUX OS upgrade of Mythic Beasts
     Given I have signed in
     And I am on the Personal details tab
     When I edit the first name and last name
@@ -20,7 +19,6 @@ Feature: Update the Personal details of the user under 'your account'
 
   @smoke @CWA-1014
   Scenario: Successfully update Your marketing preferences
-    Given PENDING: PATCH for personal details and rename devices are failing pending on LINUX OS upgrade of Mythic Beasts
     Given I have signed in
     And I am on the Personal details tab
     When I edit marketing preferences
@@ -30,7 +28,6 @@ Feature: Update the Personal details of the user under 'your account'
 
   @smoke
   Scenario: Successfully update Email address
-    Given PENDING: PATCH for personal details and rename devices are failing pending on LINUX OS upgrade of Mythic Beasts
     Given I have registered as new user without a clubcard
     And I am on the Personal details tab
     When I edit email address
