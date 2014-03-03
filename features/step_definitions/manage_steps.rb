@@ -167,7 +167,9 @@ And /^my password is not updated$/ do
 end
 
 When /^I remove clubcard number$/ do
-  your_personal_details_page.fill_in_club_card("")
+  your_personal_details_page.club_card.native.send_keys(:control, 'a')
+  your_personal_details_page.club_card.native.send_keys(:command, 'a')
+  your_personal_details_page.club_card.native.send_keys(:delete)
 end
 
 Then /^my clubcard field is empty$/ do

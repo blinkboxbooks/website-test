@@ -257,7 +257,7 @@ And /^my payment method is partial payment$/ do
   confirm_and_pay_page.should have_card_payment
 end
 
-When /^I select a book to buy with price (more|less) than £(\d+)$/ do |condition, price|
+When /^I (?:select|selected) a book to (?:buy from search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
   @account_credit = price
   @book_price = buy_book_by_price(condition, @account_credit)
 end
