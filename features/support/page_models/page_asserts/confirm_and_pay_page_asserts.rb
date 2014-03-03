@@ -14,7 +14,8 @@ module PageModels
 
     def assert_credit_on_confirm_pay_page(account_credit)
       within(confirm_and_pay_page.account_credit_payment) do
-        (confirm_and_pay_page.account_credit_amount.text.gsub(/\.[0-9][0-9]/, '')).should be_eql( account_credit)
+        credit = confirm_and_pay_page.account_credit_amount.text.gsub(/£/, '').to_f.round(2)
+        credit.should be_eql (account_credit.to_f.round(2))
       end
     end
 
