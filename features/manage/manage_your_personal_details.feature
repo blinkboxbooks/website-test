@@ -10,6 +10,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   @CWA-213 @smoke
   Scenario: Successfully update Your personal information
+    Given PENDING: PATCH for personal details and rename devices are failing pending on LINUX OS upgrade of Mythic Beasts
     Given I have signed in
     And I am on the Personal details tab
     When I edit the first name and last name
