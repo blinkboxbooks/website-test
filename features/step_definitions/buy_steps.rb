@@ -237,3 +237,27 @@ Then /^my saved Payment details are not updated$/ do
   click_link_from_my_account_dropdown('Saved cards')
   assert_payment_card_saved(@card_count,@name_on_card, @card_type)
 end
+
+Then /^Confirm and pay page displays my account credit as £(\d+)$/ do |account_credit|
+  assert_credit_on_confirm_pay_page(account_credit)
+end
+
+And /^my payment method is account credit$/ do
+  confirm_and_pay_page.should have_account_credit_payment
+  confirm_and_pay_page.should have_no_card_payment
+end
+
+And /^amount left to pay is displayed$/ do
+   assert_amount_left_to_pay(@account_credit, @book_price)
+end
+
+
+And /^my payment method is partial payment$/ do
+  confirm_and_pay_page.should have_account_credit_payment
+  confirm_and_pay_page.should have_card_payment
+end
+
+When /^I select a book to buy with price (more|less) than £(\d+)$/ do |condition, price|
+  @account_credit = price
+  @book_price = buy_book_by_price(condition, @account_credit)
+end

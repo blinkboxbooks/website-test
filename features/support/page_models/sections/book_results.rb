@@ -11,11 +11,34 @@ module PageModels
       books[index]
     end
 
+    def free_book?(book)
+     book.find('[class="price"]').text.downcase.eql?("Free".downcase)
+    end
+
+    def click_buy_now(book)
+      book.hover
+      buy_now_button.click
+    end
+
+    def title_for_book(index)
+      book_by_index(index).find('[class="title"]').text
+    end
+
+    def get_book_price(book)
+      within book do
+        if page.has_selector?(:css, '.discount')
+          book_price = book.find('[class="discount"]').text
+        else
+          book_price = book.find('[class="price"]').text
+        end
+        return book_price.gsub(/£/, '').to_f
+      end
+    end
+
     public
     def click_buy_now_for_book(index = random_book_index)
       book_title = title_for_book(index)
-      book_by_index(index).hover
-      buy_now_button.click
+      click_buy_now (book_by_index(index))
       return book_title
     end
 
@@ -26,13 +49,31 @@ module PageModels
       return book_title
     end
 
-    def title_for_book(index)
-      book_by_index(index).find('[class="title"]').text
-    end
-
     def random_book_index
       wait_until_books_visible(10)
       rand(0...books.count)
+    end
+
+    def buy_now_book_price_less_than (book_price)
+      books.each do |book|
+        next if free_book?(book)
+        price = get_book_price(book)
+        if (price < book_price.to_f)
+          click_buy_now(book)
+          return price
+        end
+      end
+    end
+
+    def buy_now_book_price_more_than (book_price)
+      books.each do |book|
+        next if free_book? book
+        price = get_book_price book
+        if (price > book_price.to_f)
+          click_buy_now(book)
+          return price
+        end
+      end
     end
 
   end
