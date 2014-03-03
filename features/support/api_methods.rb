@@ -13,7 +13,8 @@ module APIMethods
 
     end
 
-    def create_user_without_client
+    def create_new_user! (options ={})
+      with_client = options[:with_client] || false
       @email_address = generate_random_email_address
       @password = "test1234"
       params = {
@@ -25,12 +26,21 @@ module APIMethods
           accepted_terms_and_conditions: true,
           allow_marketing_communications: false
       }
+      if with_client
+        @device_name = "Web Site Test Client"
+        params.merge!({
+        client_name: @device_name,
+        client_brand: "Tesco",
+        client_model:"Hudl",
+        client_os: "Android"})
+      end
+
       headers = {"Content-Type" => "application/x-www-form-urlencoded", "Accept" => "application/json"}
       response = http_client.post(@@auth_uri, body: params, header: headers)
       raise "Test Error: Failed to register new user" unless response.status == 200
       user_props = MultiJson.load(response.body)
       @access_token = user_props["access_token"]
-      return @email_address, @password
+      return @email_address, @password, @device_name
     end
 
     def add_credit_card(access_token = @access_token)

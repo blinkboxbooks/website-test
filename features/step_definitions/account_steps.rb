@@ -13,7 +13,7 @@ Given /^I have signed in$/ do
   assert_user_greeting_message_displayed
 end
 
-When /^(?:I sign in|sign in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
+When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
   sign_in_from_redirected_page
 end
 
@@ -79,7 +79,6 @@ end
 
 Then /^I should be signed out successfully$/ do
   assert_user_greeting_message_not_displayed
-  assert_cookie_value('access_token', nil)
 end
 
 Given /^I have multiple stored cards$/ do
