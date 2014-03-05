@@ -186,3 +186,57 @@ Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_s
   assert_marketing_preferences(status)
 end
 
+And /^I have a device associated with my blinkbox books account$/ do
+  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: "device")
+  @device_count =1
+end
+
+When /^I navigate to devices tab of my account$/ do
+  click_link_from_my_account_dropdown('Devices')
+end
+
+And /^rename my device as "(.*?)"$/ do |new_name|
+  rename_device new_name
+end
+
+
+And /^submit changes$/ do
+  confirm_rename_device
+end
+
+Then /^my device should be renamed to "(.*?)"$/ do |new_name|
+  assert_device_name new_name
+end
+
+And /^cancel submit changes$/ do
+  cancel_rename_device
+end
+
+Then /^my device is not renamed$/ do
+  assert_device_name @device_name
+end
+
+And /^delete my device$/ do
+  delete_device
+end
+
+And /^confirm delete$/ do
+  confirm_delete_device
+  @device_count = @device_count -1
+end
+
+Then /^I have no devices associated with my account$/ do
+  assert_no_devices_present
+end
+
+And /^cancel delete device by clicking Keep link$/ do
+  cancel_delete_device
+end
+
+Then /^my device is not deleted$/ do
+  assert_device_count @device_count
+end
+
+And /^cancel delete device by closing pop\-up$/ do
+  close_delete_device_pop_up
+end

@@ -205,7 +205,7 @@ When /^I complete purchase with new card by selecting (to save|not to save) Paym
 end
 
 And /^I have a stored card$/ do
-  @email_address, @password = api_helper.create_user_without_client
+  @email_address, @password = api_helper.create_new_user!
   @name_on_card = api_helper.add_credit_card
   @card_type = 'VISA'
   @card_count = 1
