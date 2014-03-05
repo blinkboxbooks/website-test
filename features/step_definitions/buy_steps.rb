@@ -94,8 +94,24 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   end
 end
 
-Given /^I have selected to buy a (pay for|free) book from (.*?) page$/ do |book_type,page_name|
-  @book_title = select_book_to_buy_from_a_page(book_type, page_name)
+Given /^I have selected to buy a (?:pay for|free) book from (Bestsellers|New releases|Free books) page$/ do |page_name|
+  @book_title = select_book_to_buy_from page_name
+end
+
+Given /^I have selected to buy a pay for book from Home page$/ do
+  @book_title = select_book_to_buy_from_home_page
+end
+
+Given /^I have selected to buy a pay for book from Category page$/ do
+  @book_title = select_book_to_buy_from_category_page
+end
+
+Given /^I have selected to buy a (pay for|free) book from Search results page$/ do |book_type|
+  @book_title = select_book_to_buy_from_search_results_page book_type
+end
+
+Given /^I have selected to buy a (pay for|free) book from Book details page$/ do |book_type|
+  @book_title = select_book_to_buy_from_book_detials_page book_type
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do

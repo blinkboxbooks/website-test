@@ -4,6 +4,7 @@ module PageModels
     elements :books, "div[book=\"book\"]"
     element :buy_now_button, '[data-test="book-buy-button"]'
     element :book_details_button, '[data-test="book-details-button"]'
+    elements :book_price, 'div.price'
 
     private
     def book_by_index(index)
@@ -15,12 +16,22 @@ module PageModels
      book.find('[class="price"]').text.downcase.eql?("Free".downcase)
     end
 
+    def book_has_price?(index)
+      if !book_price[index].nil?
+        return true
+      else
+        puts "book #{books[index].text} has no price information displayed, check with services"
+        return false
+      end
+    end
+
     def click_buy_now(book)
       book.hover
       buy_now_button.click
     end
 
     def title_for_book(index)
+      wait_until_books_visible(10)
       book_by_index(index).find('[class="title"]').text
     end
 
@@ -38,6 +49,7 @@ module PageModels
     public
     def click_buy_now_for_book(index = random_book_index)
       book_title = title_for_book(index)
+      puts "Selecting book with title #{book_title} to buy"
       click_buy_now (book_by_index(index))
       return book_title
     end
@@ -50,8 +62,13 @@ module PageModels
     end
 
     def random_book_index
-      wait_until_books_visible(10)
-      rand(0...books.count)
+      wait_until_books_visible(20)
+      index = 0
+      loop do
+        index = rand(0...books.count)
+        break if book_has_price?(index)
+      end
+      return index
     end
 
     def buy_now_book_price_less_than (book_price)
@@ -59,6 +76,7 @@ module PageModels
         next if free_book?(book)
         price = get_book_price(book)
         if (price < book_price.to_f)
+          puts "Buying book with price  #{price}"
           click_buy_now(book)
           return price
         end

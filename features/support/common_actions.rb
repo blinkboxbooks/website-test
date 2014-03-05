@@ -96,44 +96,51 @@ module Discover
     click_buy_now_in_book_details_page
   end
 
-  def select_book_to_buy_from_a_page(book_type, page_name)
-    book_page = page_model(page_name)
-    case page_name
-      when 'Home'
-        book_title = book_page.book_results_sections.first.click_buy_now_for_book
-      when 'Book details'
-        book_title = home_page.book_results_sections.first.click_book_details_for_book
-        book_page.buy_now.click
-      when 'Category'
-        book_page.header.main_page_navigation('Categories')
-        categories_page.select_category_by_index
-        expect_page_displayed(page_name)
-        book_title = book_page.book_results_sections.first.click_buy_now_for_book
-      when 'Search results'
-        search_word = return_search_word_for_book_type(book_type)
-        search_blinkbox_books(search_word)
-        book_title  = book_page.book_results_sections.first.click_buy_now_for_book
-      when 'Bestsellers', 'New releases', 'Free books'
-        book_page.header.main_page_navigation(page_name)
-        expect_page_displayed(page_name)
-        book_page.wait_until_book_results_sections_visible(10)
-        book_title = book_page.book_results_sections.first.click_buy_now_for_book
-      else
-        raise "Not handled page type #{page_name}"
-    end
+  def select_book_to_buy_from_home_page
+    home_page.book_results_sections.first.click_buy_now_for_book
+  end
+
+  def select_book_to_buy_from_category_page
+    current_page.header.main_page_navigation('Categories')
+    categories_page.select_category_by_index
+    expect_page_displayed('Category')
+    category_page.wait_until_book_results_sections_visible(10)
+    category_page.book_results_sections.first.click_buy_now_for_book
+  end
+
+  def select_book_to_buy_from_book_detials_page (book_type = 'pay for')
+    search_word = return_search_word_for_book_type(book_type)
+    search_blinkbox_books(search_word)
+    book_title = search_results_page.book_results_sections.first.click_book_details_for_book
+    book_details_page.buy_now.click
     return book_title
+  end
+
+  def select_book_to_buy_from (page_name)
+    book_page = page_model page_name
+    book_page.header.main_page_navigation page_name
+    expect_page_displayed page_name
+    book_page.wait_until_book_results_sections_visible(10)
+    book_page.book_results_sections.first.click_buy_now_for_book
+  end
+
+  def select_book_to_buy_from_search_results_page (book_type = 'pay for')
+    search_word = return_search_word_for_book_type(book_type)
+    search_blinkbox_books(search_word)
+    search_results_page.book_results_sections.first.click_buy_now_for_book
   end
 
   def buy_book_by_price(condition, price)
     search_word = return_search_word_for_book_type('pay for')
     search_blinkbox_books(search_word)
     if condition.eql?('more')
-      book_price = page_model('Search results').book_results_sections.first.buy_now_book_price_more_than price
+      book_price = search_results_page.book_results_sections.first.buy_now_book_price_more_than price
     elsif condition.eql?('less')
-      book_price = page_model('Search results').book_results_sections.first.buy_now_book_price_less_than price
+      book_price = search_results_page.book_results_sections.first.buy_now_book_price_less_than price
     end
     return book_price
   end
+
 end
 
 module ManageAccount
