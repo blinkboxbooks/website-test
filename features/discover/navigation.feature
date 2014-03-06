@@ -66,10 +66,10 @@ Feature: Navigation around the website
     And main footer is displayed
 
   @smoke @production
-  Scenario: Navigate to Free books page
-    When I click on the Free books header tab
+  Scenario: Navigate to Free eBooks page
+    When I click on the Free eBooks header tab
     Then Free books page is displayed
-    And Free books section header is Free books
+    And Free books section header is Free eBooks
     And Grid view and List view buttons displayed
     And main footer is displayed
 
