@@ -38,7 +38,7 @@ module TestElementsMap
                        'VISA Debit' => '4012000033330125',
                        'JCB' => '6011111111111117'}
 
-  TEXT_MESSAGES = {'Welcome' => 'Welcome, book lover You\'re successfully registered with blinkbox books! Why not check out our bestselling books, or if you want to try us out first, download some of our free books. To read your books, you\'ll need download our free app to your Apple or Android smartphone or tablet - find out more about how to get the app below. START SHOPPING'}
+  TEXT_MESSAGES = {'Welcome' => 'Welcome, book lover You\'re successfully registered with blinkbox books! Why not check out our bestselling books, or if you want to try us out first, download some of our free eBooks. To read your eBooks, you\'ll need download our free app to your Apple or Android smartphone or tablet - find out more about how to get the app below. START SHOPPING'}
 
   SUPPORT_PAGE_URLS = {'View all FAQs' => 'support.blinkboxbooks.com/home',
                        'What devices can I use to read my books?' => 'support.blinkboxbooks.com/entries/25400608',
