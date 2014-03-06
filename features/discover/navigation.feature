@@ -61,7 +61,7 @@ Feature: Navigation around the website
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
-    And New releases section header is New releases in the last 30 days
+    And New releases section header is New releases
     And Grid view and List view buttons displayed
     And main footer is displayed
 
