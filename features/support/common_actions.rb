@@ -25,7 +25,7 @@ module Discover
   end
 
   def select_buy_first_book_in_search_results
-    search_results_page.book_results_sections.first.click_book_details_for_book(0)
+    search_results_page.book_results_sections.first.click_buy_now_for_book(0)
   end
 
   def user_navigates_to_book_details(book_type)
@@ -126,35 +126,24 @@ module ManageAccount
   end
 
   def set_card_default
-    your_payments_page.saved_cards.each do |saved_card|
-      next if saved_card[:class].include? ('payment_alt_row')
-      within saved_card do
-        your_payments_page.default_card_radio_button.click
-        @default_card = your_payments_page.card_name.text
+    within('.payment_list') do
+      page.all('li').to_a.each do |li|
+        if not ((li[:class]).include?('payment_alt_row'))
+          within(li) do
+            within('[class="payment_default"]') do
+              find('label').click
+            end
+            within('[class="payment_card_details_container"]') do
+              @default_card = find('[class="payment_name ng-binding"]').text
+            end
+          end
+          break
+        end
       end
-
-      return @default_card
     end
+    click_button('Update default card')
+    return @default_card
   end
-
-    #within('.payment_list') do
-    #  page.all('li').to_a.each do |li|
-    #    if not ((li[:class]).include?('payment_alt_row'))
-    #      within(li) do
-    #        within('[class="payment_default"]') do
-    #          find('label').click
-    #        end
-    #        within('[class="payment_card_details_container"]') do
-    #          @default_card = find('[class="payment_name ng-binding"]').text
-    #        end
-    #      end
-    #      break
-    #    end
-    #  end
-  #  end
-  #  click_button('Update default card')
-  #  return @default_card
-  #end
 
 end
 
