@@ -12,10 +12,5 @@ module PageModels
     #did not make it to work, gave up due to lack of time
     #section :book_results, BookItems, "div.itemsets"
   end
-
-  def sort_books_by(sort_criteria)
-
-  end
-
   register_model_caller_method(SearchResultsPage, :search_results_page)
 end
