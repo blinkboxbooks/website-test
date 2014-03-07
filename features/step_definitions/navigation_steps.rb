@@ -169,14 +169,17 @@ When /^I click on a category$/ do
   @category_name = click_on_a_category
 end
 
-Then /^Category page is displayed for the selected category$/ do
+Then /^Category page is displayed for the selected category$/ do    your_payments_page.saved_cards.each do |saved_card|
+  next if saved_card[:class].include? ('payment_alt_row')
+  within saved_card do
+    your_payments_page.default_card_radio_button.click
+    @default_card = your_payments_page.card_name.text
+  end
+
+  return @default_card
+end
   category_page.category_name.text.should include(@category_name)
 end
-
-#Given /^I am on a book Category page$/ do
-#  click_link_or_button(get_element_id_for('Categories'))
-#  click_on_a_category
-#end
 
 And /^the book reader is displayed$/ do
   assert_book_reader
