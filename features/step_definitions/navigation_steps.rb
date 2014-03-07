@@ -170,22 +170,20 @@ When /^I click on a category$/ do
 end
 
 Then /^Category page is displayed for the selected category$/ do
-  page.current_url.should include(@category_name)
+  category_page.category_name.text.should include(@category_name)
 end
 
-Given /^I am on a book Category page$/ do
-  click_link_or_button(get_element_id_for('Categories'))
-  click_on_a_category
-end
+#Given /^I am on a book Category page$/ do
+#  click_link_or_button(get_element_id_for('Categories'))
+#  click_on_a_category
+#end
 
 And /^the book reader is displayed$/ do
   assert_book_reader
 end
 
 And /^I am able to read the sample of corresponding book$/ do
-  pending ('@CP-924, CP-1091. Currently samples are not returned for some books on QA') do
   read_sample_book
-  end
 end
 
 When /^I select (.*?) link from (Your account|Shop|Support) under main Menu$/ do|link_name,sub_menu|

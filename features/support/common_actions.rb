@@ -8,87 +8,30 @@ module Discover
     search_results_page.wait_for_books
   end
 
-  def click_book_details_for_first_book_in_search_results
-    within('[data-test="search-results-list"]') do
-      within(first('li')) do
-        @book_href= first('a')[:href]
-        first('a').click
-      end
-    end
-    return @book_href
-  end
-
   def click_on_a_category
-   find('[data-test="all-categories-list"]').should be_visible
-   within('[data-test="all-categories-list"]') do
-      within(first('li')) do
-        within('[class="cover"]') do
-          @category_name = first('a')[:href]
-          first('img').click
-        end
-      end
-   end
+    @category_name = categories_page.select_category_by_index
+    expect_page_displayed('Category')
+    category_page.wait_until_book_results_sections_visible(10)
    return @category_name
   end
 
   def sort_search_results(sort_criteria)
-    page.should have_selector("div.orderby")
-    element = find('div.orderby')
-    mouse_over(element)
-    find('div.orderby').should have_selector('ul')
-    within('div.orderby') do
-      within(first('ul')) do
-        page.all('li').to_a.each do |li|
-          if (li.text.eql?(sort_criteria))
-            li.click
-          end
-        end
-      end
+    search_results_page.order_by.hover
+    search_results_page.sort_options.each do |sort_otpion|
+      sort_otpion.text.eql?(sort_criteria)
+      sort_otpion.click
     end
+    search_results_page.wait_until_book_results_sections_visible(10)
   end
 
   def select_buy_first_book_in_search_results
-    search_results_page.should have_books
-    found = false
-    search_results_page.books.each do |book|
-      if book.first('button[data-test="book-buy-button"]', :visible => false)
-        mouse_over(book)
-        book.first('button[data-test="book-buy-button"]').click
-        found = true
-        break
-      end
-    end
-    raise "Unable to find a purchasable book in the search results" unless found
+    search_results_page.book_results_sections.first.click_book_details_for_book(0)
   end
 
-  def click_buy_now_best_seller_book
-    click_link "Bestsellers"
-    page.has_selector?('.bookList')
-    within('.bookList') do
-      element= first('[class="book featured"]')
-      mouse_over(element)
-    end
-    click_button('BUY NOW')
-  end
-
-  def buy_first_book
-    search_blinkbox_books('winter')
-    #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
-    #sort_search_results('Price (high to low)')
-    select_buy_first_book_in_search_results
-    successful_new_payment(save_payment = true)
-  end
-
-  def user_selects_a_book_to_buy(search_word)
+  def user_navigates_to_book_details(book_type)
+    search_word = return_search_word_for_book_type(book_type)
     search_blinkbox_books(search_word)
-    #TODO: pending sorting bug fix, it currently sorts in the reverse direction form selected
-    #sort_search_results('Price (high to low)')
-    select_buy_first_book_in_search_results
-  end
-
-  def user_navigates_to_book_details(search_word)
-    search_blinkbox_books(search_word)
-    click_book_details_for_first_book_in_search_results
+    search_results_page.book_results_sections.first.click_book_details_for_book
   end
 
   def buy_sample_added_book
@@ -102,16 +45,12 @@ module Discover
 
   def select_book_to_buy_from_category_page
     current_page.header.main_page_navigation('Categories')
-    categories_page.select_category_by_index
-    expect_page_displayed('Category')
-    category_page.wait_until_book_results_sections_visible(10)
+    click_on_a_category
     category_page.book_results_sections.first.click_buy_now_for_book
   end
 
   def select_book_to_buy_from_book_detials_page (book_type = 'pay for')
-    search_word = return_search_word_for_book_type(book_type)
-    search_blinkbox_books(search_word)
-    book_title = search_results_page.book_results_sections.first.click_book_details_for_book
+    book_title = user_navigates_to_book_details(book_type)
     book_details_page.buy_now.click
     return book_title
   end
@@ -187,24 +126,35 @@ module ManageAccount
   end
 
   def set_card_default
-    within('.payment_list') do
-      page.all('li').to_a.each do |li|
-        if not ((li[:class]).include?('payment_alt_row'))
-          within(li) do
-            within('[class="payment_default"]') do
-              find('label').click
-            end
-            within('[class="payment_card_details_container"]') do
-              @default_card = find('[class="payment_name ng-binding"]').text
-            end
-          end
-          break
-        end
+    your_payments_page.saved_cards.each do |saved_card|
+      next if saved_card[:class].include? ('payment_alt_row')
+      within saved_card do
+        your_payments_page.default_card_radio_button.click
+        @default_card = your_payments_page.card_name.text
       end
+
+      return @default_card
     end
-    click_button('Update default card')
-    return @default_card
   end
+
+    #within('.payment_list') do
+    #  page.all('li').to_a.each do |li|
+    #    if not ((li[:class]).include?('payment_alt_row'))
+    #      within(li) do
+    #        within('[class="payment_default"]') do
+    #          find('label').click
+    #        end
+    #        within('[class="payment_card_details_container"]') do
+    #          @default_card = find('[class="payment_name ng-binding"]').text
+    #        end
+    #      end
+    #      break
+    #    end
+    #  end
+  #  end
+  #  click_button('Update default card')
+  #  return @default_card
+  #end
 
 end
 
