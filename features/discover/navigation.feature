@@ -61,15 +61,15 @@ Feature: Navigation around the website
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
-    And New releases section header is New releases in the last 30 days
+    And New releases section header is New releases
     And Grid view and List view buttons displayed
     And main footer is displayed
 
   @smoke @production
-  Scenario: Navigate to Free books page
-    When I click on the Free books header tab
-    Then Free books page is displayed
-    And Free books section header is Free books
+  Scenario: Navigate to Free eBooks page
+    When I click on the Free eBooks header tab
+    Then Free eBooks page is displayed
+    And Free eBooks section header is Free eBooks
     And Grid view and List view buttons displayed
     And main footer is displayed
 
@@ -90,7 +90,7 @@ Feature: Navigation around the website
     | shop_link    |
     | Categories   |
     | Bestsellers  |
-    | Free books   |
+    | Free eBooks  |
     | Authors      |
     | New releases |
 
@@ -100,12 +100,12 @@ Feature: Navigation around the website
     Then I am redirected to the "<support_page>" page in a new window
 
   Examples:
-    | support_link | support_page |
-    | FAQs         | View all FAQs|
-    | Contact us   | Contact us   |
+    | support_link | support_page  |
+    | FAQs         | View all FAQs |
+    | Contact us   | Contact us    |
 
   @production
-    Scenario: Navigate to home page from main Menu
+  Scenario: Navigate to home page from main Menu
     Given I am on Categories page
     When I select Featured link from Shop under main Menu
     Then Home page is displayed
@@ -156,9 +156,9 @@ Feature: Navigation around the website
     | page         |
     | Featured     |
     | Categories   |
-    | Bestsellers |
+    | Bestsellers  |
     | New releases |
-    | Free books   |
+    | Free eBooks  |
     | Authors      |
 
   @CWA-71 @wip
