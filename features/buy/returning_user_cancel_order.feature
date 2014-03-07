@@ -88,4 +88,4 @@ Feature: Returning user cancels order
     | page_name      | book_type |
     | Search results | free      |
     | Book details   | free      |
-    | Free books     | free      |
+    | Free eBooks     | free      |
