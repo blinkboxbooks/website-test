@@ -93,6 +93,7 @@ module WebUtilities
 
   def refresh_current_page
     page.driver.browser.navigate.refresh
+    current_page.wait_until_header_visible(10)
   end
 
 end
