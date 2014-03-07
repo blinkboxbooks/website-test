@@ -61,6 +61,10 @@ module PageModels
       end
     end
 
+    def assert_clubcard (clubcard_number = '')
+      sleep(1)
+      expect(your_personal_details_page.club_card.value).to eql(clubcard_number.to_s)
+    end
 
   end
 end
