@@ -222,7 +222,7 @@ end
 
 And /^reset email confirmation message is displayed$/  do
   reset_password_response_page.should have_email_confirm_message
-  reset_password_response_page.assert_reset_password_message @reset_email
+  reset_password_response_page.email_confirm_message.text.should include("We've sent you a password reset email")
 end
 
 Given /^I have £(\d+) account credit$/ do |account_credit|

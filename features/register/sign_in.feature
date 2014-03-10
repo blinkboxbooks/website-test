@@ -15,6 +15,15 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
+   @pending
+  Scenario: Sign in by selecting Keep me signed in
+    Given I am on the Sign in page
+    When I enter valid sign in details
+    And select Keep me signed in
+    And I click sign in button
+    Then I am successfully signed in
+    And I am redirected to Home page
+
   @negative
   Scenario: Sign in with email address that is not registered
     Given I am on the Sign in page
@@ -51,7 +60,6 @@ Feature: Sign into Blinkbox books
     Then reset password page is displayed
 
   Scenario: Request Reset my password
-    Given PENDING: CWA-1213 Reset Password - Not working - Firefox and IE
     Given I am on reset password page
     When I enter "happy_path_signin@mobcastdev.com" for email address
     And click send reset link button
