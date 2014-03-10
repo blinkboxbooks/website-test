@@ -36,7 +36,7 @@ end
 Given /^I have registered as new user (without|with) a clubcard/ do |provide_clubcard|
   navigate_to_register_form
   @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
-  register_new_user(provide_clubcard, @valid_clubcard)
+  @current_password, @email_address, @first_name, @last_name = register_new_user(provide_clubcard, @valid_clubcard)
   assert_user_greeting_message_displayed(@first_name)
 end
 

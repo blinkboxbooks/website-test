@@ -64,6 +64,7 @@ module PageModels
       accept_terms_and_conditions(true)
       submit_registration_details
       puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
+      return @password, @email_address, @first_name, @last_name
     end
 
     def sign_in(email_address=@email_address, password=@password)
