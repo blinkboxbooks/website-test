@@ -21,11 +21,11 @@ Feature: New user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Bestsellers   | pay for   |
+    | Bestsellers    | pay for   |
     | New releases   | pay for   |
     | Search results | free      |
     | Book details   | free      |
-    | Free books     | free      |
+    | Free eBooks    | free      |
 
   Scenario Outline: First time user cancels order in registration page
     Given I have selected to buy a <book_type> book from <page_name> page
@@ -40,8 +40,8 @@ Feature: New user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Bestsellers   | pay for   |
+    | Bestsellers    | pay for   |
     | New releases   | pay for   |
     | Search results | free      |
     | Book details   | free      |
-    | Free books     | free      |
+    | Free eBooks    | free      |

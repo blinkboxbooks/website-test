@@ -39,7 +39,7 @@ Feature: Update the Personal details of the user under 'your account'
     Given I have registered as new user without a clubcard
     And I am on the Personal details tab
     And my clubcard field is empty
-    When I enter valid clubcard number
+    When I enter new valid clubcard number
     And submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
     And clubcard added to my account
@@ -55,7 +55,7 @@ Feature: Update the Personal details of the user under 'your account'
   Scenario: Update clubcard associated with existing blinkbox books account
     Given I have registered as new user with a clubcard
     And I am on the Personal details tab
-    When I enter valid clubcard number
+    When I enter new valid clubcard number
     And submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
     And my clubcard updated
