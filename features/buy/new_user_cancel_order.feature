@@ -25,7 +25,7 @@ Feature: New user cancels order
     | New releases   | pay for   |
     | Search results | free      |
     | Book details   | free      |
-    | Free eBooks     | free      |
+    | Free eBooks    | free      |
 
   Scenario Outline: First time user cancels order in registration page
     Given I have selected to buy a <book_type> book from <page_name> page
@@ -44,4 +44,4 @@ Feature: New user cancels order
     | New releases   | pay for   |
     | Search results | free      |
     | Book details   | free      |
-    | Free eBooks     | free      |
+    | Free eBooks    | free      |
