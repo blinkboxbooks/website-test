@@ -22,9 +22,9 @@ Feature: New user buying book from blinkbox books
     | VISA      |
 
   Examples: Other card types
-    | card_type        |
-    | Mastercard       |
-    | VISA Debit       |
+    | card_type  |
+    | Mastercard |
+    | VISA Debit |
 
   Scenario Outline: First time user buying book and not saving payment details
     Given I have identified a best selling book to buy
@@ -41,9 +41,9 @@ Feature: New user buying book from blinkbox books
     | VISA      |
 
   Examples: Other card types
-    | card_type        |
-    | Mastercard       |
-    | VISA Debit       |
+    | card_type  |
+    | Mastercard |
+    | VISA Debit |
 
   @smoke
   Scenario: First time user buying a free book
