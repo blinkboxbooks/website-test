@@ -95,5 +95,15 @@ Feature: Navigating through my account pages
     | orders in the past  | Order history | Order & payment history | You haven't bought anything from blinkbox books yet |
     | saved payment cards | Saved cards   | Your payments           | You have no payment cards saved to your account     |
 
-
-
+  @pending
+  Scenario: FAQ links on Order complete page
+    Given I have a stored card
+    And I have selected to buy a pay for book from Home page
+    And I sign in to proceed with purchase
+    When I complete purchase by paying with saved card
+    Then following FAQ links are displayed on confirmation page:
+      | support links                            |
+      | What devices can I use to read my books? |
+      | How do I download the app?               |
+      | How do I download books?                 |
+    And clicking above FAQ link opens relevant support page in a new window

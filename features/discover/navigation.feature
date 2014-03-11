@@ -195,6 +195,42 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
+  @pending
+  Scenario Outline: Click Top authors links from footer
+    When I click on the <author_name> link from footer
+    Then selected <author_name> author page displayed
+
+  Examples:
+    | author_name       |
+    | James Patterson   |
+    | David Walliams    |
+    | John Green        |
+    | Kate Atkinson     |
+    | Suzanne Collins   |
+    | Jodi Picoult      |
+    | Jacqueline Wilson |
+    | Lee Child         |
+    | Graeme Simsion    |
+    | Santa Montefiore  |
+
+  @pending
+  Scenario Outline: Click Top categories links from footer
+    When I click on the <category_name> link from footer
+    Then selected <category_name> category page displayed
+
+  Examples:
+    | category_name         |
+    | Biography and Memoir  |
+    | Children's Fiction    |
+    | Crime & Mystery       |
+    | Fiction & Literature  |
+    | Food & Drink          |
+    | Health & Wellbeing    |
+    | Humour                |
+    | Music, Stage & Screen |
+    | Romance               |
+    | Thriller & Suspense   |
+
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
     When I click on the Bestsellers link
