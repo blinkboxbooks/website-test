@@ -66,7 +66,7 @@ module PageModels
       wait_until_books_visible(20)
       index = 0
       loop do
-        index = rand(0...book_price.count)
+        index = rand(0...books.count)
         break if book_has_price?(index)
       end
       return index
