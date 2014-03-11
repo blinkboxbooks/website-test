@@ -45,6 +45,7 @@ Feature: New user buying book from blinkbox books
     | Mastercard       |
     | VISA Debit       |
 
+  @smoke
   Scenario: First time user buying a free book
     Given I have identified a free book to buy
     And I register to proceed with purchase
