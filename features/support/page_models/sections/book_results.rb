@@ -4,7 +4,7 @@ module PageModels
     elements :books, "div[book=\"book\"]"
     element :buy_now_button, '[data-test="book-buy-button"]'
     element :book_details_button, '[data-test="book-details-button"]'
-    elements :book_price, 'div.price'
+    elements :book_price, 'div.price', :visible => false
 
     private
     def book_by_index(index)
@@ -17,12 +17,13 @@ module PageModels
     end
 
     def book_has_price?(index)
-      if !book_price[index].nil?
-        return true
-      else
-        puts "book #{books[index].text} has no price information displayed, check with services"
-        return false
-      end
+      wait_until_book_price_visible(10)
+        if !book_price[index].text.eql?("")
+          return true
+        else
+          puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
+          return false
+        end
     end
 
     def click_buy_now(book)
@@ -65,7 +66,7 @@ module PageModels
       wait_until_books_visible(20)
       index = 0
       loop do
-        index = rand(0...books.count)
+        index = rand(0...book_price.count)
         break if book_has_price?(index)
       end
       return index
