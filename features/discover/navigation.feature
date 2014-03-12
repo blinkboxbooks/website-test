@@ -198,6 +198,7 @@ Feature: Navigation around the website
   @pending
   Scenario Outline: Click Top authors links from footer
     When I click on the <author_name> link from footer
+    #TODO: When writing support code for this step, consider Parameterized URLs for authors page class under pagemodes/pages refer http://github.com/natrimeyer/site_prism
     Then selected <author_name> author page displayed
 
   Examples:
@@ -216,6 +217,7 @@ Feature: Navigation around the website
   @pending
   Scenario Outline: Click Top categories links from footer
     When I click on the <category_name> link from footer
+    #TODO: When writing support code for this step, consider Parameterized URLs for authors page class under pagemodes/pages refer http://github.com/natrimeyer/site_prism
     Then selected <category_name> category page displayed
 
   Examples:
