@@ -1,20 +1,5 @@
 module PageModels
   module ManageAccountAsserts
-
-    def assert_no_devices_present
-      refresh_current_page
-      your_devices_page.should have_no_device_list
-    end
-
-    def assert_device_count (device_count)
-      your_devices_page.devices.count.should be_eql(device_count)
-    end
-
-    def assert_device_name(name)
-      refresh_current_page
-      your_devices_page.device_name.text.should be_eql(name)
-    end
-
     def expect_account_tab_selected(tab_name)
       your_account_page.account_nav_frame.should have_account_nav_tab_selected(tab_name)
     end
