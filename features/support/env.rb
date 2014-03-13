@@ -33,7 +33,11 @@ module KnowsAboutConfig
 
   def load_yaml_file(dir, filename)
     path = "#{dir}/#{filename}"
-    YAML.load_file(path)
+    if path.include?('data')
+      YAML.load_file(path)[TEST_CONFIG['SERVER']]
+    else
+      YAML.load_file(path)
+    end
   end
 
   def initialise_test_data
@@ -57,7 +61,7 @@ module KnowsAboutConfig
 end
 include KnowsAboutConfig
 World(KnowsAboutConfig)
-initialise_test_data
+
 
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
@@ -68,7 +72,7 @@ if TEST_CONFIG["debug"]
   end
   puts "TEST_CONFIG: #{TEST_CONFIG}"
 end
-
+initialise_test_data
 # ======= Setup target environment =======
 
 TEST_CONFIG['SERVER'] ||= 'QA'
