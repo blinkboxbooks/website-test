@@ -68,11 +68,10 @@ if TEST_CONFIG["debug"]
   end
   puts "TEST_CONFIG: #{TEST_CONFIG}"
 end
-initialise_test_data
-# ======= Setup target environment =======
 
+#======== Load environment specific test data ======
 TEST_CONFIG['SERVER'] ||= 'QA'
-Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
+initialise_test_data
 
 # ======= load common helpers =======
 
@@ -88,6 +87,9 @@ require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbook
 require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+
+# ======= Setup target environment =======
+Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
 
 # ======== set up browser driver =======
 # Capybara browser driver settings
