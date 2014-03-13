@@ -116,7 +116,7 @@ caps.native_events=false
 
 # grid setup
 if TEST_CONFIG['GRID'] =~ /^true|on$/i
-  remote_url = "http://selenium.mobcastdev.local:4444/wd/hub"
+  remote_url = "http://192.168.100.3:4444/wd/hub"
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'MAC'
   caps.platform = case TEST_CONFIG['PLATFORM'].upcase
