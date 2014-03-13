@@ -33,15 +33,11 @@ module KnowsAboutConfig
 
   def load_yaml_file(dir, filename)
     path = "#{dir}/#{filename}"
-    if path.include?('data')
-      YAML.load_file(path)[TEST_CONFIG['SERVER']]
-    else
-      YAML.load_file(path)
-    end
+    YAML.load_file(path)
   end
 
   def initialise_test_data
-    @_test_data ||= load_yaml_file("data", "test_data.yml")
+    @_test_data ||= load_yaml_file("data", "test_data.yml")[TEST_CONFIG['SERVER']]
   end
 
   def test_data(data_type, param)
