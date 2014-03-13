@@ -37,7 +37,7 @@ module KnowsAboutConfig
   end
 
   def initialise_test_data
-    @_test_data ||= load_yaml_file("data", "test_data.yml")
+    @_test_data ||= load_yaml_file("data", "test_data.yml")[TEST_CONFIG['SERVER']]
   end
 
   def test_data(data_type, param)
@@ -57,7 +57,7 @@ module KnowsAboutConfig
 end
 include KnowsAboutConfig
 World(KnowsAboutConfig)
-initialise_test_data
+
 
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
@@ -69,10 +69,9 @@ if TEST_CONFIG["debug"]
   puts "TEST_CONFIG: #{TEST_CONFIG}"
 end
 
-# ======= Setup target environment =======
-
+#======== Load environment specific test data ======
 TEST_CONFIG['SERVER'] ||= 'QA'
-Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
+initialise_test_data
 
 # ======= load common helpers =======
 
@@ -88,6 +87,9 @@ require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbook
 require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+
+# ======= Setup target environment =======
+Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
 
 # ======== set up browser driver =======
 # Capybara browser driver settings
