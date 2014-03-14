@@ -120,7 +120,7 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'MAC'
   caps.platform = case TEST_CONFIG['PLATFORM'].upcase
-                    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS' # *WINDOWS* stands for Windows 7
+                    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
                       TEST_CONFIG['PLATFORM'].upcase.to_sym
                     when 'ANDROID'
                       TEST_CONFIG['PLATFORM'].downcase.to_sym
