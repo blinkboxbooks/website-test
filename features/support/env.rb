@@ -118,11 +118,11 @@ caps.native_events=false
 
 # grid setup
 if TEST_CONFIG['GRID'] =~ /^true|on$/i
-  remote_url = "http://selenium.mobcastdev.local:4444/wd/hub"
+  remote_url = "http://172.17.51.12:4444/wd/hub"
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'MAC'
   caps.platform = case TEST_CONFIG['PLATFORM'].upcase
-                    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS' # *WINDOWS* stands for Windows 7
+                    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
                       TEST_CONFIG['PLATFORM'].upcase.to_sym
                     when 'ANDROID'
                       TEST_CONFIG['PLATFORM'].downcase.to_sym
