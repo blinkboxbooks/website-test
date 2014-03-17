@@ -25,8 +25,7 @@ Feature: Update the Payment details of the user under 'your account'
      When I click delete
      And select Keep on Delete card? pop-up
      Then my saved card is not deleted
-
-
+     
   @smoke  @data_dependent @ie @safari @production
   Scenario: Change default card
     Given I have multiple stored cards
