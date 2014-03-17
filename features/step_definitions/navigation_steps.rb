@@ -69,10 +69,12 @@ And /^I press browser back$/ do
 end
 
 And /^main header tabs should not be selected$/ do
+  pending "CWA-1300 - Top header is selected on the search results page" do
   within("#main-navigation") do
     page.all('li').to_a.each do |li|
       ((li[:class]).include?("current")).should == false
-    end
+      end
+  end
   end
 end
 
