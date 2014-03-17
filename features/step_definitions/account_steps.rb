@@ -211,9 +211,8 @@ When /^I click on Forgotton your password\? link$/ do
   sign_in_page.forgotten_password_link.click
 end
 
-When /^I enter "(.*?)" for email address$/ do |reset_password_email|
-  @reset_email = reset_password_email
-   reset_password_page.email_address.set @reset_email
+When /^I enter email address registered with blinkbox books$/ do
+   reset_password_page.email_address.set test_data('emails', 'happypath_user')
 end
 
 And /^click send reset link button$/  do

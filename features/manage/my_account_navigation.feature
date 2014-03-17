@@ -7,7 +7,7 @@ Feature: Navigating through my account pages
   Background:
     Given I am on the home page
 
-  @smoke
+  @smoke @production
   Scenario Outline: Signed in user accessing account navigation links from Account Menu
     Given I have signed in
     When I select <my_account_option> link from drop down menu
@@ -21,7 +21,7 @@ Feature: Navigating through my account pages
     | Saved cards       | Your payments           |
     | Devices           | Your devices            |
 
-  @smoke
+  @smoke @production
   Scenario Outline: Signed in user accessing account navigation links from main Menu
     Given I have signed in
     When I select <my_account_option> link from Your account under main Menu
@@ -35,7 +35,7 @@ Feature: Navigating through my account pages
     | Saved cards       | Your payments           |
     | Devices           | Your devices            |
 
-  @CWA-1027
+  @CWA-1027 @production
   Scenario: Navigate through FAQ links under Order & payment history
     Given I have signed in
     When I am on the Order history tab
@@ -47,6 +47,7 @@ Feature: Navigating through my account pages
       | How do I read books in the app?          |
     And clicking above FAQ link opens relevant support page in a new window
 
+  @production
   Scenario: Navigate through FAQ links under Personal details
     Given I have signed in
     When I am on the Personal details tab
@@ -58,6 +59,7 @@ Feature: Navigating through my account pages
       | Can I delete my blinkbox books account? |
     And clicking above FAQ link opens relevant support page in a new window
 
+  @production
   Scenario: Navigate through FAQ links under Your payments
     Given I have signed in
     When I am on the Saved cards tab
@@ -69,6 +71,7 @@ Feature: Navigating through my account pages
       | Do you accept gift cards?          |
     And clicking above FAQ link opens relevant support page in a new window
 
+  @production
   Scenario: Navigate through FAQ links under Your devices
     Given I have signed in
     When I am on the Devices tab
@@ -80,7 +83,7 @@ Feature: Navigating through my account pages
       | Problems installing the app              |
     And clicking above FAQ link opens relevant support page in a new window
 
-  @CWA-615
+  @CWA-615 @production
   Scenario Outline: User with no associated payment, order or device information check their account information
     Given I am returning user with no <user_type>
     And I have signed in

@@ -130,7 +130,7 @@ Feature: Navigation around the website
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
 
-  @CWA-87
+  @CWA-87 @production
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
       | words     |
@@ -139,14 +139,14 @@ Feature: Navigation around the website
     And I press browser back
     And I should see search results page for "da vinci"
 
-  @CWA-70
+  @CWA-70 @production
   Scenario: Main header tabs are not selected in search results page and footer is displayed
     When I search for "summer"
     Then search results should be displayed
     And main header tabs should not be selected
     And footer is displayed
 
-  @CWA-105
+  @CWA-105 @production
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
     Then "dan brown" should be visible in search bar
@@ -168,7 +168,7 @@ Feature: Navigation around the website
     And I should see Promotions section header as All time best selling books
     And I should see 5 books being displayed
 
-  @CWA-71
+  @CWA-71 @production
   Scenario: Bestsellers page - Switching views
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
@@ -177,7 +177,7 @@ Feature: Navigation around the website
     And I select list view
     Then I should see Fiction books in list view
 
-  @CWA-71
+  @CWA-71 @production
   Scenario: Bestsellers page - Grid view not changing between tabs
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
@@ -186,7 +186,7 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in gird view
 
-  @CWA-71
+  @CWA-71 @production
   Scenario: Bestsellers page - List view not changing between tabs
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
