@@ -7,7 +7,7 @@ Feature: Sign into Blinkbox books
   Background: Navigate to sign in
     Given I am not signed in
 
-  @smoke
+  @smoke @production
   Scenario: Happy path user sign in
     Given I am on the Sign in page
     When I enter valid sign in details
@@ -24,7 +24,7 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
-  @negative
+  @negative @production
   Scenario: Sign in with email address that is not registered
     Given I am on the Sign in page
     When I try to sign in with email address that is not registered
@@ -32,7 +32,7 @@ Feature: Sign into Blinkbox books
     And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
     And link to reset password is displayed
 
-  @negative
+  @negative @production
   Scenario: Sign in with incorrect password
     Given I am on the Sign in page
     When I try to sign in with incorrect password
@@ -40,13 +40,14 @@ Feature: Sign into Blinkbox books
     And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
     And link to reset password is displayed
 
-  @negative
+  @negative @production
   Scenario: Sign in with empty password
     Given I am on the Sign in page
     When I try to sign in with empty password field
     Then sign in is not successful
     And "Please enter your password" message is displayed
 
+  @production
   Scenario: Click send me a reset link
     Given I am on the Sign in page
     And I have attempted to sign in with incorrect password
@@ -54,14 +55,16 @@ Feature: Sign into Blinkbox books
     When I click on Send me a reset link
     Then reset password page is displayed
 
+  @production
   Scenario:  Forgotten password link
     Given I am on the Sign in page
     When I click on Forgotton your password? link
     Then reset password page is displayed
 
+  @production
   Scenario: Request Reset my password
     Given I am on reset password page
-    When I enter "happy_path_signin@mobcastdev.com" for email address
+    When I enter email address registered with blinkbox books
     And click send reset link button
     Then reset password response page is displayed
     And reset email confirmation message is displayed

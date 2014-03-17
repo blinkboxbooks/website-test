@@ -17,7 +17,17 @@ Feature: Update the Payment details of the user under 'your account'
     Then there are no cards in my account
     And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
 
-  @smoke  @data_dependent @ie @safari
+   @pending
+   Scenario: Cancel delete stored card
+     Given I have a stored card
+     And I have signed in
+     And I am on the Saved cards tab
+     When I click delete
+     And select Keep on Delete card? pop-up
+     Then my saved card is not deleted
+
+
+  @smoke  @data_dependent @ie @safari @production
   Scenario: Change default card
     Given I have multiple stored cards
     And I have signed in
