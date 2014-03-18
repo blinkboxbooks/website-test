@@ -6,6 +6,8 @@ module PageModels
     element :main_menu, '#main-menu'
     element :main_menu_option_dropdown, 'ul#main-navigation-handheld'
     element :welcome, '.username'
+    element :search_input, '[data-test="search-input"]'
+    element :search_button, '[data-test="search-button"]'
 
     def account_nav_link(menu, link_name)
       menu.find("a", :text => "#{link_name}")

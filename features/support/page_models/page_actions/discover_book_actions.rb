@@ -2,10 +2,10 @@ module PageModels
   module DiscoverBookActions
     def search_blinkbox_books(search_word)
       puts "Searching for books with search word '#{search_word}'"
-      page.should have_selector("#term")
-      fill_in('term', :with => "#{search_word}")
-      page.should have_selector("button#submit_desk")
-      click_button('submit_desk')
+      current_page.header.wait_until_search_input_visible
+      current_page.header.search_input.set search_word
+      current_page.header.wait_until_search_button_visible
+      current_page.header.search_button.click
       search_results_page.wait_for_books
     end
 
@@ -79,6 +79,21 @@ module PageModels
         book_price = search_results_page.book_results_sections.first.buy_now_book_price_less_than price
       end
       return book_price
+    end
+
+    def select_best_selling_book_to_buy_from_book_details
+      bestsellers_page.load
+      bestsellers_page.wait_until_book_results_sections_visible(10)
+      book_title = bestsellers_page.book_results_sections.first.click_book_details_for_book
+      book_details_page.buy_now.click
+      return book_title
+    end
+
+    def select_free_book_to_book_to_buy_from_book_details
+      search_blinkbox_books('free')
+      search_results_page.book_results_sections.first.click_book_details_for_book
+      book_title = book_details_page.buy_now.click
+      return book_title
     end
 
   end
