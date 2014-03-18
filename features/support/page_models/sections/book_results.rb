@@ -57,8 +57,7 @@ module PageModels
 
     def click_book_details_for_book(index = random_book_index)
       book_title = title_for_book(index)
-      book_by_index(index).hover
-      book_details_button.click
+      book_by_index(index).find('img').click
       return book_title
     end
 

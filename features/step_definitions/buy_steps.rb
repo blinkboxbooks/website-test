@@ -1,5 +1,5 @@
 Given /I have identified a best selling book to buy$/ do
-  select_book_to_buy_from ('Bestsellers')
+  select_best_selling_book_to_buy_from_book_details
 end
 
 When /^I enter valid (.*?) card details$/ do |card_type|
@@ -276,4 +276,8 @@ end
 When /^I (?:select|selected) a book to (?:buy from Search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
   @account_credit = price
   @book_price = buy_book_by_price(condition, @account_credit)
+end
+
+Given /^I have selected a free book to buy from book details$/ do
+  select_free_book_to_buy_from_book_details
 end
