@@ -20,6 +20,6 @@ group :api do
   gem 'httpclient'
 end
 
-#group :debug do
-  #gem 'debugger'
-#end
+group :debug do
+  gem 'debugger'
+end
