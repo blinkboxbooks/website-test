@@ -187,7 +187,7 @@ When /^I select (.*?) link from (Your account|Shop|Support) under main Menu$/ do
   current_page.header.navigate_to_main_menu_option(sub_menu, link_name)
 end
 
-Then /^following FAQ links are displayed:$/ do |table|
+Then /^following FAQ links are displayed( on confirmation page)?:$/ do |table|
   @support_links = table
   @support_links.hashes.each do |row|
     find_link(row['support links']).should be_visible
