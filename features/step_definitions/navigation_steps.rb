@@ -208,13 +208,10 @@ Then /^the "([a-zA-Z ]+)" button is displayed on the confirmation page$/ do |but
   order_complete_page.send(button).should be_visible
 end
 
-And /^clicking "([a-zA-Z ]+)" button opens relevant page$/ do |button_name|
-  button = button_name.downcase.gsub(' ', '_') + '_button'
-  order_complete_page.send(button).click
-  case button_name
-    when 'Continue shopping'
-      home_page.should be_displayed
-    when 'Download the free app'
-      assert_support_page('How do I download the app?')
-  end
+Then /^click the "([a-zA-Z ]+)" button$/ do |button_name|
+  click_button(button_name)
+end
+
+Then /^the "([a-zA-Z ]+)" support page opens up in a new window$/ do |page_name|
+  assert_support_page(@support_links.hashes[page_name])
 end
