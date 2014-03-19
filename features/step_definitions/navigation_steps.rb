@@ -208,7 +208,7 @@ Then /^the "([a-zA-Z ]+)" button is displayed on the confirmation page$/ do |but
   order_complete_page.send(button).should be_visible
 end
 
-Then /^click the "([a-zA-Z ]+)" button$/ do |button_name|
+Then /click the "([a-zA-Z ]+)" button$/ do |button_name|
   click_button(button_name)
 end
 
