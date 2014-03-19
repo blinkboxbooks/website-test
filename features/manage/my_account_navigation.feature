@@ -107,3 +107,17 @@ Feature: Navigating through my account pages
       | How do I download books?                 |
    Given PENDING: @CWA-1311, FAQ Links on order confirmation page pointing to old url (zendesk)
    And clicking above FAQ link opens relevant support page in a new window
+
+   Scenario Outline: Additional buttons on Order complete page
+     Given I have a stored card
+     And I have selected to buy a pay for book from Home page
+     And I sign in to proceed with purchase
+     When I complete purchase by paying with saved card
+     Then the "<button_text>" button is displayed on the confirmation page
+     Given PENDING: @CWA-1311, FAQ Links on order confirmation page pointing to old url (zendesk)
+     And clicking "<button_text>" button opens relevant page
+
+   Examples:
+     | button_text           |
+     | Continue shopping     |
+     | Download the free app |

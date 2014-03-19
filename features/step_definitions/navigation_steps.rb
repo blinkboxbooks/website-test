@@ -202,3 +202,19 @@ end
 Given /^I am on reset password page$/  do
   reset_password_page.load
 end
+
+Then /^the "([a-zA-Z ]+)" button is displayed on the confirmation page$/ do |button_name|
+  button = button_name.downcase.gsub(' ', '_') + '_button'
+  order_complete_page.send(button).should be_visible
+end
+
+And /^clicking "([a-zA-Z ]+)" button opens relevant page$/ do |button_name|
+  button = button_name.downcase.gsub(' ', '_') + '_button'
+  order_complete_page.send(button).click
+  case button_name
+    when 'Continue shopping'
+      home_page.should be_displayed
+    when 'Download the free app'
+      assert_support_page('How do I download the app?')
+  end
+end
