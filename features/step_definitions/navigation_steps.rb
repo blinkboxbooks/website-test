@@ -209,7 +209,7 @@ Then /^the "([a-zA-Z ]+)" button is displayed on the confirmation page$/ do |but
 end
 
 Then /click the "([a-zA-Z ]+)" button$/ do |button_name|
-  click_button(button_name)
+  click_on_element(button_name + '_button')
 end
 
 Then /^the "([a-zA-Z ]+)" support page opens up in a new window$/ do |page_name|

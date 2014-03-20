@@ -1,9 +1,9 @@
 module PageModels
   module OrderCompleteActions
 
-    def click_button(button_name)
-      button = button_name.downcase.gsub(' ', '_') + '_button'
-      order_complete_page.send(button).click
+    def click_on_element(name)
+      element = name.downcase.gsub(' ', '_')
+      order_complete_page.send(element).click
     end
 
   end
