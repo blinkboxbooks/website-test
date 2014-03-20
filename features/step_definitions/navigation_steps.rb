@@ -203,15 +203,15 @@ Given /^I am on reset password page$/  do
   reset_password_page.load
 end
 
-Then /^the "([a-zA-Z ]+)" button is displayed on the confirmation page$/ do |button_name|
+Then /^the "(Continue shopping|Download the free app)" button is displayed on the confirmation page$/ do |button_name|
   button = button_name.downcase.gsub(' ', '_') + '_button'
   order_complete_page.send(button).should be_visible
 end
 
-Then /click the "([a-zA-Z ]+)" button$/ do |button_name|
-  click_on_element(button_name + '_button')
+Then /click the "(Continue shopping|Download the free app)" button on order complete page$/ do |button_name|
+  click_button_on_order_complete(button_name + '_button')
 end
 
-Then /^the "([a-zA-Z ]+)" support page opens up in a new window$/ do |page_name|
-  assert_support_page(@support_links.hashes[page_name])
+Then /^the "Download the free app" support page opens up in a new window$/ do
+  assert_support_page(@support_links.hashes['Download the free app'])
 end
