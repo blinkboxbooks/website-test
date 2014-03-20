@@ -54,7 +54,7 @@
 
  PRODUCTION:
   emails:
-    happypath_user: books_tester04@blinkbox.com
+    happypath_user: books_tester01@blinkbox.com
     multiple_storedcards: books_tester04@blinkbox.com
     no_expired_cards: books_tester04@blinkbox.com
     user_with_devices: books_tester04@blinkbox.com

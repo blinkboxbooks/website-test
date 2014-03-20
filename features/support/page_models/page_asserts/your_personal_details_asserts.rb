@@ -14,6 +14,7 @@ module PageModels
     end
 
     def assert_marketing_preferences(after_status)
+      your_personal_details_page.wait_until_marketing_prefs_visible
       if (after_status)
         your_personal_details_page.marketing_prefs.should be_checked
       else

@@ -47,7 +47,7 @@ Feature: New user buying book from blinkbox books
 
   @smoke
   Scenario: First time user buying a free book
-    Given I have identified a free book to buy
+    Given I have selected a free book to buy from book details
     And I register to proceed with purchase
     When I click Confirm order
     Then my payment is successful

@@ -1,4 +1,4 @@
-@ie @safair
+@ie @safari @production
 Feature: Checking home page contents
   As a Blinkbox books user
   I want view relevant content for books home page
