@@ -10,7 +10,7 @@ end
 
 Given /^I have signed in$/ do
   sign_in(@email_address)
-  assert_user_greeting_message_displayed
+  assert_user_greeting_message_displayed(test_data('name', 'happypath_user'))
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
@@ -53,7 +53,7 @@ end
 When /^I enter valid sign in details$/ do
   email = test_data('emails', 'happypath_user')
   password = test_data('passwords', 'valid_password')
-  @first_name = 'Happy-path'
+  @first_name = test_data('name', 'happypath_user')
   enter_sign_in_details(email, password)
 end
 

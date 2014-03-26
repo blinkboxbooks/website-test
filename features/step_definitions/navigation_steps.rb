@@ -205,9 +205,8 @@ Given /^I am on reset password page$/  do
   reset_password_page.load
 end
 
-Then /^the "(Continue shopping|Download the free app)" button is displayed on the confirmation page$/ do |button_name|
-  button = button_name.downcase.gsub(' ', '_') + '_button'
-  order_complete_page.send(button).should be_visible
+Then /^the "Download the free app" button is displayed on the order complete page$/ do
+  order_complete_page.download_the_free_app_button.should be_visible
 end
 
 Then /click the "(Continue shopping|Download the free app)" button on order complete page$/ do |button_name|
