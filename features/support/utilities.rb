@@ -80,7 +80,7 @@ module WebUtilities
   end
 
   def mouse_over(element)
-    page.driver.browser.action.move_to(element.native).perform
+    element.hover
   end
 
   def maximize_window
@@ -93,6 +93,7 @@ module WebUtilities
 
   def refresh_current_page
     page.driver.browser.navigate.refresh
+    current_page.wait_until_header_visible(10)
   end
 
 end
@@ -118,12 +119,18 @@ module BlinkboxWebUtilities
   end
 
   def assert_support_page(page_name)
-    page.driver.browser.window_handles.size.should be == 2
+    assert_browser_count(2)
     new_window = page.driver.browser.window_handles.last
     page.within_window new_window do
       current_url.should match Regexp.new(get_support_page_url(page_name))
       page.driver.browser.close
+      assert_browser_count(1)
     end
+  end
+
+  def assert_browser_count(count)
+    browser_windows = page.driver.browser.window_handles
+    expect(browser_windows.count).to be == count, "expected #{count} browser windows to be opened, got #{browser_windows.count}"
   end
 
 end

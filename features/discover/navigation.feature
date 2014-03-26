@@ -1,4 +1,4 @@
-@navigation
+@navigation @ie @safari
 Feature: Navigation around the website
   As a user
   I want to be able to navigate around the website
@@ -61,15 +61,15 @@ Feature: Navigation around the website
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
-    And New releases section header is New releases in the last 30 days
+    And New releases section header is New releases
     And Grid view and List view buttons displayed
     And main footer is displayed
 
   @smoke @production
-  Scenario: Navigate to Free books page
-    When I click on the Free books header tab
-    Then Free books page is displayed
-    And Free books section header is Free books
+  Scenario: Navigate to Free eBooks page
+    When I click on the Free eBooks header tab
+    Then Free eBooks page is displayed
+    And Free eBooks section header is Free eBooks
     And Grid view and List view buttons displayed
     And main footer is displayed
 
@@ -90,7 +90,7 @@ Feature: Navigation around the website
     | shop_link    |
     | Categories   |
     | Bestsellers  |
-    | Free books   |
+    | Free eBooks  |
     | Authors      |
     | New releases |
 
@@ -100,12 +100,12 @@ Feature: Navigation around the website
     Then I am redirected to the "<support_page>" page in a new window
 
   Examples:
-    | support_link | support_page |
-    | FAQs         | support home |
-    | Contact us   | Contact us   |
+    | support_link | support_page  |
+    | FAQs         | View all FAQs |
+    | Contact us   | Contact us    |
 
   @production
-    Scenario: Navigate to home page from main Menu
+  Scenario: Navigate to home page from main Menu
     Given I am on Categories page
     When I select Featured link from Shop under main Menu
     Then Home page is displayed
@@ -130,7 +130,7 @@ Feature: Navigation around the website
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
 
-  @CWA-87
+  @CWA-87 @production
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
       | words     |
@@ -139,14 +139,14 @@ Feature: Navigation around the website
     And I press browser back
     And I should see search results page for "da vinci"
 
-  @CWA-70
+  @CWA-70 @production
   Scenario: Main header tabs are not selected in search results page and footer is displayed
     When I search for "summer"
     Then search results should be displayed
     And main header tabs should not be selected
     And footer is displayed
 
-  @CWA-105
+  @CWA-105 @production
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
     Then "dan brown" should be visible in search bar
@@ -156,9 +156,9 @@ Feature: Navigation around the website
     | page         |
     | Featured     |
     | Categories   |
-    | Bestsellers |
+    | Bestsellers  |
     | New releases |
-    | Free books   |
+    | Free eBooks  |
     | Authors      |
 
   @CWA-71 @wip
@@ -168,7 +168,7 @@ Feature: Navigation around the website
     And I should see Promotions section header as All time best selling books
     And I should see 5 books being displayed
 
-  @CWA-71
+  @CWA-71 @production
   Scenario: Bestsellers page - Switching views
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
@@ -177,7 +177,7 @@ Feature: Navigation around the website
     And I select list view
     Then I should see Fiction books in list view
 
-  @CWA-71
+  @CWA-71 @production
   Scenario: Bestsellers page - Grid view not changing between tabs
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
@@ -186,7 +186,7 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in gird view
 
-  @CWA-71
+  @CWA-71 @production
   Scenario: Bestsellers page - List view not changing between tabs
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
@@ -194,6 +194,44 @@ Feature: Navigation around the website
     Then I should see Fiction books in list view
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
+
+  @pending
+  Scenario Outline: Click Top authors links from footer
+    When I click on the <author_name> link from footer
+    #TODO: When writing support code for this step, consider Parameterized URLs for authors page class under pagemodes/pages refer http://github.com/natrimeyer/site_prism
+    Then selected <author_name> author page displayed
+
+  Examples:
+    | author_name       |
+    | James Patterson   |
+    | David Walliams    |
+    | John Green        |
+    | Kate Atkinson     |
+    | Suzanne Collins   |
+    | Jodi Picoult      |
+    | Jacqueline Wilson |
+    | Lee Child         |
+    | Graeme Simsion    |
+    | Santa Montefiore  |
+
+  @pending
+  Scenario Outline: Click Top categories links from footer
+    When I click on the <category_name> link from footer
+    #TODO: When writing support code for this step, consider Parameterized URLs for authors page class under pagemodes/pages refer http://github.com/natrimeyer/site_prism
+    Then selected <category_name> category page displayed
+
+  Examples:
+    | category_name         |
+    | Biography and Memoir  |
+    | Children's Fiction    |
+    | Crime & Mystery       |
+    | Fiction & Literature  |
+    | Food & Drink          |
+    | Health & Wellbeing    |
+    | Humour                |
+    | Music, Stage & Screen |
+    | Romance               |
+    | Thriller & Suspense   |
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display

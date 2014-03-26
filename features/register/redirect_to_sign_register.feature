@@ -1,9 +1,10 @@
+@production @register
 Feature: Redirect to Sign and register page
   As a Blinkbox books application
   I need to be redirect guest users to sign in register page when they try to access secured pages
   So that unauthorised access to secured pages can be prevented.
 
-
+ @ie @safari
   Scenario Outline: Sign in register redirect for manage actions under Account menu
     Given I am not signed in
     And I am on the home page
@@ -27,6 +28,7 @@ Feature: Redirect to Sign and register page
     | pay for   |
     | free      |
 
+  @ie @safari
   Scenario Outline: Sign in register redirect for manage actions under main Menu
     Given I am not signed in
     And I am on the home page

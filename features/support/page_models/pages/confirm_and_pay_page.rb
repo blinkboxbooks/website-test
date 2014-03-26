@@ -16,6 +16,11 @@ module PageModels
     element :confirm_order, "button", :text => /Confirm Order/i
     element :cancel_order_link, "a", :text => /Cancel Order/i
     element :confirm_cancel_button, "button", :text => /Cancel Order/i
+    element :account_credit_payment, '#credit-on-account'
+    element :account_credit_amount, '.credit-amount'
+    element :amount_left_to_pay, 'div.left-to-pay-amount'
+    element :card_payment, '#confirm-pay-view'
+
   end
 
   register_model_caller_method(ConfirmAndPayPage)

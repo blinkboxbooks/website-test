@@ -69,10 +69,12 @@ And /^I press browser back$/ do
 end
 
 And /^main header tabs should not be selected$/ do
+  pending "CWA-1300 - Top header is selected on the search results page" do
   within("#main-navigation") do
     page.all('li').to_a.each do |li|
       ((li[:class]).include?("current")).should == false
-    end
+      end
+  end
   end
 end
 
@@ -165,18 +167,12 @@ Given /^I am on Categories page$/ do
   expect_page_displayed('Categories')
 end
 
-
 When /^I click on a category$/ do
   @category_name = click_on_a_category
 end
 
 Then /^Category page is displayed for the selected category$/ do
-  page.current_url.should include(@category_name)
-end
-
-Given /^I am on a book Category page$/ do
-  click_link_or_button(get_element_id_for('Categories'))
-  click_on_a_category
+  category_page.category_name.text.should include(@category_name)
 end
 
 And /^the book reader is displayed$/ do
@@ -184,22 +180,40 @@ And /^the book reader is displayed$/ do
 end
 
 And /^I am able to read the sample of corresponding book$/ do
-  pending ('CP-924,CP-1091. Currently samples are not returned for some books on QA') do
   read_sample_book
-  end
-end
-
-When /^I click \"(.*?)\" FAQ link$/ do |link_name|
-  click_link(link_name)
-end
-
-Then /^I am redirected to the "(.*?)" page in a new window$/ do |page_name|
-    assert_support_page(page_name)
 end
 
 When /^I select (.*?) link from (Your account|Shop|Support) under main Menu$/ do|link_name,sub_menu|
   current_page.header.navigate_to_main_menu_option(sub_menu, link_name)
 end
 
+Then /^following FAQ links are displayed(?: on confirmation page)?:$/ do |table|
+  @support_links = table
+  @support_links.hashes.each do |row|
+    find_link(row['support links']).should be_visible
+  end
+end
 
+And /^clicking above FAQ link opens relevant support page in a new window$/ do
+  @support_links.hashes.each do |row|
+    click_link(row['support links'])
+    assert_support_page(row['support links'])
+  end
+end
 
+Given /^I am on reset password page$/  do
+  reset_password_page.load
+end
+
+Then /^the "(Continue shopping|Download the free app)" button is displayed on the confirmation page$/ do |button_name|
+  button = button_name.downcase.gsub(' ', '_') + '_button'
+  order_complete_page.send(button).should be_visible
+end
+
+Then /click the "(Continue shopping|Download the free app)" button on order complete page$/ do |button_name|
+  click_button_on_order_complete(button_name + '_button')
+end
+
+Then /^the "Download the free app" support page opens up in a new window$/ do
+  assert_support_page(@support_links.hashes['Download the free app'])
+end

@@ -1,22 +1,43 @@
-@pending
+@manage @ie @safari
 Feature: Update the devices of the user under 'your account'
   As a singed in Blinkbox books user
   I need the ability to update my device details
   So I can keep my account up to date
 
- Background:
-   Given I am on the home page
+  Background:
+    Given I am on the home page
+    And I have a device associated with my blinkbox books account
+    And I have signed in
 
   Scenario: Successfully rename a registered device
-    Given I am returning user with a device linked to my account
-    And I have signed in
-    And I am on the Devices tab of My account page
-    When I edit my device name
-    And click Rename
-    Then my device should be renamed
+    When I navigate to devices tab of my account
+    And rename my device as "my blinkbox books device"
+    And submit changes
+    Then my device should be renamed to "my blinkbox books device"
 
-  @manual
   Scenario: Successfully delete a registered device
+    When I navigate to devices tab of my account
+    And delete my device
+    And confirm delete
+    Then I have no devices associated with my account
+
+  Scenario: Cancel rename device
+    When I navigate to devices tab of my account
+    And rename my device as "my blinkbox books device"
+    And cancel submit changes
+    Then my device is not renamed
+
+  Scenario: Cancel delete device by clicking Keep link
+    When I navigate to devices tab of my account
+    And delete my device
+    And cancel delete device by clicking Keep link
+    Then my device is not deleted
+
+  Scenario: Cancel delete device by closing pop-up
+    When I navigate to devices tab of my account
+    And delete my device
+    And cancel delete device by closing pop-up
+    Then my device is not deleted
 
   @manual
   Scenario: Trying to delete a registered device when access token has expired

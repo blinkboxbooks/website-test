@@ -1,3 +1,4 @@
+@manage @ie @safari
 Feature: Manage personal details - change password
   As a singed in Blinkbox books user
   I need the ability to update my

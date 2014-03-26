@@ -14,7 +14,7 @@ Given /^I have signed in$/ do
   assert_user_greeting_message_displayed
 end
 
-When /^(?:I sign in|sign in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
+When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
   sign_in_from_redirected_page
 end
 
@@ -80,7 +80,6 @@ end
 
 Then /^I should be signed out successfully$/ do
   assert_user_greeting_message_not_displayed
-  assert_cookie_value('access_token', nil)
 end
 
 Given /^I have multiple stored cards$/ do
@@ -206,5 +205,32 @@ Given /^I have (not opted|opted) in for blinkbox books marketing$/ do |opt_statu
     set_email_and_password(test_data('emails', 'opted_out_marketing'), test_data('passwords', 'valid_password'))
   else
     set_email_and_password(test_data('emails', 'opted_in_marketing'), test_data('passwords', 'valid_password'))
+  end
+end
+
+When /^I click on Forgotton your password\? link$/ do
+  sign_in_page.forgotten_password_link.click
+end
+
+When /^I enter email address registered with blinkbox books$/ do
+   reset_password_page.email_address.set test_data('emails', 'happypath_user')
+end
+
+And /^click send reset link button$/  do
+  reset_password_page.send_reset_link.click
+end
+
+And /^reset email confirmation message is displayed$/  do
+  reset_password_response_page.should have_email_confirm_message
+  reset_password_response_page.email_confirm_message.text.should include("We've sent you a password reset email")
+end
+
+Given /^I have £(\d+) account credit$/ do |account_credit|
+  if account_credit.to_i.eql?(5)
+    set_email_and_password(test_data('emails', 'five_account_credit'), test_data('passwords', 'valid_password'))
+  elsif account_credit.to_i.eql?(50)
+    set_email_and_password(test_data('emails', 'fifty_account_credit'), test_data('passwords', 'valid_password'))
+  else
+    raise "User with #{account_credit} account credit is not available, please add the user to test_data.yml under data folder"
   end
 end

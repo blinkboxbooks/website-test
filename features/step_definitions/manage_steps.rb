@@ -16,8 +16,7 @@ When /^I edit the first name and last name$/ do
 end
 
 And /^(?:I submit|submit) my personal details$$/ do
-  page.should have_button("Update personal details")
-  your_personal_details_page.update_personal_details.click
+  submit_personal_details
 end
 
 Then /^the first name and last name are as submitted$/ do
@@ -36,15 +35,8 @@ end
 
 Given /^I have registered as new user (without|with) a clubcard/ do |provide_clubcard|
   navigate_to_register_form
-  @email_address, @first_name, @last_name = enter_personal_details
-  @current_password = test_data("passwords", "valid_password")
-  enter_password(@current_password)
-  if provide_clubcard.include?('with')
-    @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
-    your_personal_details_page.fill_in_club_card(@valid_clubcard)
-  end
-  accept_terms_and_conditions(true)
-  submit_registration_details
+  @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
+  @current_password, @email_address, @first_name, @last_name = register_new_user(provide_clubcard, @valid_clubcard)
   assert_user_greeting_message_displayed(@first_name)
 end
 
@@ -99,43 +91,41 @@ When /^I set a different card as my default card$/ do
 end
 
 And /^the selected card is displayed as my default card$/ do
-  click_link('Featured')
-  click_link_from_my_account_dropdown('Saved cards')
+  refresh_current_page
   assert_default_card(@default_card)
 end
 
 When /^I enter valid clubcard number$/ do
-  @valid_clubcard = test_data('clubcards', 'valid_clubcard_number')
-  your_personal_details_page.fill_in_club_card(@valid_clubcard)
+  @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
+  enter_clubcard @valid_clubcard
 end
 
 Then /^clubcard added to my account$/ do
   refresh_current_page
-  expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
+  assert_clubcard @new_clubcard
 end
 
 Then /^my clubcard updated$/ do
   refresh_current_page
-  expect(your_personal_details_page.club_card.value).to eq(@valid_clubcard.to_s)
+  assert_clubcard @new_clubcard
 end
 
+When /^I enter new valid clubcard number$/ do
+  @new_clubcard = test_data('clubcards', 'valid_clubcard_number')
+  enter_clubcard @new_clubcard
+end
 When /^I attempt to update my clubcard with invalid (\d+)$/ do |clubcard_number|
-  your_personal_details_page.club_card.should be_visible
-  @club_card_before = your_personal_details_page.club_card.value
-  your_personal_details_page.fill_in_club_card(clubcard_number)
-  your_personal_details_page.update_personal_details.click
+  enter_clubcard clubcard_number
+  submit_personal_details
 end
 
 And /^my clubcard is not updated$/ do
-  click_link('Featured')
-  click_link_from_my_account_dropdown('Personal details')
-  your_personal_details_page.club_card.should be_visible
-  your_personal_details_page.club_card.value.should eql(@club_card_before)
+  refresh_current_page
+  assert_clubcard @valid_clubcard
 end
 
 And /^my email is not updated$/ do
-  click_link('Featured')
-  click_link_from_my_account_dropdown('Personal details')
+  refresh_current_page
   your_personal_details_page.email_address.value.should eql(@email_before)
 end
 
@@ -167,12 +157,12 @@ And /^my password is not updated$/ do
 end
 
 When /^I remove clubcard number$/ do
-  your_personal_details_page.fill_in_club_card("")
+  delete_clubcard
 end
 
 Then /^my clubcard field is empty$/ do
-  refresh_current_page
-  your_personal_details_page.club_card.value.should be_blank
+    refresh_current_page
+    assert_clubcard
 end
 
 Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_status|
@@ -184,3 +174,57 @@ Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_s
   assert_marketing_preferences(status)
 end
 
+And /^I have a device associated with my blinkbox books account$/ do
+  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: "device")
+  @device_count =1
+end
+
+When /^I navigate to devices tab of my account$/ do
+  click_link_from_my_account_dropdown('Devices')
+end
+
+And /^rename my device as "(.*?)"$/ do |new_name|
+  rename_device new_name
+end
+
+
+And /^submit changes$/ do
+  confirm_rename_device
+end
+
+Then /^my device should be renamed to "(.*?)"$/ do |new_name|
+  assert_device_name new_name
+end
+
+And /^cancel submit changes$/ do
+  cancel_rename_device
+end
+
+Then /^my device is not renamed$/ do
+  assert_device_name @device_name
+end
+
+And /^delete my device$/ do
+  delete_device
+end
+
+And /^confirm delete$/ do
+  confirm_delete_device
+  @device_count = @device_count -1
+end
+
+Then /^I have no devices associated with my account$/ do
+  assert_no_devices_present
+end
+
+And /^cancel delete device by clicking Keep link$/ do
+  cancel_delete_device
+end
+
+Then /^my device is not deleted$/ do
+  assert_device_count @device_count
+end
+
+And /^cancel delete device by closing pop\-up$/ do
+  close_delete_device_pop_up
+end

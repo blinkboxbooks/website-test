@@ -56,13 +56,15 @@ module PageModels
       #registration_success_page.wait_for_welcome_label || register_page.wait_for_errors_section
     end
 
-    def register_new_user
+    def register_new_user(provide_clubcard = 'without', clubcard_number = '')
       @password = test_data("passwords", "valid_password")
       @email_address, @first_name, @last_name = enter_personal_details
       enter_password(@password)
+      register_page.fill_in_club_card(clubcard_number) if provide_clubcard.eql?('with')
       accept_terms_and_conditions(true)
       submit_registration_details
       puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
+      return @password, @email_address, @first_name, @last_name
     end
 
     def sign_in(email_address=@email_address, password=@password)

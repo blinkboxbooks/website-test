@@ -4,6 +4,7 @@ module PageModels
     elements :books, "div[book=\"book\"]"
     element :buy_now_button, '[data-test="book-buy-button"]'
     element :book_details_button, '[data-test="book-details-button"]'
+    elements :book_price, 'div.price', :visible => false
 
     private
     def book_by_index(index)
@@ -11,22 +12,86 @@ module PageModels
       books[index]
     end
 
-    public
-    def click_buy_now_for_book(index)
-      wait_until_books_visible
-      page.driver.browser.action.move_to(book_by_index(index).native).perform
+    def free_book?(book)
+     book.find('[class="price"]').text.downcase.eql?("Free".downcase)
+    end
+
+    def book_has_price?(index)
+      wait_until_book_price_visible(10)
+        if !book_price[index].text.eql?("")
+          return true
+        else
+          puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
+          return false
+        end
+    end
+
+    def click_buy_now(book)
+      book.hover
       buy_now_button.click
     end
 
-    def click_book_details_for_book(index)
-      wait_until_books_visible
-      page.driver.browser.action.move_to(book_by_index(index).native).perform
-      book_details_button.click
+    def title_for_book(index)
+      wait_until_books_visible(10)
+      book_by_index(index).find('[class="title"]').text
     end
 
-    def title_for_book(index)
-      wait_until_books_visible
-      book_by_index(index).find('[class="title"]').text
+    def get_book_price(book)
+      within book do
+        if page.has_selector?(:css, '.discount')
+          book_price = book.find('[class="discount"]').text
+        else
+          book_price = book.find('[class="price"]').text
+        end
+        return book_price.gsub(/£/, '').to_f
+      end
+    end
+
+    public
+    def click_buy_now_for_book(index = random_book_index)
+      book_title = title_for_book(index)
+      puts "Selecting book with title #{book_title} to buy"
+      click_buy_now (book_by_index(index))
+      return book_title
+    end
+
+    def click_book_details_for_book(index = random_book_index)
+      book_title = title_for_book(index)
+      book_by_index(index).find('img').click
+      return book_title
+    end
+
+    def random_book_index
+      wait_until_books_visible(20)
+      index = 0
+      loop do
+        index = rand(0...books.count)
+        break if book_has_price?(index)
+      end
+      return index
+    end
+
+    def buy_now_book_price_less_than (book_price)
+      books.each do |book|
+        next if free_book?(book)
+        price = get_book_price(book)
+        if (price < book_price.to_f)
+          puts "Buying book with price  #{price}"
+          click_buy_now(book)
+          return price
+        end
+      end
+    end
+
+    def buy_now_book_price_more_than (book_price)
+      books.each do |book|
+        next if free_book? book
+        price = get_book_price book
+        if (price > book_price.to_f)
+          click_buy_now(book)
+          return price
+        end
+      end
     end
 
   end

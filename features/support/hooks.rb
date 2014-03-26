@@ -1,7 +1,11 @@
 Before("~@reset_session") do
-  set_start_cookie_accepted
+  visit('/') unless current_path == '/'
   maximize_window
   puts "Web App Version: #{app_version_info}"
+  if logged_in_session?
+    log_out_current_session
+    current_page.header.user_account_logo.click
+  end
 end
 
 After do |scenario|
@@ -14,7 +18,5 @@ After do |scenario|
       Cucumber.wants_to_quit = true
     end
   end
-  if logged_in_session?
-    log_out_current_session
-  end
+
 end

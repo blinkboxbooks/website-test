@@ -1,3 +1,4 @@
+@manage @ie @safari
 Feature: Update the Personal details of the user under 'your account'
   As a singed in Blinkbox books user
   I need the ability to update my personal details
@@ -7,7 +8,7 @@ Feature: Update the Personal details of the user under 'your account'
   Background:
     Given I am on the home page
 
-  @CWA-213 @smoke
+  @CWA-213 @smoke @production
   Scenario: Successfully update Your personal information
     Given I have signed in
     And I am on the Personal details tab
@@ -16,7 +17,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And the first name and last name are as submitted
 
-  @smoke @CWA-1014
+  @smoke @CWA-1014 @production
   Scenario: Successfully update Your marketing preferences
     Given I have signed in
     And I am on the Personal details tab
@@ -37,7 +38,8 @@ Feature: Update the Personal details of the user under 'your account'
   Scenario: Add clubcard to existing blinkbox books account
     Given I have registered as new user without a clubcard
     And I am on the Personal details tab
-    When I enter valid clubcard number
+    And my clubcard field is empty
+    When I enter new valid clubcard number
     And submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
     And clubcard added to my account
@@ -53,7 +55,7 @@ Feature: Update the Personal details of the user under 'your account'
   Scenario: Update clubcard associated with existing blinkbox books account
     Given I have registered as new user with a clubcard
     And I am on the Personal details tab
-    When I enter valid clubcard number
+    When I enter new valid clubcard number
     And submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
     And my clubcard updated
@@ -72,7 +74,7 @@ Feature: Update the Personal details of the user under 'your account'
     | 634004025023057563 |
     | 634004025023057562 |
 
-  @negative
+  @negative @production
   Scenario: Update email address using already registered email address
     Given I am returning user
     And I have signed in
@@ -81,6 +83,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "This email address is already registered to another Blinkbox books account" message is displayed
     And my email is not updated
 
+  @production
   Scenario Outline: Check marketing preferences status for returning user
     Given I have <opt_status> for blinkbox books marketing
     And I have signed in

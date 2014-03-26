@@ -20,7 +20,7 @@ Feature: Returning user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Bestsellers   | pay for   |
+    | Bestsellers    | pay for   |
     | New releases   | pay for   |
 
   Scenario Outline: Returning user paying with new payment, user cancels order
@@ -37,7 +37,7 @@ Feature: Returning user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Bestsellers   | pay for   |
+    | Bestsellers    | pay for   |
     | New releases   | pay for   |
 
   @CWA-980
@@ -56,7 +56,7 @@ Feature: Returning user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Bestsellers   | pay for   |
+    | Bestsellers    | pay for   |
     | New releases   | pay for   |
 
   Scenario Outline: Returning user has validation errors for new payment details, user cancels orders
@@ -74,7 +74,7 @@ Feature: Returning user cancels order
     | Search results | pay for   |
     | Book details   | pay for   |
     | Category       | pay for   |
-    | Bestsellers   | pay for   |
+    | Bestsellers    | pay for   |
     | New releases   | pay for   |
 
   Scenario Outline: Returning buying a free book, user cancels order
@@ -88,4 +88,4 @@ Feature: Returning user cancels order
     | page_name      | book_type |
     | Search results | free      |
     | Book details   | free      |
-    | Free books     | free      |
+    | Free eBooks    | free      |
