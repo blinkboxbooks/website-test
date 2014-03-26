@@ -16,6 +16,9 @@
     ten_account_credit: user_with_10_credit@mobcastd
     five_account_credit: user_with_5_credit@mobcastdev.com
 
+  name:
+    happypath_user: Happy-path
+
   passwords:
       valid_password: test1234
       invalid_password: password
@@ -68,6 +71,9 @@
     one_default_expired_card: one_default_expired_card@gmail.com
     multiple_cards_default_expired: default_expired_card@gmail.com
     multiple_cards_non_default_expired: nondefault_expired_card@gmail.com
+
+  name:
+    happypath_user: blinkboxbooks
 
   passwords:
     valid_password: test1234

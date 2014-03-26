@@ -53,7 +53,7 @@ end
 When /^I enter valid sign in details$/ do
   email = test_data('emails', 'happypath_user')
   password = test_data('passwords', 'valid_password')
-  @first_name = 'Happy-path'
+  @first_name = test_data('name', 'happypath_user')
   enter_sign_in_details(email, password)
 end
 
