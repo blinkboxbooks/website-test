@@ -10,7 +10,7 @@ end
 
 Given /^I have signed in$/ do
   sign_in(@email_address)
-  assert_user_greeting_message_displayed
+  assert_user_greeting_message_displayed(test_data('name', 'happypath_user'))
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
