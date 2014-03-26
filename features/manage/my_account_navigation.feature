@@ -116,7 +116,6 @@ Feature: Navigating through my account pages
      And I have selected to buy a pay for book from Home page
      And I sign in to proceed with purchase
      When I complete purchase by paying with saved card
-     Then the "Continue shopping" button is displayed on the confirmation page
      When I click the "Continue shopping" button on order complete page
      Then I am redirected to Home page
 
@@ -125,7 +124,7 @@ Feature: Navigating through my account pages
       And I have selected to buy a pay for book from Home page
       And I sign in to proceed with purchase
       When I complete purchase by paying with saved card
-      Then the "Download the free app" button is displayed on the confirmation page
+      Then the "Download the free app" button is displayed on the order complete page
       Given PENDING: @CWA-1311, FAQ Links on order confirmation page pointing to old url (zendesk)
       When I click the "Download the free app" button on order complete page
       Then the "Download the free app" support page opens up in a new window
