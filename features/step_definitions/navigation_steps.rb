@@ -205,10 +205,6 @@ Given /^I am on reset password page$/  do
   reset_password_page.load
 end
 
-Then /^the "Continue shopping" button is displayed on the order complete page$/ do
-  order_complete_page.continue_shopping_button.should be_visible
-end
-
 Then /^the "Download the free app" button is displayed on the order complete page$/ do
   order_complete_page.download_the_free_app_button.should be_visible
 end
