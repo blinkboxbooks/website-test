@@ -9,6 +9,7 @@ module PageModels
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
     element :sub_menu, 'ul.submenu'
+    element :suggestions, 'ul#suggestions'
 
     def account_nav_link(menu, link_name)
       menu.find("a", :text => "#{link_name}")

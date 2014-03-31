@@ -65,7 +65,9 @@ When(/^I type "(.*?)" into search field$/) do |search_word|
 end
 
 And (/^search suggestions should be displayed$/) do
-  (find("#suggestions")[:class]).should == 'enabled'
+  current_page.header.wait_for_suggestions
+  current_page.header.should have_suggestions
+  current_page.header.suggestions[:class].should eql('enabled')
 end
 
 Then /^search suggestions should not be displayed$/ do

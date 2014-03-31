@@ -30,7 +30,7 @@ module PageModels
 
     def book_published?(index)
       data_test = book_by_index(index).find("div.book")['data-test']
-      publish_date = DateTime.parse(element.scan(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/)[0])
+      publish_date = DateTime.parse(data_test.scan(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/)[0])
       publish_date <= DateTime.now
     end
 
