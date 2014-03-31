@@ -70,11 +70,11 @@ end
 
 And /^main header tabs should not be selected$/ do
   pending "CWA-1300 - Top header is selected on the search results page" do
-  within("#main-navigation") do
-    page.all('li').to_a.each do |li|
-      ((li[:class]).include?("current")).should == false
+    within("#main-navigation") do
+      page.all('li').to_a.each do |li|
+        ((li[:class]).include?("current")).should == false
       end
-  end
+    end
   end
 end
 
@@ -86,7 +86,7 @@ Then /^I should be on the Authors page$/ do
 end
 
 And /^footer is displayed$/ do
-  find('[data-test="bottom-footer-container"]').visible?
+  current_page.should have_footer
 end
 
 And /^(.*?) header is (.*?)$/ do |section_name, text|
@@ -185,6 +185,10 @@ end
 
 When /^I select (.*?) link from (Your account|Shop|Support) under main Menu$/ do|link_name,sub_menu|
   current_page.header.navigate_to_main_menu_option(sub_menu, link_name)
+end
+
+Then /^I am redirected to the "([a-zA-Z ]+)" support page in a new window$/ do |support_page|
+  assert_support_page(support_page)
 end
 
 Then /^following FAQ links are displayed(?: on confirmation page)?:$/ do |table|

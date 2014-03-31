@@ -8,6 +8,8 @@ module PageModels
     element :welcome, '.username'
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
+    element :sub_menu, 'ul.submenu'
+    element :suggestions, 'ul#suggestions'
 
     def account_nav_link(menu, link_name)
       menu.find("a", :text => "#{link_name}")
@@ -26,11 +28,12 @@ module PageModels
       end
     end
 
-    def navigate_to_main_menu_option(sub_menu, link_name)
-      wait_until_main_menu_visible
+    def navigate_to_main_menu_option(sub_menu_item, link_name)
+      wait_for_main_menu
       main_menu.click
       main_menu_option_dropdown.should be_visible
-      account_nav_link(main_menu_option_dropdown, sub_menu).click
+      account_nav_link(main_menu_option_dropdown, sub_menu_item).click
+      wait_for_sub_menu
       account_nav_link(main_menu_option_dropdown, link_name).click
     end
   end

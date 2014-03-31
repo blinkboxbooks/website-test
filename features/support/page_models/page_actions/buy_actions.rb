@@ -58,6 +58,7 @@ module PageModels
     end
 
     def pay_with_saved_card
+      confirm_and_pay_page.wait_for_details_view
       page.should have_text(:visible, 'Your saved card details')
       click_confirm_and_pay
     end

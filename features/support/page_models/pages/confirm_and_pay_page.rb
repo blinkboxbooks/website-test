@@ -1,6 +1,7 @@
 module PageModels
   class ConfirmAndPayPage < PageModels::BlinkboxbooksPage
     set_url_matcher /confirm/
+    element :details_view, 'div#confirm-pay-card-details-view'
     element :save_card, '#save_details'
     element :cvv , '#number_cvv'
     element :name_on_card, '#card_name'
@@ -20,6 +21,8 @@ module PageModels
     element :account_credit_amount, '.credit-amount'
     element :amount_left_to_pay, 'div.left-to-pay-amount'
     element :card_payment, '#confirm-pay-view'
+    element :card_icon_visa, 'span[title="Visa"]'
+    element :card_icon_mastercard, 'span[title="Mastercard"]'
 
   end
 

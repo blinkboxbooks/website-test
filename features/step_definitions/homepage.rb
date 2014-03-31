@@ -49,9 +49,10 @@ And /^each banner image has Find out more button$/ do
 end
 
 Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_books|
-     selector = home_page.book_in_the_news
-    if category_name.include?('Editor')
-      selector = home_page.editors_picks
+    home_page.should be_all_there
+    selector = home_page.highlights
+    if category_name.include?('eBooks')
+      selector = home_page.ebooks_on_film
     end
       within(selector) do
         @visible_books = page.all('li', :visible => true).count

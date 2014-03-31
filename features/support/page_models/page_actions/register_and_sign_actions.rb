@@ -1,6 +1,7 @@
 module PageModels
   module RegisterAndSigninActions
     def click_register_button
+      sign_in_page.wait_for_register_button
       sign_in_page.register_button.click
     end
 
