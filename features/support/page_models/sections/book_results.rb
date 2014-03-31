@@ -13,26 +13,27 @@ module PageModels
     end
 
     def free_book?(book)
-     book.find('[class="price"]').text.downcase.eql?("Free".downcase)
+      book.find('[class="price"]').text.downcase.eql?("Free".downcase)
     end
 
     def book_has_price?(index)
-      wait_until_book_price_visible(10)
-        if !book_price[index].text.eql?("")
-          return true
-        else
-          puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
-          return false
-        end
+      wait_for_book_price
+      if !book_price[index].text.eql?("")
+        return true
+      else
+        puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
+        return false
+      end
     end
 
     def click_buy_now(book)
       book.hover
+      wait_for_buy_now_button
       buy_now_button.click
     end
 
     def title_for_book(index)
-      wait_until_books_visible(10)
+      wait_for_books
       book_by_index(index).find('[class="title"]').text
     end
 
@@ -62,7 +63,7 @@ module PageModels
     end
 
     def random_book_index
-      wait_until_books_visible(20)
+      wait_for_books
       index = 0
       loop do
         index = rand(0...books.count)
@@ -96,7 +97,6 @@ module PageModels
 
   end
 end
-
 
 
 ##Unfinished
