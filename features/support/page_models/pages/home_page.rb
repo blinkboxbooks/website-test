@@ -2,8 +2,8 @@ module PageModels
   class HomePage < PageModels::BlinkboxbooksPage
     set_url "/"
     set_url_matcher Regexp.new("#{Capybara.app_host}\/?(?:#!/)?$")
-    element :book_in_the_news, '#books_news'
-    element :editors_picks, '#editors_picks'
+    element :highlights, '#books_news'
+    element :ebooks_on_film, '#editors_picks'
     sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
   end
 

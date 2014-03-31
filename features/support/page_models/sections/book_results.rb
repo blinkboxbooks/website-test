@@ -1,3 +1,5 @@
+#TODO: convert books into section: sections books. :title, :publication_date, preice, button etc becomes elements inside each book section
+
 module PageModels
   class BookResults < PageModels::BlinkboxbooksSection
 
@@ -24,6 +26,12 @@ module PageModels
           puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
           return false
         end
+    end
+
+    def book_published?(index)
+      data_test = book_by_index(index).find("div.book")['data-test']
+      publish_date = DateTime.parse(element.scan(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/)[0])
+      publish_date <= DateTime.now
     end
 
     def click_buy_now(book)
@@ -62,12 +70,18 @@ module PageModels
     end
 
     def random_book_index
-      wait_until_books_visible(20)
+      # TODO: This code is messy
+      wait_until_books_visible
       index = 0
-      loop do
+      found = false
+      (0..99).each do |i|
         index = rand(0...books.count)
-        break if book_has_price?(index)
+        if book_has_price?(index) && book_published?(index)
+          found = true
+          break
+        end
       end
+      raise 'Cannot find a purchasable book!' unless found
       return index
     end
 
