@@ -1,3 +1,5 @@
+#TODO: convert books into section: sections books. :title, :publication_date, preice, button etc becomes elements inside each book section
+
 module PageModels
   class BookResults < PageModels::BlinkboxbooksSection
 
@@ -13,26 +15,33 @@ module PageModels
     end
 
     def free_book?(book)
-     book.find('[class="price"]').text.downcase.eql?("Free".downcase)
+      book.find('[class="price"]').text.downcase.eql?("Free".downcase)
     end
 
     def book_has_price?(index)
-      wait_until_book_price_visible(10)
-        if !book_price[index].text.eql?("")
-          return true
-        else
-          puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
-          return false
-        end
+      wait_for_book_price
+      if !book_price[index].text.eql?("")
+        return true
+      else
+        puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
+        return false
+      end
+    end
+
+    def book_published?(index)
+      data_test = book_by_index(index).find("div.book")['data-test']
+      publish_date = DateTime.parse(data_test.scan(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/)[0])
+      publish_date <= DateTime.now
     end
 
     def click_buy_now(book)
       book.hover
+      wait_for_buy_now_button
       buy_now_button.click
     end
 
     def title_for_book(index)
-      wait_until_books_visible(10)
+      wait_for_books
       book_by_index(index).find('[class="title"]').text
     end
 
@@ -62,12 +71,18 @@ module PageModels
     end
 
     def random_book_index
-      wait_until_books_visible(20)
+      # TODO: This code is messy
+      wait_for_books
       index = 0
-      loop do
+      found = false
+      (0..99).each do |i|
         index = rand(0...books.count)
-        break if book_has_price?(index)
+        if book_has_price?(index) && book_published?(index)
+          found = true
+          break
+        end
       end
+      raise 'Cannot find a purchasable book!' unless found
       return index
     end
 
@@ -96,7 +111,6 @@ module PageModels
 
   end
 end
-
 
 
 ##Unfinished
@@ -149,8 +163,6 @@ end
 #  end
 #
 #  class BookItem < PageModels::BlinkboxbooksSection
-#    #TODO: add internal elements such as Book Details and Buy Now buttons, price, title, index
-
 #  end
 #
 #  def book_items

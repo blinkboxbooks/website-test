@@ -41,6 +41,7 @@ module PageModels
     end
 
     def select_book_to_buy_from_home_page
+      home_page.wait_for_book_results_sections
       home_page.book_results_sections.first.click_buy_now_for_book
     end
 
@@ -83,7 +84,7 @@ module PageModels
 
     def select_best_selling_book_to_buy_from_book_details
       bestsellers_page.load
-      bestsellers_page.wait_until_book_results_sections_visible(10)
+      bestsellers_page.wait_for_book_results_sections
       book_title = bestsellers_page.book_results_sections.first.click_book_details_for_book
       book_details_page.buy_now.click
       return book_title
