@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="Register a new Blinkbox books user" skipped="0" tests="2" time="6.791404">
+<testcase classname="Register a new Blinkbox books user" name="Navigate to register page" time="1.062586">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Register a new Blinkbox books user" name="Happy path-register user" time="5.728818">
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[Load time of RegisterPage: 0.033541 sec
+Load time of RegisterPage: 0.13495 sec
+Load time of RegistrationSuccessPage: 0.660455 sec
+]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>

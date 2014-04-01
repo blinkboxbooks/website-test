@@ -1,0 +1,3 @@
+user status: ["logged in", "guest"]
+user type: [returning, new]
+payment method: ['new card', 'saved card', 'credit']

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectRootManager" version="2" project-jdk-name="RVM: ruby-1.9.3-p448" project-jdk-type="RUBY_SDK" />
+  <component name="RegexUtilComponent" text="Account-Check page is displayed" flags="2" regex="^(?:the )?([-\&amp;\w\s]*) page is displayed$" mode="0" />
+</project>
+
