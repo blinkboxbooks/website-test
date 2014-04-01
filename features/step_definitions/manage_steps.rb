@@ -130,6 +130,7 @@ And /^my email is not updated$/ do
 end
 
 When /^I attempt to update email address with already registered email address$/ do
+  wait_until { your_personal_details_page.email_address.value != '' }
   @email_before = your_personal_details_page.email_address.value
   your_personal_details_page.email_address.set(test_data('emails', 'happypath_user'))
   your_personal_details_page.update_personal_details.click
