@@ -41,6 +41,7 @@ module PageModels
     end
 
     def select_book_to_buy_from_home_page
+      home_page.wait_for_book_results_sections
       home_page.book_results_sections.first.click_buy_now_for_book
     end
 

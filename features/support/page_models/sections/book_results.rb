@@ -15,17 +15,17 @@ module PageModels
     end
 
     def free_book?(book)
-     book.find('[class="price"]').text.downcase.eql?("Free".downcase)
+      book.find('[class="price"]').text.downcase.eql?("Free".downcase)
     end
 
     def book_has_price?(index)
-      wait_until_book_price_visible(10)
-        if !book_price[index].text.eql?("")
-          return true
-        else
-          puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
-          return false
-        end
+      wait_for_book_price
+      if !book_price[index].text.eql?("")
+        return true
+      else
+        puts "book #{books[index].text} has no price information displayed, selecting another book. Check with services."
+        return false
+      end
     end
 
     def book_published?(index)
@@ -36,11 +36,12 @@ module PageModels
 
     def click_buy_now(book)
       book.hover
+      wait_for_buy_now_button
       buy_now_button.click
     end
 
     def title_for_book(index)
-      wait_until_books_visible(10)
+      wait_for_books
       book_by_index(index).find('[class="title"]').text
     end
 
@@ -71,7 +72,7 @@ module PageModels
 
     def random_book_index
       # TODO: This code is messy
-      wait_until_books_visible
+      wait_for_books
       index = 0
       found = false
       (0..99).each do |i|
@@ -110,7 +111,6 @@ module PageModels
 
   end
 end
-
 
 
 ##Unfinished
@@ -163,8 +163,6 @@ end
 #  end
 #
 #  class BookItem < PageModels::BlinkboxbooksSection
-#    #TODO: add internal elements such as Book Details and Buy Now buttons, price, title, index
-
 #  end
 #
 #  def book_items
