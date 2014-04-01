@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="New user buying book from blinkbox books" skipped="0" tests="2" time="27.931120">
+<testcase classname="New user buying book from blinkbox books" name="First time user buying book and saving payment details (outline example : | VISA |)" time="17.118967">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="New user buying book from blinkbox books" name="First time user buying book and not saving payment details (outline example : | VISA |)" time="10.812153">
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[Load time of RegisterPage: 0.383288 sec
+Load time of OrderCompletePage: 7.237348 sec
+Load time of OrderCompletePage: 0.011726 sec
+Load time of RegisterPage: 0.154256 sec
+Load time of OrderCompletePage: 2.748363 sec
+Load time of OrderCompletePage: 0.015503 sec
+]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>

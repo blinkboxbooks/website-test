@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="Navigation around the website" skipped="0" tests="13" time="47.855005">
+<testcase classname="Navigation around the website" name="Clicking on the website logo" time="0.187821">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Navigating to the help site from the footer" time="2.042808">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Navigating to the blinkbox movies site from the footer" time="2.034954">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Navigating to the blinkbox music site from the footer" time="2.569460">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Navigating with the categories link" time="2.824878">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Clicking browser back should load previous search results pages if any" time="6.094329">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Main header tabs are not selected in search results page and footer is displayed" time="4.951323">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="View more button changes to View less under a Promotable category on homepage" time="4.212476">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="View less button changes to View more under a Promotable category on homepage" time="3.985968">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Best sellers page displayed" time="3.992720">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Best sellers page - Switching views" time="4.137665">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Best sellers page - Grid view not changing between tabs" time="4.221363">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigation around the website" name="Best sellers page - List view not changing between tabs" time="6.599240">
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>

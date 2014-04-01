@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="Checking home page contents" skipped="0" tests="3" time="10.788792">
+<testcase classname="Checking home page contents" name="Main footer contents" time="0.069208">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Checking home page contents" name="Main footer content for 'Connect With us on'" time="5.121872">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Checking home page contents" name="Homepage hero banner display" time="5.597712">
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>

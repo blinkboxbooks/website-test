@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="Verify that search results match search criteria" skipped="0" tests="1" time="5.492812">
+<testcase classname="Verify that search results match search criteria" name="Search results displayed" time="5.492812">
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[Load time of SearchResultsPage: 0.00561 sec
+]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>

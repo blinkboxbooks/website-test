@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="Navigating through my account pages" skipped="0" tests="4" time="17.612324">
+<testcase classname="Navigating through my account pages" name="Navigate to Order &amp; Payment history" time="2.523326">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigating through my account pages" name="Navigate to Your personal details" time="5.024391">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigating through my account pages" name="Navigate to Your payments" time="5.111510">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Navigating through my account pages" name="Navigate to Your devices" time="4.953097">
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[Load time of YourOrderAndPaymentHistoryPage: 0.041805 sec
+Load time of YourPersonalDetailsPage: 0.162138 sec
+Load time of YourPaymentsPage: 0.086102 sec
+Load time of YourDevicesPage: 0.067321 sec
+]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>

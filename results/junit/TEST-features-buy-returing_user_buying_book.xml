@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="Returning buying book from Blinkbox Books" skipped="0" tests="2" time="89.558681">
+<testcase classname="Returning buying book from Blinkbox Books" name="Returning logged in user buying book with saved payment card" time="32.627084">
+  <system-out/>
+  <system-err/>
+</testcase>
+<testcase classname="Returning buying book from Blinkbox Books" name="Returning user not logged in buying book with saved payment card" time="56.931597">
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[Load time of RegisterPage: 0.012801 sec
+Load time of RegistrationSuccessPage: 0.555352 sec
+Load time of OrderCompletePage: 6.198887 sec
+Load time of OrderCompletePage: 3.004992 sec
+Load time of OrderCompletePage: 0.008924 sec
+Load time of RegisterPage: 0.301228 sec
+Load time of RegistrationSuccessPage: 0.596853 sec
+Load time of OrderCompletePage: 6.188903 sec
+Load time of OrderCompletePage: 3.023221 sec
+Load time of OrderCompletePage: 0.008087 sec
+]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>
