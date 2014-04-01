@@ -37,7 +37,6 @@ module PageModels
     def click_buy_now(book)
       book.hover
       wait_for_buy_now_button
-      wait_until_buy_now_button_visible
       buy_now_button.click
     end
 
