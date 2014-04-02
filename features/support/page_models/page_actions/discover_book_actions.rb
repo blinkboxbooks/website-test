@@ -32,7 +32,11 @@ module PageModels
     def user_navigates_to_book_details(book_type)
       search_word = return_search_word_for_book_type(book_type)
       search_blinkbox_books(search_word)
-      search_results_page.book_results_sections.first.click_book_details_for_book
+      if book_type == "free"
+        search_results_page.book_results_sections.first.click_details_free_book
+      else
+        search_results_page.book_results_sections.first.click_details_random_book
+      end
     end
 
     def buy_sample_added_book
@@ -42,13 +46,13 @@ module PageModels
 
     def select_book_to_buy_from_home_page
       home_page.wait_for_book_results_sections
-      home_page.book_results_sections.first.click_buy_now_for_book
+      home_page.book_results_sections.first.click_buy_now_random_book
     end
 
     def select_book_to_buy_from_category_page
       current_page.header.main_page_navigation('Categories')
       click_on_a_category
-      category_page.book_results_sections.first.click_buy_now_for_book
+      category_page.book_results_sections.first.click_buy_now_random_book
     end
 
     def select_book_to_buy_from_book_detials_page (book_type = 'pay for')
@@ -57,27 +61,35 @@ module PageModels
       return book_title
     end
 
-    def select_book_to_buy_from (page_name)
+    def select_book_to_buy_from (page_name, book_type)
       book_page = page_model page_name
       book_page.header.main_page_navigation page_name
       expect_page_displayed page_name
       book_page.wait_until_book_results_sections_visible(10)
-      book_page.book_results_sections.first.click_buy_now_for_book
+      if book_type == "free"
+        book_page.book_results_sections.first.click_buy_now_free_book
+      else
+        book_page.book_results_sections.first.click_buy_now_random_book
+      end
     end
 
     def select_book_to_buy_from_search_results_page (book_type = 'pay for')
       search_word = return_search_word_for_book_type(book_type)
       search_blinkbox_books(search_word)
-      search_results_page.book_results_sections.first.click_buy_now_for_book
+      if book_type == 'pay for'
+        search_results_page.book_results_sections.first.click_buy_now_random_book
+      else
+        search_results_page.book_results_sections.first.click_buy_now_free_book
+      end
     end
 
     def buy_book_by_price(condition, price)
       search_word = return_search_word_for_book_type('pay for')
       search_blinkbox_books(search_word)
       if condition.eql?('more')
-        book_price = search_results_page.book_results_sections.first.buy_now_book_price_more_than price
+        book_price = search_results_page.book_results_sections.first.random_book_price_more_than(price)
       elsif condition.eql?('less')
-        book_price = search_results_page.book_results_sections.first.buy_now_book_price_less_than price
+        book_price = search_results_page.book_results_sections.first.random_book_price_less_than(price)
       end
       return book_price
     end
@@ -85,14 +97,14 @@ module PageModels
     def select_best_selling_book_to_buy_from_book_details
       bestsellers_page.load
       bestsellers_page.wait_for_book_results_sections
-      book_title = bestsellers_page.book_results_sections.first.click_book_details_for_book
+      book_title = bestsellers_page.book_results_sections.first.click_details_random_book
       book_details_page.buy_now.click
       return book_title
     end
 
     def select_free_book_to_buy_from_book_details
       search_blinkbox_books('free')
-      search_results_page.book_results_sections.first.click_book_details_for_book
+      search_results_page.book_results_sections.first.click_details_random_book
       book_title = book_details_page.buy_now.click
       return book_title
     end
