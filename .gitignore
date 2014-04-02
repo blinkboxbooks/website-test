@@ -1,0 +1,7 @@
+.idea/
+results/
+
+# OSX-specific
+.DS_Store
+
+
