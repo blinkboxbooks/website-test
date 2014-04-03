@@ -7,9 +7,9 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
 require 'site_prism'
+require 'active_support'
 require 'active_support/core_ext'
 require 'rspec/expectations'
-require 'active_support'
 require 'benchmark'
 require 'yaml'
 
@@ -76,7 +76,7 @@ initialise_test_data
 # ======= load common helpers =======
 
 puts "Loading custom cucumber formatters..."
-require_and_log Dir[File.join(support_dir, 'formatters', '*.rb')]
+require_and_log Dir[File.join(support_dir, 'formatter', '*.rb')]
 
 puts "Loading support files..."
 require_and_log Dir[File.join(support_dir, 'core_ruby_overrides.rb')]
