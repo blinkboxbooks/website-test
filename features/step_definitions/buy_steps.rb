@@ -128,7 +128,7 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
     isbn = test_data('library_isbns', 'free_book')
   end
   search_blinkbox_books isbn
-  search_results_page.book_results_sections.first.book_by_index(0).click_buy_now
+  search_results_page.book_results_sections.first.book_by_index(0).click_details_button
   book_details_page.wait_for_buy_now
   book_details_page.buy_now.click
 end
