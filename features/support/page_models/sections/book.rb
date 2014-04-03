@@ -28,13 +28,13 @@ module PageModels
     def price
       if has_discount_price_element?
         book_price = discount_price_element.text
-      elsif has_price?
+      elsif has_price_element?
         book_price = price_element.text
       else
         book_price = 0
         puts "Book '#{title.text}' has no price information displayed!"
       end
-      return book_price
+      return book_price.gsub(/£/, '').to_f
     end
 
     def isbn
@@ -61,18 +61,6 @@ module PageModels
       wait_for_book_details_button
       wait_until_book_details_button_visible
       book_details_button.click
-    end
-
-    def get_book_price
-      if has_discount_price_element?
-        book_price = discount_price_element.text
-      elsif has_price?
-        book_price = price_element.text
-      else
-        book_price = 0
-        puts "Book '#{title}' has no price information displayed!"
-      end
-      return book_price.gsub(/£/, '').to_f
     end
   end
 end

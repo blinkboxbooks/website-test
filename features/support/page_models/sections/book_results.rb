@@ -5,7 +5,7 @@ module PageModels
 
     def purchasable_books
       wait_for_books
-      purchasable = books.select { |book| book.published? && !book.free? && book.get_book_price > 0.0 }
+      purchasable = books.select { |book| book.published? && !book.free? && book.price > 0.0 }
       return purchasable
     end
 
