@@ -87,9 +87,9 @@ module PageModels
       search_word = return_search_word_for_book_type('pay for')
       search_blinkbox_books(search_word)
       if condition.eql?('more')
-        book_price = search_results_page.book_results_sections.first.random_book_price_more_than(price)
+        book_price = select_random_book_more_expensive_than(price)
       elsif condition.eql?('less')
-        book_price = search_results_page.book_results_sections.first.random_book_price_less_than(price)
+        book_price = select_random_book_cheaper_than(price)
       end
       return book_price
     end
