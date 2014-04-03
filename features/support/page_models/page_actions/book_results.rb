@@ -1,8 +1,12 @@
 module PageModels
   module BookResultsActions
 
+    def books_section
+      search_results_page.book_results_sections.first
+    end
+    
     def select_random_book_cheaper_than(price)
-      search_results_page.book_results_sections.first.purchasable_books.each do |book|
+      books_section.purchasable_books.each do |book|
         if book.has_price? && book.price.to_f < price.to_f
           book_price = book.price
           book.click_buy_now
@@ -12,7 +16,7 @@ module PageModels
     end
 
     def select_random_book_more_expensive_than(price)
-      search_results_page.book_results_sections.first.purchasable_books.each do |book|
+      book_results.purchasable_books.each do |book|
         if book.has_price? && book.price.to_f > price.to_f
           book_price = book.price
           book.click_buy_now
