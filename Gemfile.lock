@@ -18,7 +18,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    childprocess (0.5.1)
+    childprocess (0.5.2)
       ffi (~> 1.0, >= 1.0.11)
     colorize (0.7.0)
     columnize (0.3.6)
@@ -88,7 +88,7 @@ GEM
       json
       retriable
       selenium-webdriver
-    selenium-webdriver (2.40.0)
+    selenium-webdriver (2.41.0)
       childprocess (>= 0.5.0)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
