@@ -2,7 +2,8 @@ module PageModels
   module BookResultsActions
 
     def books_section
-      search_results_page.book_results_sections.first
+      current_page.wait_for_book_results_sections
+      current_page.book_results_sections.first
     end
     
     def select_random_book_cheaper_than(price)

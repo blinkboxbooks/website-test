@@ -24,19 +24,31 @@ module PageModels
     end
 
     def click_buy_now_random_book
-      random_purchasable_book.click_buy_now
+      book = random_purchasable_book
+      title = book.title.text
+      book.click_buy_now
+      return title
     end
 
     def click_buy_now_free_book
-      random_free_book.click_buy_now
+      book = random_free_book
+      title = book.title.text
+      book.click_buy_now
+      return title
     end
 
     def click_details_random_book
-      random_purchasable_book.click_view_details
+      book = random_purchasable_book
+      title = book.title.text
+      book.click_view_details
+      return title
     end
 
     def click_details_free_book
-      random_free_book.click_view_details
+      book = random_purchasable_book
+      title = book.title.text
+      book.click_view_details
+      return title
     end
 
   end
