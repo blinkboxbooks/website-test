@@ -1,15 +1,21 @@
-# A sample Gemfile
 source 'https://rubygems.org'
+source "http://gems.mobcastdev.com"
 ruby '2.0.0'
-gem 'capybara', '~> 2.2.1'
-gem 'selenium-webdriver', '~> 2.39'
-gem 'cucumber'
-gem 'rspec'
-gem 'activesupport'
-gem 'i18n'
-gem 'site_prism'
-gem 'selendroid', '~>0.4.0'
-gem 'cuporter'
+
+group :automation_libs do
+  gem 'cucumber'
+  gem 'rspec'
+  gem 'capybara', '~> 2.2.1'
+  gem 'selenium-webdriver', '~> 2.39'
+  gem 'selendroid', '~>0.4.0'
+  gem 'site_prism'
+end
+
+group :misc_libs do
+  gem 'activesupport'
+  gem "cucumber-helpers"
+  gem 'i18n'
+end
 
 group :ci do
   gem "parallel_tests"
@@ -18,6 +24,12 @@ end
 group :api do
   gem 'multi_json'
   gem 'httpclient'
+  gem "cucumber-rest"
+end
+
+group :reporting do
+  gem 'cuporter'
+  gem "cucumber-blinkbox", "~> 0.2.0"
 end
 
 group :debug do
