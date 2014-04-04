@@ -101,8 +101,7 @@ module PageModels
 
     def select_free_book_to_buy_from_book_details
       search_blinkbox_books('free')
-      books_section.click_details_random_book
-      book_title = book_details_page.buy_now.click
+      book_title = books_section.click_buy_now_free_book
       return book_title
     end
 
