@@ -92,8 +92,8 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   end
 end
 
-Given /^I have selected to buy a (?:pay for|free) book from (Bestsellers|New releases|Free eBooks) page$/ do |page_name|
-  @book_title = select_book_to_buy_from page_name
+Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks) page$/ do |book_type, page_name|
+  @book_title = select_book_to_buy_from page_name, book_type
 end
 
 Given /^I have selected to buy a pay for book from Home page$/ do
@@ -128,7 +128,8 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
     isbn = test_data('library_isbns', 'free_book')
   end
   search_blinkbox_books isbn
-  search_results_page.book_results_sections.first.click_book_details_for_book(0)
+  books_section.books[0].click_view_details
+  book_details_page.wait_for_buy_now
   book_details_page.buy_now.click
 end
 
@@ -143,7 +144,7 @@ When /^I select above (pay for|free) book to add sample$/ do |book_type|
     isbn = test_data('library_isbns', 'free_sample')
   end
   search_blinkbox_books isbn
-  search_results_page.book_results_sections.first.click_book_details_for_book(0)
+  books_section.books[0].click_view_details
   click_read_offline
 end
 
