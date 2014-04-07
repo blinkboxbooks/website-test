@@ -17,7 +17,7 @@ module PageModels
     end
 
     def select_random_book_more_expensive_than(price)
-      book_results.purchasable_books.each do |book|
+      books_section.purchasable_books.each do |book|
         if book.has_price? && book.price.to_f > price.to_f
           book_price = book.price
           book.click_buy_now
