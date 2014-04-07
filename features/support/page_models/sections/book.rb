@@ -12,7 +12,7 @@ module PageModels
     element :isbn_element, 'div.details'
 
     def free?
-      if has_price_element
+      if has_price_element?
         price_element.text.downcase.eql?("Free".downcase)
       else
         return false
