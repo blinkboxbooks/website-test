@@ -5,22 +5,24 @@ module PageModels
 
     def purchasable_books
       wait_for_books
-      purchasable = books.select { |book| book.published? && !book.free? && book.price > 0.0 }
-      return purchasable
+      books.select { |book| book.purchasable? }
     end
 
     def free_books
       wait_for_books
-      free = books.select { |book| book.free? }
-      return free
+      books.select { |book| book.free? }
     end
 
     def random_purchasable_book
-      purchasable_books.sample
+      sample = purchasable_books.sample
+      raise "There are no purchasable books available on the current page" if sample.nil?
+      sample
     end
 
     def random_free_book
-      free_books.sample
+      sample = free_books.sample
+      raise "There are no free books available on the current page" if sample.nil?
+      sample
     end
 
     def click_buy_now_random_book
