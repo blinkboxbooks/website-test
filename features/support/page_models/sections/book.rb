@@ -2,7 +2,7 @@ module PageModels
   class Book < PageModels::BlinkboxbooksSection
 
     element :layer, 'div.book'
-    element :title, 'h2.title'
+    element :title_element, 'h2.title'
     element :author, 'div.author'
     element :price_element, 'span[data-test="book-price"]'
     element :discount_price_element, 'span[data-test="book-price"] span.discount'
@@ -12,7 +12,11 @@ module PageModels
     element :isbn_element, 'div.details'
 
     def free?
-      price_element.text.downcase.eql?("Free".downcase)
+      if has_price_element
+        price_element.text.downcase.eql?("Free".downcase)
+      else
+        return false
+      end
     end
 
     def has_price?
@@ -39,6 +43,11 @@ module PageModels
 
     def isbn
       isbn_element.scan(/[0-9]+/)[0]
+    end
+
+    def title
+      wait_for_title_element
+      title_element.text
     end
 
     def publication_date
