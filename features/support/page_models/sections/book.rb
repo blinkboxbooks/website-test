@@ -12,21 +12,12 @@ module PageModels
     element :isbn_element, 'div.details'
 
     def free?
-      if has_price_element?
-        price_element.text.downcase.eql?("Free".downcase)
-      else
-        return false
-      end
+      wait_for_price_element
+      price_element.text.downcase.eql?("Free".downcase)
     end
 
-    def has_price?
-      wait_for_price_element
-      if price_element.text.include?("£")
-        true
-      else
-        puts "Book '#{title.text}' has no price information displayed!"
-        false
-      end
+    def purchasable?
+      published? && !free? && price > 0.0
     end
 
     def price
@@ -38,7 +29,7 @@ module PageModels
         book_price = 0
         puts "Book '#{title.text}' has no price information displayed!"
       end
-      return book_price.gsub(/£/, '').to_f
+      book_price.gsub(/£/, '').to_f
     end
 
     def isbn
