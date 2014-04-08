@@ -66,7 +66,6 @@ end
 
 And (/^search suggestions should be displayed$/) do
   current_page.header.wait_for_suggestions
-  current_page.header.wait_until_suggestions_visible
   current_page.header.should have_suggestions
   current_page.header.suggestions[:class].should eql('enabled')
 end
