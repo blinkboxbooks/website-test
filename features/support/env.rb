@@ -119,17 +119,22 @@ caps.native_events=false
 # grid setup
 if TEST_CONFIG['GRID'] =~ /^true|on$/i
   # target platform
-  TEST_CONFIG['PLATFORM'] ||= 'MAC'
-  caps.platform = case TEST_CONFIG['PLATFORM'].upcase
-                    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
-                      TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
-                      TEST_CONFIG['PLATFORM'].upcase.to_sym
-                    when 'ANDROID'
-                      TEST_CONFIG['GRID_HUB_IP'] ||= 'localhost'
-                      TEST_CONFIG['PLATFORM'].downcase.to_sym
-                    else
-                      raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
-                  end
+  TEST_CONFIG['PLATFORM'] ||= 'FIRST_AVAILABLE'
+  case TEST_CONFIG['PLATFORM'].upcase
+    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
+      TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
+      caps.platform = TEST_CONFIG['PLATFORM'].upcase.to_sym
+    when 'ANDROID'
+      TEST_CONFIG['GRID_HUB_IP'] ||= 'localhost'
+      caps.platform = TEST_CONFIG['PLATFORM'].downcase.to_sym
+    when 'FIRST_AVAILABLE'
+      TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
+    #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
+    #which matches other specified capabilities. NB nodes are ordered by the order of registration with the hub.
+    else
+      raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
+  end
+
   # register the remote driver
   grid_url = "http://#{TEST_CONFIG['GRID_HUB_IP']}:4444/wd/hub"
   Capybara.register_driver :selenium do |app|
