@@ -125,7 +125,7 @@ And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
   end
 end
 
-Then /^I should see (Fiction|Non\-Fiction) books in (gird|list) view$/ do |book_type, view|
+Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
   case view
     when 'grid'
       (find('.grid-view')[:class]).should include('active')
@@ -219,4 +219,12 @@ end
 
 Then /^the "Download the free app" support page opens up in a new window$/ do
   assert_support_page(@support_links.hashes['Download the free app'])
+end
+
+Then /^selected (.+) author page displayed$/ do |author_name|
+  assert_author_page_displayed(author_name)
+end
+
+Then /^selected (.+) category page displayed$/ do |category_name|
+  assert_category_page_displayed(category_name)
 end
