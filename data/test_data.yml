@@ -55,6 +55,9 @@
  NODEJS-INTERNAL:
    <<: *QA
 
+ LOCALHOST:
+   <<: *QA
+
  PRODUCTION:
   emails:
     happypath_user: books_tester01@blinkbox.com
