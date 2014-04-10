@@ -61,17 +61,17 @@ And(/^(\d+) Bestselling books should be returned$/) do |n|
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
-  fill_in('term', :with => "#{search_word}")
+  current_page.search_form.fill_in 'term', :with => search_word
 end
 
-And (/^search suggestions should be displayed$/) do
-  current_page.header.wait_until_suggestions_visible
-  current_page.header.suggestions[:class].should eql('enabled')
+And /^search suggestions should be displayed$/ do
+  current_page.search_form.wait_for_suggestions
+  current_page.search_form.wait_until_suggestions_visible
+  current_page.search_form.should have_suggestions
 end
 
 Then /^search suggestions should not be displayed$/ do
-  page.should_not have_css("#suggestions")
-
+  current_page.search_form.should have_no_suggestions
 end
 
 And /^I should see at least (\d+) suggestions$/ do |number_of_suggestions|
@@ -86,13 +86,8 @@ And /^the last suggestion should be equal to "(.*?)"$/ do |search_word|
   assert_last_suggestion search_word
 end
 
-
-And  /^first suggestions should contain complete word "(.*?)"$/ do |search_word|
-  pending
-end
-
 And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
-  pending
+  current_page.search_form.suggestions.each { |suggestion| suggestion.text.should include(search_word) }
 end
 
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|

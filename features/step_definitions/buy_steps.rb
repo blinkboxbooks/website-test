@@ -166,6 +166,20 @@ And(/^submit the payment details with empty credit card form$/) do
   confirm_and_pay_page.confirm_and_pay.click
 end
 
+When /^submit the payment details with empty (Address line one|Town or city|Postcode)$/ do |empty_field|
+  enter_billing_details_with_missing(empty_field)
+  confirm_and_pay_page.wait_for_confirm_and_pay
+  confirm_and_pay_page.confirm_and_pay.click
+end
+
+And /^submit the payment details with numeric input only for (Address line one|Address line two|Town or city|Postcode)$/ do |field|
+  enter_invalid_billing_details(field, 'numeric')
+end
+
+And /^submit the payment details with malformed post code ([\d A-Z]+)$/ do |value|
+  enter_invalid_billing_details('post code', value)
+end
+
 And(/^following validation error messages are displayed for credit card details:$/) do |table|
   table.hashes.each do |row|
     page.should have_content row['Error message']

@@ -100,6 +100,7 @@ module PageModels
     end
 
     def sign_in_from_redirected_page
+      assert_page("sign in page")
       sign_in_page.sign_in_form.submit(@email_address, @password)
     end
   end
