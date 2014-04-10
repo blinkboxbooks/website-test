@@ -17,6 +17,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-angular (0.0.4)
+      capybara
     childprocess (0.5.2)
       ffi (~> 1.0, >= 1.0.11)
     colorize (0.7.1)
@@ -107,6 +109,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   capybara (~> 2.2.1)
+  capybara-angular
   cucumber
   cucumber-blinkbox (~> 0.2.0)
   cucumber-helpers

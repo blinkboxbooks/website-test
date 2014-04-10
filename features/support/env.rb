@@ -6,6 +6,7 @@ require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
+require 'capybara/angular/dsl'
 require 'site_prism'
 require 'active_support'
 require 'active_support/core_ext'
@@ -94,7 +95,7 @@ Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
 # ======== set up browser driver =======
 # Capybara browser driver settings
 Capybara.default_driver = :selenium
-Capybara.default_wait_time = 10
+Capybara.default_wait_time = 15
 
 # target browser
 TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
