@@ -70,6 +70,12 @@ And /^I am redirected to (.*?) page$/ do |page_name|
   expect_page_displayed(page_name)
 end
 
+And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
+  pending("CWA-971 - Not the right page after cancelling the order") do
+    expect_page_displayed(page_name)
+  end
+end
+
 Given /^I am on my account page$/ do
   click_link_from_my_account_dropdown('Personal details')
 end
