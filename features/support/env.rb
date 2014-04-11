@@ -6,6 +6,7 @@ require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
+require 'capybara/angular'
 require 'site_prism'
 require 'active_support'
 require 'active_support/core_ext'
@@ -13,6 +14,7 @@ require 'rspec/expectations'
 require 'benchmark'
 require 'yaml'
 
+World(Capybara::Angular::DSL)
 World(RSpec::Matchers)
 
 # ======= Setup Test Config =======

@@ -1,5 +1,6 @@
 .idea/
 results/
+*.iml
 
 # OSX-specific
 .DS_Store
