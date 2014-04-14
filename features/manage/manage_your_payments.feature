@@ -9,6 +9,7 @@ Feature: Update the Payment details of the user under 'your account'
 
   @ie @safari
   @smoke
+  @unstable
   Scenario: Delete a stored card
     Given I have a stored card
     And I have signed in
