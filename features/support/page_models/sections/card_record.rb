@@ -6,5 +6,9 @@ module PageModels
     def card_holder_name
       holder_name_element.text
     end
+
+    def delete
+      delete_card_link.click
+    end
   end
 end
