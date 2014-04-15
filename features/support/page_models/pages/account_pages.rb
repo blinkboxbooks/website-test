@@ -34,7 +34,7 @@ module PageModels
   class YourPaymentsPage < PageModels::YourAccountPage
     set_url "/#!/account/your-payments"
     set_url_matcher /account\/your-payments/
-    element :saved_cards_list, '.payment_list li '
+    sections :saved_cards_list, SavedCardsList, '.payment_list li'
     element :saved_cards_container, '.payment_list'
     element :card_holder_name, '.payment_holder'
     element :card_details, '.payment_card_details'
@@ -42,6 +42,7 @@ module PageModels
     element :default_card, '.payment_list li.ng-scope.payment_alt_row'
     element :card_name, 'span.payment_name'
     element :default_card_radio_button, 'div.payment_default label'
+    element :delete_card_popup, '#delete-card'
   end
 
   class YourDevicesPage < PageModels::YourAccountPage
