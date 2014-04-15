@@ -90,6 +90,10 @@ And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
   current_page.search_form.suggestions.each { |suggestion| suggestion.text.should include(search_word) }
 end
 
+And /^first suggestions should contain complete word "(.+)"$/ do |search_word|
+  current_page.search_form.suggestions[0].text.should include(search_word)
+end
+
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
  assert_auto_corrected_word [corrected_word]
 end

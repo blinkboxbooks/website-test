@@ -130,8 +130,10 @@ module AssertSearch
   end
 
   def assert_auto_corrected_word corrected_word
+    current_page.search_form.suggestions.should_not be_empty
     current_page.search_form.suggestions.each do |suggestion|
       corrected_word.each do |word|
+        puts suggestion.text
         suggestion.text.should include(word)
       end
     end

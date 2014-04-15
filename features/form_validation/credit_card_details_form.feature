@@ -1,4 +1,3 @@
-@pending
 Feature: Credit card details form validation
   In order to prevent user from submitting invalid credit card details
   As a blinkbox books product owner
@@ -8,6 +7,7 @@ Feature: Credit card details form validation
     Given I am returning user
     And I am buying a pay for book as a logged in user
 
+  @pending
   Scenario Outline: Submit Payment details with empty values
     When I choose to pay with a new card
     And submit the payment details with empty <card_field>
@@ -79,7 +79,7 @@ Feature: Credit card details form validation
     Then my payment is not successful
     And "We're sorry, but we couldn't complete your payment due to an issue at our end. You haven't been charged - please try again" message is displayed
 
-  @manual
+  @pending
   Scenario: Expiry date in the past
     When I choose to pay with a new card
     And submit the payment details with expiry date in the past

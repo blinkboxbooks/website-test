@@ -2,7 +2,7 @@ module PageModels
   module AuthorPageAsserts
     def assert_author_page_displayed(author_name)
       author_page.should be_displayed
-      author_page.current_url.should include(author_name.downcase.gsub(' ', '-'))
+      author_page.current_url.should include(author_name.downcase.gsub(/ {1,}/, '-'))
     end
   end
 end

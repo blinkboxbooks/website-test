@@ -76,11 +76,23 @@ And /^Confirm and pay button should be (enabled|disabled)$/ do |button_status|
 assert_confirm_and_pay_button_status(button_status)
 end
 
+When /^\(pending\) I cancel (order|registration)$/ do |cancel_action|
+  pending("CWA-980 Buy Process - Cancel Option - No Buttons") do
+    if cancel_action.include?('registration')
+      cancel_registration
+    else
+      cancel_order
+    end
+  end
+end
+
 When /^I cancel (order|registration)$/ do |cancel_action|
-  if cancel_action.include?('registration')
-    cancel_registration
-  else
-    cancel_order
+  pending("CWA-980 Buy Process - Cancel Option - No Buttons") do
+    if cancel_action.include?('registration')
+      cancel_registration
+    else
+      cancel_order
+    end
   end
 end
 
@@ -174,10 +186,14 @@ end
 
 And /^submit the payment details with numeric input only for (Address line one|Address line two|Town or city|Postcode)$/ do |field|
   enter_invalid_billing_details(field, 'numeric')
+  confirm_and_pay_page.wait_for_confirm_and_pay
+  confirm_and_pay_page.confirm_and_pay.click
 end
 
 And /^submit the payment details with malformed post code ([\d A-Z]+)$/ do |value|
   enter_invalid_billing_details('post code', value)
+  confirm_and_pay_page.wait_for_confirm_and_pay
+  confirm_and_pay_page.confirm_and_pay.click
 end
 
 And(/^following validation error messages are displayed for credit card details:$/) do |table|

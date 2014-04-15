@@ -94,7 +94,7 @@ Feature: Navigation around the website
     | Authors      |
     | New releases |
 
-  @smoke @production @pending
+  @smoke @production @CWA-1029
   Scenario Outline: Clicking Support links from main Menu
     When I select <support_link> link from Support under main Menu
     Then I am redirected to the "<support_page>" support page in a new window
