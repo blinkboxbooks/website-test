@@ -9,7 +9,7 @@ module PageModels
         saved_cards_list[index].delete_card_link.click
       end
       your_payments_page.wait_until_delete_card_popup_visible
-      your_payments_page.delete_card_popup.find('button').click
+      your_payments_page.delete_card_popup.delete_button.click
       your_payments_page.wait_until_delete_card_popup_invisible
     end
   end

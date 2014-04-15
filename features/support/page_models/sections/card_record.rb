@@ -1,5 +1,5 @@
 module PageModels
-  class SavedCardsList < PageModels::BlinkboxbooksSection
+  class CardRecord < PageModels::BlinkboxbooksSection
     element :holder_name_element, '.payment_holder_name'
     element :delete_card_link, '.delete_payment a'
 
