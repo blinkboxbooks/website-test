@@ -72,18 +72,11 @@ And /^I can sign in with the new password successfully$/ do
 end
 
 When /^I delete the first card from the list$/ do
-  within('.payment_list') do
-    within(first('li')) do
-      find('a').click
-    end
-  end
-  click_button('Delete')
+  delete_stored_card(0)
 end
 
 Then /^there are no cards in my account$/ do
-  within('.payment_list') do
-    page.all('li').count.eql?(0)
-  end
+  your_payments_page.saved_cards.should have_exactly(0).items
 end
 
 When /^I set a different card as my default card$/ do
