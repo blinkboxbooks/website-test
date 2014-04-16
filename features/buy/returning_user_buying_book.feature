@@ -13,12 +13,11 @@ Feature: Returning buying book from blinkbox books
     When I pay with saved default card
     Then my payment is successful
 
-  # Check for exact div# .text, :visible => true !
   @smoke
   Scenario: Returning user not logged in buying book with saved payment card
     Given I am buying a pay for book as a not logged in user
     When I sign in to proceed with purchase
-    # Then "confirm & pay" message is displayed
+    Then title should be "confirm & pay"
     And I pay with saved default card
     Then my payment is successful
 
@@ -60,7 +59,7 @@ Feature: Returning buying book from blinkbox books
 
    @CWA-1000
    Scenario: Returning user adding a book sample to library first and then buying the book.
-#    Given PENDING: CWA-1000 ?????
+    Given PENDING: CWA-1000 ?????
     Given I have identified a pay for book to read sample offline
     When I select Read offline on the book details page
     And I sign in to proceed with adding sample

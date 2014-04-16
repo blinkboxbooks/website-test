@@ -240,3 +240,7 @@ Given /^I have £(\d+) account credit$/ do |account_credit|
     raise "User with #{account_credit} account credit is not available, please add the user to test_data.yml under data folder"
   end
 end
+
+Then /^title should be "(.+)"$/ do |title|
+  confirm_and_pay_page.title_element.should have_content(title, :visible => true)
+end
