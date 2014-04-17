@@ -52,12 +52,20 @@ Feature: Navigation around the website
   Scenario: Navigate to Bestsellers page
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
+
+  Scenario: Navigate to Bestsellers page
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
     And Bestsellers section header is Bestsellers Top 100 this month
     And I should see 'Fiction' and 'Non-Fiction' tabs
     And Grid view and List view buttons displayed
     And main footer is displayed
 
   @smoke @production
+  Scenario: Navigate to New releases page
+    When I click on the New releases header tab
+    Then New releases page is displayed
+
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
@@ -69,11 +77,19 @@ Feature: Navigation around the website
   Scenario: Navigate to Free eBooks page
     When I click on the Free eBooks header tab
     Then Free eBooks page is displayed
+
+  Scenario: Navigate to Free eBooks page
+    When I click on the Free eBooks header tab
+    Then Free eBooks page is displayed
     And Free eBooks section header is Free eBooks
     And Grid view and List view buttons displayed
     And main footer is displayed
 
   @smoke @production
+  Scenario: Navigate to Authors page
+    When I click on the Authors header tab
+    Then I should be on the Authors page
+
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then I should be on the Authors page
@@ -84,7 +100,6 @@ Feature: Navigation around the website
   Scenario Outline: Navigating through site by clicking Shop links from main Menu
     When I select <shop_link> link from Shop under main Menu
     Then <shop_link> page is displayed
-    And main footer is displayed
 
   Examples:
     | shop_link    |
@@ -109,7 +124,6 @@ Feature: Navigation around the website
     Given I am on Categories page
     When I select Featured link from Shop under main Menu
     Then Home page is displayed
-    And main footer is displayed
 
   @smoke @production
   Scenario: Navigate to book details page
@@ -140,11 +154,10 @@ Feature: Navigation around the website
     And I should see search results page for "da vinci"
 
   @CWA-70 @production
-  Scenario: Main header tabs are not selected in search results page and footer is displayed
+  Scenario: Main header tabs are not selected in search results
     When I search for "summer"
     Then search results should be displayed
     And main header tabs should not be selected
-    And footer is displayed
 
   @production
   Scenario Outline: Search word should not visible upon user navigating to another page

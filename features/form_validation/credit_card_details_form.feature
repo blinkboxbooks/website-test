@@ -29,12 +29,7 @@ Feature: Credit card details form validation
   Examples:
     | card_number       | details                   |
     | 4111              | less digits than required |
-    | 411111111111      | less digits than required |
-    | 411111111111111   | less digits than required |
-    | 41111111111111111 | more digits than required |
-    | 555555555554444   | less digits than required |
     | 55555555555544445 | more digits than required |
-    | 5555              | less digits than required |
     | 4222222222222222  | invalid number            |
 
   Scenario Outline: Incorrect digits for CVV
@@ -46,7 +41,7 @@ Feature: Credit card details form validation
   Examples:
     | card_type   | cvv  |
     | VISA        | 1234 |
-    | MasterCard | 1234 |
+    | MasterCard  | 1234 |
 
   Scenario Outline: Malformed CVV
     When I choose to pay with a new card
@@ -58,7 +53,6 @@ Feature: Credit card details form validation
     | cvv |
     | abc |
     | 1a2 |
-    | 12c |
     | $12 |
 
   Scenario: Returning user submits new payment details form with empty credit card form
