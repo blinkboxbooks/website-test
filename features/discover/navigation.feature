@@ -48,7 +48,7 @@ Feature: Navigation around the website
     Then Categories page is displayed
     And main footer is displayed
 
-  @CWA-71 @smoke @production
+  @smoke @production
   Scenario: Navigate to Bestsellers page
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
@@ -96,8 +96,8 @@ Feature: Navigation around the website
 
   @smoke @production @pending
   Scenario Outline: Clicking Support links from main Menu
-    When I select "<support_link>" link from Support under main Menu
-    Then I am redirected to the "<support_page>" page in a new window
+    When I select <support_link> link from Support under main Menu
+    Then I am redirected to the "<support_page>" support page in a new window
 
   Examples:
     | support_link | support_page  |
@@ -130,7 +130,7 @@ Feature: Navigation around the website
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
 
-  @CWA-87 @production
+  @production
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
       | words     |
@@ -146,7 +146,7 @@ Feature: Navigation around the website
     And main header tabs should not be selected
     And footer is displayed
 
-  @CWA-105 @production
+  @production
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
     Then "dan brown" should be visible in search bar
@@ -168,12 +168,12 @@ Feature: Navigation around the website
     And I should see Promotions section header as All time best selling books
     And I should see 5 books being displayed
 
-  @CWA-71 @production
+  @production
   Scenario: Bestsellers page - Switching views
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
     And I select grid view
-    Then I should see Fiction books in gird view
+    Then I should see Fiction books in grid view
     And I select list view
     Then I should see Fiction books in list view
 
@@ -182,9 +182,9 @@ Feature: Navigation around the website
     When I click on the Bestsellers link
     Then Bestsellers page is displayed
     And I select grid view
-    Then I should see Fiction books in gird view
+    Then I should see Fiction books in grid view
     And I click on Non-Fiction tab
-    Then I should see Non-Fiction books in gird view
+    Then I should see Non-Fiction books in grid view
 
   @CWA-71 @production
   Scenario: Bestsellers page - List view not changing between tabs
@@ -195,10 +195,8 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
-  @pending
   Scenario Outline: Click Top authors links from footer
-    When I click on the <author_name> link from footer
-    #TODO: When writing support code for this step, consider Parameterized URLs for authors page class under pagemodes/pages refer http://github.com/natrimeyer/site_prism
+    When I click on the <author_name> author link from footer
     Then selected <author_name> author page displayed
 
   Examples:
@@ -214,10 +212,8 @@ Feature: Navigation around the website
     | Graeme Simsion    |
     | Santa Montefiore  |
 
-  @pending
   Scenario Outline: Click Top categories links from footer
-    When I click on the <category_name> link from footer
-    #TODO: When writing support code for this step, consider Parameterized URLs for authors page class under pagemodes/pages refer http://github.com/natrimeyer/site_prism
+    When I click on the <category_name> category link from footer
     Then selected <category_name> category page displayed
 
   Examples:

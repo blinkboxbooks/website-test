@@ -6,6 +6,7 @@ group :automation_libs do
   gem 'cucumber'
   gem 'rspec'
   gem 'capybara', '~> 2.2.1'
+  gem 'capybara-angular'
   gem 'selenium-webdriver', '~> 2.39'
   gem 'selendroid', '~>0.4.0'
   gem 'site_prism'

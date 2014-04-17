@@ -9,7 +9,7 @@ default:              -p local_debug
 local_debug:          -r features --tags ~@wip GRID=false SERVER=QA DEBUG=true
 
 ci-no-grid:           <%= ci_opts %>
-ci-smoke-local:       <%= ci_opts %> --tags @smoke SERVER=LOCALHOST
+ci-smoke-local:       <%= ci_opts %> --tags @smoke SERVER=LOCALHOST FAIL_FAST=true
 ci-smoke-nodejs:      <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_nodejs %> --tags @smoke SERVER=NODEJS-INTERNAL FAIL_FAST=true
 ci-smoke-qa:          <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_qa %> --tags @smoke SERVER=QA
 ci-smoke-production:  <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_production %> --tags @smoke --tags @production SERVER=PRODUCTION
