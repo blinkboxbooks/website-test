@@ -156,14 +156,23 @@ And /^I submit payment details with not matching cvv (\d+)$/ do |cvv_number|
   submit_new_payment_with_not_matching_cvv(cvv_number)
 end
 
-Then /^my payment is not successful$/ do
-  expect_page_displayed('Confirm and pay')
-end
-
 And(/^submit the payment details with empty credit card form$/) do
   enter_billing_details
   confirm_and_pay_page.wait_for_confirm_and_pay
   confirm_and_pay_page.confirm_and_pay.click
+end
+
+And /^submit the payment details with empty (Name on card|Card number|CVV)$/ do |card_field|
+  submit_incomplete_payment_details (card_field)
+end
+
+Then /^my payment is not successful$/ do
+  #expect_page_displayed('Confirm and pay')
+  confirm_and_pay_page.should be_displayed
+end
+
+And /^submit the payment details with expiry date in the past$/ do
+  submit_payment_details_with_past_expiry_date
 end
 
 And(/^following validation error messages are displayed for credit card details:$/) do |table|

@@ -1,4 +1,3 @@
-@pending
 Feature: Credit card details form validation
   In order to prevent user from submitting invalid credit card details
   As a blinkbox books product owner
@@ -14,11 +13,12 @@ Feature: Credit card details form validation
     Then my payment is not successful
     And "<error_message>" message is displayed
 
+  @smoke
   Examples:
     | card_field   | error_message                        |
+    | Name on card | Please enter your full name          |
     | Card number  | Please enter your credit card number |
     | CVV          | Please enter your CVV number         |
-    | Name on card | Please enter your full name          |
 
   Scenario Outline: Invalid card number
     When I choose to pay with a new card
@@ -46,7 +46,7 @@ Feature: Credit card details form validation
   Examples:
     | card_type   | cvv  |
     | VISA        | 1234 |
-    | MasterCard | 1234 |
+    | MasterCard  | 1234 |
 
   Scenario Outline: Malformed CVV
     When I choose to pay with a new card
@@ -79,14 +79,9 @@ Feature: Credit card details form validation
     Then my payment is not successful
     And "We're sorry, but we couldn't complete your payment due to an issue at our end. You haven't been charged - please try again" message is displayed
 
-  @manual
+  @smoke
   Scenario: Expiry date in the past
     When I choose to pay with a new card
     And submit the payment details with expiry date in the past
     Then my payment is not successful
-    And "Your expiry date should not be in the past" message is displayed
-
-
-
-
-
+    And "The expiry date cannot be in the past" message is displayed
