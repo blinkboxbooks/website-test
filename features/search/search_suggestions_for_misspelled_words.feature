@@ -1,5 +1,5 @@
   @pending @search
-  Feature:
+  Feature: Search suggestions correct misspelled search words
   As a blinkbox books user
   I want spelling suggestions to be displayed, when searching with misspelled words
   So that I can search with correct search words
