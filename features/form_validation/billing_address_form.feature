@@ -18,6 +18,10 @@ Feature: Billing address form validation
     | address_field    | validation_error           |
     | Address line one | Please enter your address  |
     | Town or city     | Please enter your city     |
+
+  @pending @CWA-1487
+  Examples:
+    | address_field    | validation_error           |
     | Postcode         | Please enter your postcode |
 
   Scenario Outline: Submit payment with numeric input only for address fields
@@ -33,6 +37,7 @@ Feature: Billing address form validation
     | Town or city     | Your city must not be a number                |
     | Postcode         | Your postcode is not a valid postcode         |
 
+  @pending @CWA-1487
   Scenario Outline: Malformed post code
     When I choose to pay with a new card
     And submit the payment details with malformed post code <value>

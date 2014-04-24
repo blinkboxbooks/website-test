@@ -166,6 +166,18 @@ And /^submit the payment details with empty (Name on card|Card number|CVV)$/ do 
   submit_incomplete_payment_details (card_field)
 end
 
+And /^submit the payment details with empty (Address line one|Town or city|Postcode)$/ do |address_field|
+  submit_incomplete_billing_details (address_field)
+end
+
+And /^submit the payment details with numeric input only for (Address line one|Address line two|Town or city|Postcode)$/ do |address_field|
+  submit_incorrect_numeric_billing_details (address_field)
+end
+
+And /^submit the payment details with malformed post code (.*?)$/ do |value|
+  submit_malformed_post_code (value)
+end
+
 Then /^my payment is not successful$/ do
   #expect_page_displayed('Confirm and pay')
   confirm_and_pay_page.should be_displayed

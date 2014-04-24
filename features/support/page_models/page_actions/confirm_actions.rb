@@ -24,6 +24,68 @@ module PageModels
       enter_billing_details
       confirm_and_pay_page.confirm_and_pay.click
     end
+
+    def submit_incomplete_billing_details (address_field)
+      card_details = set_valid_card_details('VISA')
+      enter_card_details(card_details)
+      case address_field
+        when 'Address line one'
+          #enter_billing_details
+          enter_address_line_one('')
+          enter_address_line_two('anything')
+          enter_town_or_city('London')
+          enter_post_code('WC1X8AQ')
+        when 'Town or city'
+          enter_address_line_one('28-30 Kirby Street')
+          enter_address_line_two('anything')
+          enter_town_or_city('')
+          enter_post_code('WC1X8AQ')
+        when 'Postcode'
+          enter_address_line_one('28-30 Kirby Street')
+          enter_address_line_two('anything')
+          enter_town_or_city('London')
+          enter_post_code('')
+      end
+      confirm_and_pay_page.confirm_and_pay.click
+    end
+
+    def submit_incorrect_numeric_billing_details (address_field)
+      card_details = set_valid_card_details('VISA')
+      enter_card_details(card_details)
+      case address_field
+        when 'Address line one'
+          enter_address_line_one('12345')
+          enter_address_line_two('Anything')
+          enter_town_or_city('London')
+          enter_post_code('WC1X8AQ')
+        when 'Address line two'
+          enter_address_line_one('28-30 Kirby Street')
+          enter_address_line_two('12345')
+          enter_town_or_city('London')
+          enter_post_code('WC1X8AQ')
+        when 'Town or city'
+          enter_address_line_one('28-30 Kirby Street')
+          enter_address_line_two('anything')
+          enter_town_or_city('12345')
+          enter_post_code('WC1X8AQ')
+        when 'Postcode'
+          enter_address_line_one('28-30 Kirby Street')
+          enter_address_line_two('anything')
+          enter_town_or_city('London')
+          enter_post_code('12345')
+      end
+      confirm_and_pay_page.confirm_and_pay.click
+    end
+
+   def submit_malformed_post_code (value)
+     card_details = set_valid_card_details('VISA')
+     enter_card_details(card_details)
+     enter_address_line_one('28-30 Kirby Street')
+     enter_address_line_two('Anything')
+     enter_town_or_city('London')
+     enter_post_code(value)
+     confirm_and_pay_page.confirm_and_pay.click
+   end
   end
 end
 
