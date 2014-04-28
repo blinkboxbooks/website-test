@@ -14,7 +14,7 @@ Feature: Navigation around the website
 
   @smoke @production
   Scenario: Clicking on the About Blinkbox Books
-    When I click on the About Blinkbox Books link
+    When I click on the About Blinkbox Books footer link
     Then About Blinkbox Books page is displayed
 
   @smoke @wip @production
@@ -39,7 +39,7 @@ Feature: Navigation around the website
 
   @smoke @production
   Scenario: Navigate to Terms and Conditions page
-    When I click on the Terms & conditions link
+    When I click on the Terms & conditions footer link
     Then Terms and conditions page is displayed
 
   @smoke @production
@@ -150,7 +150,7 @@ Feature: Navigation around the website
   Scenario Outline: Search word should not visible upon user navigating to another page
     When I search for "dan brown"
     Then "dan brown" should be visible in search bar
-    And I click on the <page> link
+    And I click on the <page> header tab
     Then search term should not be visible in search bar
   Examples:
     | page         |
@@ -163,14 +163,14 @@ Feature: Navigation around the website
 
   @CWA-71 @wip
   Scenario: Promotable category-All time best selling books
-    When I click on the Bestsellers link
+    When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And I should see Promotions section header as All time best selling books
     And I should see 5 books being displayed
 
   @production
   Scenario: Bestsellers page - Switching views
-    When I click on the Bestsellers link
+    When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And I select grid view
     Then I should see Fiction books in grid view
@@ -179,7 +179,7 @@ Feature: Navigation around the website
 
   @CWA-71 @production
   Scenario: Bestsellers page - Grid view not changing between tabs
-    When I click on the Bestsellers link
+    When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And I select grid view
     Then I should see Fiction books in grid view
@@ -188,7 +188,7 @@ Feature: Navigation around the website
 
   @CWA-71 @production
   Scenario: Bestsellers page - List view not changing between tabs
-    When I click on the Bestsellers link
+    When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And I select list view
     Then I should see Fiction books in list view
@@ -231,14 +231,14 @@ Feature: Navigation around the website
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
-    When I click on the Bestsellers link
+    When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And  I select list view
     Then long titles should be displayed in two lines
 
   @CWA-34  @manual
   Scenario:Book Component-Grid view Title display
-    When I click on the Bestsellers link
+    When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And  I select grid view
     Then long titles should be truncated to fit within image

@@ -9,7 +9,8 @@ module PageModels
     end
 
     def assert_payment_failure_message
-      expect(page).to have_content "We're sorry but your payment did not go through"
+      #expect(page).to have_content "We're sorry but your payment did not go through"
+      page.should have_content "We're sorry but your payment did not go through"
     end
 
     def assert_credit_on_confirm_pay_page(account_credit)

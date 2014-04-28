@@ -8,6 +8,7 @@ module PageModels
 
     section :footer, Footer, "div#footer"
     section :header, Header, "header#outer-header"
+    section :navigation, Navigation, "div#main-navigation"
 
     def wait_until_displayed(timeout = navigation_timeout)
       r0 = Time.now

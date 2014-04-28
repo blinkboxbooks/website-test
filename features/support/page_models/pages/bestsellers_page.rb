@@ -3,6 +3,11 @@ module PageModels
     set_url "/#!/bestsellers"
     set_url_matcher /bestsellers/
     sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
+    element :section_title_element, 'div[data-test="bestsellers-container"] h2.section_header'
+
+    def section_title
+      section_title_element.text
+    end
   end
 
   register_model_caller_method(BestsellersPage)

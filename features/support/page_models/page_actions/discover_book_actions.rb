@@ -49,7 +49,7 @@ module PageModels
     end
 
     def select_book_to_buy_from_category_page
-      current_page.header.main_page_navigation('Categories')
+      click_navigation_link('Categories')
       click_on_a_category
       books_section.click_buy_now_random_book
     end
@@ -61,8 +61,7 @@ module PageModels
     end
 
     def select_book_to_buy_from (page_name, book_type)
-      book_page = page_model page_name
-      book_page.header.main_page_navigation page_name
+      click_navigation_link(page_name)
       expect_page_displayed page_name
       if book_type == "free"
         books_section.click_buy_now_free_book

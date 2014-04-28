@@ -1,37 +1,4 @@
 module TestElementsMap
-  DATA_TEST_ELEMENTS = {'Featured' => 'header-featured',
-                        'Categories' => 'header-categories-link',
-                        'Bestsellers' => 'header-bestsellers-link',
-                        'New releases' => 'header-new-releases-link',
-                        'Free eBooks' => 'header-top-free-link',
-                        'Authors' => 'header-authors-link',
-                        'Bestsellers section' => 'bestsellers-container',
-                        'New releases section' => 'newreleases-title',
-                        'Free eBooks section' => 'topfree-container',
-                        'Featured Authors section' => 'featured_authors',
-                        'Bestselling authors section' => 'authors-container',
-                        'Copyright' => 'footer-copyright-text',
-                        'Music link' => 'footer-music-link"',
-                        'Movies link' => 'footer-movies-link',
-                        'Sitemap' => 'footer-sitemap-link',
-                        'Terms & conditions' => 'footer-t-and-c-link',
-                        'Footer help link' => 'footer-help-link',
-                        'About Blinkbox Books' => 'footer-about-link',
-                        'Header Sign in' => 'header-sign-in-link',
-                        'Footer container' => 'footer-sitemap-link',
-                        'iOS app link' => 'footer-t-and-c-link',
-                        'Android app link' => 'footer-help-link',
-                        'Pintrest' => 'footer-pintrest-link',
-                        'Twitter' => 'footer-twitter-link',
-                        'Facebook' => 'footer-facebook-link',
-                        'Connect with us container' => 'footer-connect-with-us-container',
-                        'Footer new release container' => 'footer-new-releases-container',
-                        'Footer Author 2' => 'footer-top-authors-in-crime-container',
-                        'Footer Author' => 'footer-top-authors-container',
-                        'Main footer container' => 'footer-container',
-                        'Buy Now' => 'book-buy-button',
-                        'Sign in' => 'header-sign-in-link'}
-
   TEST_CARD_NUMBERS = {'VISA' => '4111111111111111',
                        'American Express' => '3782 822463 10005',
                        'Mastercard' => '5555555555554444',
@@ -54,13 +21,6 @@ module TestElementsMap
                        'How do I download the app?' => 'support.blinkboxbooks.com/entries/25378706',
                        'Problems installing the app' => 'support.blinkboxbooks.com/entries/25378726',
                        'Contact us' => 'https://support.blinkboxbooks.com/anonymous_requests/new'}
-
-  def get_element_id_for(element_name)
-    if DATA_TEST_ELEMENTS.key?(element_name)
-      return DATA_TEST_ELEMENTS[element_name]
-    end
-    element_name
-  end
 
   def get_card_number_by_type(card_type)
     if TEST_CARD_NUMBERS.key?(card_type)

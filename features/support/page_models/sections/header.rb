@@ -1,7 +1,16 @@
 module PageModels
+  class Navigation < PageModels::BlinkboxbooksSection
+    element :featured, '[data-test="header-featured"]'
+    element :categories, '[data-test="header-categories-link"]'
+    element :bestsellers, '[data-test="header-bestsellers-link"]'
+    element :new_releases, '[data-test="header-new-releases-link"]'
+    element :free_ebooks, '[data-test="header-top-free-link"]'
+    element :authors, '[data-test="header-authors-link"]'
+  end
+
   class Header < PageModels::BlinkboxbooksSection
     element :account_options_dropdown, 'ul#user-navigation-handheld'
-    element :main_pages_navigation, 'div#main-navigation'
+    section :navigation, Navigation, '#main-navigation'
     element :user_account_logo, '#user-menu'
     element :main_menu, '#main-menu'
     element :main_menu_option_dropdown, 'ul#main-navigation-handheld'
@@ -20,12 +29,6 @@ module PageModels
       user_account_logo.click
       account_options_dropdown.should be_visible
       account_nav_link(account_options_dropdown, link_name).click
-    end
-
-    def main_page_navigation(page_name)
-      within(main_pages_navigation) do
-        click_link page_name
-      end
     end
 
     def navigate_to_main_menu_option(sub_menu_item, link_name)
