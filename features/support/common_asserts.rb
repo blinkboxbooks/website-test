@@ -65,11 +65,11 @@ module AssertNavigation
       when 'bestsellers'
         bestsellers_page.section_title.should include(text)
       when 'new releases'
-        new_releases_page.section.title.should include(text)
+        new_releases_page.section_title.should include(text)
       when 'free ebooks'
-        free_books_page.section.title.should include(text)
+        free_ebooks_page.section_title.should include(text)
       when 'bestselling authors'
-        authors_page.section.title.should include(text)
+        authors_page.section_title.should include(text)
     end
   end
 
