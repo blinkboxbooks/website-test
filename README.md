@@ -11,7 +11,7 @@ Get Ruby running on your system.
 Next make sure you've got Ruby 2.0.0 installed:
 
 ```
-$ rvm install 1.9.3
+$ rvm install 2.0.0
 ```
 
 Alternatively you can use [rbenv](https://github.com/sstephenson/rbenv) and `ruby-build` from brew and once installed do much the same.
