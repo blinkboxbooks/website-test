@@ -30,7 +30,7 @@ $ ruby -v
 
 _Note: If you have any other versions of Ruby installed, it might be worth uninstalling them first just in case you run into any issues._
 
-Download the latest Ruby 1.9.3 installer from [here](http://rubyinstaller.org/downloads/). The current 1.9.3-p429 build is [here](http://rubyforge.org/frs/download.php/76952/rubyinstaller-1.9.3-p429.exe).
+Download the latest Ruby 1.9.3 installer from [here](http://rubyinstaller.org/downloads/). The current 2.0.0-p451 build is [here](http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p451.exe?direct).
 
 Run the EXE, and choose the option to add the Ruby binaries to your PATH (plus any other options you like the look of).
 
