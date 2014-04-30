@@ -13,11 +13,10 @@ Feature: Credit card details form validation
     Then my payment is not successful
     And "<error_message>" message is displayed
 
-  @smoke
   Examples:
     | card_field   | error_message                        |
-    | Name on card | Please enter your full name          |
     | Card number  | Please enter your credit card number |
+    | Name on card | Please enter your full name          |
     | CVV          | Please enter your CVV number         |
 
   Scenario Outline: Invalid card number
@@ -79,7 +78,6 @@ Feature: Credit card details form validation
     Then my payment is not successful
     And "We're sorry, but we couldn't complete your payment due to an issue at our end. You haven't been charged - please try again" message is displayed
 
-  @smoke
   Scenario: Expiry date in the past
     When I choose to pay with a new card
     And submit the payment details with expiry date in the past
