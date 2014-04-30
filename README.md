@@ -8,13 +8,19 @@ Get Ruby running on your system.
 
 [Install RVM](http://octopress.org/docs/setup/rvm/) which lets you easily manage your Ruby versions.
 
-Next make sure you've got Ruby 1.9.3 installed:
+Next make sure you've got Ruby 2.0.0 installed:
 
 ```
 $ rvm install 1.9.3
 ```
 
-The Ruby version to use is in the Gemfile, so when you `cd` to the root directory RVM should automatically switch to using 1.9.3. You can verify this by running:
+Alternatively you can use [rbenv](https://github.com/sstephenson/rbenv) and `ruby-build` from brew and once installed do much the same.
+
+```
+rbenv install 2.0.0-p451
+```
+
+The Ruby version to use is in the Gemfile and .ruby-version, so when you `cd` to the root directory RVM/rbenv should automatically switch to using 2.0.0. You can verify this by running:
 
 ```
 $ ruby -v
@@ -33,10 +39,10 @@ Run the EXE, and choose the option to add the Ruby binaries to your PATH (plus a
 Install bundler:
 
 ```
-$ gem install bundler
+$ sudo gem install bundler
 ```
 
-And finally install all the requirements for this suite:
+And finally install all the requirements for this suite. You might need to `rbenv rehash` beforehand.
 
 ```
 $ bundle
