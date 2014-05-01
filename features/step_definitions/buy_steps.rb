@@ -167,7 +167,7 @@ And /^submit the payment details with empty (Name on card|Card number|CVV)$/ do 
 end
 
 Then /^my payment is not successful$/ do
-  confirm_and_pay_page.should be_displayed
+  expect(confirm_and_pay_page).to(be_displayed)
 end
 
 And /^submit the payment details with expiry date in the past$/ do
