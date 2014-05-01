@@ -19,9 +19,8 @@ module PageModels
       if current_month == 1
         pending "Current month is January, so this test will not run in the current month, as the form will not allow to select the previous year"
       else
-        current_month = current_month - 1 #This will ensure that an expired month is selected in the current year
         card_details = set_valid_card_details('VISA')
-        card_details[:expiry_month] = current_month.to_s
+        card_details[:expiry_month] = (current_month-1).to_s #This will ensure that an expired month is selected in the current year
         card_details[:expiry_year] = current_year.to_s
         enter_card_details(card_details)
         enter_billing_details
