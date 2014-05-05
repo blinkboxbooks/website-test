@@ -45,6 +45,22 @@ module PageModels
       enter_post_code(test_data('payment', 'postcode'))
     end
 
+    def enter_billing_details(missing_field)
+      enter_address_line_one(missing_field[:address_line_one])
+      enter_address_line_two(missing_field[:address_line_two])
+      enter_town_or_city(missing_field[:town_or_city])
+      enter_post_code(missing_field[:postcode])
+    end
+
+    def billing_details()
+      {
+        :address_line_one => test_data('payment', 'address_lineone'),
+        :address_line_two => test_data('payment', 'address_linetwo'),
+        :town_or_city => test_data('payment', 'town_or_city'),
+        :postcode => test_data('payment', 'postcode')
+      }
+    end
+
     def click_confirm_and_pay
       confirm_and_pay_page.wait_for_confirm_and_pay
       confirm_and_pay_page.confirm_and_pay.click
