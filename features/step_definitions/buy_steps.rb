@@ -163,7 +163,7 @@ And(/^submit the payment details with empty credit card form$/) do
 end
 
 And /^submit the payment details with empty (Name on card|Card number|CVV)$/ do |card_field|
-  submit_incomplete_payment_details (card_field)
+  submit_incomplete_payment_details(card_field)
 end
 
 And /^submit the payment details with empty (Address line one|Town or city|Postcode)$/ do |address_field|
@@ -179,8 +179,7 @@ And /^submit the payment details with malformed post code (.*?)$/ do |value|
 end
 
 Then /^my payment is not successful$/ do
-  #expect_page_displayed('Confirm and pay')
-  confirm_and_pay_page.should be_displayed
+  expect(confirm_and_pay_page).to(be_displayed)
 end
 
 And /^submit the payment details with expiry date in the past$/ do

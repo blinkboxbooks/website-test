@@ -8,7 +8,7 @@ Feature: Update the Payment details of the user under 'your account'
     Given I am on the home page
 
   @ie @safari
-  @smoke @unstable
+  @smoke
   Scenario: Delete a stored card
     Given I have a stored card
     And I have signed in
@@ -21,7 +21,7 @@ Feature: Update the Payment details of the user under 'your account'
    Scenario: Cancel delete stored card
      Given I have a stored card
      And I have signed in
-     And I am on the Saved cards tab
+     And I am on the Saved cards tab feature
      When I click delete
      And select Keep on Delete card? pop-up
      Then my saved card is not deleted
