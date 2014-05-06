@@ -1,4 +1,3 @@
-@pending
 Feature: Billing address form validation
   In order to prevent user from submitting invalid billing address details
   As a blinkbox books product owner
@@ -41,6 +40,7 @@ Feature: Billing address form validation
     | address_field    | validation_error                              |
     | Postcode         | Your postcode is not a valid postcode         |
 
+  @pending @CWA-1487
   Scenario Outline: Malformed post code
     When I choose to pay with a new card
     And submit the payment details with malformed post code <value>

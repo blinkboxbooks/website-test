@@ -175,9 +175,7 @@ And /^submit the payment details with numeric input only for (Address line one|A
 end
 
 And /^submit the payment details with malformed post code (.*?)$/ do |value|
-  pending("Due to an open bug CWA-1487") do
   submit_malformed_post_code(value)
-  end
 end
 
 Then /^my payment is not successful$/ do
