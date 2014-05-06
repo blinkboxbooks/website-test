@@ -242,5 +242,5 @@ Given /^I have £(\d+) account credit$/ do |account_credit|
 end
 
 Then /^title should be "(.+)"$/ do |title|
-  expect(confirm_and_pay_page.title).to be == title.downcase
+  expect(confirm_and_pay_page.title.downcase).to be == title.downcase
 end

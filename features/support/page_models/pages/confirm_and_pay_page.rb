@@ -26,7 +26,7 @@ module PageModels
     element :title_element, '#inner-register-navigation', :visible => true
 
     def title
-      title_element.text.downcase
+      title_element.text
     end
 
   end
