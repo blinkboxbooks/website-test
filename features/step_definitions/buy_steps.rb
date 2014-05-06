@@ -76,23 +76,11 @@ And /^Confirm and pay button should be (enabled|disabled)$/ do |button_status|
 assert_confirm_and_pay_button_status(button_status)
 end
 
-When /^\(pending\) I cancel (order|registration)$/ do |cancel_action|
-  pending("CWA-980 Buy Process - Cancel Option - No Buttons") do
-    if cancel_action.include?('registration')
-      cancel_registration
-    else
-      cancel_order
-    end
-  end
-end
-
 When /^I cancel (order|registration)$/ do |cancel_action|
-  pending("CWA-980 Buy Process - Cancel Option - No Buttons") do
-    if cancel_action.include?('registration')
-      cancel_registration
-    else
-      cancel_order
-    end
+  if cancel_action.include?('registration')
+    cancel_registration
+  else
+    cancel_order
   end
 end
 
@@ -168,32 +156,22 @@ And /^I submit payment details with not matching cvv (\d+)$/ do |cvv_number|
   submit_new_payment_with_not_matching_cvv(cvv_number)
 end
 
-Then /^my payment is not successful$/ do
-  expect_page_displayed('Confirm and pay')
-end
-
 And(/^submit the payment details with empty credit card form$/) do
   enter_billing_details
   confirm_and_pay_page.wait_for_confirm_and_pay
   confirm_and_pay_page.confirm_and_pay.click
 end
 
-When /^submit the payment details with empty (Address line one|Town or city|Postcode)$/ do |empty_field|
-  enter_billing_details_with_missing(empty_field)
-  confirm_and_pay_page.wait_for_confirm_and_pay
-  confirm_and_pay_page.confirm_and_pay.click
+And /^submit the payment details with empty (Name on card|Card number|CVV)$/ do |card_field|
+  submit_incomplete_payment_details(card_field)
 end
 
-And /^submit the payment details with numeric input only for (Address line one|Address line two|Town or city|Postcode)$/ do |field|
-  enter_invalid_billing_details(field, 'numeric')
-  confirm_and_pay_page.wait_for_confirm_and_pay
-  confirm_and_pay_page.confirm_and_pay.click
+Then /^my payment is not successful$/ do
+  expect(confirm_and_pay_page).to(be_displayed)
 end
 
-And /^submit the payment details with malformed post code ([\d A-Z]+)$/ do |value|
-  enter_invalid_billing_details('post code', value)
-  confirm_and_pay_page.wait_for_confirm_and_pay
-  confirm_and_pay_page.confirm_and_pay.click
+And /^submit the payment details with expiry date in the past$/ do
+  submit_payment_details_with_past_expiry_date
 end
 
 And(/^following validation error messages are displayed for credit card details:$/) do |table|

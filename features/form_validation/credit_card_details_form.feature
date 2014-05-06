@@ -7,7 +7,6 @@ Feature: Credit card details form validation
     Given I am returning user
     And I am buying a pay for book as a logged in user
 
-  @pending
   Scenario Outline: Submit Payment details with empty values
     When I choose to pay with a new card
     And submit the payment details with empty <card_field>
@@ -17,8 +16,8 @@ Feature: Credit card details form validation
   Examples:
     | card_field   | error_message                        |
     | Card number  | Please enter your credit card number |
-    | CVV          | Please enter your CVV number         |
     | Name on card | Please enter your full name          |
+    | CVV          | Please enter your CVV number         |
 
   Scenario Outline: Invalid card number
     When I choose to pay with a new card
@@ -46,7 +45,7 @@ Feature: Credit card details form validation
   Examples:
     | card_type   | cvv  |
     | VISA        | 1234 |
-    | MasterCard | 1234 |
+    | MasterCard  | 1234 |
 
   Scenario Outline: Malformed CVV
     When I choose to pay with a new card
@@ -79,14 +78,8 @@ Feature: Credit card details form validation
     Then my payment is not successful
     And "We're sorry, but we couldn't complete your payment due to an issue at our end. You haven't been charged - please try again" message is displayed
 
-  @pending
   Scenario: Expiry date in the past
     When I choose to pay with a new card
     And submit the payment details with expiry date in the past
     Then my payment is not successful
-    And "Your expiry date should not be in the past" message is displayed
-
-
-
-
-
+    And "The expiry date cannot be in the past" message is displayed
