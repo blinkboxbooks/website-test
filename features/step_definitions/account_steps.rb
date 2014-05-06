@@ -242,5 +242,5 @@ Given /^I have £(\d+) account credit$/ do |account_credit|
 end
 
 Then /^title should be "(.+)"$/ do |title|
-  confirm_and_pay_page.title_element.should have_content(title, :visible => true)
+  expect(confirm_and_pay_page.title).to be == title.downcase
 end

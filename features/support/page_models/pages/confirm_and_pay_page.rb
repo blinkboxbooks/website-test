@@ -23,7 +23,11 @@ module PageModels
     element :card_payment, '#confirm-pay-view'
     element :card_icon_visa, 'span[title="Visa"]'
     element :card_icon_mastercard, 'span[title="Mastercard"]'
-    element :title_element, '#inner-register-navigation'
+    element :title_element, '#inner-register-navigation', :visible => true
+
+    def title
+      title_element.text.downcase
+    end
 
   end
 
