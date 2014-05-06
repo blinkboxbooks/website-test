@@ -8,6 +8,7 @@ module PageModels
 
     section :footer, Footer, "div#footer"
     section :header, Header, "header#outer-header"
+    section :search_form, SearchForm, "div#searchbox-input"
 
     def wait_until_displayed(timeout = navigation_timeout)
       r0 = Time.now

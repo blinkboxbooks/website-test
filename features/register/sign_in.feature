@@ -24,6 +24,7 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
+
   @negative @production
   Scenario: Sign in with email address that is not registered
     Given I am on the Sign in page

@@ -1,4 +1,3 @@
-@pending
 Feature: Billing address form validation
   In order to prevent user from submitting invalid billing address details
   As a blinkbox books product owner
@@ -8,6 +7,7 @@ Feature: Billing address form validation
     Given I am returning user
     And I am buying a pay for book as a logged in user
 
+  @smoke
   Scenario Outline: Submit the payment with empty address field
     When I choose to pay with a new card
     And submit the payment details with empty <address_field>
@@ -20,6 +20,7 @@ Feature: Billing address form validation
     | Town or city     | Please enter your city     |
     | Postcode         | Please enter your postcode |
 
+  @pending
   Scenario Outline: Submit payment with numeric input only for address fields
     When I choose to pay with a new card
     And submit the payment details with numeric input only for <address_field>
@@ -33,6 +34,7 @@ Feature: Billing address form validation
     | Town or city     | Your city must not be a number                |
     | Postcode         | Your postcode is not a valid postcode         |
 
+  @pending
   Scenario Outline: Malformed post code
     When I choose to pay with a new card
     And submit the payment details with malformed post code <value>
