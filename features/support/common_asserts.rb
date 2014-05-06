@@ -133,7 +133,6 @@ module AssertSearch
     current_page.search_form.suggestions.should_not be_empty
     current_page.search_form.suggestions.each do |suggestion|
       corrected_word.each do |word|
-        puts suggestion.text
         suggestion.text.should include(word)
       end
     end
