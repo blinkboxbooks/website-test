@@ -12,22 +12,18 @@ module PageModels
 
     def wait_until_displayed(timeout = navigation_timeout)
       r0 = Time.now
-      begin
         SitePrism::Waiter.wait_until_true(timeout) { displayed? }
       rescue SitePrism::TimeoutException => e
         raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page to be displayed'
-      end
       ensure
         puts "Load time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
     end
 
     def wait_until_not_displayed(timeout = navigation_timeout)
       r0 = Time.now
-      begin
         SitePrism::Waiter.wait_until_true(timeout) { not displayed? }
       rescue SitePrism::TimeoutException => e
         raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page not to be displayed'
-      end
       ensure
         puts "Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
     end
