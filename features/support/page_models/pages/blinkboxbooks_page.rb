@@ -12,24 +12,20 @@ module PageModels
 
     def wait_until_displayed(timeout = navigation_timeout)
       r0 = Time.now
-      Timeout.timeout timeout, PageModelHelpers::TimeOutWaitingForPageToAppear do
-        Capybara.using_wait_time 0 do
-          sleep 0.5 while not displayed?
-        end
-      end
-    ensure
-      puts "Load time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
+        SitePrism::Waiter.wait_until_true(timeout) { displayed? }
+      rescue SitePrism::TimeoutException => e
+        raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page to be displayed'
+      ensure
+        puts "Load time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
     end
 
     def wait_until_not_displayed(timeout = navigation_timeout)
       r0 = Time.now
-      Timeout.timeout timeout, PageModelHelpers::TimeOutWaitingForPageToDisappear do
-        Capybara.using_wait_time 0 do
-          sleep 0.5 while displayed?
-        end
-      end
-    ensure
-      puts "Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
+        SitePrism::Waiter.wait_until_true(timeout) { not displayed? }
+      rescue SitePrism::TimeoutException => e
+        raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page not to be displayed'
+      ensure
+        puts "Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
     end
   end
 
