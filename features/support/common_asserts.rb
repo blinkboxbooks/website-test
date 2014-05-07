@@ -126,27 +126,20 @@ module AssertSearch
   end
 
   def assert_number_of_suggestions number_of_suggestion
-    within("#suggestions") do
-      page.all("li").count.should >= number_of_suggestion
-    end
+    current_page.search_form.suggestions.size.should >= number_of_suggestion
   end
 
   def assert_auto_corrected_word corrected_word
-    within("#suggestions") do
-      i = 0
-      page.all('li').to_a.each do |li|
-        li.text.should == corrected_word[i]
-        i += 1
+    current_page.search_form.suggestions.should_not be_empty
+    current_page.search_form.suggestions.each do |suggestion|
+      corrected_word.each do |word|
+        suggestion.text.should include(word)
       end
     end
   end
 
-  def assert_search_word_in_suggestions search_word
-    within("#suggestions") do
-      page.all('li').to_a.each do |li|
-        ((li.text).include?(search_word)).should == true
-      end
-    end
+  def assert_search_word_in_suggestions corrected_word
+    current_page.search_form.suggestions.each { |suggestion| suggestion.text.should include(corrected_word) }
   end
 
   def assert_last_suggestion search_word
@@ -159,12 +152,3 @@ end
 
 World(AssertNavigation)
 World(AssertSearch)
-
-
-
-
-
-
-
-
-

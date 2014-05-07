@@ -1,0 +1,2 @@
+bundle exec cuporter -f html -o regression_cuporter.html --dry-run --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending --tags ~@smoke
+bundle exec cucumber --dry-run --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending --tags ~@smoke GRID=false
