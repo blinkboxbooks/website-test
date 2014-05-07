@@ -38,37 +38,21 @@ module PageModels
       fill_form_element('address_four', post_code)
     end
 
-    def enter_billing_details
-      enter_address_line_one(test_data('payment', 'address_lineone'))
-      enter_address_line_two(test_data('payment', 'address_linetwo'))
-      enter_town_or_city(test_data('payment', 'town_or_city'))
-      enter_post_code(test_data('payment', 'postcode'))
+    def enter_billing_details(details=nil)
+      details ||= billing_details
+      enter_address_line_one(details[:address_line_one])
+      enter_address_line_two(details[:address_line_two])
+      enter_town_or_city(details[:town_or_city])
+      enter_post_code(details[:postcode])
     end
 
-    def enter_billing_details_with_missing(empty_field)
-      enter_address_line_one(test_data('payment', 'address_lineone')) unless empty_field == 'Address line one'
-      enter_address_line_two(test_data('payment', 'address_linetwo'))
-      enter_town_or_city(test_data('payment', 'town_or_city')) unless empty_field == 'Town or city'
-      enter_post_code(test_data('payment', 'postcode')) unless empty_field == 'Postcode'
-    end
-
-    def enter_invalid_billing_details(invalid_field, type)
-      if type == 'numeric'
-        value = rand(10000..99999)
-      elsif type == 'character'
-        value = ''
-        5.times { value += ('a'..'z').to_a.sample }
-      else
-        value = type
-      end
-      invalid_field == 'address line one' ? address_line_one = value : address_line_one = test_data('payment', 'address_lineone')
-      invalid_field == 'address line two' ? address_line_two = value : address_line_two = test_data('payment', 'address_linetwo')
-      invalid_field == 'town or city' ? town_or_city = value : town_or_city = test_data('payment', 'town_or_city')
-      invalid_field == 'post code' ? post_code = value : post_code = test_data('payment', 'postcode')
-      enter_address_line_one(address_line_one)
-      enter_address_line_two(address_line_two)
-      enter_town_or_city(town_or_city)
-      enter_post_code(post_code)
+    def billing_details()
+      {
+          :address_line_one => test_data('payment', 'address_lineone'),
+          :address_line_two => test_data('payment', 'address_linetwo'),
+          :town_or_city => test_data('payment', 'town_or_city'),
+          :postcode => test_data('payment', 'postcode')
+      }
     end
 
     def click_confirm_and_pay

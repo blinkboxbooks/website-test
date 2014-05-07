@@ -7,7 +7,6 @@ Feature: Billing address form validation
     Given I am returning user
     And I am buying a pay for book as a logged in user
 
-  @smoke
   Scenario Outline: Submit the payment with empty address field
     When I choose to pay with a new card
     And submit the payment details with empty <address_field>
@@ -18,9 +17,12 @@ Feature: Billing address form validation
     | address_field    | validation_error           |
     | Address line one | Please enter your address  |
     | Town or city     | Please enter your city     |
+
+  @pending @CWA-1487
+  Examples:
+    | address_field    | validation_error           |
     | Postcode         | Please enter your postcode |
 
-  @pending
   Scenario Outline: Submit payment with numeric input only for address fields
     When I choose to pay with a new card
     And submit the payment details with numeric input only for <address_field>
@@ -32,9 +34,13 @@ Feature: Billing address form validation
     | Address line one | Your address must not be a number             |
     | Address line two | Your address second line must not be a number |
     | Town or city     | Your city must not be a number                |
+
+  @pending @CWA-1487
+  Examples:
+    | address_field    | validation_error                              |
     | Postcode         | Your postcode is not a valid postcode         |
 
-  @pending
+  @pending @CWA-1487
   Scenario Outline: Malformed post code
     When I choose to pay with a new card
     And submit the payment details with malformed post code <value>
