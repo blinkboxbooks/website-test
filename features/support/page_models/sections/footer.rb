@@ -1,6 +1,6 @@
 module PageModels
   class FooterLinks < PageModels::BlinkboxbooksSection
-    element :about_blinkbox, "a[data-test='footer-about-link']"
+    element :about_blinkbox_books, "a[data-test='footer-about-link']"
     element :help, "a[data-test='footer-help-link']"
     element :terms_and_conditions, "a[data-test='footer-t-and-c-link']"
     element :blinkbox_movies, "a[data-test='footer-movies-link']"
@@ -15,6 +15,16 @@ module PageModels
 
     def version_info
       version_div.text(:all)
+    end
+
+    def navigate_by_link(link_name)
+      link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
+      row_of_links = links
+      if row_of_links.respond_to?(link)
+        row_of_links.send(link).click
+      else
+        raise "Not recognised footer navigation link: #{link}"
+      end
     end
   end
 end

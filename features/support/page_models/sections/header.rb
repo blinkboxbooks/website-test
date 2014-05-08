@@ -39,5 +39,15 @@ module PageModels
       wait_for_sub_menu
       account_nav_link(main_menu_option_dropdown, link_name).click
     end
+
+    def navigate_to(link_name)
+      link = link_name.downcase.gsub(' ', '_')
+      nav_bar = navigation
+      if nav_bar.respond_to?(link)
+        nav_bar.send(link).click
+      else
+        raise "Not recognised header navigation link: #{link}"
+      end
+    end
   end
 end
