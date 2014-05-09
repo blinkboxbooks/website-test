@@ -1,4 +1,8 @@
+require 'utilities'
+
 module PageModelHelpers
+  include WebUtilities
+
   def class_name_to_caller_method(class_name)
     class_name.to_s.gsub(/.*::([^:]*)/, '\1').camel_case_to_underscore_case
   end
