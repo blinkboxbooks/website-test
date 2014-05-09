@@ -80,6 +80,10 @@ module WebUtilities
   end
 
   def mouse_over(element)
+    if Capybara.current_session.driver == Capybara::Selenium::Driver
+      element.native.location_once_scrolled_into_view
+      page.driver.browser.action.move_to(element.native).perform
+    end
     element.hover
   end
 

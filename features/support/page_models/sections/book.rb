@@ -50,14 +50,14 @@ module PageModels
     end
 
     def click_buy_now
-      cover_image.hover
+      mouse_over(cover_image)
       wait_for_buy_now_button
       wait_until_buy_now_button_visible
       buy_now_button.click
     end
 
     def click_view_details
-      cover_image.hover
+      mouse_over(cover_image)
       wait_for_book_details_button
       wait_until_book_details_button_visible
       book_details_button.click
