@@ -7,22 +7,25 @@ Feature: Suggestions for user search
   Background: Opens Blinkbox books home page
     Given I am on the home page
 
-  @smoke @production @data-dependent
+  @smoke @production @data-dependent @unstable
   Scenario: Search suggestions displayed
     When I type "spring" into search field
     Then search suggestions should be displayed
 
+  @unstable
   Scenario: Typing valid sequence of letters returns relevant suggestions
     When I type "Gone" into search field
     Then search suggestions should be displayed
      And I should see at least 5 suggestions
      And all suggestions should contain search word "Gone"
 
+  @unstable
   Scenario: Exact match of letters should be first suggestion
     When I type "Dan Brown" into search field
     Then search suggestions should be displayed
     And first suggestions should contain complete word "Dan Brown"
 
+  @unstable
   Scenario: Typing invalid sequence of letters does not return suggestions
     When I type "#$£%^" into search field
     Then search suggestions should not be displayed

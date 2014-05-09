@@ -50,6 +50,8 @@ module PageModels
     end
 
     def click_buy_now
+      cover_image.native.location_once_scrolled_into_view
+      page.driver.browser.action.move_to(cover_image.native).perform
       cover_image.hover
       wait_for_buy_now_button
       wait_until_buy_now_button_visible
@@ -57,6 +59,8 @@ module PageModels
     end
 
     def click_view_details
+      cover_image.native.location_once_scrolled_into_view
+      page.driver.browser.action.move_to(cover_image.native).perform
       cover_image.hover
       wait_for_book_details_button
       wait_until_book_details_button_visible
