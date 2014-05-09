@@ -1,5 +1,3 @@
-require 'utilities'
-
 module PageModels
   class BlinkboxbooksPage < SitePrism::Page
     include RSpec::Matchers

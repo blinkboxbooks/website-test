@@ -1,5 +1,3 @@
-require 'utilities'
-
 module PageModelHelpers
   include WebUtilities
 
