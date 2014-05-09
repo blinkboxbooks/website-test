@@ -8,11 +8,12 @@ Feature: Update the Payment details of the user under 'your account'
     Given I am on the home page
 
   @ie @safari
-  @smoke
+  @smoke @unstable
   Scenario: Delete a stored card
     Given I have a stored card
     And I have signed in
     And I am on the Saved cards tab
+    # Service fails to delete card sometimes which leads to false negative
     When I delete the first card from the list
     Then there are no cards in my account
     And "Your payment card has been deleted. You can add new cards to your account while making a purchase" message is displayed
