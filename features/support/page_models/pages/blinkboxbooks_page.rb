@@ -1,6 +1,6 @@
-module PageModels
-  require 'utilities'
+require 'utilities'
 
+module PageModels
   class BlinkboxbooksPage < SitePrism::Page
     include RSpec::Matchers
     include WebUtilities

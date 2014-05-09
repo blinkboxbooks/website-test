@@ -83,10 +83,8 @@ module WebUtilities
     if Capybara.current_session.driver == Capybara::Selenium::Driver
       element.native.location_once_scrolled_into_view
       page.driver.browser.action.move_to(element.native).perform
-      element.hover
-    else
-      element.hover
     end
+    element.hover
   end
 
   def maximize_window

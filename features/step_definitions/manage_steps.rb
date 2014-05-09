@@ -76,7 +76,7 @@ When /^I delete the first card from the list$/ do
 end
 
 Then /^there are no cards in my account$/ do
-  expect(your_payments_page.saved_cards).to be_empty
+  expect(your_payments_page.saved_cards).to have_exactly(0).items
 end
 
 When /^I set a different card as my default card$/ do
