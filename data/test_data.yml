@@ -27,6 +27,15 @@
  QA:
    <<: *COMMON
 
+ NODEJS-INTERNAL:
+   <<: *COMMON
+
+ LOCALHOST:
+   <<: *COMMON
+
+ PRODUCTION:
+   <<: *COMMON
+
  QA: &QA
   emails:
     happypath_user: happy_path_signin@mobcastdev.com
@@ -78,9 +87,6 @@
    <<: *QA
 
  LOCALHOST:
-   <<: *QA
-
- PRODUCTION:
    <<: *QA
 
  PRODUCTION:
