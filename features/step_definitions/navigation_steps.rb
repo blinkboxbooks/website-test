@@ -184,7 +184,7 @@ And /^I am able to read the sample of corresponding book$/ do
 end
 
 When /^I select (.*?) link from the hamburger Menu$/ do|link_name|
-  current_page.header.navigate_to_main_menu_option(link_name)
+  current_page.header.navigate_to_hamburger_menu_option(link_name)
 end
 
 Then /^I am redirected to the "([a-zA-Z ]+)" support page in a new window$/ do |support_page|
