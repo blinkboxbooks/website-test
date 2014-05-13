@@ -19,9 +19,8 @@ module PageModels
 
     def navigate_by_link(link_name)
       link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
-      row_of_links = links
-      if row_of_links.respond_to?(link)
-        row_of_links.send(link).click
+      if links.respond_to?(link)
+        links.send(link).click
       else
         raise "Not recognised footer navigation link: #{link}"
       end

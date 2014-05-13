@@ -42,9 +42,8 @@ module PageModels
 
     def navigate_to(link_name)
       link = link_name.downcase.gsub(' ', '_')
-      nav_bar = navigation
-      if nav_bar.respond_to?(link)
-        nav_bar.send(link).click
+      if navigation.respond_to?(link)
+        navigation.send(link).click
       else
         raise "Not recognised header navigation link: #{link}"
       end
