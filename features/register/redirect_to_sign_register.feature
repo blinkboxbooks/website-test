@@ -32,7 +32,7 @@ Feature: Redirect to Sign and register page
   Scenario Outline: Sign in register redirect for manage actions under main Menu
     Given I am not signed in
     And I am on the home page
-    When I select <account_option> link from Your account under main Menu
+    When I select <account_option> link from the hamburger Menu
     Then Sign in redirect page is displayed
 
   Examples:
