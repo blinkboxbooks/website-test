@@ -58,6 +58,9 @@
  LOCALHOST:
    <<: *QA
 
+ ESTEBAN:
+   <<: *QA
+
  PRODUCTION:
   emails:
     happypath_user: books_tester01@blinkbox.com

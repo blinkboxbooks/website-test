@@ -1,7 +1,7 @@
 module PageModels
   class AccountMenu < PageModels::BlinkboxbooksSection
-    element :menu_sign_in_button, '[data-test="menu-sign-button"]', :text =>'Sign in'
-    element :menu_sign_out_button, '[data-test="menu-sign-button"]', :text =>'Sign out'
+    element :sign_out_button, 'a[data-test="menu-sign-out-button"]'
+    element :sign_in_button, 'a[data-test="menu-sign-in-button"]'
     element :menu_register_link, '[data-test="menu-register-link"]'
   end
 
