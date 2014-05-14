@@ -21,7 +21,6 @@ module PageModels
       wait_until_user_account_logo_visible #siteprism method
       user_account_logo.click
       account_menu.should be_visible
-      puts account_menu.root_element.inspect
       account_menu.find("a", :text => "#{link_name}").click
     end
 
