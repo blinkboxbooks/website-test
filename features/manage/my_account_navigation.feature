@@ -24,7 +24,7 @@ Feature: Navigating through my account pages
   @smoke @production
   Scenario Outline: Signed in user accessing account navigation links from main Menu
     Given I have signed in
-    When I select <my_account_option> link from the hamburger Menu
+    When I select <my_account_option> link from drop down menu
     Then <my_account_page> page is displayed
     And <my_account_page> tab is selected
 
