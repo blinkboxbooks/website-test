@@ -1,7 +1,7 @@
 module PageModels
   class AccountMenu < PageModels::BlinkboxbooksSection
-    element :menu_sign_in_button, '[data-test="menu-sign-button"]', :text =>'Sign in'
-    element :menu_sign_out_button, '[data-test="menu-sign-button"]', :text =>'Sign out'
+    element :sign_out_button, 'a[data-test="menu-sign-out-button"]'
+    element :sign_in_button, 'a[data-test="menu-sign-in-button"]'
     element :menu_register_link, '[data-test="menu-register-link"]'
   end
 
@@ -21,6 +21,7 @@ module PageModels
       wait_until_user_account_logo_visible #siteprism method
       user_account_logo.click
       account_menu.should be_visible
+      puts account_menu.root_element.inspect
       account_menu.find("a", :text => "#{link_name}").click
     end
 

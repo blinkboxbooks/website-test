@@ -119,7 +119,8 @@ module BlinkboxWebUtilities
   end
 
   def log_out_current_session
-    click_link_from_my_account_dropdown('Sign out')
+    current_page.header.user_account_logo.click
+    current_page.header.account_menu.sign_out_button.click
   end
 
   def assert_support_page(page_name)
