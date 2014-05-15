@@ -10,7 +10,7 @@ Feature: Sign out from blinkbox books
 
   @smoke @production
   Scenario: Sign out from home page
-    When I select Sign out link from drop down menu
+    When I select sign out from the drop down menu
     Then I should be signed out successfully
     And I am redirected to Home page
 

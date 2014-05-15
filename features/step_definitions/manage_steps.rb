@@ -2,6 +2,10 @@ When /^I select (.*?) link from drop down menu$/ do |link|
   click_link_from_my_account_dropdown(link)
 end
 
+When /^I select sign out from the drop down menu$/ do
+  current_page.header.click_log_out
+end
+
 And /^(.*?) tab is selected$/ do |tab_name|
   expect_account_tab_selected(tab_name)
 end
