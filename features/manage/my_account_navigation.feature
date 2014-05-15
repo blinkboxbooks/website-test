@@ -21,20 +21,6 @@ Feature: Navigating through my account pages
     | Saved cards       | Your payments           |
     | Devices           | Your devices            |
 
-  @smoke @production
-  Scenario Outline: Signed in user accessing account navigation links from main Menu
-    Given I have signed in
-    When I select <my_account_option> link from the hamburger Menu
-    Then <my_account_page> page is displayed
-    And <my_account_page> tab is selected
-
-  Examples:
-    | my_account_option | my_account_page         |
-    | Order history     | Order & payment history |
-    | Personal details  | Your personal details   |
-    | Saved cards       | Your payments           |
-    | Devices           | Your devices            |
-
   @CWA-1027 @production
   Scenario: Navigate through FAQ links under Order & payment history
     Given I have signed in
