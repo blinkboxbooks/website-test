@@ -1,10 +1,8 @@
 module PageModels
   module YourPaymentsAsserts
     def assert_default_card(card)
-      within your_payments_page.default_card do
-        default_card = your_payments_page.card_name.text
-        card.should be_eql(default_card)
-      end
+      default_card = your_payments_page.default_card
+      expect(card).to be == default_card.title + default_card.holder_name
     end
 
     def assert_book_order_and_payment_history(book_title)
