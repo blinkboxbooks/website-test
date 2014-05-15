@@ -20,23 +20,23 @@ Feature: Register page-personal details form validation
     Then "Please enter your email address" message is displayed
 
   Examples:
-    |malformed email address      ||
-    |plainaddress                 ||
-    |@%^%#$@#$@#.com              ||
-    |@example.com                 ||
-    |Joe Smith <email@example.com>||
-    |email.example.com            ||
-    |email@example@example.com    ||
-    |.email@example.com           ||
-    |email.@example.com           ||
-    |email..email@example.com     ||
-    |email@example.com (Joe Smith)||
-    |email@example                ||
-    |email@-example.com           ||
-    |email@example.web            ||
-    |email@111.222.333.44444      ||
-    |email@example..com           ||
-    |Abc..123@example.com         ||
+    |malformed email address      |
+    |plainaddress                 |
+    |@%^%#$@#$@#.com              |
+    |@example.com                 |
+    |Joe Smith <email@example.com>|
+    |email.example.com            |
+    |email@example@example.com    |
+    |.email@example.com           |
+    |email.@example.com           |
+    |email..email@example.com     |
+    |email@example.com (Joe Smith)|
+    |email@example                |
+    |email@-example.com           |
+    |email@example.web            |
+    |email@111.222.333.44444      |
+    |email@example..com           |
+    |Abc..123@example.com         |
 
   Scenario: Register with empty first name
     Given I am on Register page

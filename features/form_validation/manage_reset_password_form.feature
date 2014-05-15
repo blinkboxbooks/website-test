@@ -7,7 +7,7 @@ Feature: Manage-reset password form validation
   Scenario: Change password with empty enter password
     Given I am on the Change your password section
     When I change password
-    But I leave the Enter password field empty
+    And I leave the Enter password field empty
     Then "Please enter you new password" message is displayed
     And my password is not updated
 
@@ -15,6 +15,6 @@ Feature: Manage-reset password form validation
   Scenario: Change password with empty re-enter password
     Given I am on the Change your password section
     When I change password
-    But I leave the re-enter password field empty
+    And I leave the re-enter password field empty
     Then "Please re-enter your password" message is displayed
     And my password is not updated
