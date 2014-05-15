@@ -6,7 +6,7 @@
 <% grid_opts_tablet_qa =  "GRID=true PLATFORM=ANDROID BROWSER_NAME=android" %>
 
 default:              -p local_debug
-local_debug:          -r features --tags ~@wip GRID=false SERVER=QA DEBUG=true
+local_debug:          -r features --tags ~@wip GRID=false SERVER=NODEJS-INTERNAL DEBUG=true
 
 ci-no-grid:           <%= ci_opts %>
 ci-smoke-local:       <%= ci_opts %> --tags @smoke SERVER=LOCALHOST FAIL_FAST=true
