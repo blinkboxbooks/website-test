@@ -42,21 +42,19 @@ module ManageAccount
   end
 
   def set_card_default
-    within('.payment_list') do
-      page.all('li').to_a.each do |li|
-        if not ((li[:class]).include?('payment_alt_row'))
-          within(li) do
-            within('[class="payment_default"]') do
-              find('label').click
-            end
-            within('[class="payment_card_details_container"]') do
-              @default_card = find('[class="payment_name ng-binding"]').text
-            end
-          end
+    saved_cards_list = your_payments_page.saved_cards
+    unless saved_cards_list.empty?
+      saved_cards_list.each { |card|
+        unless card.is_default?
+          card.check_default_radio
+          @default_card = card.title + card.holder_name
           break
         end
-      end
+      }
+    else
+      raise 'Saved cards list on Your Payments page is empty!'
     end
+
     click_button('Update default card')
     return @default_card
   end
