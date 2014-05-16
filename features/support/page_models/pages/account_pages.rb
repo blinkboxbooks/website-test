@@ -48,7 +48,6 @@ module PageModels
     end
 
     def saved_cards
-      wait_until_saved_cards_container_visible
       saved_cards_list
     end
   end
