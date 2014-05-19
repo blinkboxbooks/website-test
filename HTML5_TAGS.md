@@ -48,3 +48,7 @@
 |#!/signin      | Register button                  | data-test="register"                                  |                        |
 |#!/register    | Continue button                  | data-test="continue"                                  |                        |
 |#!/register    | Cancel registration link         | data-test="cancel-registration"                       |                        |
+| /             | Order history                    | data-test="order-history"                             |                        |
+| /             | Personal details                 | data-test="personal-details"                          |                        |
+| /             | Saved cards                      | data-test="saved-cards"                               |                        |
+| /             | Devices                          | data-test="devices"                                   |                        |
