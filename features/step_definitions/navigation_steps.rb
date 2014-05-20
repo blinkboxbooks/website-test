@@ -25,13 +25,13 @@ end
 
 Given /^the blinkbox books help link is present in the footer$/ do
   @help_link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-help-link"]')
-  @help_link.visible?.should == true
+  expect(@help_link).to be_visible
 end
 
 Then /^the link should point to the blinkbox books help home page$/ do
-  @help_link[:href].should include 'support.blinkboxbooks.com'
-  @help_link[:target].should == '_blank'
-  @help_link.text.should == 'Help'
+  expect(@help_link[:href]).to include('support.blinkboxbooks.com')
+  expect(@help_link[:target]).to equal('_blank')
+  expect(@help_link.text).to equal('Help')
 end
 
 Given /^the blinkbox movies link is present in the footer$/ do
@@ -40,9 +40,9 @@ Given /^the blinkbox movies link is present in the footer$/ do
 end
 
 Then /^the link should point to the blinkbox movies home page$/ do
-  @movies_link[:href].should include 'www.blinkbox.com'
-  @movies_link[:target].should == '_blank'
-  @movies_link.text.should == 'blinkbox movies'
+  expect(@movies_link[:href]).to include('www.blinkbox.com')
+  expect(@movies_link[:target]).to equal('_blank')
+  expect(@movies_link.text).to equal('blinkbox movies')
 end
 
 Given /^the blinkbox music link is present in the footer$/ do
@@ -51,9 +51,9 @@ Given /^the blinkbox music link is present in the footer$/ do
 end
 
 Then /^the link should point to the blinkbox music home page$/ do
-  @music_link[:href].should include 'www.blinkboxmusic.com'
-  @music_link[:target].should == '_blank'
-  @music_link.text.should == 'blinkbox music'
+  expect(@music_link[:href]).to include('www.blinkboxmusic.com')
+  expect(@music_link[:target]).to equal('_blank')
+  expect(@music_link.text).to equal('blinkbox music')
 end
 
 And /^I click on the (.*) link$/ do |page_name|
@@ -72,7 +72,7 @@ And /^main header tabs should not be selected$/ do
   pending "CWA-1300 - Top header is selected on the search results page" do
     within("#main-navigation") do
       page.all('li').to_a.each do |li|
-        ((li[:class]).include?("current")).should == false
+        expect(li[:class]).to include("current")
       end
     end
   end
@@ -86,7 +86,7 @@ Then /^I should be on the Authors page$/ do
 end
 
 And /^footer is displayed$/ do
-  current_page.should have_footer
+  expect(current_page).to have_footer
 end
 
 And /^(.*?) header is (.*?)$/ do |section_name, text|
@@ -96,26 +96,25 @@ end
 
 And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/ do
   within('.tabbed') do
-    page.should have_selector("a", :text => "Fiction")
-    page.should have_selector("a", :text => "Non-Fiction")
+    expect(page).to have_selector("a", :text => "Fiction")
+    expect(page).to have_selector("a", :text => "Non-Fiction")
   end
 end
 
 And /^Grid view and List view buttons displayed$/ do
-  page.find('.list-view').should be_visible
-  page.find('.grid-view').should be_visible
-
+  expect(find('.list-view')).to be_visible
+  expect(find('.list-view')).to be_visible
 end
 
 And /^I should see Promotions section header as (.*?)$/ do |promo_text|
   within('[data-id="399"]') do
-    page.should have_content(promo_text)
+    expect(page).to have_content(promo_text)
   end
 end
 
 And /^I should see (\d+) books being displayed$/ do |books|
   within('[data-title="All time best selling books"]') do
-    page.all('li').count.should == books.to_i
+    expect(all('li').count).to equal(books.to_i)
   end
 end
 
@@ -128,23 +127,23 @@ end
 Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
   case view
     when 'grid'
-      (find('.grid-view')[:class]).should include('active')
+      expect(find('.grid-view')[:class]).to include('active')
       within('[data-test="bestsellers-container"]') do
-        find('.selected').text.should == book_type
+        expect(find('.selected').text).to equal(book_type)
       end
     when 'list'
-      (find('.list-view')[:class]).should include('active')
+      expect(find('.list-view')[:class]).to include('active')
       within('[data-test="bestsellers-container"]') do
-        find('.selected').text.should == book_type
+        expect(find('.selected').text).to equal(book_type)
       end
   end
 end
 
 Given /^I am on crime and thriller category page$/ do
   visit('#!/category/crime-and-thriller/')
-  current_path.should.eql?('#!/category/crime-and-thriller/') == true
-  find('[data-test="category-title"]').text.eql?('All books in Crime and Thriller').should == true
-  (find('[data-test="categoryid-109"]').visible?).should == true
+  expect(current_path).to equal('#!/category/crime-and-thriller/')
+  expect(find('[data-test="category-title"]').text).to equal('All books in Crime and Thriller')
+  expect(find('[data-test="categoryid-109"]')).to be_visible
   find('[data-test="list-button"]').click
 end
 
@@ -155,7 +154,7 @@ When /^I select a book to view book details$/ do
 end
 
 Then /^details page of the corresponding book is displayed$/ do
-  (current_url.include?(@book_href)).should == true
+  expect(current_url).to include(@book_href)
 end
 
 And /^details of above book are displayed$/ do
@@ -172,7 +171,7 @@ When /^I click on a category$/ do
 end
 
 Then /^Category page is displayed for the selected category$/ do
-  category_page.category_name.text.should include(@category_name)
+  expect(category_page.category_name.text).to include(@category_name)
 end
 
 And /^the book reader is displayed$/ do
@@ -196,7 +195,7 @@ end
 Then /^following FAQ links are displayed(?: on confirmation page)?:$/ do |table|
   @support_links = table
   @support_links.hashes.each do |row|
-    find_link(row['support links']).should be_visible
+    expect(find_link(row['support links'])).to be_visible
   end
 end
 
@@ -212,7 +211,7 @@ Given /^I am on reset password page$/  do
 end
 
 Then /^the "Download the free app" button is displayed on the order complete page$/ do
-  order_complete_page.download_the_free_app_button.should be_visible
+  expect(order_complete_page.download_the_free_app_button).to be_visible
 end
 
 Then /click the "(Continue shopping|Download the free app)" button on order complete page$/ do |button_name|

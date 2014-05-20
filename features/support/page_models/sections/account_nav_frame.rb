@@ -7,12 +7,12 @@ module PageModels
     end
 
     def navigate_to_account_tab(tab_name)
-      self.should have_account_nav_menu
+      expect(self).to have_account_nav_menu
       account_nav_tab(tab_name).click
     end
 
     def has_account_nav_tab_selected?(tab_name)
-      self.should have_account_nav_menu
+      expect(self).to have_account_nav_menu
       self.has_selector?('.selected', :text => tab_name)
     end
   end

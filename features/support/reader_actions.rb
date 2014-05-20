@@ -6,7 +6,7 @@ module ReaderActions
     click_reader_next_page
     click_reader_next_page
     another_page = get_reader_page_contents
-    first_page.should_not eql(another_page)
+    expect(first_page == another_page).to be false
   end
 
   def click_reader_next_page

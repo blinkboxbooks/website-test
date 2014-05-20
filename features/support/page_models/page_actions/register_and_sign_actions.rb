@@ -91,7 +91,7 @@ module PageModels
     end
 
     def confirm_cancel_registration
-      page.should have_selector('#delete-card')
+      expect(page).to have_selector('#delete-card')
       register_page.confirm_cancel_registration.click
     end
 
