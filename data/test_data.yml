@@ -24,19 +24,8 @@
     pay_for_sample: 9781603763370
     free_sample: 9780985491062
 
- QA:
-   <<: *COMMON
-
- NODEJS-INTERNAL:
-   <<: *COMMON
-
- LOCALHOST:
-   <<: *COMMON
-
- PRODUCTION:
-   <<: *COMMON
-
  QA: &QA
+  <<: *COMMON
   emails:
     happypath_user: happy_path_signin@mobcastdev.com
     multiple_storedcards: saved_cards@mobcastdev.com
@@ -90,6 +79,7 @@
    <<: *QA
 
  PRODUCTION:
+  <<: *COMMON
   emails:
     happypath_user: books_tester01@blinkbox.com
     multiple_storedcards: books_tester04@blinkbox.com
