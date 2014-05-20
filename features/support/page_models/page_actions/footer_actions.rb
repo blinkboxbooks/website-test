@@ -15,3 +15,7 @@ def click_category_link_on_footer(category_name)
     end
   end
 end
+
+def click_footer_link(link_name)
+  current_page.footer.navigate_by_link link_name
+end

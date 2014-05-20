@@ -6,7 +6,7 @@ Feature:  Checking Categories page content
 
   Background: Opens Blinkbox books home page
     Given I am on the home page
-    And I click on the Categories link
+    And I click on the Categories header tab
     Then Categories page is displayed
 
   @manual
