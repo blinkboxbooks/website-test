@@ -78,6 +78,9 @@
  LOCALHOST:
    <<: *QA
 
+ ESTEBAN:
+   <<: *QA
+
  PRODUCTION:
   <<: *COMMON
   emails:

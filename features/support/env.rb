@@ -13,6 +13,13 @@ require 'active_support/core_ext'
 require 'rspec/expectations'
 require 'benchmark'
 require 'yaml'
+require 'rspec'
+
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = :expect, :should
+  end
+end
 
 World(Capybara::Angular::DSL)
 World(RSpec::Matchers)
@@ -82,6 +89,7 @@ require_and_log Dir[File.join(support_dir, 'formatter', '*.rb')]
 
 puts "Loading support files..."
 require_and_log Dir[File.join(support_dir, 'core_ruby_overrides.rb')]
+require_and_log Dir[File.join(support_dir, '*.rb')]
 
 puts "Loading page models..."
 require_and_log Dir[File.join(support_dir, 'page_models', '*.rb')]

@@ -17,6 +17,7 @@ Feature: Returning buying book from blinkbox books
   Scenario: Returning user not logged in buying book with saved payment card
     Given I am buying a pay for book as a not logged in user
     When I sign in to proceed with purchase
+    Then title should be "confirm & pay"
     And I pay with saved default card
     Then my payment is successful
 

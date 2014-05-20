@@ -2,6 +2,10 @@ When /^I select (.*?) link from drop down menu$/ do |link|
   click_link_from_my_account_dropdown(link)
 end
 
+When /^I select sign out from the drop down menu$/ do
+  current_page.header.click_log_out
+end
+
 And /^(.*?) tab is selected$/ do |tab_name|
   expect_account_tab_selected(tab_name)
 end
@@ -76,7 +80,7 @@ When /^I delete the first card from the list$/ do
 end
 
 Then /^there are no cards in my account$/ do
-  expect(your_payments_page.saved_cards).to be_empty
+  expect(your_payments_page.saved_cards).to have_exactly(0).items
 end
 
 When /^I set a different card as my default card$/ do

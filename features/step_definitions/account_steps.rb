@@ -70,6 +70,12 @@ And /^I am redirected to (.*?) page$/ do |page_name|
   expect_page_displayed(page_name)
 end
 
+And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
+  pending("CWA-971 - Not the right page after cancelling the order") do
+    expect_page_displayed(page_name)
+  end
+end
+
 Given /^I am on my account page$/ do
   click_link_from_my_account_dropdown('Personal details')
 end
@@ -233,4 +239,8 @@ Given /^I have £(\d+) account credit$/ do |account_credit|
   else
     raise "User with #{account_credit} account credit is not available, please add the user to test_data.yml under data folder"
   end
+end
+
+Then /^title should be "(.+)"$/ do |title|
+  expect(confirm_and_pay_page.title.downcase).to be == title.downcase
 end

@@ -39,7 +39,8 @@ module PageModels
     end
 
     def navigate_to_sign_in_form
-      click_link_from_my_account_dropdown('Sign in')
+      current_page.header.user_account_logo.click
+      current_page.header.account_menu.sign_in_button.click
     end
 
     def navigate_to_register_form
@@ -100,6 +101,7 @@ module PageModels
     end
 
     def sign_in_from_redirected_page
+      assert_page("sign in page")
       sign_in_page.sign_in_form.submit(@email_address, @password)
     end
   end
