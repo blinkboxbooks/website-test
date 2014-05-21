@@ -20,16 +20,6 @@ module ManageAccount
     end
   end
 
-  def click_on_my_account_tab(tab_name)
-    within('.account_menu') do
-      page.all('li').to_a.each do |li|
-        if li.text.eql?(tab_name)
-          li.click
-        end
-      end
-    end
-  end
-
   def edit_marketing_preferences
     before_status = page.has_checked_field?('newsletter')
     if (before_status)

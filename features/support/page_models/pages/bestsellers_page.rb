@@ -2,8 +2,10 @@ module PageModels
   class BestsellersPage < PageModels::BlinkboxbooksPage
     set_url "/#!/bestsellers"
     set_url_matcher /bestsellers/
-    sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
+
     element :section_title_element, 'div[data-test="bestsellers-container"] h2.section_header'
+    section :daily_bestsellers, BookResults, '[data-category="daily-bestsellers"]'
+
 
     def section_title
       section_title_element.text

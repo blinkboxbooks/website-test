@@ -7,8 +7,8 @@ Then(/^I should have a result page with term "(.*?)" matching$/) do |term|
   find('[data-test="search-results-list"]').should have_content("#{term}".titleize)
 end
 
-And(/^the result is displayed in Grid mode$/) do
-  find('[data-test="list-button"]').visible?.should == true
+And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
+  expect(search_results_page.current_view).to be == expected_view.downcase
 end
 
 And(/^I should see the sort option drop down$/) do
@@ -16,31 +16,27 @@ And(/^I should see the sort option drop down$/) do
 end
 
 Given(/^I change from Grid mode to List mode$/) do
-  find('[data-test="list-button"]').click
+  switch_to_list_view
 end
 
 And(/^the result should be displayed in Grid mode$/) do
   find('[data-test="grid-button"]').visible?.should == true
 end
 
-And(/^the result should be displayed in List mode$/) do
-  find('[data-test="list-button"]').visible?.should == true
-end
-
 When(/^I change from List mode to Grid mode$/) do
   page.find('[data-test="grid-button"]').click
 end
 
-And(/^I take the number books on Grid mode$/) do
-  @grid_mode_li = find('[data-test="search-results-list"]').all('li').length
-end
-
-And(/^I take the number books on List mode$/) do
-  @list_mode_li = find('[data-test="search-results-list"]').all('li').length
+And(/^I take the number books on (Grid|List) mode$/) do |mode|
+  if mode == 'Grid'
+    @grid_mode_books = books_section.books.count
+  else
+    @list_mode_books = books_section.books.count
+  end
 end
 
 And(/^the number of books should match on both mode$/) do
-  @grid_mode_li.should == @list_mode_li
+  expect(@grid_mode_books).to be == @list_mode_books
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
@@ -54,10 +50,6 @@ end
 
 And(/^the options of switching view mode should not appear$/) do
   page.should_not have_css('div#controls')
-end
-
-And(/^(\d+) Bestselling books should be returned$/) do |n|
-  find('[data-test="search-results-list"]').all('li').length.should == n.to_i
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
@@ -80,10 +72,6 @@ end
 
 And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
   assert_search_word_in_suggestions search_word
-end
-
-And /^the last suggestion should be equal to "(.*?)"$/ do |search_word|
-  assert_last_suggestion search_word
 end
 
 And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
