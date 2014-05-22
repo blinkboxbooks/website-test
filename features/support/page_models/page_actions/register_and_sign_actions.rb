@@ -45,7 +45,7 @@ module PageModels
 
     def navigate_to_register_form
       navigate_to_sign_in_form
-      click_button('Register')
+      sign_in_page.register_button.click
     end
 
     def accept_terms_and_conditions(accept_terms)
