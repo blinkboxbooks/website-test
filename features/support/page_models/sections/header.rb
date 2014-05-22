@@ -19,6 +19,10 @@ module PageModels
     def selected?
       a.root_element[:class] =~ /current/
     end
+
+    def click
+      link.click
+    end
   end
 
   class Header < PageModels::BlinkboxbooksSection
