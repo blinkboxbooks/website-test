@@ -94,7 +94,7 @@ module AssertNavigation
   end
 
   def assert_order_complete
-    page.should have_selector('#order-complete')
+    expect(order_complete_page).to have_order_complete_message
   end
 
 end

@@ -2,7 +2,7 @@ module PageModels
   module BuyActions
 
     def enter_card_number(number)
-      fill_form_element('number_card', number)
+      confirm_and_pay_page.card_number.set number
     end
 
     def select_expiry_date (month, year)
@@ -11,31 +11,31 @@ module PageModels
     end
 
     def enter_cvv(card_type)
-      cvv='123'
-      if (card_type.eql?('American Express'))
-        cvv='1234'
+      cvv = '123'
+      if card_type.eql?('American Express')
+        cvv = '1234'
       end
-      fill_form_element('number_cvv', cvv)
+      confirm_and_pay_page.cvv.set cvv
     end
 
     def enter_name_on_card(name)
-      fill_form_element('card_name', name)
+      confirm_and_pay_page.name_on_card.set name
     end
 
     def enter_address_line_one(line_one)
-      fill_form_element('address_one', line_one)
+      confirm_and_pay_page.address_line_one.set line_one
     end
 
     def enter_address_line_two(line_two)
-      fill_form_element('address_two', line_two)
+      confirm_and_pay_page.address_line_two.set line_two
     end
 
     def enter_town_or_city(town_or_city)
-      fill_form_element('address_three', town_or_city)
+      confirm_and_pay_page.town_or_city.set town_or_city
     end
 
     def enter_post_code(post_code)
-      fill_form_element('address_four', post_code)
+      confirm_and_pay_page.postcode.set post_code
     end
 
     def enter_billing_details(details=nil)
