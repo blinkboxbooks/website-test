@@ -6,9 +6,9 @@ module PageModels
     end
 
     def enter_sign_in_details(email_address, password)
-      fill_form_element('email', email_address)
+      sign_in_page.sign_in_form.email.set email_address
       sign_in_page.show_password.set(true)
-      fill_form_element('password', password)
+      sign_in_page.sign_in_form.password.set password
     end
 
     def submit_sign_in_details(email_address, password)
