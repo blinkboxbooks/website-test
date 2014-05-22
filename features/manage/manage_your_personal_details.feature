@@ -72,7 +72,6 @@ Feature: Update the Personal details of the user under 'your account'
     | clubcard_number    |
     | 123456789012345678 |
     | 634004025023057563 |
-    | 634004025023057562 |
 
   @negative @production
   Scenario: Update email address using already registered email address

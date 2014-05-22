@@ -56,12 +56,12 @@ Then /^the link should point to the blinkbox music home page$/ do
   @music_link.text.should == 'blinkbox music'
 end
 
-And /^I click on the (.*) link$/ do |page_name|
-  click_link_or_button(get_element_id_for(page_name))
+And /^I click on the (.+) footer link$/ do |link_name|
+  click_footer_link(link_name)
 end
 
 When /^I click on the (.*) header tab$/ do |page_name|
-  current_page.header.main_page_navigation(page_name)
+  click_navigation_link(page_name)
 end
 
 And /^I press browser back$/ do
@@ -89,9 +89,8 @@ And /^footer is displayed$/ do
   current_page.should have_footer
 end
 
-And /^(.*?) header is (.*?)$/ do |section_name, text|
-  assert_container(get_element_id_for(section_name))
-  assert_section_header(get_element_id_for(section_name), text)
+And /^(.*?) section header is (.*?)$/ do |section_name, text|
+  assert_section_header(section_name, text)
 end
 
 And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/ do

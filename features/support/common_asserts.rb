@@ -60,17 +60,16 @@ module AssertNavigation
     end
   end
 
-  def assert_social_media_links
-    within("[data-test='#{get_element_id_for("Connect with us container")}']") do
-      find("[data-test='#{get_element_id_for("Facebook")}']").should be_visible
-      find("[data-test='#{get_element_id_for("Twitter")}']").should be_visible
-      find("[data-test='#{get_element_id_for("Pintrest")}']").should be_visible
-    end
-  end
-
   def assert_section_header(section_id, text)
-    within("[data-test='#{section_id}']") do
-      page.text.should include(text)
+    case section_id.downcase
+      when 'bestsellers'
+        bestsellers_page.section_title.should include(text)
+      when 'new releases'
+        new_releases_page.section_title.should include(text)
+      when 'free ebooks'
+        free_ebooks_page.section_title.should include(text)
+      when 'bestselling authors'
+        authors_page.section_title.should include(text)
     end
   end
 
@@ -95,7 +94,7 @@ module AssertNavigation
   end
 
   def assert_order_complete
-    page.should have_selector('#order-complete')
+    expect(order_complete_page).to have_order_complete_message
   end
 
 end

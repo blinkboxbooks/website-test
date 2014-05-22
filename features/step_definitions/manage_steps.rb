@@ -2,6 +2,10 @@ When /^I select (.*?) link from drop down menu$/ do |link|
   click_link_from_my_account_dropdown(link)
 end
 
+When /^I select sign out from the drop down menu$/ do
+  current_page.header.click_log_out
+end
+
 And /^(.*?) tab is selected$/ do |tab_name|
   expect_account_tab_selected(tab_name)
 end
@@ -51,7 +55,7 @@ end
 
 And /^I am on the Change your password section$/ do
   click_link_from_my_account_dropdown('Personal details')
-  find('.arrowedlink').click
+  your_personal_details_page.change_password_link.click
 end
 
 When /^I change password$/ do
@@ -60,9 +64,7 @@ When /^I change password$/ do
 end
 
 And /^I confirm changes$/ do
-  click_button('Confirm')
-  page.has_selector?('#ind_details')
-  page.has_content?('Signing in to your account')
+  your_personal_details_page.confirm_button.click
 end
 
 And /^I can sign in with the new password successfully$/ do

@@ -23,7 +23,8 @@ module PageModels
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
     element :update_personal_details, "button", :text => "UPDATE PERSONAL DETAILS"
-    element :change_password_link, "button", :text => "Change password"
+    element :change_password_link, 'a.arrowedlink'
+    element :confirm_button, 'button[data-test="confirm-button"]'
 
     def fill_in_club_card(club_card)
       self.club_card.set club_card
@@ -34,14 +35,23 @@ module PageModels
   class YourPaymentsPage < PageModels::YourAccountPage
     set_url "/#!/account/your-payments"
     set_url_matcher /account\/your-payments/
-    sections :saved_cards, CardRecord, '.payment_list li'
+    sections :saved_cards_list, CardRecord, '.payment_list li'
     element :saved_cards_container, '.payment_list'
     element :card_holder_name, '.payment_holder'
     element :card_details, '.payment_card_details'
-    element :default_card, '.payment_list li.ng-scope.payment_alt_row'
     element :card_name, 'span.payment_name'
     element :default_card_radio_button, 'div.payment_default label'
     section :delete_card_popup, DeleteCardPopup, '#delete-card'
+
+    def default_card
+      wait_until_saved_cards_container_visible
+      saved_cards.each { |card| return card if card.is_default? }
+    end
+
+    def saved_cards
+      wait_until_saved_cards_container_visible
+      saved_cards_list
+    end
   end
 
   class YourDevicesPage < PageModels::YourAccountPage

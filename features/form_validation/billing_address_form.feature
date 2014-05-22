@@ -50,9 +50,6 @@ Feature: Billing address form validation
   Examples:
     | value     |
     | W5TA      |
-    | W55A      |
     | W5555B    |
-    | CR20 61AB |
     | CR20 61A  |
-    | HA2       |
     | WC$X8AQ   |

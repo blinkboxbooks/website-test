@@ -17,11 +17,20 @@ module PageModels
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
     element :hamburger_menu, 'ul#main-navigation-handheld'
 
-    def navigate_to_account_option(link_name)
-      wait_until_user_account_logo_visible #siteprism method
+    def open_account_menu
+      wait_until_user_account_logo_visible
       user_account_logo.click
       account_menu.should be_visible
+    end  
+
+    def navigate_to_account_option(link_name)
+      open_account_menu
       account_menu.find("a", :text => "#{link_name}").click
+    end
+
+    def click_log_out
+      open_account_menu
+      account_menu.sign_out_button.click
     end
 
     def main_page_navigation(page_name)
