@@ -23,7 +23,8 @@ module PageModels
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
     element :update_personal_details, "button", :text => "UPDATE PERSONAL DETAILS"
-    element :change_password_link, "button", :text => "Change password"
+    element :change_password_link, 'a.arrowedlink'
+    element :confirm_button, 'button[data-test="confirm-button"]'
 
     def fill_in_club_card(club_card)
       self.club_card.set club_card

@@ -55,7 +55,7 @@ end
 
 And /^I am on the Change your password section$/ do
   click_link_from_my_account_dropdown('Personal details')
-  find('.arrowedlink').click
+  your_personal_details_page.change_password_link.click
 end
 
 When /^I change password$/ do
@@ -64,9 +64,7 @@ When /^I change password$/ do
 end
 
 And /^I confirm changes$/ do
-  click_button('Confirm')
-  page.has_selector?('#ind_details')
-  page.has_content?('Signing in to your account')
+  your_personal_details_page.confirm_button.click
 end
 
 And /^I can sign in with the new password successfully$/ do
