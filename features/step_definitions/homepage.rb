@@ -40,18 +40,16 @@ Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_book
   home_page.should be_all_there
 
   if category_name.include?('Spotlight')
-    category = home_page.spotlight_on_category
+    @category = home_page.spotlight_on_category
   else
-    category = home_page.highlights_category
+    @category = home_page.highlights_category
   end
 
-  @visible_books = category.visible_books.count
-  @all_books = category.books.count
-  expect(@all_books).to be == no_of_books.to_i
+  expect(@category.all_books).to have(no_of_books.to_i).items
 end
 
 And /^all the books displayed$/ do
-  expect(@all_books).to be == @visible_books
+  expect(@category.books).to have(@category.all_books).items
 end
 
 

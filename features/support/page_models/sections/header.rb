@@ -5,17 +5,23 @@ module PageModels
     element :menu_register_link, '[data-test="menu-register-link"]'
   end
 
-  class HeaderLinks < PageModels::BlinkboxbooksSection
-    element :featured, '[data-test="header-featured"]'
-    element :categories, '[data-test="header-categories-link"]'
-    element :bestsellers, '[data-test="header-bestsellers-link"]'
-    element :new_releases, '[data-test="header-new-releases-link"]'
-    element :free_ebooks, '[data-test="header-top-free-link"]'
-    element :authors, '[data-test="header-authors-link"]'
+  class HeaderTab < PageModels::BlinkboxbooksSection
+    element :link, 'a'
+
+    def title
+      link.text
+    end
+
+    def data_test
+      link['data-test']
+    end
+
+    def selected?
+      a.root_element[:class] =~ /current/
+    end
   end
 
   class Header < PageModels::BlinkboxbooksSection
-    element :main_pages_navigation, 'div#main-navigation'
     element :user_account_logo, '#user-menu'
     element :main_menu, '#main-menu'
     element :welcome, '.username'
@@ -25,7 +31,15 @@ module PageModels
 
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
     element :hamburger_menu, 'ul#main-navigation-handheld'
-    section :links, HeaderLinks, '#main-navigation'
+    sections :tabs, HeaderTab, '#main-navigation li'
+
+    def selected_tab
+      tabs.select { |tab| tab.selected? }
+    end
+
+    def tab(tab_name)
+      tabs.select { |tab| tab.data_test.incude?(tab_name.downcase) }
+    end
 
     def open_account_menu
       wait_until_user_account_logo_visible
@@ -52,11 +66,9 @@ module PageModels
 
     def navigate_to(link_name)
       link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
-      if links.respond_to?(link)
-        links.send(link).click
-      else
-        raise "Not recognised header navigation link: #{link}"
-      end
+      tab(link).click
+    rescue
+      raise "Not recognised header tab: #{link}"
     end
 
   end

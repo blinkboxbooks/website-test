@@ -2,7 +2,7 @@ module PageModels
   module HeaderAsserts
 
     def assert_header_tabs_not_selected
-      current_page.header.links.each { |link| expect(link[:class]).to_not include('current') }
+      expect(current_page.header.selected_tab).to be_nil
     end
 
   end

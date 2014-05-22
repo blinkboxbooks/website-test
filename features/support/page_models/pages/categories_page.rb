@@ -7,12 +7,19 @@ module PageModels
     elements :categories, 'div.category div.cover a img'
     elements :category_titles, 'div.category div.title'
 
-    sections :top_categories, CategoryBox, '[data-test="recommended-category-container"] li'
+    sections :top_categories, CategoryBox, '[data-test="recommended-category-container"] li',
     sections :all_categories, CategoryBox, '[data-test="all-categories-container"] li'
 
     def category_by_id(id)
-      all_categories.each { |category| return category if category.id == id }
-      false
+      all_categories.select { |category| category.id == id }
+    end
+
+    def category_displayed?(category_id)
+      !!category_by_id(category_id) ? category.displayed? : false
+    end
+
+    def has_category(category_id)
+      !!categories_page.category_by_id(category_id)
     end
 
     # TODO: Everything below must be refactored, using the top_categories, all_categories sections!

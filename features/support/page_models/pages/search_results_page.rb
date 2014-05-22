@@ -13,11 +13,7 @@ module PageModels
     element :grid_view_button, 'a[data-test="grid-button"]'
 
     def current_view
-      if list_view_button[:class].include? 'active'
-        'list'
-      else
-        'grid'
-      end
+      list_view_button[:class].include? 'active' ? :list : :grid
     end
   end
   register_model_caller_method(SearchResultsPage, :search_results_page)

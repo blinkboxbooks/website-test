@@ -8,7 +8,7 @@ Then(/^I should have a result page with term "(.*?)" matching$/) do |term|
 end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
-  expect(search_results_page.current_view).to be == expected_view.downcase
+  expect(search_results_page.current_view).to be == expected_view.to_sym
 end
 
 And(/^I should see the sort option drop down$/) do
@@ -24,15 +24,15 @@ And(/^the result should be displayed in Grid mode$/) do
 end
 
 When(/^I change from List mode to Grid mode$/) do
-  page.find('[data-test="grid-button"]').click
+  switch_to_grid_view
 end
 
-And(/^I take the number books on (Grid|List) mode$/) do |mode|
-  if mode == 'Grid'
-    @grid_mode_books = books_section.books.count
-  else
-    @list_mode_books = books_section.books.count
-  end
+And(/^I take the number books on Grid mode$/) do
+  @grid_mode_books = books_section.books.count
+end
+
+And(/^I take the number books on List mode$/) do
+  @list_mode_books = books_section.books.count
 end
 
 And(/^the number of books should match on both mode$/) do
@@ -49,10 +49,12 @@ Then(/^I should get a message$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
+  # TODO: should be page model call
   page.should_not have_css('div#controls')
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
+  # TODO: should be page model call
   current_page.search_form.fill_in 'term', :with => search_word
 end
 

@@ -15,17 +15,6 @@ module AssertNavigation
   end
   alias :expect_page_displayed :assert_page
 
-  def is_category_displayed(category_id)
-    !!categories_page.category_by_id(category_id)
-  end
-
-  def find_category(category_id)
-    category_page.all_categories.each do |category_box|
-      id = category_box.root_element['data-test']
-      return id if id.include? category_id
-    end
-  end
-
   def assert_main_footer_displayed
     find('[data-test="footer-container"]').should be_visible
   end

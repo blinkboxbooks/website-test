@@ -16,18 +16,7 @@ When /^I am viewing in (.*?) mode$/ do |viewing_mode|
 end
 
 And /^page should display (\d+) categories in a row$/ do |expected_top_categories|
-  top_categories = categories_page.top_categories
-
-  expect(top_categories.count).to be == expected_top_categories.to_i
-  index = 0
-  top_categories.each do |category_box|
-    index += 1
-    if index <= expected_top_categories.to_i
-      expect(category_box.displayed?).to be true
-    else
-      expect(category_box.displayed?).to be false
-    end
-  end
+  expect(categories_page.top_categories).to have_exactly(expected_top_categories.to_i).items
 end
 
 When /^(\d+) is valid|invalid category id$/ do |category_id|
@@ -35,12 +24,11 @@ When /^(\d+) is valid|invalid category id$/ do |category_id|
 end
 
 Then /^page should display the category$/ do
-  expect(is_category_displayed(@category_id)).to be true
+  expect(categories_page).to have_category(@category_id)
 end
 
 And /^category name should be "(.*?)"$/ do |category_name|
-  category = categories_page.category_by_id(@category_id)
-  expect(category.title).to be == category_name
+  expect(categories_page.category_by_id(@category_id).title).to eq(category_name)
 end
 
 And /^page should display category image$/ do
@@ -49,10 +37,11 @@ And /^page should display category image$/ do
 end
 
 Then /^page should not display the category$/ do
-  expect(is_category_displayed(@category_id)).to be false
+  expect(categories_page).to_not have_category(@category_id)
 end
 
 And /^page should display categories as list$/ do
+  expect(categories_page).to have_top_categories
   categories_page.top_categories.each { |category_box| expect(category_box).to have_no_cover_image }
 end
 

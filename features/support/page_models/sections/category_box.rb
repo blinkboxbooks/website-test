@@ -13,7 +13,7 @@ module PageModels
     end
 
     def id
-      category_div['data-test'].match(/\d+/)[0]
+      category_div['data-test'][/\d+/]
     end
   end
 end
