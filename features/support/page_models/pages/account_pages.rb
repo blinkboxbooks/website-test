@@ -52,6 +52,13 @@ module PageModels
       wait_until_saved_cards_container_visible
       saved_cards_list
     end
+
+    def has_credit_card?(card_type, *args)
+      card = saved_cards.select { |card| card.type == card_type }
+      card.select { |card| card.holder_name == args[:holder_name] } unless args[:holder_name].nil?
+      card.select { |card| card.last_four_digits == args[:last_four_digits] } unless args[:last_four_digits].nil?
+      !!card
+    end
   end
 
   class YourDevicesPage < PageModels::YourAccountPage

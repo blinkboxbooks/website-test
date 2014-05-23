@@ -5,9 +5,18 @@ module PageModels
     element :delete_link, '.delete_payment a'
     element :default_radio, 'div.payment_default input', :visible => false
     element :default_radio_label, 'div.payment_default label'
+    element :card_image, 'span.card-image'
 
     def title
       title_element.text
+    end
+
+    def type
+      card_image[:title]
+    end
+
+    def last_four_digits
+      title_element[/\d{4}/]
     end
 
     def holder_name
