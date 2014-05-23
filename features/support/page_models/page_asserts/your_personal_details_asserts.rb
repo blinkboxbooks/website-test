@@ -15,11 +15,8 @@ module PageModels
 
     def assert_marketing_preferences(after_status)
       your_personal_details_page.wait_until_marketing_prefs_visible
-      if (after_status)
-        your_personal_details_page.marketing_prefs.should be_checked
-      else
-        your_personal_details_page.marketing_prefs.should_not be_checked
-      end
+      marketing_checkbox = your_personal_details_page.marketing_prefs
+      after_status ? expect(marketing_checkbox).to(be_checked) : expect(marketing_checkbox).to_not(be_checked)
     end
 
     def assert_clubcard (clubcard_number = '')

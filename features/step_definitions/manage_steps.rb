@@ -46,11 +46,11 @@ end
 
 When /^I edit email address$/ do
   @new_email_address = generate_random_email_address
-  fill_form_element('email', @new_email_address)
+  your_personal_details_page.email_address.set @new_email_address
 end
 
 And /^email address is as submitted$/ do
-  find('[id="email"]').value.should.eql?(@new_email_address)
+  expect(your_personal_details_page.email_address.value).to eq(@new_email_address)
 end
 
 And /^I am on the Change your password section$/ do

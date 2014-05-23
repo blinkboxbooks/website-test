@@ -31,14 +31,8 @@ module ManageAccount
   end
 
   def edit_marketing_preferences
-    before_status = page.has_checked_field?('newsletter')
-    if (before_status)
-      uncheck('newsletter')
-    else
-      check('newsletter')
-    end
-    after_status = page.has_checked_field?('newsletter')
-    return after_status
+    your_personal_details_page.marketing_prefs_label.click
+    your_personal_details_page.marketing_prefs.checked?
   end
 
   def set_card_default
