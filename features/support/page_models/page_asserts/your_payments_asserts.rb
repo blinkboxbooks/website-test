@@ -6,12 +6,8 @@ module PageModels
     end
 
     def assert_book_order_and_payment_history(book_title)
-      within(order_and_payment_history_page.ordered_books) do
-        your_account_page.wait_until_spinner_invisible
-        within(order_and_payment_history_page.book_list) do
-          page.text should match /#{book_title}/i
-        end
-      end
+      your_account_page.wait_until_spinner_invisible
+      expect(order_and_payment_history_page.book_list.text).to match(/#{book_title}/i)
     end
 
     def assert_payment_card_saved(card_count, name_on_card, card_type)
