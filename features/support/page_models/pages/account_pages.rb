@@ -54,10 +54,12 @@ module PageModels
     end
 
     def has_credit_card?(card_type, *args)
-      card = saved_cards.select { |card| card.type == card_type }
-      card.select { |card| card.holder_name == args[:holder_name] } unless args[:holder_name].nil?
-      card.select { |card| card.last_four_digits == args[:last_four_digits] } unless args[:last_four_digits].nil?
-      !!card
+      cards = saved_cards.select { |card| card.type == card_type }
+      args.each do |arg|
+        raise "Unsupported card property" unless cards[0].respond_to?(arg)
+        cards.select!{ |c| c.send(arg) == arg }
+      end
+      !cards.empty?
     end
   end
 
