@@ -78,7 +78,7 @@ And /^main header tabs should not be selected$/ do
 end
 
 Then /^I should be on the Authors page$/ do
-  wait_until { authors_page.featured_authors.visible? }
+  authors_page.wait_until_featured_authors_visible
   expect_page_displayed("Authors")
 end
 
