@@ -60,15 +60,12 @@ module PageModels
     element :device_list, '.device_list'
     elements :devices, 'ul.device_list li.ng-scope'
     element :device_name, 'span.device_name'
-    element :delete_device_pop_up, '#delete-card'
+    section :delete_device_pop_up, DeleteDevicePopup '#delete-card'
     element :rename_device, 'div.ng-binding span.rename'
     element :confirm_rename_device, 'div.device_editing span.blue_button'
     element :cancel_rename_device, 'div.device_editing span.cancel'
     element :rename_device_input, 'div.device_editing input.ng-pristine'
     element :delete_device, 'div.delete_device span.show_desktop'
-    element :keep_device, '[data-test="close-popup"]'
-    element :remove_device, 'div.buttons button.yellow_button'
-    element :close_pop_up, 'section.clearfix span.ng-scope'
   end
 
   class ChangePasswordPage < PageModels::YourAccountPage
