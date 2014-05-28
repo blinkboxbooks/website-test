@@ -81,7 +81,7 @@ Given /^I am on my account page$/ do
 end
 
 And /^I click Sign out button$/ do
-  click_button('Sign out')
+  your_account_page.sign_out_button.click
 end
 
 Then /^I should be signed out successfully$/ do
