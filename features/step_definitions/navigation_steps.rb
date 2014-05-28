@@ -7,8 +7,7 @@ end
 ##############################################################
 
 When /^I click on the website logo$/ do
-  #find('[data-test="logo-link"]').click
-  find('div#logo').first('a').click
+  current_page.header.logo.click
 end
 
 ##############################################################
@@ -24,8 +23,8 @@ end
 ##############################################################
 
 Given /^the blinkbox books help link is present in the footer$/ do
-  @help_link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-help-link"]')
-  @help_link.visible?.should == true
+  expect(current_page.footer.links).to have_help
+  @help_link = current_page.footer.links.help
 end
 
 Then /^the link should point to the blinkbox books help home page$/ do
@@ -35,8 +34,8 @@ Then /^the link should point to the blinkbox books help home page$/ do
 end
 
 Given /^the blinkbox movies link is present in the footer$/ do
-  @movies_link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-movies-link"]')
-  @movies_link.visible?
+  expect(current_page.footer.links).to have_blinkbox_movies
+  @movies_link = current_page.footer.links.blinkbox_movies
 end
 
 Then /^the link should point to the blinkbox movies home page$/ do
@@ -46,8 +45,8 @@ Then /^the link should point to the blinkbox movies home page$/ do
 end
 
 Given /^the blinkbox music link is present in the footer$/ do
-  @music_link = find('[data-test="bottom-footer-container"]').find('[data-test="footer-music-link"]')
-  @music_link.visible?
+  expect(current_page.footer.links).to have_blinkbox_music
+  @music_link = current_page.footer.links.blinkbox_music
 end
 
 Then /^the link should point to the blinkbox music home page$/ do
@@ -79,9 +78,7 @@ And /^main header tabs should not be selected$/ do
 end
 
 Then /^I should be on the Authors page$/ do
-  Capybara.using_wait_time 15 do
-    current_page.has_selector?("#featured_authors")
-  end
+  authors_page.wait_until_featured_authors_visible
   expect_page_displayed("Authors")
 end
 
@@ -94,10 +91,8 @@ And /^(.*?) section header is (.*?)$/ do |section_name, text|
 end
 
 And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/ do
-  within('.tabbed') do
-    page.should have_selector("a", :text => "Fiction")
-    page.should have_selector("a", :text => "Non-Fiction")
-  end
+  expect(bestsellers_page).to have_fiction_button
+  expect(bestsellers_page).to have_non_fiction_button
 end
 
 And /^Grid view and List view buttons displayed$/ do
@@ -148,9 +143,9 @@ Given /^I am on crime and thriller category page$/ do
 end
 
 When /^I select a book to view book details$/ do
-  book = page.first('[class="book"]').find('[data-test="book-title-cover"]')
-  @book_href = book[:href]
-  book.click
+  book = search_results_page.books.random_purchasable_book
+  @book_href = book.book_details_url
+  book.click_view_details
 end
 
 Then /^details page of the corresponding book is displayed$/ do

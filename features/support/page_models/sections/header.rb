@@ -13,6 +13,7 @@ module PageModels
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
     element :suggestions, 'ul#suggestions'
+    element :logo, "#logo a"
 
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
     element :hamburger_menu, 'ul#main-navigation-handheld'

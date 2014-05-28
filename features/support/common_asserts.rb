@@ -88,9 +88,7 @@ module AssertNavigation
   end
 
   def assert_book_reader
-    within('.right-column') do
-      find('[id="individual-book"]').should be_visible
-    end
+    expect(book_details_page).to have_reader
   end
 
   def assert_order_complete
