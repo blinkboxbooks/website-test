@@ -10,7 +10,7 @@ module ReaderActions
   end
 
   def click_reader_next_page
-    book_details_page.reader.turn_to_the_next_page
+    book_details_page.reader.turn_to_next_page
   end
 
   def get_reader_page_contents

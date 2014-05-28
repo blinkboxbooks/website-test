@@ -8,7 +8,7 @@ module PageModels
       next_page_button.click
     end
 
-    def turn_back_to_the_previous_page
+    def turn_back_to_previous_page
       previous_page_button.click
     end
   end
