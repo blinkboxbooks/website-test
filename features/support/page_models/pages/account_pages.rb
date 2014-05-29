@@ -55,9 +55,8 @@ module PageModels
 
     def has_credit_card?(card_type, *args)
       cards = saved_cards.select { |card| card.type == card_type }
-      args.each do |arg|
-        raise "Unsupported card property" unless cards[0].respond_to?(arg)
-        cards.select!{ |c| c.send(arg) == arg }
+      cards.select! do |card|
+        args.all? { |prop| card.send(prop[0]) == prop[1] }
       end
       !cards.empty?
     end
