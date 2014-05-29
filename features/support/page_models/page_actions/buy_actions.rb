@@ -108,7 +108,7 @@ module PageModels
     end
 
     def confirm_cancel_order
-      page.should have_selector('#delete-card')
+      confirm_and_pay_page.wait_until_cancel_order_popup_visible
       confirm_and_pay_page.confirm_cancel_button.click
     end
 
