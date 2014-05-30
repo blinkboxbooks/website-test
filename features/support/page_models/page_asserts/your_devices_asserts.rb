@@ -7,12 +7,12 @@ module PageModels
     end
 
     def assert_device_count (device_count)
-      expect(your_devices_page.devices.count).to equal(device_count)
+      expect(your_devices_page.devices.count).to eq(device_count)
     end
 
     def assert_device_name(name)
       refresh_current_page
-      expect(your_devices_page.device_name.text).to equal(name)
+      expect(your_devices_page.device_name.text).to eq(name)
     end
 
   end

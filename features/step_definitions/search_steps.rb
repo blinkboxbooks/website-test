@@ -40,7 +40,7 @@ And(/^I take the number books on List mode$/) do
 end
 
 And(/^the number of books should match on both mode$/) do
-  expect(@grid_mode_li).to equal(@list_mode_li)
+  expect(@grid_mode_li).to eq(@list_mode_li)
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
@@ -53,11 +53,11 @@ Then(/^I should get a message$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  expect(page.has_css('div#controls')).to be false
+  expect(page).to have_css('div#controls')
 end
 
 And(/^(\d+) Bestselling books should be returned$/) do |n|
-  expect(find('[data-test="search-results-list"]').all('li').length).to equal(n.to_i)
+  expect(find('[data-test="search-results-list"]').all('li').length).to eq(n.to_i)
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
@@ -141,13 +141,13 @@ end
 
 Then /^"(.*?)" should be visible in search bar$/ do |search_word|
   within('#searchbox') do
-    expect(find('#term')[:value]).to equal(search_word)
+    expect(find('#term')[:value]).to eq(search_word)
   end
 end
 
 Then /^search term should not be visible in search bar$/ do
   within('#searchbox') do
-    expect(find('#term')[:value]).to equal("")
+    expect(find('#term')[:value]).to eq("")
   end
 end
 

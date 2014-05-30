@@ -18,9 +18,9 @@ end
 And /^page should display (\d+) categories in a row$/ do |top_categories|
   #TODO Explore how to make this step less brittle
   within('[data-test="recommended-category-container"]') do
-    expect(page.all('li',:visible => false).count).to equal(top_categories.to_i)
-    expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft")).to equal(772)
-    expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop")).to equal(54)
+    expect(page.all('li',:visible => false).count).to eq(top_categories.to_i)
+    expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft")).to eq(772)
+    expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop")).to eq(54)
   end
 end
 
@@ -34,7 +34,7 @@ end
 
 And /^category name should be "(.*?)"$/ do |category_name|
   category = find_category @category_id
-  expect(find("[data-test=\"#{category}\"]").text).to equal(category_name)
+  expect(find("[data-test=\"#{category}\"]").text).to eq(category_name)
 end
 
 And /^page should display category image$/ do
@@ -62,8 +62,8 @@ end
 
 And /^page should display (\d+) categories per a row$/ do |top_categories|
   #TODO remove this duplicate step
-  expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft")).to equal(20)
-  expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop")).to equal(376)
+  expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft")).to eq(20)
+  expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop")).to eq(376)
 end
 
 And /^I select (list|grid) view$/ do |view|

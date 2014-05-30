@@ -135,7 +135,7 @@ module BlinkboxWebUtilities
 
   def assert_browser_count(count)
     browser_windows = page.driver.browser.window_handles
-    expect(browser_windows.count).to equal(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"
+    expect(browser_windows.count).to eq(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"
   end
 
 end

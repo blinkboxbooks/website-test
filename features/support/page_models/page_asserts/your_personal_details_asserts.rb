@@ -10,7 +10,7 @@ module PageModels
     end
 
     def assert_user_greeting_message_not_displayed()
-      expect(current_page.header.welcome.text).to equal("")
+      expect(current_page.header.welcome.text).to be_empty
     end
 
     def assert_marketing_preferences(after_status)
@@ -24,7 +24,7 @@ module PageModels
 
     def assert_clubcard (clubcard_number = '')
       sleep(1)
-      expect(your_personal_details_page.club_card.value).to equal(clubcard_number.to_s)
+      expect(your_personal_details_page.club_card.value).to eq(clubcard_number.to_s)
     end
 
   end

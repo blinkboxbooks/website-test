@@ -110,12 +110,12 @@ module AssertSearch
 
   def assert_author_name author_name
     selector = 'li.grid-5:nth-child(1)'
-    expect((find_a_text selector, 'author').downcase).to equal(author_name.downcase)
+    expect((find_a_text selector, 'author').downcase).to eq(author_name.downcase)
   end
 
   def assert_title book_title
     selector = 'li.grid-5:nth-child(1)'
-    expect((find_a_text selector, 'title').downcase).to equal(book_title.downcase)
+    expect((find_a_text selector, 'title').downcase).to eq(book_title.downcase)
   end
 
   def assert_unique_result
@@ -138,12 +138,13 @@ module AssertSearch
   end
 
   def assert_search_word_in_suggestions corrected_word
-    current_page.search_form.suggestions.each { |suggestion| expect(suggestion.text).to include(corrected_word) }
+    suggestions = current_page.search_form.suggestions
+    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to be true, "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
   end
 
   def assert_last_suggestion search_word
     within("#suggestions") do
-      expect((page.all('li').to_a.last).text).to equal(search_word)
+      expect((page.all('li').to_a.last).text).to eq(search_word)
     end
   end
 

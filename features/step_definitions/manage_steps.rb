@@ -24,8 +24,8 @@ And /^(?:I submit|submit) my personal details$$/ do
 end
 
 Then /^the first name and last name are as submitted$/ do
-  expect(your_personal_details_page.first_name.value).to equal(@first_name)
-  expect(your_personal_details_page.last_name.value).to equal(@last_name)
+  expect(your_personal_details_page.first_name.value).to eq(@first_name)
+  expect(your_personal_details_page.last_name.value).to eq(@last_name)
 end
 
 When /^I edit marketing preferences$/ do
@@ -50,7 +50,7 @@ When /^I edit email address$/ do
 end
 
 And /^email address is as submitted$/ do
-  expect(find('[id="email"]').value).to equal(@new_email_address)
+  expect(find('[id="email"]').value).to eq(@new_email_address)
 end
 
 And /^I am on the Change your password section$/ do
@@ -123,7 +123,7 @@ end
 
 And /^my email is not updated$/ do
   refresh_current_page
-  expect(your_personal_details_page.email_address.value).to equal(@email_before)
+  expect(your_personal_details_page.email_address.value).to eq(@email_before)
 end
 
 When /^I attempt to update email address with already registered email address$/ do

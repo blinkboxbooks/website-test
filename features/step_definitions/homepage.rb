@@ -23,14 +23,15 @@ end
 
 And /^banner has background images$/ do
   within('[id="slider"]') do
-    expect((@min_banners..@max_banners).include?(page.all('li',:visible => false).count)).to be true
-    page.all('li').to_a.each { |li| expect(li.find('img')).to be_visible }
+    expect(page.all('li',:visible => false).count).to be_between(@min_banners, @max_banners)
+    images = page.all('li').to_a.collect{|li| li.find('img')}
+    expect( images.all? { |img| img.visible? } ).to be true, "Some background images are not visible: #{images.inspect}"
   end
 end
 
 And /^homepage hero banner has navigation buttons$/ do
   within('[id="active"]') do
-    expect((@min_banners..@max_banners).include?(page.all('label').count)).to be true
+    expect(page.all('label').count).to be_between(@min_banners, @max_banners)
   end
 end
 
@@ -55,12 +56,12 @@ Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_book
   within(selector) do
     @visible_books = page.all('li', :visible => true).count
     @all_books = page.all('li', :visible => false).count
-    expect(@all_books).to equal(no_of_books.to_i)
+    expect(@all_books).to eq(no_of_books.to_i)
   end
 end
 
 And /^all the books displayed$/ do
-  expect(@all_books).to equal(@visible_books)
+  expect(@all_books).to eq(@visible_books)
 end
 
 

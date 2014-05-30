@@ -30,8 +30,8 @@ end
 
 Then /^the link should point to the blinkbox books help home page$/ do
   expect(@help_link[:href]).to include('support.blinkboxbooks.com')
-  expect(@help_link[:target]).to equal('_blank')
-  expect(@help_link.text).to equal('Help')
+  expect(@help_link[:target]).to eq('_blank')
+  expect(@help_link.text).to eq('Help')
 end
 
 Given /^the blinkbox movies link is present in the footer$/ do
@@ -41,8 +41,8 @@ end
 
 Then /^the link should point to the blinkbox movies home page$/ do
   expect(@movies_link[:href]).to include('www.blinkbox.com')
-  expect(@movies_link[:target]).to equal('_blank')
-  expect(@movies_link.text).to equal('blinkbox movies')
+  expect(@movies_link[:target]).to eq('_blank')
+  expect(@movies_link.text).to eq('blinkbox movies')
 end
 
 Given /^the blinkbox music link is present in the footer$/ do
@@ -52,8 +52,8 @@ end
 
 Then /^the link should point to the blinkbox music home page$/ do
   expect(@music_link[:href]).to include('www.blinkboxmusic.com')
-  expect(@music_link[:target]).to equal('_blank')
-  expect(@music_link.text).to equal('blinkbox music')
+  expect(@music_link[:target]).to eq('_blank')
+  expect(@music_link.text).to eq('blinkbox music')
 end
 
 And /^I click on the (.*) link$/ do |page_name|
@@ -114,7 +114,7 @@ end
 
 And /^I should see (\d+) books being displayed$/ do |books|
   within('[data-title="All time best selling books"]') do
-    expect(all('li').count).to equal(books.to_i)
+    expect(all('li').count).to eq(books.to_i)
   end
 end
 
@@ -129,20 +129,20 @@ Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_
     when 'grid'
       expect(find('.grid-view')[:class]).to include('active')
       within('[data-test="bestsellers-container"]') do
-        expect(find('.selected').text).to equal(book_type)
+        expect(find('.selected').text).to eq(book_type)
       end
     when 'list'
       expect(find('.list-view')[:class]).to include('active')
       within('[data-test="bestsellers-container"]') do
-        expect(find('.selected').text).to equal(book_type)
+        expect(find('.selected').text).to eq(book_type)
       end
   end
 end
 
 Given /^I am on crime and thriller category page$/ do
   visit('#!/category/crime-and-thriller/')
-  expect(current_path).to equal('#!/category/crime-and-thriller/')
-  expect(find('[data-test="category-title"]').text).to equal('All books in Crime and Thriller')
+  expect(current_path).to eq('#!/category/crime-and-thriller/')
+  expect(find('[data-test="category-title"]').text).to eq('All books in Crime and Thriller')
   expect(find('[data-test="categoryid-109"]')).to be_visible
   find('[data-test="list-button"]').click
 end
