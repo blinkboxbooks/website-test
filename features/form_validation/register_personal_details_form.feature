@@ -15,7 +15,7 @@ Feature: Register page-personal details form validation
 
   Scenario Outline: Register with malformed email address
     Given I am on Register page
-    When I fill the registration form with <malformed email address>
+    When I fill the registration form with <malformed email address> as email address
     And I submit the registration form
     Then "Please enter your email address" message is displayed
 

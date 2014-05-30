@@ -8,7 +8,7 @@ module PageModels
     end
 
     def delete_clubcard
-      sleep(1)
+     your_personal_details_page.wait_until_club_card_visible
      until your_personal_details_page.club_card.value.empty? do
        your_personal_details_page.club_card.native.send_keys(:backspace)
 

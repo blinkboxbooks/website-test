@@ -23,7 +23,7 @@ module PageModels
     end
 
     def assert_clubcard (clubcard_number = '')
-      sleep(1)
+      your_personal_details_page.wait_until_club_card_visible
       expect(your_personal_details_page.club_card.value).to eql(clubcard_number.to_s)
     end
 
