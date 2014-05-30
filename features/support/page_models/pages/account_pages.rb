@@ -22,8 +22,10 @@ module PageModels
     element :last_name, '#last_name'
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
+    element :marketing_prefs_label, 'label.pseudo_label[for="newsletter"]'
     element :update_personal_details, "button", :text => "UPDATE PERSONAL DETAILS"
-    element :change_password_link, "button", :text => "Change password"
+    element :change_password_link, 'a.arrowedlink'
+    element :confirm_button, 'button[data-test="confirm-button"]'
 
     def fill_in_club_card(club_card)
       self.club_card.set club_card
@@ -48,8 +50,15 @@ module PageModels
     end
 
     def saved_cards
-      wait_until_saved_cards_container_visible
       saved_cards_list
+    end
+
+    def has_credit_card?(card_type, *args)
+      cards = saved_cards.select { |card| card.type == card_type }
+      cards.select! do |card|
+        args.all? { |prop| card.send(prop[0]) == prop[1] }
+      end
+      !cards.empty?
     end
   end
 
@@ -59,15 +68,12 @@ module PageModels
     element :device_list, '.device_list'
     elements :devices, 'ul.device_list li.ng-scope'
     element :device_name, 'span.device_name'
-    element :delete_device_pop_up, '#delete-card'
+    section :delete_device_pop_up, DeleteDevicePopup, '#delete-card'
     element :rename_device, 'div.ng-binding span.rename'
     element :confirm_rename_device, 'div.device_editing span.blue_button'
     element :cancel_rename_device, 'div.device_editing span.cancel'
     element :rename_device_input, 'div.device_editing input.ng-pristine'
     element :delete_device, 'div.delete_device span.show_desktop'
-    element :keep_device, '[data-test="close-popup"]'
-    element :remove_device, 'div.buttons button.yellow_button'
-    element :close_pop_up, 'section.clearfix span.ng-scope'
   end
 
   class ChangePasswordPage < PageModels::YourAccountPage

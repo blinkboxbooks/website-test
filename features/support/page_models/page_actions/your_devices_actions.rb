@@ -7,21 +7,15 @@ module PageModels
     end
 
     def confirm_delete_device
-      within your_devices_page.delete_device_pop_up do
-        your_devices_page.remove_device.click
-      end
+      your_devices_page.delete_device_pop_up.confirm
     end
 
     def cancel_delete_device
-      within your_devices_page.delete_device_pop_up do
-        your_devices_page.keep_device.click
-      end
+      your_devices_page.delete_device_pop_up.cancel
     end
 
     def close_delete_device_pop_up
-      within your_devices_page.delete_device_pop_up do
-        your_devices_page.close_pop_up.click
-      end
+      your_devices_page.delete_device_pop_up.close
     end
 
     def rename_device (new_name)

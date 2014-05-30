@@ -68,6 +68,7 @@ module WebUtilities
   end
 
   def fill_form_element(element, value)
+    # TODO: CWA-1455 - I keep this, until there's usage
     fill_in("#{element}", :with => "#{value}")
   end
 
@@ -127,10 +128,10 @@ module BlinkboxWebUtilities
     assert_browser_count(2)
     new_window = page.driver.browser.window_handles.last
     page.within_window new_window do
-      expect(current_url).to match(Regexp.new(get_support_page_url(page_name)))
+      expect(current_url).to match(Regexp.new(test_data('support_page_urls', page_name.downcase.gsub(' ', '_'))))
       page.driver.browser.close
-      assert_browser_count(1)
     end
+    assert_browser_count(1)
   end
 
   def assert_browser_count(count)

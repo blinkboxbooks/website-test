@@ -1,5 +1,5 @@
 @buy
-Feature:  Unhappy path buy
+Feature: Unhappy path buy
   As a blinkbox books user
   I should be shown relevant error messages when attempting to buy a book or add sample I already have in library.
   So that I can edit payment details or payment method.
@@ -15,9 +15,9 @@ Feature:  Unhappy path buy
     Then book already exists in the library message displayed in confirm and pay page
 
    Examples:
-    |book_type|
-    |pay for  |
-    |free     |
+    | book_type |
+    | pay for   |
+    | free      |
 
   @negative
   Scenario Outline: Returning user buying a book, cvv not matching payment failure error from Braintree
@@ -31,9 +31,9 @@ Feature:  Unhappy path buy
 
   Examples:
     | cvv_number |
-    | 201 |
-    | 301 |
-    | 200 |
+    | 201        |
+    | 301        |
+    | 200        |
 
 
 

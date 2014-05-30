@@ -49,20 +49,19 @@ module PageModels
     end
 
     def select_book_to_buy_from_category_page
-      current_page.header.main_page_navigation('Categories')
+      click_navigation_link('Categories')
       click_on_a_category
       books_section.click_buy_now_random_book
     end
 
-    def select_book_to_buy_from_book_detials_page (book_type = 'pay for')
+    def select_book_to_buy_from_book_detials_page(book_type = 'pay for')
       book_title = user_navigates_to_book_details(book_type)
       book_details_page.buy_now.click
       return book_title
     end
 
-    def select_book_to_buy_from (page_name, book_type)
-      book_page = page_model page_name
-      book_page.header.main_page_navigation page_name
+    def select_book_to_buy_from(page_name, book_type)
+      click_navigation_link(page_name)
       expect_page_displayed page_name
       if book_type == "free"
         books_section.click_buy_now_free_book
@@ -71,7 +70,7 @@ module PageModels
       end
     end
 
-    def select_book_to_buy_from_search_results_page (book_type = 'pay for')
+    def select_book_to_buy_from_search_results_page(book_type = 'pay for')
       search_word = return_search_word_for_book_type(book_type)
       search_blinkbox_books(search_word)
       if book_type == 'pay for'

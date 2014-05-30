@@ -6,21 +6,14 @@ module PageModels
     end
 
     def assert_book_order_and_payment_history(book_title)
-      within(order_and_payment_history_page.ordered_books) do
-        your_account_page.wait_until_spinner_invisible
-        within(order_and_payment_history_page.book_list) do
-          page.text should match /#{book_title}/i
-        end
-      end
+      your_account_page.wait_until_spinner_invisible
+      expect(order_and_payment_history_page.book_list.text).to match(/#{book_title}/i)
     end
 
     def assert_payment_card_saved(card_count, name_on_card, card_type)
       your_account_page.wait_until_spinner_invisible
-      within(your_payments_page.saved_cards_container) do
-        expect(your_payments_page).to have_saved_cards :count => card_count
-        expect(page.text.downcase).to include name_on_card.downcase
-        expect(page.text.downcase).to include card_type.downcase
-      end
+      expect(your_payments_page).to have_saved_cards(:count => card_count)
+      expect(your_payments_page.saved_cards).to have_credit_card(card_type.downcase, :holder_name => name_on_card.downcase)
     end
   end
 end

@@ -29,7 +29,8 @@ Then /^the first name and last name are as submitted$/ do
 end
 
 When /^I edit marketing preferences$/ do
-  @after_status = edit_marketing_preferences
+  your_personal_details_page.marketing_prefs_label.click
+  @after_status = your_personal_details_page.marketing_prefs.checked?
 end
 
 And /^marketing preferences are as submitted$/ do
@@ -46,16 +47,16 @@ end
 
 When /^I edit email address$/ do
   @new_email_address = generate_random_email_address
-  fill_form_element('email', @new_email_address)
+  your_personal_details_page.email_address.set @new_email_address
 end
 
 And /^email address is as submitted$/ do
-  expect(find('[id="email"]').value).to eq(@new_email_address)
+  expect(your_personal_details_page.email_address.value).to eq(@new_email_address)
 end
 
 And /^I am on the Change your password section$/ do
   click_link_from_my_account_dropdown('Personal details')
-  find('.arrowedlink').click
+  your_personal_details_page.change_password_link.click
 end
 
 When /^I change password$/ do
@@ -64,9 +65,7 @@ When /^I change password$/ do
 end
 
 And /^I confirm changes$/ do
-  click_button('Confirm')
-  page.has_selector?('#ind_details')
-  page.has_content?('Signing in to your account')
+  your_personal_details_page.confirm_button.click
 end
 
 And /^I can sign in with the new password successfully$/ do

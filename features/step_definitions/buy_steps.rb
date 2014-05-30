@@ -267,7 +267,6 @@ end
 Then /^I have no saved payment cards in my account$/ do
   click_link_from_my_account_dropdown('Saved cards')
   expect(your_payments_page).to have_no_saved_cards_container
-  expect(page).to have_text('You have no payment cards saved to your account')
 end
 
 Then /^my saved Payment details are not updated$/ do

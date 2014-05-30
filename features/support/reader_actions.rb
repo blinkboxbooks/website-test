@@ -5,21 +5,16 @@ module ReaderActions
     click_reader_next_page
     click_reader_next_page
     click_reader_next_page
-    another_page = get_reader_page_contents
-    expect(another_page).to_not eq(first_page)
+    another_page = get_reader_page_contentsg
+    expect(first_page).to_not eq(another_page)
   end
 
   def click_reader_next_page
-    within('#individual-book') do
-      find('[class="right-arrow"]').click
-    end
+    book_details_page.reader.turn_to_next_page
   end
 
   def get_reader_page_contents
-    within('#reader_container') do
-      page_text = page.text
-      return page_text
-    end
+    book_details_page.reader.page.text
   end
 end
 

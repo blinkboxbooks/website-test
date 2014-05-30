@@ -1,5 +1,5 @@
 Then /^"(.*?)" message is displayed$/ do |message_text|
-  expect(page).to have_content(message_text, :visible => true)
+  expect(current_page).to have_content(message_text, :visible => true)
 end
 
 When /^I click on the (.*) author link from footer$/ do |author_name|
