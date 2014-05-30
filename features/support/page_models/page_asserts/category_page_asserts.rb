@@ -2,8 +2,7 @@ module PageModels
   module CategoryPageAsserts
     def assert_category_page_displayed(category_name)
       category_page.should be_displayed
-      title = category_name.downcase.gsub(/&|'|and|,/, '').gsub(/ +/, '-')
-      expect(current_url).to include(title), "Probably page URL is wrong, current page is #{current_url}"
+      expect(category_page).to show(category_name), "Probably wrong Category is displayed. Expected #{category_name}, current page is #{current_page.inspect}"
     end
   end
 end
