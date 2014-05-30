@@ -163,3 +163,13 @@ else
   end
 
 end
+
+# Headless mode
+if TEST_CONFIG['HEADLESS'] == 'true'
+  puts 'Headless mode.'
+
+  require 'headless'
+
+  headless = Headless.new
+  headless.start
+end
