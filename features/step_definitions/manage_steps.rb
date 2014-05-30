@@ -29,7 +29,8 @@ Then /^the first name and last name are as submitted$/ do
 end
 
 When /^I edit marketing preferences$/ do
-  @after_status = edit_marketing_preferences
+  your_personal_details_page.marketing_prefs_label.click
+  @after_status = your_personal_details_page.marketing_prefs.checked?
 end
 
 And /^marketing preferences are as submitted$/ do
