@@ -20,6 +20,7 @@ end
 
 group :ci do
   gem "parallel_tests"
+  gem 'headless'
 end
 
 group :api do
