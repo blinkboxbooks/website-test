@@ -13,7 +13,7 @@ module PageModels
     end
 
     def assert_credit_on_confirm_pay_page(account_credit)
-      credit = confirm_and_pay_page.account_credit_amount.text.gsub(/£/, '').to_f.round(2)
+      credit = confirm_and_pay_page.account_credit_amount
       expect(credit).to eq(account_credit.to_f.round(2))
     end
 

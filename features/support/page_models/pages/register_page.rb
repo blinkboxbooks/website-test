@@ -13,7 +13,7 @@ module PageModels
     element :register_button, "button", :text => /Register/i
     element :cancel_registration, "a", :text => /Cancel registration/i
     element :confirm_cancel_registration, "button", :text =>  /Leave This Page/i
-    element :cancel_registration_popup, "#delete-card", :visible => false
+    element :cancel_registration_popup, "#delete-card"
 
     element :errors_section, "#error_signin"
     element :sign_email_link, "a", :text => /Sign in with/i
