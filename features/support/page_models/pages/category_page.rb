@@ -5,12 +5,14 @@ module PageModels
     element :category_books, '#category'
     sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
     element :category_name, '[data-test="category-title"]'
+
+    def show?(category_name)
+      category_url = category_name.downcase.gsub(/&|'|and|,/, '').gsub(/ +/, '-')
+      current_url.include?(category_url)
+    end
   end
 
-  def show?(category_name)
-    category_url = category_name.downcase.gsub(/&|'|and|,/, '').gsub(/ +/, '-')
-    current_url.include?(category_url)
-  end
+
 
   register_model_caller_method(CategoryPage)
 end
