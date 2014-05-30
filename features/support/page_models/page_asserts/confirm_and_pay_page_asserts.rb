@@ -13,10 +13,8 @@ module PageModels
     end
 
     def assert_credit_on_confirm_pay_page(account_credit)
-      within(confirm_and_pay_page.account_credit_payment) do
-        credit = confirm_and_pay_page.account_credit_amount.text.gsub(/£/, '').to_f.round(2)
-        credit.should be_eql (account_credit.to_f.round(2))
-      end
+      credit = confirm_and_pay_page.account_credit_amount
+      expect(credit).to eq(account_credit.to_f.round(2))
     end
 
     def assert_amount_left_to_pay(account_credit, book_price)
