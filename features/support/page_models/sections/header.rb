@@ -26,7 +26,9 @@ module PageModels
 
     def navigate_to_account_option(link_name)
       open_account_menu
-      account_menu.find("a", :text => "#{link_name}").click
+
+      # Transform account option to a data-attribute.
+      account_menu.find('[data-test="' +  link_name.downcase.gsub(/ /, '-') + '"]').click
     end
 
     def click_log_out
