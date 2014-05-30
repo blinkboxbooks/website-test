@@ -30,17 +30,6 @@ module ManageAccount
     end
   end
 
-  def edit_marketing_preferences
-    before_status = page.has_checked_field?('newsletter')
-    if (before_status)
-      uncheck('newsletter')
-    else
-      check('newsletter')
-    end
-    after_status = page.has_checked_field?('newsletter')
-    return after_status
-  end
-
   def set_card_default
     saved_cards_list = your_payments_page.saved_cards
     unless saved_cards_list.empty?

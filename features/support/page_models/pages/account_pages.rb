@@ -22,6 +22,7 @@ module PageModels
     element :last_name, '#last_name'
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
+    element :marketing_prefs_label, 'label.pseudo_label[for="newsletter"]'
     element :update_personal_details, "button", :text => "UPDATE PERSONAL DETAILS"
     element :change_password_link, 'a.arrowedlink'
     element :confirm_button, 'button[data-test="confirm-button"]'
