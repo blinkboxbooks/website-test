@@ -38,11 +38,11 @@ module PageModels
     sections :tabs, HeaderTab, '#main-navigation li'
 
     def selected_tab
-      tabs.select { |tab| tab.selected? }
+      tabs.find { |tab| tab.selected? }
     end
 
     def tab(tab_name)
-      tabs.select { |tab| tab.data_test.incude?(tab_name.downcase) }
+      tabs.find { |tab| tab.data_test.incude?(tab_name.downcase) }
     end
 
     def open_account_menu
@@ -70,9 +70,11 @@ module PageModels
 
     def navigate_to(link_name)
       link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
-      tab(link).click
-    rescue
-      raise "Not recognised header tab: #{link}"
+      if links.respond_to?(link)
+        links.send(link).click
+      else
+        raise "Not recognised header navigation link: #{link}"
+      end
     end
 
   end

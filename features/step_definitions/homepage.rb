@@ -37,8 +37,6 @@ And /^each banner image has Find out more button$/ do
 end
 
 Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_books|
-  home_page.should be_all_there
-
   if category_name.include?('Spotlight')
     @category = home_page.spotlight_on_category
   else

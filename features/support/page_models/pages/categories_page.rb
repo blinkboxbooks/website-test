@@ -11,14 +11,10 @@ module PageModels
     sections :all_categories, CategoryBox, '[data-test="all-categories-container"] li'
 
     def category_by_id(id)
-      all_categories.select { |category| category.id == id }
+      all_categories.find { |category| category.id == id }
     end
 
-    def category_displayed?(category_id)
-      !!category_by_id(category_id) ? category.displayed? : false
-    end
-
-    def has_category(category_id)
+    def has_category?(category_id)
       !!categories_page.category_by_id(category_id)
     end
 

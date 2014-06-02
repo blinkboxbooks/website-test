@@ -20,7 +20,7 @@ Given(/^I change from Grid mode to List mode$/) do
 end
 
 And(/^the result should be displayed in Grid mode$/) do
-  find('[data-test="grid-button"]').visible?.should == true
+  expect(search_results_page.current_view).to eq(:grid)
 end
 
 When(/^I change from List mode to Grid mode$/) do
