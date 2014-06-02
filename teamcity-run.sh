@@ -10,9 +10,9 @@ if [ -e './rerun.txt' ]; then
 	echo "TESTS FAILED."
 	echo "Rerunning tests."
 	echo "*********************************"
-	
+
 	for i in {1..3}; do
-		echo "Rerun attempt $i"
+		echo "Rerun attempt $i/3"
 
 		# Only rerun the first set of failures.
 		bundle exec cucumber -p ci-smoke-local @rerun.txt HEADLESS=true FAIL_FAST=false  -f rerun --out "./rerun-$i.txt" || true
