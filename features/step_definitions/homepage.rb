@@ -38,16 +38,16 @@ end
 
 Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_books|
   if category_name.include?('Spotlight')
-    @category = home_page.spotlight_on_category
+    @category_section = home_page.spotlight_on_category
   else
-    @category = home_page.highlights_category
+    @category_section = home_page.highlights_category
   end
 
-  expect(@category.books).to have(no_of_books.to_i).items
+  expect(@category_section.books).to have(no_of_books.to_i).items
 end
 
 And /^all the books displayed$/ do
-  expect(@category.invisible_books).to have(0).items
+  expect(@category_section.invisible_books).to have(0).items
 end
 
 
