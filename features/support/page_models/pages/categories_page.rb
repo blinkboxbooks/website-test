@@ -7,7 +7,7 @@ module PageModels
     elements :categories, 'div.category div.cover a img'
     elements :category_titles, 'div.category div.title'
 
-    sections :top_categories, CategoryBox, '[data-test="recommended-category-container"] li',
+    sections :top_categories, CategoryBox, '[data-test="recommended-category-container"] li'
     sections :all_categories, CategoryBox, '[data-test="all-categories-container"] li'
 
     def category_by_id(id)
