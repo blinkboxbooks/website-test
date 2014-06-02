@@ -105,34 +105,12 @@ And /^I should see (\d+) books being displayed$/ do |books|
 end
 
 And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
-  # TODO: CWA-1455
-  within('.tabbed') do
-    find("a", :text =>"#{tab}").click
-  end
+  tab.include?('Non') ? bestsellers_page.non_fiction_button.click : bestsellers_page.fiction_button.click
 end
 
 Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
-  # TODO: CWA-1455
-  case view
-    when 'grid'
-      (find('.grid-view')[:class]).should include('active')
-      within('[data-test="bestsellers-container"]') do
-        find('.selected').text.should == book_type
-      end
-    when 'list'
-      (find('.list-view')[:class]).should include('active')
-      within('[data-test="bestsellers-container"]') do
-        find('.selected').text.should == book_type
-      end
-  end
-end
-
-Given /^I am on crime and thriller category page$/ do
-  visit('#!/category/crime-and-thriller/')
-  current_path.should.eql?('#!/category/crime-and-thriller/') == true
-  find('[data-test="category-title"]').text.eql?('All books in Crime and Thriller').should == true
-  (find('[data-test="categoryid-109"]').visible?).should == true
-  find('[data-test="list-button"]').click
+  expect(search_results_page.current_view).to eq(view.to_sym)
+  expect(bestsellers_page.selected_tab).to eq(book_type.gsub('-', '_').downcase.to_sym)
 end
 
 When /^I select a book to view book details$/ do
