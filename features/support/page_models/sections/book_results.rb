@@ -2,7 +2,10 @@ module PageModels
   class BookResults < PageModels::BlinkboxbooksSection
 
     sections :books, Book, "div[book=\"book\"]"
-    sections :all_books, Book, "div[book=\"book\"]", :visible => false
+
+    def invisible_books
+      books.select { |book| !book.visible? }
+    end
 
     def purchasable_books
       wait_for_books

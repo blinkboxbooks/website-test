@@ -47,7 +47,7 @@ Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_book
 end
 
 And /^all the books displayed$/ do
-  expect(@category.all_books).to have(@category.books.count).items
+  expect(@category.invisible_books).to have(0).items
 end
 
 
