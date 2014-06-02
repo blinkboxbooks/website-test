@@ -43,11 +43,11 @@ Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_book
     @category = home_page.highlights_category
   end
 
-  expect(@category.all_books).to have(no_of_books.to_i).items
+  expect(@category.books).to have(no_of_books.to_i).items
 end
 
 And /^all the books displayed$/ do
-  expect(@category.books).to have(@category.all_books).items
+  expect(@category.all_books).to have(@category.books.count).items
 end
 
 
