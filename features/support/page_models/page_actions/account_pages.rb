@@ -1,7 +1,7 @@
 module PageModels
   module AccountPagesActions
     def saved_cards
-      your_payments_page.wait_for_saved_cards
+      your_payments_page.wait_until_saved_cards_container_visible
       your_payments_page.saved_cards
     end
 

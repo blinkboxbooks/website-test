@@ -32,6 +32,7 @@ module PageModels
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
     element :suggestions, 'ul#suggestions'
+    element :logo, "#logo a"
 
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
     element :hamburger_menu, 'ul#main-navigation-handheld'
@@ -53,7 +54,9 @@ module PageModels
 
     def navigate_to_account_option(link_name)
       open_account_menu
-      account_menu.find("a", :text => "#{link_name}").click
+
+      # Transform account option to a data-attribute.
+      account_menu.find('[data-test="' +  link_name.downcase.gsub(/ /, '-') + '"]').click
     end
 
     def click_log_out

@@ -68,6 +68,7 @@ module WebUtilities
   end
 
   def fill_form_element(element, value)
+    # TODO: CWA-1455 - I keep this, until there's usage
     fill_in("#{element}", :with => "#{value}")
   end
 

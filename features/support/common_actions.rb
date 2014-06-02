@@ -31,6 +31,16 @@ module ManageAccount
     return after_status
   end
 
+  def click_on_my_account_tab(tab_name)
+    within('.account_menu') do
+      page.all('li').to_a.each do |li|
+        if li.text.eql?(tab_name)
+          li.click
+        end
+      end
+    end
+  end
+
   def set_card_default
     saved_cards_list = your_payments_page.saved_cards
     unless saved_cards_list.empty?

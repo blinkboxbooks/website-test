@@ -96,7 +96,7 @@ Feature: Navigation around the website
     And main footer is displayed
 
   @smoke @production
-  Scenario Outline: Navigating through site by clicking Shop links from main Menu
+  Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
     When I select <shop_link> link from the hamburger Menu
     Then <shop_link> page is displayed
 
@@ -109,7 +109,7 @@ Feature: Navigation around the website
     | New releases |
 
   @smoke @production @CWA-1029
-  Scenario Outline: Clicking Support links from main Menu
+  Scenario Outline: Clicking Support links from the hamburger Menu
     When I select <support_link> link from the hamburger Menu
     Then I am redirected to the "<support_page>" support page in a new window
 
@@ -119,7 +119,7 @@ Feature: Navigation around the website
     | Contact us   | Contact us    |
 
   @production
-  Scenario: Navigate to home page from main Menu
+  Scenario: Navigate to home page from the hamburger Menu
     Given I am on Categories page
     When I select Featured link from the hamburger Menu
     Then Home page is displayed

@@ -10,6 +10,7 @@ module PageModels
     element :buy_now_button, '[data-test="book-buy-button"]'
     element :book_details_button, '[data-test="book-details-button"]'
     element :isbn_element, 'div.details'
+    element :cover_link, '[data-test="book-title-cover"]'
 
     def free?
       wait_for_price_element
@@ -61,6 +62,10 @@ module PageModels
       wait_for_book_details_button
       wait_until_book_details_button_visible
       book_details_button.click
+    end
+
+    def book_details_url
+      cover_link[:href]
     end
   end
 end

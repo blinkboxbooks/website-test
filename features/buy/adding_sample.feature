@@ -26,9 +26,14 @@ Feature: User adding sample to Library
     And I register to proceed with adding sample
     Then adding sample is successful
 
-  Examples:
+ @smoke
+ Examples: Adding a paid for book
     | book_type |
     | pay for   |
+
+  @unstable
+  Examples:  Adding a free book
+    | book_type |
     | free      |
 
   @unstable

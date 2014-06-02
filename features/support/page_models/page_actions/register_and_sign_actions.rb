@@ -6,9 +6,9 @@ module PageModels
     end
 
     def enter_sign_in_details(email_address, password)
-      fill_form_element('email', email_address)
+      sign_in_page.sign_in_form.email.set email_address
       sign_in_page.show_password.set(true)
-      fill_form_element('password', password)
+      sign_in_page.sign_in_form.password.set password
     end
 
     def submit_sign_in_details(email_address, password)
@@ -45,7 +45,7 @@ module PageModels
 
     def navigate_to_register_form
       navigate_to_sign_in_form
-      click_button('Register')
+      sign_in_page.register_button.click
     end
 
     def accept_terms_and_conditions(accept_terms)
@@ -91,13 +91,13 @@ module PageModels
     end
 
     def confirm_cancel_registration
-      page.should have_selector('#delete-card')
+      register_page.wait_until_cancel_registration_popup_visible
       register_page.confirm_cancel_registration.click
     end
 
     def sign_out_and_start_new_session
       your_account_page.sign_out_button.click
-      visit('/')
+      home_page.load
     end
 
     def sign_in_from_redirected_page
