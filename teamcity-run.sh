@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run within TeamCity to bootstrap tests and rerun them.
+# Run tests within TeamCity and rerun on failure.
 
 # Ignore output - thus making this return true regardless of real error code.
 bundle exec cucumber -p ci-smoke-local --tags @production HEADLESS=true FAIL_FAST=false -f rerun --out ./rerun.txt || true
@@ -10,6 +10,7 @@ if [ -e './rerun.txt' ]; then
 	echo "TESTS FAILED."
 	echo "Rerunning tests."
 	echo "*********************************"
+	
 	for i in {1..3}; do
 		echo "Rerun attempt $i"
 
@@ -22,5 +23,6 @@ if [ -e './rerun.txt' ]; then
 			break
 		fi
 	done
+
 	exit $response
 fi
