@@ -27,7 +27,7 @@ if [ -e './rerun.txt' ]; then
 		echo "Rerun attempt $i"
 
 		# Only rerun the first set of failures.
-		bundle exec cucumber @rerun.txt -f rerun --out "./rerun-$i.txt" || true
+		bundle exec cucumber -p ci-smoke-local @rerun.txt HEADLESS=true FAIL_FAST=false  -f rerun --out "./rerun-$i.txt" || true
 
 		# If rerun doesn't exist...
 		if [ ! -f './rerun-$i.txt' ]; then
