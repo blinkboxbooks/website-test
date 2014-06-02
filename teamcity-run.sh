@@ -1,28 +1,15 @@
 #!/bin/bash
-set -e
-source ~/.bash_profile
-
-# use nginx 'dist' config and restart nginx
-vagrant ssh-config | ssh -F /dev/stdin default 'sudo cp /vagrant/vagrant-conf/nginx/ci-conf/nginx.conf /usr/local/nginx/conf;sudo service nginx reload'
-
-# start SWA (but detached so we don't block)
-vagrant ssh-config | ssh -F /dev/stdin default 'cd /vagrant/server-web-app/dist;killall node;node app.js' &
-
-# Fetch web test code
-rm -rf website-test
-git clone git@git.mobcastdev.com:TEST/website-test.git
-cd website-test
-rvm use 2.0.0
-bundle install
+# Run within TeamCity to bootstrap tests and rerun them.
 
 # Ignore output - thus making this return true regardless of real error code.
 bundle exec cucumber -p ci-smoke-local --tags @production HEADLESS=true FAIL_FAST=false -f rerun --out ./rerun.txt || true
 
-response=1
-
 if [ -e './rerun.txt' ]; then
-	echo "Tests failed."
+	response=1
+	echo "*********************************"
+	echo "TESTS FAILED."
 	echo "Rerunning tests."
+	echo "*********************************"
 	for i in {1..3}; do
 		echo "Rerun attempt $i"
 
