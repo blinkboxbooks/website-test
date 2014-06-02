@@ -165,7 +165,7 @@ else
 end
 
 # Headless mode
-if TEST_CONFIG['HEADLESS'] == 'true'
+if TEST_CONFIG['HEADLESS']  =~ /^true|on$/i
   puts 'Headless mode.'
 
   require 'headless'
