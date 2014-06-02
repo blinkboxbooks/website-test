@@ -9,37 +9,37 @@ Feature:  Checking Categories page content
     And I click on the Categories header tab
     Then Categories page is displayed
 
-  @manual
+  @unstable @ui
   Scenario: Display Categories in Desktop Mode
     When I am viewing in Desktop mode
-     And page should display 5 categories in a row
+    And page should display 5 categories in a row
 
-  @manual
+  @unstable @ui
   Scenario: Display Categories in 10 inch tablet mode
     When I am viewing in 10 inch tablet mode
-     And page should display 4 categories per a row
+    And page should display 4 categories in a row
 
-  @manual
+   @unstable @ui
    Scenario: Display Categories in 7 inch tablet mode
      When I am viewing in 7 inch tablet mode
-      And page should display categories as list
+     And page should display categories as list
 
-   @manual
+   @unstable @ui
    Scenario: Display Categories in mobile portrait mode
      When I am viewing in Mobile Portrait mode
      And page should display categories as list
 
-   @manual
-  Scenario: Display Categories in mobile landscape  mode
-    When I am viewing in Mobile Landscape mode
-    And page should display categories as list
+   @unstable @ui
+   Scenario: Display Categories in mobile landscape  mode
+     When I am viewing in Mobile Landscape mode
+     And page should display categories as list
 
-   @wip @data-dependent
+   @unstable @data-dependent @production
    Scenario: Valid category displayed
-     When 57 is valid category id
+     When 18 is valid category id
      Then page should display the category
       And page should display category image
-      And category name should be "Thriller & Suspense"
+      And category name should be "Humour"
 
    Scenario: Invalid category is not displayed
      When 123445 is invalid category id

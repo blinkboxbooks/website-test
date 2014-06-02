@@ -15,34 +15,6 @@ module AssertNavigation
   end
   alias :expect_page_displayed :assert_page
 
-  def is_category_displayed category_id
-    category_displayed=false
-    within('[data-test="all-categories-list"]') do
-      page.all('li').to_a.each do |li|
-        begin
-          if ((li.find('[data-category="category"]')['data-test']).include?(category_id) == true)
-            category_displayed = true;
-          end
-        rescue TypeError => e
-          e.message
-          category_displayed = false;
-        end
-      end
-    end
-    return category_displayed
-  end
-
-  def find_category category_id
-    within('[data-test="all-categories-list"]') do
-      page.all('li').to_a.each do |li|
-        if (li.find('[data-category="category"]')['data-test']).include?(category_id) == true
-          return li.find('[data-category="category"]')['data-test'];
-        end
-      end
-    end
-
-  end
-
   def assert_main_footer_displayed
     find('[data-test="footer-container"]').should be_visible
   end
@@ -137,12 +109,6 @@ module AssertSearch
 
   def assert_search_word_in_suggestions corrected_word
     current_page.search_form.suggestions.each { |suggestion| suggestion.text.should include(corrected_word) }
-  end
-
-  def assert_last_suggestion search_word
-    within("#suggestions") do
-      ((page.all('li').to_a.last).text).should == search_word
-    end
   end
 
 end
