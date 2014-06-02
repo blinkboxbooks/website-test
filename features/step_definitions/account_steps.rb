@@ -168,7 +168,7 @@ When /^I try to sign in with email address that is not registered$/ do
 end
 
 And /^link to reset password is displayed$/ do
-   sign_in_page.send_reset_link.should
+  expect(sign_in_page).to have_send_reset_link
 end
 
 When /^I (?:try|have attempted) to sign in with incorrect password$/ do

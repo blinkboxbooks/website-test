@@ -50,12 +50,9 @@ module AssertNavigation
   end
 
   def assert_book_details
-    find('[class="book-data"]').should be_visible
-    within('.left-column') do
-      find('[id="cover"]').should be_visible
-      find('[class="details"]').should be_visible
-      find('[id="description"]').should be_visible
-    end
+    expect(book_details_page).to have_cover
+    expect(book_details_page).to have_details_area
+    expect(book_details_page).to have_description
     assert_book_reader
   end
 

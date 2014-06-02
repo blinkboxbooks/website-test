@@ -92,9 +92,8 @@ And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/ do
 end
 
 And /^Grid view and List view buttons displayed$/ do
-  page.find('.list-view').should be_visible
-  page.find('.grid-view').should be_visible
-
+  expect(search_results_page).to have_list_view_button
+  expect(search_results_page).to have_grid_view_button
 end
 
 And /^I should see Promotions section header as (.*?)$/ do |promo_text|
@@ -106,12 +105,14 @@ And /^I should see (\d+) books being displayed$/ do |books|
 end
 
 And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
+  # TODO: CWA-1455
   within('.tabbed') do
     find("a", :text =>"#{tab}").click
   end
 end
 
 Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
+  # TODO: CWA-1455
   case view
     when 'grid'
       (find('.grid-view')[:class]).should include('active')

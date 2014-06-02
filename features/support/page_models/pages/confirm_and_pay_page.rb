@@ -25,6 +25,7 @@ module PageModels
     element :card_icon_visa, 'span[title="Visa"]'
     element :card_icon_mastercard, 'span[title="Mastercard"]'
     element :title_element, '#inner-register-navigation span', :visible => true
+    element :already_purchased_message, '#already-purchased'
 
     def title
       title_element.text

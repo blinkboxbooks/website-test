@@ -40,7 +40,8 @@ And(/^the number of books should match on both mode$/) do
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  all('[data-test="book-clubcard-points"]').first.visible?.should == true
+  expect(search_results_page.book_results_sections.first.books.first).to have_clubcard_points
+  expect(search_results_page.book_results_sections.first.books.first).to have_clubcard_logo
 end
 
 Then(/^I should get a message$/) do
@@ -49,13 +50,12 @@ Then(/^I should get a message$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  # TODO: should be page model call
-  page.should_not have_css('div#controls')
+  expect(search_results_page).to_not have_list_view_button
+  expect(search_results_page).to_not have_grid_view_button
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
-  # TODO: should be page model call
-  current_page.search_form.fill_in 'term', :with => search_word
+  current_page.search_form.keyword.set search_word
 end
 
 And /^search suggestions should be displayed$/ do
@@ -98,9 +98,8 @@ When (/^I search for "(.*?)"$/) do |word|
 end
 
 And(/^at least 1 search result is shown$/) do
-  page.has_selector?("div.itemsets")
-  search_results_page.has_books?
-  search_results_page.should have_books
+  expect(search_results_page.book_results_sections.first).to have_books
+  expect(search_results_page.book_results_sections.first.books.count).to be > 0
 end
 
 Then /^search results should be displayed$/ do
