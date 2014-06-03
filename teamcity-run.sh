@@ -21,8 +21,6 @@ if [ -e './rerun.txt' ]; then
 		if [ ! -f "./rerun-$i.txt" ]; then
 			response=0
 			break
-		else
-			echo "Tests passed this time."
 		fi
 	done
 
