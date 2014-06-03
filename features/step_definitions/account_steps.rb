@@ -44,7 +44,7 @@ And /^I accept terms and conditions$/ do
 end
 
 And /^welcome message is shown$/ do
-  registration_success_page.welcome_label.should have_content(test_data('messages', 'welcome'), :visible => true)
+  expect(registration_success_page.welcome_label).to have_content(test_data('messages', 'welcome'), :visible => true)
 end
 
 And /^I submit registration details$/ do
@@ -143,7 +143,7 @@ When /^I enter valid registration details$/ do
 end
 
 And(/^link to sign in with already registered email address is displayed$/) do
-  register_page.sign_email_link.text.should include(@email_address)
+  expect(register_page.sign_email_link.text).to include(@email_address)
 end
 
 And /^type passwords that are less than 6 characters$/ do
@@ -168,7 +168,7 @@ When /^I try to sign in with email address that is not registered$/ do
 end
 
 And /^link to reset password is displayed$/ do
-   sign_in_page.send_reset_link.should
+   expect(sign_in_page.send_reset_link).to be_displayed
 end
 
 When /^I (?:try|have attempted) to sign in with incorrect password$/ do
@@ -227,8 +227,8 @@ And /^click send reset link button$/  do
 end
 
 And /^reset email confirmation message is displayed$/  do
-  reset_password_response_page.should have_email_confirm_message
-  reset_password_response_page.email_confirm_message.text.should include("We've sent you a password reset email")
+  expect(reset_password_response_page).to have_email_confirm_message
+  expect(reset_password_response_page.email_confirm_message.text).to include("We've sent you a password reset email")
 end
 
 Given /^I have £(\d+) account credit$/ do |account_credit|
@@ -242,5 +242,5 @@ Given /^I have £(\d+) account credit$/ do |account_credit|
 end
 
 Then /^title should be "(.+)"$/ do |title|
-  expect(confirm_and_pay_page.title.downcase).to be == title.downcase
+  expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
 end

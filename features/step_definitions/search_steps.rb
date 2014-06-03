@@ -4,7 +4,7 @@ And(/^I search for term "(.*?)"$/) do |term|
 end
 
 Then(/^I should have a result page with term "(.*?)" matching$/) do |term|
-  find('[data-test="search-results-list"]').should have_content("#{term}".titleize)
+  expect(find('[data-test="search-results-list"]')).to have_content("#{term}".titleize)
 end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
@@ -12,7 +12,7 @@ And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) 
 end
 
 And(/^I should see the sort option drop down$/) do
-  find('div.orderby').find('div.item').find('a.ng-binding').visible?.should == true
+  expect(find('div.orderby').find('div.item').find('a.ng-binding')).to be_visible
 end
 
 Given(/^I change from Grid mode to List mode$/) do
@@ -21,6 +21,10 @@ end
 
 And(/^the result should be displayed in Grid mode$/) do
   expect(search_results_page.current_view).to eq(:grid)
+end
+
+And(/^the result should be displayed in List mode$/) do
+  expect(search_results_page.current_view).to eq(:list)
 end
 
 When(/^I change from List mode to Grid mode$/) do
@@ -36,16 +40,16 @@ And(/^I take the number books on List mode$/) do
 end
 
 And(/^the number of books should match on both mode$/) do
-  expect(@grid_mode_books).to be == @list_mode_books
+  expect(@grid_mode_li).to eq(@list_mode_li)
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  all('[data-test="book-clubcard-points"]').first.visible?.should == true
+  expect(all('[data-test="book-clubcard-points"]').first).to be_visible
 end
 
 Then(/^I should get a message$/) do
-  page.should have_content(@search)
-  page.should have_selector("#noResults")
+  expect(page).to have_content(@search)
+  expect(page).to have_selector("#noResults")
 end
 
 And(/^the options of switching view mode should not appear$/) do
@@ -61,11 +65,11 @@ end
 And /^search suggestions should be displayed$/ do
   current_page.search_form.wait_for_suggestions
   current_page.search_form.wait_until_suggestions_visible
-  current_page.search_form.should have_suggestions
+  expect(current_page.search_form).to have_suggestions
 end
 
 Then /^search suggestions should not be displayed$/ do
-  current_page.search_form.should have_no_suggestions
+  expect(current_page.search_form).to have_no_suggestions
 end
 
 And /^I should see at least (\d+) suggestions$/ do |number_of_suggestions|
@@ -77,11 +81,11 @@ And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
 end
 
 And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
-  current_page.search_form.suggestions.each { |suggestion| suggestion.text.should include(search_word) }
+  current_page.search_form.suggestions.each { |suggestion| expect(suggestion.text).to include(search_word) }
 end
 
 And /^first suggestions should contain complete word "(.+)"$/ do |search_word|
-  current_page.search_form.suggestions[0].text.should include(search_word)
+  expect(current_page.search_form.suggestions[0].text).to include(search_word)
 end
 
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
@@ -100,7 +104,7 @@ end
 And(/^at least 1 search result is shown$/) do
   page.has_selector?("div.itemsets")
   search_results_page.has_books?
-  search_results_page.should have_books
+  expect(search_results_page).to have_books
 end
 
 Then /^search results should be displayed$/ do
@@ -131,14 +135,13 @@ end
 
 Then /^"(.*?)" should be visible in search bar$/ do |search_word|
   within('#searchbox') do
-    find('#term')[:value].should eql(search_word)
+    expect(find('#term')[:value]).to eq(search_word)
   end
-
 end
 
 Then /^search term should not be visible in search bar$/ do
   within('#searchbox') do
-    find('#term')[:value].should eql("")
+    expect(find('#term')[:value]).to eq("")
   end
 end
 
@@ -149,7 +152,7 @@ When /^I change search term in url to "(.*?)"$/ do |edit_word|
 end
 
 And /^page url should have "(.*?)"$/ do |search_word|
-  (current_url.include?(search_word)).should == true
+  expect(current_url).to include(search_word)
   @current_url = current_url.to_s
 end
 

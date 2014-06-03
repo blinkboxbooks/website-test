@@ -5,7 +5,7 @@ module ReaderActions
     click_reader_next_page
     click_reader_next_page
     click_reader_next_page
-    another_page = get_reader_page_contents
+    another_page = get_reader_page_contentsg
     expect(first_page).to_not eq(another_page)
   end
 

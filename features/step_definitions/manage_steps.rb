@@ -24,8 +24,8 @@ And /^(?:I submit|submit) my personal details$$/ do
 end
 
 Then /^the first name and last name are as submitted$/ do
-  your_personal_details_page.first_name.value.should eql(@first_name)
-  your_personal_details_page.last_name.value.should eql(@last_name)
+  expect(your_personal_details_page.first_name.value).to eq(@first_name)
+  expect(your_personal_details_page.last_name.value).to eq(@last_name)
 end
 
 When /^I edit marketing preferences$/ do
@@ -122,7 +122,7 @@ end
 
 And /^my email is not updated$/ do
   refresh_current_page
-  your_personal_details_page.email_address.value.should eql(@email_before)
+  expect(your_personal_details_page.email_address.value).to eq(@email_before)
 end
 
 When /^I attempt to update email address with already registered email address$/ do

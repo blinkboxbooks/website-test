@@ -9,12 +9,12 @@ module PageModels
       self.email.set email
       self.show_password.set true
       self.password.set password
-      self.should have_sign_in_button
+      expect(self).to have_sign_in_button
       self.sign_in_button.click
     end
 
     def click_sign_in_button
-      self.should have_sign_in_button
+      expect(self).to have_sign_in_button
       self.sign_in_button.click
     end
   end

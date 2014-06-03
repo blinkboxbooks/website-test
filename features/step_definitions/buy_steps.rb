@@ -134,8 +134,8 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
 end
 
 And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
-  find('#already-purchased').should be_visible
-  page.should have_text("You already have this #{type} in your library")
+  expect(find('#already-purchased')).to be_visible
+  expect(page).to have_text("You already have this #{type} in your library")
 end
 
 When /^I select above (pay for|free) book to add sample$/ do |book_type|
@@ -179,7 +179,7 @@ And /^submit the payment details with malformed post code (.*?)$/ do |value|
 end
 
 Then /^my payment is not successful$/ do
-  expect(confirm_and_pay_page).to(be_displayed)
+  expect(confirm_and_pay_page).to be_displayed
 end
 
 And /^submit the payment details with expiry date in the past$/ do
@@ -188,7 +188,7 @@ end
 
 And(/^following validation error messages are displayed for credit card details:$/) do |table|
   table.hashes.each do |row|
-    page.should have_content row['Error message']
+    expect(page).to have_content row['Error message']
   end
 end
 
@@ -279,8 +279,8 @@ Then /^Confirm and pay page displays my account credit as £(\d+)$/ do |account_
 end
 
 And /^my payment method is account credit$/ do
-  confirm_and_pay_page.should have_account_credit_payment
-  confirm_and_pay_page.should have_no_card_payment
+  expect(confirm_and_pay_page).to have_account_credit_payment
+  expect(confirm_and_pay_page).to have_no_card_payment
 end
 
 And /^amount left to pay is displayed$/ do
@@ -289,8 +289,8 @@ end
 
 
 And /^my payment method is partial payment$/ do
-  confirm_and_pay_page.should have_account_credit_payment
-  confirm_and_pay_page.should have_card_payment
+  expect(confirm_and_pay_page).to have_account_credit_payment
+  expect(confirm_and_pay_page).to have_card_payment
 end
 
 When /^I (?:select|selected) a book to (?:buy from Search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
