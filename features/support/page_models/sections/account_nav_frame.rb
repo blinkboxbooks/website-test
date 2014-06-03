@@ -3,11 +3,11 @@ module PageModels
     element :link, 'a'
 
     def title
-      a.text
+      link.text
     end
 
     def selected?
-      a.root_element[:class] =~ /selected/
+      link.root_element[:class] =~ /selected/
     end
 
     def click
