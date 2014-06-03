@@ -14,23 +14,24 @@ end
 
 group :misc_libs do
   gem 'activesupport'
-  gem "cucumber-helpers"
+  gem 'cucumber-helpers'
   gem 'i18n'
 end
 
 group :ci do
-  gem "parallel_tests"
+  gem 'parallel_tests'
+  gem 'headless'
 end
 
 group :api do
   gem 'multi_json'
   gem 'httpclient'
-  gem "cucumber-rest"
+  gem 'cucumber-rest'
 end
 
 group :reporting do
   gem 'cuporter'
-  gem "cucumber-blinkbox", "~> 0.2.0"
+  gem 'cucumber-blinkbox', '~> 0.2.0'
 end
 
 group :debug do

@@ -71,7 +71,6 @@ Feature: Navigation around the website
     Then New releases page is displayed
     And New releases section header is New releases
     And Grid view and List view buttons displayed
-    And main footer is displayed
 
   @smoke @production @unstable
   Scenario: Navigate to Free eBooks page
@@ -165,6 +164,7 @@ Feature: Navigation around the website
     Then "dan brown" should be visible in search bar
     And I click on the <page> header tab
     Then search term should not be visible in search bar
+
   Examples:
     | page         |
     | Featured     |
@@ -178,7 +178,7 @@ Feature: Navigation around the website
   Scenario: Promotable category-All time best selling books
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
-    And I should see Promotions section header as All time best selling books
+    And I should see Promotions section header as Bestsellers Top 100 this month
     And I should see 5 books being displayed
 
   @production
