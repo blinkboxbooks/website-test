@@ -1,7 +1,7 @@
 #!/bin/bash
 # Run tests within TeamCity and rerun on failure.
 function error { 
-	echo "$@" 1>&2; 
+	echo "$@" >&2; 
 }
 
 function run_tests_outputting_to {
