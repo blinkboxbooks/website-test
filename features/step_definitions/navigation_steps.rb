@@ -71,7 +71,7 @@ And /^main header tabs should not be selected$/ do
   pending "CWA-1300 - Top header is selected on the search results page" do
     within("#main-navigation") do
       tabs = page.all('li').to_a
-      expect(tabs.all?{ |li| li[:class].include?("current") }).to be true, "One or more header tabs were selected: #{tabs}"
+      expect(tabs.all?{ |li| li[:class].include?("current") }).to be true, "One or more header tabs were selected: #{tabs.inspect}"
     end
   end
 end

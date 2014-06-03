@@ -51,8 +51,8 @@ end
 
 And /^page should display categories as list$/ do
   within('[data-test="recommended-category-list"]') do
-    categories = page.all('li').to_a
-    expect(categories.all?{ |category| category.find('[data-category="category"]').has_css?('div.cover', :count => 0) == true }).to be true, "Some categories were not being displayed as lists: #{categories}"
+    categories = page.all('li').to_a.collect{ |li| li.find('[data-category="category"]') }
+    expect( categories.all?{ |category| category.has_css?('div.cover', :count => 0) } ).to be true, "Some categories were not displayed as lists: #{categories.inspect}"
   end
 end
 
