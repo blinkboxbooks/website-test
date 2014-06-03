@@ -18,7 +18,7 @@ if [ -e './rerun.txt' ]; then
 		bundle exec cucumber -p ci-smoke-local @rerun.txt HEADLESS=on FAIL_FAST=false  -f rerun --out "./rerun-$i.txt" || true
 
 		# If rerun doesn't exist...
-		if [ ! -f './rerun-$i.txt' ]; then
+		if [ ! -f "./rerun-$i.txt" ]; then
 			response=0
 			break
 		else
