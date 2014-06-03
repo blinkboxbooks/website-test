@@ -21,8 +21,8 @@ if [ -e './rerun.txt' ]; then
 
 	for i in {1..3}; do
 		response=1
-
-		echo "Rerun attempt $i/3"
+		
+		error "Rerun attempt $i/3"
 
 		# Only rerun the first set of failures.
 		run_tests_outputting_to "./rerun-$i.txt"
