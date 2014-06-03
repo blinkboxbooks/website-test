@@ -7,8 +7,8 @@ Then(/^I should have a result page with term "(.*?)" matching$/) do |term|
   expect(find('[data-test="search-results-list"]')).to have_content("#{term}".titleize)
 end
 
-And(/^the result is displayed in Grid mode$/) do
-  expect(find('[data-test="list-button"]')).to be_visible
+And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
+  expect(search_results_page.current_view).to be == expected_view.to_sym
 end
 
 And(/^I should see the sort option drop down$/) do
@@ -16,27 +16,27 @@ And(/^I should see the sort option drop down$/) do
 end
 
 Given(/^I change from Grid mode to List mode$/) do
-  find('[data-test="list-button"]').click
+  switch_to_list_view
 end
 
 And(/^the result should be displayed in Grid mode$/) do
-  expect(find('[data-test="grid-button"]')).to be_visible
+  expect(search_results_page.current_view).to eq(:grid)
 end
 
 And(/^the result should be displayed in List mode$/) do
-  expect(find('[data-test="list-button"]')).to be_visible
+  expect(search_results_page.current_view).to eq(:list)
 end
 
 When(/^I change from List mode to Grid mode$/) do
-  page.find('[data-test="grid-button"]').click
+  switch_to_grid_view
 end
 
 And(/^I take the number books on Grid mode$/) do
-  @grid_mode_li = find('[data-test="search-results-list"]').all('li').length
+  @grid_mode_books = books_section.books.count
 end
 
 And(/^I take the number books on List mode$/) do
-  @list_mode_li = find('[data-test="search-results-list"]').all('li').length
+  @list_mode_books = books_section.books.count
 end
 
 And(/^the number of books should match on both mode$/) do
@@ -53,14 +53,12 @@ Then(/^I should get a message$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  expect(page).to have_css('div#controls')
-end
-
-And(/^(\d+) Bestselling books should be returned$/) do |n|
-  expect(find('[data-test="search-results-list"]').all('li').length).to eq(n.to_i)
+  # TODO: should be page model call
+  page.should_not have_css('div#controls')
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
+  # TODO: should be page model call
   current_page.search_form.fill_in 'term', :with => search_word
 end
 
@@ -80,10 +78,6 @@ end
 
 And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
   assert_search_word_in_suggestions search_word
-end
-
-And /^the last suggestion should be equal to "(.*?)"$/ do |search_word|
-  assert_last_suggestion search_word
 end
 
 And /^all suggestions should contain part of "(.*?)"$/ do |search_word|

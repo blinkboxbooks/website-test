@@ -69,10 +69,7 @@ end
 
 And /^main header tabs should not be selected$/ do
   pending "CWA-1300 - Top header is selected on the search results page" do
-    within("#main-navigation") do
-      tabs = page.all('li').to_a
-      expect(tabs.all?{ |li| li[:class].include?("current") }).to be true, "One or more header tabs were selected: #{tabs.inspect}"
-    end
+    assert_header_tabs_not_selected
   end
 end
 
@@ -100,15 +97,11 @@ And /^Grid view and List view buttons displayed$/ do
 end
 
 And /^I should see Promotions section header as (.*?)$/ do |promo_text|
-  within('[data-id="399"]') do
-    expect(page).to have_content(promo_text)
-  end
+  assert_section_header('bestsellers', promo_text)
 end
 
 And /^I should see (\d+) books being displayed$/ do |books|
-  within('[data-title="All time best selling books"]') do
-    expect(all('li').count).to eq(books.to_i)
-  end
+  expect(bestsellers_page.daily_bestsellers.books.count).to be == books.to_i
 end
 
 And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|

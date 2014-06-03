@@ -97,7 +97,7 @@ module PageModels
 
     def sign_out_and_start_new_session
       your_account_page.sign_out_button.click
-      visit('/')
+      home_page.load
     end
 
     def sign_in_from_redirected_page

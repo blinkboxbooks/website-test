@@ -9,7 +9,7 @@ Before("~@reset_session") do
 end
 
 After do |scenario|
-  if TEST_CONFIG["fail_fast"]
+  if TEST_CONFIG && TEST_CONFIG["fail_fast"]
     puts "'FAIL FAST' option is ON"
     # Tell Cucumber to quit after this scenario is done - if it failed
     if scenario.failed?
@@ -18,5 +18,4 @@ After do |scenario|
       Cucumber.wants_to_quit = true
     end
   end
-
 end

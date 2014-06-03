@@ -138,13 +138,6 @@ module AssertSearch
     suggestions = current_page.search_form.suggestions
     expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to be true, "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
   end
-
-  def assert_last_suggestion search_word
-    within("#suggestions") do
-      expect((page.all('li').to_a.last).text).to eq(search_word)
-    end
-  end
-
 end
 
 World(AssertNavigation)

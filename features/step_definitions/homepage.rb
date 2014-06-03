@@ -12,21 +12,16 @@ When /^number of banners is between (\d+) and (\d+)$/ do |min_banners, max_banne
 end
 
 Then /^homepage hero banner is displayed$/ do
-  expect(find('[id="slider"]')).to be_visible
+  expect(home_page.banner).to be_visible
 end
 
 And /^banner has background images$/ do
-  within('[id="slider"]') do
-    expect(page.all('li',:visible => false).count).to be_between(@min_banners, @max_banners)
-    images = page.all('li').to_a.collect{|li| li.find('img')}
-    expect( images.all? { |img| img.visible? } ).to be true, "Some background images are not visible: #{images.inspect}"
-  end
+  expect(home_page.banner.slides.count).to be_between(@min_banners, @max_banners)
+  home_page.banner.images.each { |image| expect(image).to be_visible }
 end
 
 And /^homepage hero banner has navigation buttons$/ do
-  within('[id="active"]') do
-    expect(page.all('label').count).to be_between(@min_banners, @max_banners)
-  end
+  expect(home_page.banner.slide_numbers.count).to be_between(@min_banners, @max_banners)
 end
 
 And /^main footer has (\d+) columns with links$/ do |arg1|
@@ -42,20 +37,17 @@ And /^each banner image has Find out more button$/ do
 end
 
 Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_books|
-  expect(home_page).to be_all_there
-  selector = home_page.highlights
-  if category_name.include?('eBooks')
-    selector = home_page.ebooks_on_film
+  if category_name.include?('Spotlight')
+    @category_section = home_page.spotlight_on_category
+  else
+    @category_section = home_page.highlights_category
   end
-  within(selector) do
-    @visible_books = page.all('li', :visible => true).count
-    @all_books = page.all('li', :visible => false).count
-    expect(@all_books).to eq(no_of_books.to_i)
-  end
+
+  expect(@category_section.books).to have(no_of_books.to_i).items
 end
 
 And /^all the books displayed$/ do
-  expect(@all_books).to eq(@visible_books)
+  expect(@category_section.invisible_books).to have(0).items
 end
 
 

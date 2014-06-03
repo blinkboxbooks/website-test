@@ -3,6 +3,10 @@ module PageModels
 
     sections :books, Book, "div[book=\"book\"]"
 
+    def invisible_books
+      books.select { |book| !book.visible? }
+    end
+
     def purchasable_books
       wait_for_books
       books.select { |book| book.purchasable? }

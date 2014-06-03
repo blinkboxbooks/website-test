@@ -26,9 +26,9 @@ Feature: Checking home page contents
     And all the books displayed
 
   Examples:
-    | category_name  |
-    | Highlight      |
-    | eBooks on film |
+    | category_name |
+    | Highlights    |
+    | Spotlight on  |
 
   @manual @CWA-33
   Scenario: Homepage hero banner manual navigation

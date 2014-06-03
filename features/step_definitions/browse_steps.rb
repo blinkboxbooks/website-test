@@ -3,25 +3,20 @@ When /^I am viewing in (.*?) mode$/ do |viewing_mode|
     when 'Desktop'
       maximize_window
     when 'Mobile Portrait'
-      resize_window(320,480)
+      resize_window(320, 480)
     when 'Mobile Landscape'
-      resize_window(480,320)
+      resize_window(480, 320)
     when '10 inch tablet'
-      resize_window(800,1024)
+      resize_window(800, 1024)
     when '7 inch tablet'
-      resize_window(550,1024)
+      resize_window(550, 1024)
     else
       raise "Unsupported browser viewing mode: #{viewing_mode}"
   end
 end
 
-And /^page should display (\d+) categories in a row$/ do |top_categories|
-  #TODO Explore how to make this step less brittle
-  within('[data-test="recommended-category-container"]') do
-    expect(page.all('li',:visible => false).count).to eq(top_categories.to_i)
-    expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft")).to eq(772)
-    expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop")).to eq(54)
-  end
+And /^page should display (\d+) categories in a row$/ do |expected_top_categories|
+  expect(categories_page.top_categories).to have_exactly(expected_top_categories.to_i).items
 end
 
 When /^(\d+) is valid|invalid category id$/ do |category_id|
@@ -29,38 +24,25 @@ When /^(\d+) is valid|invalid category id$/ do |category_id|
 end
 
 Then /^page should display the category$/ do
-  expect(is_category_displayed(@category_id)).to be true
+  expect(categories_page).to have_category(@category_id)
 end
 
 And /^category name should be "(.*?)"$/ do |category_name|
-  category = find_category @category_id
-  expect(find("[data-test=\"#{category}\"]").text).to eq(category_name)
+  expect(categories_page.category_by_id(@category_id).title).to eq(category_name)
 end
 
 And /^page should display category image$/ do
-  category = find_category @category_id
-  find("[data-test=\"#{category}\"]").visible?
-   within("[data-test=\"#{category}\"]") do
-     expect(find('img')['ng-src']).to include('http://')
-   end
+  category = categories_page.category_by_id(@category_id)
+  expect(category.cover_image).to be_visible
 end
 
 Then /^page should not display the category$/ do
-  expect(is_category_displayed(@category_id)).to be false
+  expect(categories_page).to_not have_category(@category_id)
 end
 
 And /^page should display categories as list$/ do
-  within('[data-test="recommended-category-list"]') do
-    categories = page.all('li').to_a.collect{ |li| li.find('[data-category="category"]') }
-    expect( categories.all?{ |category| category.has_css?('div.cover', :count => 0) } ).to be true, "Some categories were not displayed as lists: #{categories.inspect}"
-  end
-end
-
-
-And /^page should display (\d+) categories per a row$/ do |top_categories|
-  #TODO remove this duplicate step
-  expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetLeft")).to eq(20)
-  expect(evaluate_script("document.getElementsByClassName('list_categories')[0].children[4].offsetTop")).to eq(376)
+  expect(categories_page).to have_top_categories
+  categories_page.top_categories.each { |category_box| expect(category_box).to have_no_cover_image }
 end
 
 And /^I select (list|grid) view$/ do |view|

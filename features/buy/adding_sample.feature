@@ -18,7 +18,7 @@ Feature: User adding sample to Library
     | pay for   |
     | free      |
 
-  @smoke
+  @unstable
   Scenario Outline: First time user adding a sample to library
     Given I am on the home page
     And I have identified a <book_type> book to read sample offline
@@ -26,7 +26,8 @@ Feature: User adding sample to Library
     And I register to proceed with adding sample
     Then adding sample is successful
 
-  Examples: Adding a paid for book
+ @smoke
+ Examples: Adding a paid for book
     | book_type |
     | pay for   |
 
