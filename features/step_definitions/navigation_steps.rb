@@ -135,7 +135,7 @@ Given /^I am on crime and thriller category page$/ do
 end
 
 When /^I select a book to view book details$/ do
-  book = search_results_page.books.random_purchasable_book
+  book = books_section.random_purchasable_book
   @book_href = book.book_details_url
   book.click_view_details
 end
