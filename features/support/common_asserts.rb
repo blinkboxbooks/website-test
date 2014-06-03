@@ -50,10 +50,7 @@ module AssertNavigation
   end
 
   def assert_book_details
-    expect(book_details_page).to have_cover
-    expect(book_details_page).to have_details_area
-    expect(book_details_page).to have_description
-    assert_book_reader
+    expect(book_details_page).to be_all_there
   end
 
   def assert_book_reader

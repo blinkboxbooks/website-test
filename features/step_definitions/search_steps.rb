@@ -40,8 +40,8 @@ And(/^the number of books should match on both mode$/) do
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  expect(search_results_page.book_results_sections.first.books.first).to have_clubcard_points
   expect(search_results_page.book_results_sections.first.books.first).to have_clubcard_logo
+  expect(search_results_page.book_results_sections.first.books.first).to have_clubcard_points
 end
 
 Then(/^I should get a message$/) do
@@ -98,8 +98,8 @@ When (/^I search for "(.*?)"$/) do |word|
 end
 
 And(/^at least 1 search result is shown$/) do
-  expect(search_results_page.book_results_sections.first).to have_books
-  expect(search_results_page.book_results_sections.first.books.count).to be > 0
+  expect(books_section).to have_books
+  expect(books_section.books).to have_at_least(1).item
 end
 
 Then /^search results should be displayed$/ do

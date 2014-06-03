@@ -134,8 +134,7 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
 end
 
 And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
-  expect(confirm_and_pay_page).to have_already_purchased_message
-  step("\"You already have this #{type} in your library\" message is displayed")
+  assert_book_exists_in_library_message
 end
 
 When /^I select above (pay for|free) book to add sample$/ do |book_type|
