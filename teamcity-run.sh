@@ -5,13 +5,15 @@
 bundle exec cucumber -p ci-smoke-local --tags @production HEADLESS=true FAIL_FAST=false -f rerun --out ./rerun.txt || true
 
 if [ -e './rerun.txt' ]; then
-	response=1
+	
 	echo "*********************************"
 	echo "TESTS FAILED."
 	echo "Rerunning tests."
 	echo "*********************************"
 
 	for i in {1..3}; do
+		response=1
+		
 		echo "Rerun attempt $i/3"
 
 		# Only rerun the first set of failures.
@@ -24,5 +26,6 @@ if [ -e './rerun.txt' ]; then
 		fi
 	done
 
+	echo $response
 	exit $response
 fi
