@@ -43,7 +43,7 @@ module PageModels
     end
 
     def tab(tab_name)
-      tabs.find { |tab| tab.data_test.incude?(tab_name.downcase) }
+      tabs.find { |tab| tab.data_test.include?(tab_name.downcase) }
     end
 
     def open_account_menu
