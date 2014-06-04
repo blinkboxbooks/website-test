@@ -8,7 +8,7 @@ function run_tests_outputting_to {
 	bundle exec cucumber -p ci-smoke-local --tags @production HEADLESS=true FAIL_FAST=false -f rerun --out "$1" || true
 }
 
-function rerun_tests_from_file_outputting_to {
+function rerun_tests_outputting_to {
 	bundle exec cucumber -p ci-smoke-local @rerun.txt HEADLESS=true FAIL_FAST=false -f rerun --out "$1" || true	
 }
 
@@ -29,7 +29,7 @@ if [ -e './rerun.txt' ]; then
 		error "Rerun attempt $i/3"
 
 		# Only rerun the first set of failures.
-		rrerun_tests_from_file_outputting_to "./rerun-$i.txt"
+		rerun_tests_outputting_to "./rerun-$i.txt"
 
 		# If rerun doesn't exist...
 		if [ ! -f "./rerun-$i.txt" ]; then
