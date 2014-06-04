@@ -17,7 +17,7 @@ module PageModels
     end
 
     def selected?
-      link.root_element[:class] =~ /current/
+      root_element[:class] =~ /current/
     end
 
     def click
