@@ -17,7 +17,7 @@ module PageModels
     end
 
     def selected?
-      a.root_element[:class] =~ /current/
+      link.root_element[:class] =~ /current/
     end
 
     def click
@@ -73,8 +73,8 @@ module PageModels
 
     def navigate_to(link_name)
       link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
-      if links.respond_to?(link)
-        links.send(link).click
+      if tabs.respond_to?(link)
+        tabs.send(link).click
       else
         raise "Not recognised header navigation link: #{link}"
       end
