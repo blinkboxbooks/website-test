@@ -40,8 +40,8 @@ And(/^the number of books should match on both mode$/) do
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  expect(search_results_page.book_results_sections.first.books.first).to have_clubcard_logo
-  expect(search_results_page.book_results_sections.first.books.first).to have_clubcard_points
+  expect(books_section.books.first).to have_clubcard_logo
+  expect(books_section.books.first).to have_clubcard_points
 end
 
 Then(/^I should get a message$/) do

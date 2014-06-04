@@ -15,6 +15,10 @@ module AssertNavigation
   end
   alias :expect_page_displayed :assert_page
 
+  def assert_message_displayed(message_text)
+    expect(current_page).to have_content(message_text, :visible => true)
+  end
+
   def assert_main_footer_displayed
     find('[data-test="footer-container"]').should be_visible
   end

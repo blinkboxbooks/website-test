@@ -5,11 +5,6 @@ module PageModels
       confirm_and_pay_page.card_number.set number
     end
 
-    def select_expiry_date (month, year)
-      select_value('card_dates_month', month)
-      select_value('card_dates_year', year)
-    end
-
     def enter_cvv(card_type)
       cvv = '123'
       if card_type.eql?('American Express')

@@ -134,7 +134,7 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
 end
 
 And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
-  assert_book_exists_in_library_message
+  assert_book_exists_in_library_message(type)
 end
 
 When /^I select above (pay for|free) book to add sample$/ do |book_type|

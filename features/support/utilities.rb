@@ -67,10 +67,6 @@ module WebUtilities
     actual_text
   end
 
-  def select_value(element, value)
-    select(value, :from => element)
-  end
-
   def mouse_over(element)
     if Capybara.current_session.driver == Capybara::Selenium::Driver
       element.native.location_once_scrolled_into_view

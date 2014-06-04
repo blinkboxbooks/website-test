@@ -109,8 +109,8 @@ And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
 end
 
 Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
-  expect(search_results_page.current_view).to eq(view.to_sym)
   expect(bestsellers_page.selected_tab).to eq(book_type.gsub('-', '_').downcase.to_sym)
+  expect(search_results_page.current_view).to eq(view.to_sym)
 end
 
 When /^I select a book to view book details$/ do
