@@ -1,7 +1,12 @@
 module ManageAccount
   def click_link_from_my_account_dropdown(link_name)
-    expect(current_page.header).to be_visible
-    current_page.header.navigate_to_account_option(link_name)
+    if TEST_CONFIG['HAMBURGER_PATCH'] =~ /on|true/i
+      current_page.header.user_account_logo.click
+      current_page.header.find('a', :text => link_name).click
+    else
+      expect(current_page.header).to be_visible
+      current_page.header.navigate_to_account_option(link_name)
+    end
   end
 
   def edit_personal_details
@@ -42,6 +47,7 @@ module ManageAccount
   end
 
   def set_card_default
+    your_payments_page.wait_for_saved_cards_list
     saved_cards_list = your_payments_page.saved_cards
     unless saved_cards_list.empty?
       saved_cards_list.each { |card|
