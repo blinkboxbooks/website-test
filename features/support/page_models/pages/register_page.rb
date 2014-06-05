@@ -10,8 +10,8 @@ module PageModels
     element :password, '#password'
     element :password_repeat, '#repassword'
     element :terms_and_conditions, '#termsconditions'
-    element :register_button, "button", :text => /Register/i
-    element :cancel_registration, "a", :text => /Cancel registration/i
+    element :register_button, 'button[data-test="register-button"]'
+    element :cancel_registration, 'a[data-test="cancel-registration"]'
     element :confirm_cancel_registration, "button", :text =>  /Leave This Page/i
     element :cancel_registration_popup, "#delete-card"
 
