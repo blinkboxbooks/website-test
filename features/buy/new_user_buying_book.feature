@@ -8,7 +8,7 @@ Feature: New user buying book from blinkbox books
     Given I am on the home page
 
   Scenario Outline: First time user buying book and saving payment details
-    Given I have selected to buy a pay for book from Bestsellers page
+    Given I have selected to buy a pay for book
     When I register to proceed with purchase
     And I enter valid <card_type> card details
     And I enter valid Billing address
@@ -27,7 +27,7 @@ Feature: New user buying book from blinkbox books
     | VISA Debit |
 
   Scenario Outline: First time user buying book and not saving payment details
-    Given I have selected to buy a pay for book from Bestsellers page
+    Given I have selected to buy a pay for book
     When I register to proceed with purchase
     And I enter valid <card_type> card details
     And I enter valid Billing address

@@ -35,6 +35,16 @@ module PageModels
       click_buy_now_in_book_details_page
     end
 
+    def select_book_to_buy(book_type)
+      search_blinkbox_books(return_search_word_for_book_type(book_type))
+
+      if book_type == "free"
+        books_section.click_buy_now_free_book
+      else
+        books_section.click_buy_now_random_book
+      end
+    end
+
     def select_book_to_buy_from(page_name, book_type)
       if page_name =~ /Search results/i
         search_blinkbox_books(return_search_word_for_book_type(book_type))
