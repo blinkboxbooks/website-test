@@ -19,7 +19,7 @@ module Utilities
   end
 
   def return_search_word_for_book_type (book_type)
-    return book_type.eql?('free') ? 'free' : 'summer'
+    return book_type == :free ? 'free' : 'summer'
   end
 end
 
