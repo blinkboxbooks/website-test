@@ -25,7 +25,7 @@ module PageModels
       search_results_page.wait_until_book_results_sections_visible(10)
     end
 
-    def select_book_to_read_sample(book_type)
+    def select_book_to_view_details(book_type)
       search_blinkbox_books(return_search_word_for_book_type(book_type))
       book_type == "free" ? books_section.click_details_free_book : books_section.click_details_random_book
     end

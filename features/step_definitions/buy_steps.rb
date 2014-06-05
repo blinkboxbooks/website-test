@@ -23,7 +23,7 @@ When /^I choose to pay with a new card$/ do
 end
 
 And /^I have identified a (free|pay for) book to read sample offline$/ do |book_type, user_action|
-  select_book_to_read_sample(book_type)
+  select_book_to_view_details(book_type)
 end
 
 When /^I click Confirm order$/ do
