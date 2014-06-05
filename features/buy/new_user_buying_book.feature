@@ -13,8 +13,8 @@ Feature: New user buying book from blinkbox books
     And I enter valid <card_type> card details
     And I enter valid Billing address
     And I choose to save payment details
-#    And I submit payment details
-#    Then my payment is successful
+    And I submit payment details
+    Then my payment is successful
 
   @smoke
   Examples: VISA
