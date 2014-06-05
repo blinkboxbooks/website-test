@@ -1,5 +1,5 @@
 Given /I have identified a best selling book to buy$/ do
-  select_book_to_buy_from('Bestsellers', 'paid')
+  select_book_to_buy_from('Bestsellers', :paid)
 end
 
 When /^I enter valid (.*?) card details$/ do |card_type|
