@@ -92,7 +92,7 @@ Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New relea
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
-Given /^I have selected to buy a (pay for|free) book$/ do |book_type|
+Given /^I have selected to buy a (paid|pay for|free) book$/ do |book_type|
   @book_title = select_book_to_buy(book_type)
 end
 

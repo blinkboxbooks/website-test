@@ -1,7 +1,7 @@
 module PageModels
   class YourAccountPage < PageModels::BlinkboxbooksPage
     set_url_matcher /account\//
-    section :account_nav_frame, AccountNavFrame, ".account_frame"
+    section :account_nav_frame, AccountNavFrame, '#content'
     element :sign_out_button, "button", :text => "Sign out"
     element :spinner, '.load_spinner'
   end
@@ -83,7 +83,7 @@ module PageModels
     element :enter_new_password, '#password'
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
-    element :confirm_button, "button", :text => /Confirm/i
+    element :confirm_button, 'button[data-test="confirm-button"]'
   end
 
   register_model_caller_method(YourAccountPage)
