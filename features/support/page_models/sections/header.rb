@@ -17,7 +17,7 @@ module PageModels
     end
 
     def selected?
-      a.root_element[:class] =~ /current/
+      root_element[:class] =~ /current/
     end
 
     def click
@@ -43,7 +43,7 @@ module PageModels
     end
 
     def tab(tab_name)
-      tabs.find { |tab| tab.data_test.incude?(tab_name.downcase) }
+      tabs.find { |tab| tab.data_test.include?(tab_name.downcase) }
     end
 
     def open_account_menu
@@ -73,8 +73,9 @@ module PageModels
 
     def navigate_to(link_name)
       link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
-      if links.respond_to?(link)
-        links.send(link).click
+      header_tab = tab(link_name)
+      unless header_tab.nil?
+        header_tab.click
       else
         raise "Not recognised header navigation link: #{link}"
       end

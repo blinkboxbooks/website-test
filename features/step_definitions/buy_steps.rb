@@ -1,5 +1,5 @@
 Given /I have identified a best selling book to buy$/ do
-  select_best_selling_book_to_buy_from_book_details
+  select_book_to_buy_from('Bestsellers', 'Pay for')
 end
 
 When /^I enter valid (.*?) card details$/ do |card_type|
@@ -22,12 +22,8 @@ When /^I choose to pay with a new card$/ do
   click_pay_with_new_card
 end
 
-And /^I have identified a (free|pay for) book to (buy|read sample offline)$/ do |book_type, user_action|
-  if user_action.include?('buy')
-    select_book_to_buy_from_search_results_page(book_type)
-  else
-    user_navigates_to_book_details(book_type)
-  end
+And /^I have identified a (free|pay for) book to read sample offline$/ do |book_type, user_action|
+  select_book_to_read_sample(book_type)
 end
 
 When /^I click Confirm order$/ do
@@ -42,7 +38,7 @@ Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|
       log_out_current_session
     end
   end
-  select_book_to_buy_from_search_results_page(book_type)
+  select_book_to_buy_from('Search results', 'Pay for')
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -92,24 +88,8 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   end
 end
 
-Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks) page$/ do |book_type, page_name|
-  @book_title = select_book_to_buy_from page_name, book_type
-end
-
-Given /^I have selected to buy a pay for book from Home page$/ do
-  @book_title = select_book_to_buy_from_home_page
-end
-
-Given /^I have selected to buy a pay for book from Category page$/ do
-  @book_title = select_book_to_buy_from_category_page
-end
-
-Given /^I have selected to buy a (pay for|free) book from Search results page$/ do |book_type|
-  @book_title = select_book_to_buy_from_search_results_page book_type
-end
-
-Given /^I have selected to buy a (pay for|free) book from Book details page$/ do |book_type|
-  @book_title = select_book_to_buy_from_book_detials_page book_type
+Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
+  @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
@@ -299,5 +279,5 @@ When /^I (?:select|selected) a book to (?:buy from Search results |buy )with pri
 end
 
 Given /^I have selected a free book to buy from book details$/ do
-  select_free_book_to_buy_from_book_details
+  select_book_to_buy_from('Book details', 'Free')
 end

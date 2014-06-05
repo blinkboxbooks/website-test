@@ -25,18 +25,9 @@ module PageModels
       search_results_page.wait_until_book_results_sections_visible(10)
     end
 
-    def select_buy_first_book_in_search_results
-      books_section.books[0].click_view_details
-    end
-
-    def user_navigates_to_book_details(book_type)
-      search_word = return_search_word_for_book_type(book_type)
-      search_blinkbox_books(search_word)
-      if book_type == "free"
-        books_section.click_details_free_book
-      else
-        books_section.click_details_random_book
-      end
+    def select_book_to_read_sample(book_type)
+      search_blinkbox_books(return_search_word_for_book_type(book_type))
+      book_type == "free" ? books_section.click_details_free_book : books_section.click_details_random_book
     end
 
     def buy_sample_added_book
@@ -44,39 +35,28 @@ module PageModels
       click_buy_now_in_book_details_page
     end
 
-    def select_book_to_buy_from_home_page
-      books_section.click_buy_now_random_book
-    end
-
-    def select_book_to_buy_from_category_page
-      click_navigation_link('Categories')
-      click_on_a_category
-      books_section.click_buy_now_random_book
-    end
-
-    def select_book_to_buy_from_book_detials_page(book_type = 'pay for')
-      book_title = user_navigates_to_book_details(book_type)
-      book_details_page.buy_now.click
-      return book_title
-    end
-
     def select_book_to_buy_from(page_name, book_type)
-      click_navigation_link(page_name)
+      if page_name =~ /Search results/i
+        search_blinkbox_books(return_search_word_for_book_type(book_type))
+      elsif page_name =~ /Book details/i
+        page_model(page_name).load(isbn: test_data('library_isbns', book_type.downcase.gsub(' ', '_') + '_book'), title: 'a_book_title')
+        book_title = book_details_page.title
+        book_details_page.buy_now.click
+        return book_title
+      elsif page_name =~ /Category/i
+        page_model(page_name).load(name: 'thriller-suspense')
+      elsif current_page.header.tab(page_name).nil?
+        page = page_model(page_name)
+        page.load unless page.displayed?
+      else
+        click_navigation_link(page_name) unless page_model(page_name).displayed?
+      end
       expect_page_displayed page_name
+
       if book_type == "free"
         books_section.click_buy_now_free_book
       else
         books_section.click_buy_now_random_book
-      end
-    end
-
-    def select_book_to_buy_from_search_results_page(book_type = 'pay for')
-      search_word = return_search_word_for_book_type(book_type)
-      search_blinkbox_books(search_word)
-      if book_type == 'pay for'
-        books_section.click_buy_now_random_book
-      else
-        books_section.click_buy_now_free_book
       end
     end
 
