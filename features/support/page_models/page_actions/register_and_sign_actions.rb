@@ -39,8 +39,7 @@ module PageModels
     end
 
     def navigate_to_sign_in_form
-      current_page.header.user_account_logo.click
-      current_page.header.account_menu.sign_in_button.click
+      sign_in_page.load
     end
 
     def navigate_to_register_form

@@ -1,5 +1,5 @@
 Given /I have identified a best selling book to buy$/ do
-  select_book_to_buy_from('Bestsellers', 'Pay for')
+  select_book_to_buy_from('Bestsellers', :paid)
 end
 
 When /^I enter valid (.*?) card details$/ do |card_type|
@@ -22,8 +22,8 @@ When /^I choose to pay with a new card$/ do
   click_pay_with_new_card
 end
 
-And /^I have identified a (free|pay for) book to read sample offline$/ do |book_type, user_action|
-  select_book_to_view_details(book_type)
+And /^I have identified a (free|paid) book to read sample offline$/ do |book_type|
+  select_book_to_view_details(book_type.to_sym)
 end
 
 When /^I click Confirm order$/ do
@@ -38,7 +38,7 @@ Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|
       log_out_current_session
     end
   end
-  select_book_to_buy_from('Search results', 'Pay for')
+  select_book_to_buy_from('Search results', :paid)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -92,8 +92,8 @@ Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New relea
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
-Given /^I have selected to buy a (paid|pay for|free) book$/ do |book_type|
-  @book_title = select_book_to_buy(book_type)
+Given /^I have selected to buy a (paid|free) book$/ do |book_type|
+  @book_title = select_book_to_buy(book_type.to_sym)
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
