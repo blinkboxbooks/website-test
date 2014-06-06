@@ -5,8 +5,8 @@ module PageModels
 
     def assert_reset_password_message reset_email
       within email_confirm_message do
-        page.should have_content "We've sent you an email"
-        page.should have_content "Please check your inbox at #{reset_email} Follow the link in the email to set a new password"
+        expect(page).to have_content "We've sent you an email"
+        expect(page).to have_content "Please check your inbox at #{reset_email} Follow the link in the email to set a new password"
       end
     end
   end

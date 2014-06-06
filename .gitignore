@@ -4,3 +4,4 @@ results/
 
 # OSX-specific
 .DS_Store
+rerun*txt

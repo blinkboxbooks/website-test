@@ -17,7 +17,7 @@ module PageModels
     end
 
     def selected?
-      a.root_element[:class] =~ /current/
+      root_element[:class] =~ /current/
     end
 
     def click
@@ -43,13 +43,13 @@ module PageModels
     end
 
     def tab(tab_name)
-      tabs.find { |tab| tab.data_test.incude?(tab_name.downcase) }
+      tabs.find { |tab| tab.data_test.include?(tab_name.downcase) }
     end
 
     def open_account_menu
       wait_until_user_account_logo_visible
       user_account_logo.click
-      account_menu.should be_visible
+      expect(account_menu).to be_visible
     end  
 
     def navigate_to_account_option(link_name)
@@ -67,14 +67,15 @@ module PageModels
     def navigate_to_hamburger_menu_option(link_name)
       wait_for_main_menu
       main_menu.click
-      hamburger_menu.should be_visible
+      expect(hamburger_menu).to be_visible
       hamburger_menu.find("a", :text => "#{link_name}").click
     end
 
     def navigate_to(link_name)
       link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
-      if links.respond_to?(link)
-        links.send(link).click
+      header_tab = tab(link_name)
+      unless header_tab.nil?
+        header_tab.click
       else
         raise "Not recognised header navigation link: #{link}"
       end

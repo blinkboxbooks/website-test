@@ -115,7 +115,7 @@ module BlinkboxWebUtilities
     assert_browser_count(2)
     new_window = page.driver.browser.window_handles.last
     page.within_window new_window do
-      current_url.should match Regexp.new(test_data('support_page_urls', page_name.downcase.gsub(' ', '_')))
+      expect(current_url).to match(Regexp.new(test_data('support_page_urls', page_name.downcase.gsub(' ', '_'))))
       page.driver.browser.close
     end
     assert_browser_count(1)
@@ -123,7 +123,7 @@ module BlinkboxWebUtilities
 
   def assert_browser_count(count)
     browser_windows = page.driver.browser.window_handles
-    expect(browser_windows.count).to be == count.to_i, "expected #{count.to_s} browser windows to be opened, got #{browser_windows.count.to_s}"
+    expect(browser_windows.count).to eq(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"
   end
 
 end

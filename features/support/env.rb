@@ -84,14 +84,14 @@ initialise_test_data
 
 # ======= load common helpers =======
 
-puts "Loading custom cucumber formatters..."
+puts 'Loading custom cucumber formatters...'
 require_and_log Dir[File.join(support_dir, 'formatter', '*.rb')]
 
-puts "Loading support files..."
+puts 'Loading support files...'
 require_and_log Dir[File.join(support_dir, 'core_ruby_overrides.rb')]
 require_and_log Dir[File.join(support_dir, '*.rb')]
 
-puts "Loading page models..."
+puts 'Loading page models...'
 require_and_log Dir[File.join(support_dir, 'page_models', '*.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbooks_section.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
@@ -162,4 +162,14 @@ else
                                    :desired_capabilities => caps)
   end
 
+end
+
+# Headless mode
+if TEST_CONFIG['HEADLESS']  =~ /^true|on$/i
+  puts 'Headless mode.'
+
+  require 'headless'
+
+  headless = Headless.new
+  headless.start
 end

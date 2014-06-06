@@ -4,10 +4,6 @@ Feature: New user cancels order
   I want to the ability to cancel order
   So that I can cancel unwanted order.
 
-
-  Background:
-    Given I am on the home page
-
   Scenario Outline: First time user cancels order in payments page
     Given I have selected to buy a <book_type> book from <page_name> page
     And I register to proceed with purchase
