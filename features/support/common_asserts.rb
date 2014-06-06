@@ -19,23 +19,6 @@ module AssertNavigation
     expect(current_page).to have_content(message_text, :visible => true)
   end
 
-  def assert_main_footer_displayed
-    expect(find('[data-test="footer-container"]')).to be_visible
-  end
-
-  def assert_footer_section(section)
-    case section
-      when 'Connect with us'
-        expect(find('[data-test="footer-connect-with-us-container"]')).to be_visible
-      when 'New releases'
-        expect(find('[data-test="footer-new-releases-container"]')).to be_visible
-      when 'Top authors in crime'
-        expect(find('[data-test="footer-top-authors-in-crime-container"]')).to be_visible
-      when 'Top authors'
-        expect(find('[data-test="footer-top-authors-container"]')).to be_visible
-    end
-  end
-
   def assert_section_header(section_id, text)
     case section_id.downcase
       when 'bestsellers'
@@ -47,10 +30,6 @@ module AssertNavigation
       when 'bestselling authors'
         authors_page.section_title.should include(text)
     end
-  end
-
-  def assert_container(section_id)
-    expect(page.find("[data-test='#{section_id}']")).to be_visible
   end
 
   def assert_book_details
@@ -77,19 +56,15 @@ module AssertSearch
   end
 
   def assert_author_name author_name
-    selector = 'li.grid-5:nth-child(1)'
-    expect((find_a_text selector, 'author').downcase).to eq(author_name.downcase)
+    expect(books_section.books.first.author.downcase).to eq(author_name.downcase)
   end
 
   def assert_title book_title
-    selector = 'li.grid-5:nth-child(1)'
-    expect((find_a_text selector, 'title').downcase).to eq(book_title.downcase)
+    expect(books_section.books.first.title.downcase).to eq(book_title.downcase)
   end
 
   def assert_unique_result
-    within(".grid") do
-      expect(page).to have_css("li", :count => 1)
-    end
+    expect(books_section.books).to have_exactly(1).items
   end
 
   def assert_number_of_suggestions number_of_suggestion

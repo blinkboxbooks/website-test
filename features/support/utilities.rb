@@ -55,18 +55,6 @@ module WebUtilities
     Capybara.current_session.reset_session!
   end
 
-  def find_a_text selector, type
-    within(selector) do
-      case type
-        when 'author'
-          actual_text = find('[data-test="book-authors"]')[:title]
-        when 'title'
-          actual_text= find('[data-test="book-title"]')[:title]
-      end
-    end
-    actual_text
-  end
-
   def mouse_over(element)
     if Capybara.current_session.driver == Capybara::Selenium::Driver
       element.native.location_once_scrolled_into_view

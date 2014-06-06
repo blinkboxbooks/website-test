@@ -2,7 +2,6 @@ module ManageAccount
   def click_link_from_my_account_dropdown(link_name)
     # TODO: Remove when hamburger menu is rolled out
     if current_page.header.find('a', :text => link_name).exists?
-      current_page.header.user_account_logo.click
       current_page.header.find('a', :text => link_name).click
     else
       expect(current_page.header).to be_visible
@@ -18,33 +17,6 @@ module ManageAccount
     your_personal_details_page.first_name.set first_name
     your_personal_details_page.last_name.set last_name
     return first_name, last_name
-  end
-
-  def navigate_to_my_account_landing_page
-    within(find('[id="username"]')) do
-      first('a').click
-    end
-  end
-
-  def edit_marketing_preferences
-    before_status = page.has_checked_field?('newsletter')
-    if (before_status)
-      uncheck('newsletter')
-    else
-      check('newsletter')
-    end
-    after_status = page.has_checked_field?('newsletter')
-    return after_status
-  end
-
-  def click_on_my_account_tab(tab_name)
-    within('.account_menu') do
-      page.all('li').to_a.each do |li|
-        if li.text.eql?(tab_name)
-          li.click
-        end
-      end
-    end
   end
 
   def set_card_default
@@ -76,8 +48,3 @@ end
 
 World(ManageAccount)
 World(CommonActions)
-
-
-
-
-
