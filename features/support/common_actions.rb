@@ -1,6 +1,8 @@
 module ManageAccount
   def click_link_from_my_account_dropdown(link_name)
     # TODO: Remove when hamburger menu is rolled out
+    current_page.header.user_account_logo.click
+    
     if current_page.header.find('a', :text => link_name).exists?
       current_page.header.user_account_logo.click
       current_page.header.find('a', :text => link_name).click
