@@ -3,9 +3,9 @@ module ManageAccount
     # TODO: Remove when hamburger menu is rolled out
     current_page.header.user_account_logo.click
 
-    link = current_page.find('a', :text => link_name)
+    link = current_page.header.find_link_by_text(link_name)
 
-    if link.visible?
+    unless link.nil?
       link.click
     else
       expect(current_page.header).to be_visible

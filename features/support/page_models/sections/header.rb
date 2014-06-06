@@ -33,6 +33,7 @@ module PageModels
     element :search_button, '[data-test="search-button"]'
     element :suggestions, 'ul#suggestions'
     element :logo, "#logo a"
+    elements :all_links, 'a'
 
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
     element :hamburger_menu, 'ul#main-navigation-handheld'
@@ -59,6 +60,10 @@ module PageModels
       account_menu.find('[data-test="' +  link_name.downcase.gsub(/ /, '-') + '"]').click
     end
 
+    def find_link_by_text(link_text)
+      all_links.find { |link| link.text == link_text }
+    end
+
     def click_log_out
       open_account_menu
       account_menu.sign_out_button.click
@@ -80,6 +85,5 @@ module PageModels
         raise "Not recognised header navigation link: #{link}"
       end
     end
-
   end
 end
