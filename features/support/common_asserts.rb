@@ -15,31 +15,8 @@ module AssertNavigation
   end
   alias :expect_page_displayed :assert_page
 
-  def is_category_displayed category_id
-    category_displayed=false
-    within('[data-test="all-categories-list"]') do
-      page.all('li').to_a.each do |li|
-        begin
-          if ((li.find('[data-category="category"]')['data-test']).include?(category_id) == true)
-            category_displayed = true;
-          end
-        rescue TypeError => e
-          e.message
-          category_displayed = false;
-        end
-      end
-    end
-    return category_displayed
-  end
-
-  def find_category category_id
-    within('[data-test="all-categories-list"]') do
-      page.all('li').to_a.each do |li|
-        if (li.find('[data-category="category"]')['data-test']).include?(category_id) == true
-          return li.find('[data-category="category"]')['data-test'];
-        end
-      end
-    end
+  def assert_message_displayed(message_text)
+    expect(current_page).to have_content(message_text, :visible => true)
   end
 
   def assert_main_footer_displayed
@@ -77,13 +54,7 @@ module AssertNavigation
   end
 
   def assert_book_details
-    expect(find('[class="book-data"]')).to be_visible
-    within('.left-column') do
-      expect(find('[id="cover"]')).to be_visible
-      expect(find('[class="details"]')).to be_visible
-      expect(find('[id="description"]')).to be_visible
-    end
-    assert_book_reader
+    expect(book_details_page).to be_all_there
   end
 
   def assert_book_reader

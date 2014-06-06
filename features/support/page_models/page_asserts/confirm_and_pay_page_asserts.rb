@@ -22,6 +22,11 @@ module PageModels
       expect(amount_to_pay).to eq((book_price-account_credit.to_f).round(2))
     end
 
+    def assert_book_exists_in_library_message(type)
+      expect(confirm_and_pay_page).to have_already_purchased_message
+      assert_message_displayed("You already have this #{type} in your library")
+    end
+
   end
 end
 World(PageModels::ConfirmAndPayPageAsserts)

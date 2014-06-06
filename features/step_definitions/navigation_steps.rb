@@ -92,8 +92,8 @@ And /^I should see 'Fiction' and 'Non\-Fiction' tabs$/ do
 end
 
 And /^Grid view and List view buttons displayed$/ do
-  expect(find('.list-view')).to be_visible
-  expect(find('.list-view')).to be_visible
+  expect(search_results_page).to have_list_view_button
+  expect(search_results_page).to have_grid_view_button
 end
 
 And /^I should see Promotions section header as (.*?)$/ do |promo_text|
@@ -105,12 +105,14 @@ And /^I should see (\d+) books being displayed$/ do |books|
 end
 
 And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
-  within('.tabbed') do
-    find("a", :text =>"#{tab}").click
-  end
+  tab.include?('Non') ? bestsellers_page.non_fiction_button.click : bestsellers_page.fiction_button.click
 end
 
 Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
+<<<<<<< HEAD
+  expect(bestsellers_page.selected_tab).to eq(book_type.gsub('-', '_').downcase.to_sym)
+  expect(search_results_page.current_view).to eq(view.to_sym)
+=======
   case view
     when 'grid'
       expect(find('.grid-view')[:class]).to include('active')
@@ -131,6 +133,7 @@ Given /^I am on crime and thriller category page$/ do
   expect(find('[data-test="category-title"]').text).to eq('All books in Crime and Thriller')
   expect(find('[data-test="categoryid-109"]')).to be_visible
   find('[data-test="list-button"]').click
+>>>>>>> upstream/nodejs
 end
 
 When /^I select a book to view book details$/ do

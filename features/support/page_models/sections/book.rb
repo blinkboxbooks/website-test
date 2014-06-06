@@ -12,6 +12,10 @@ module PageModels
     element :isbn_element, 'div.details'
     element :cover_link, '[data-test="book-title-cover"]'
 
+    # List View elements
+    element :clubcard_points, '[data-test="book-clubcard-points"]'
+    element :clubcard_logo, '.club_card_logo img'
+
     def free?
       wait_for_price_element
       price_element.text.downcase.eql?("Free".downcase)

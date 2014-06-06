@@ -46,17 +46,7 @@ And /^page should display categories as list$/ do
 end
 
 And /^I select (list|grid) view$/ do |view|
-  case view
-    when 'list'
-      if !((find('.list-view')[:class]).include?('active'))
-       page.find('.list-view').click
-      end
-    when 'grid'
-      if !((find('.grid-view')[:class]).include?('active'))
-       page.find('.grid-view').click
-
-     end
-  end
+  view == 'list' ? switch_to_list_view : switch_to_grid_view
 end
 
 Then /^long titles should be displayed in two lines$/ do

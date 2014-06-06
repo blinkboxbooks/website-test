@@ -67,19 +67,6 @@ module WebUtilities
     actual_text
   end
 
-  def fill_form_element(element, value)
-    # TODO: CWA-1455 - I keep this, until there's usage
-    fill_in("#{element}", :with => "#{value}")
-  end
-
-  def click_link_or_button(element_id)
-    find("[data-test='#{element_id}']").click
-  end
-
-  def select_value(element, value)
-    select(value, :from => element)
-  end
-
   def mouse_over(element)
     if Capybara.current_session.driver == Capybara::Selenium::Driver
       element.native.location_once_scrolled_into_view
