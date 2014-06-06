@@ -109,31 +109,8 @@ And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
 end
 
 Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
-<<<<<<< HEAD
   expect(bestsellers_page.selected_tab).to eq(book_type.gsub('-', '_').downcase.to_sym)
   expect(search_results_page.current_view).to eq(view.to_sym)
-=======
-  case view
-    when 'grid'
-      expect(find('.grid-view')[:class]).to include('active')
-      within('[data-test="bestsellers-container"]') do
-        expect(find('.selected').text).to eq(book_type)
-      end
-    when 'list'
-      expect(find('.list-view')[:class]).to include('active')
-      within('[data-test="bestsellers-container"]') do
-        expect(find('.selected').text).to eq(book_type)
-      end
-  end
-end
-
-Given /^I am on crime and thriller category page$/ do
-  visit('#!/category/crime-and-thriller/')
-  expect(current_path).to eq('#!/category/crime-and-thriller/')
-  expect(find('[data-test="category-title"]').text).to eq('All books in Crime and Thriller')
-  expect(find('[data-test="categoryid-109"]')).to be_visible
-  find('[data-test="list-button"]').click
->>>>>>> upstream/nodejs
 end
 
 When /^I select a book to view book details$/ do
