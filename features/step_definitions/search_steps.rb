@@ -60,7 +60,7 @@ And(/^the options of switching view mode should not appear$/) do
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
-  current_page.search_form.keyword.set search_word
+  current_page.search_form.set_keyword search_word
 end
 
 And /^search suggestions should be displayed$/ do
@@ -134,15 +134,11 @@ Then /^author name should be "(.*?)"$/ do |author_name|
 end
 
 Then /^"(.*?)" should be visible in search bar$/ do |search_word|
-  within('#searchbox') do
-    expect(find('#term')[:value]).to eq(search_word)
-  end
+  expect(current_page.search_form.keyword).to eq(search_word)
 end
 
 Then /^search term should not be visible in search bar$/ do
-  within('#searchbox') do
-    expect(find('#term')[:value]).to eq("")
-  end
+  expect(current_page.search_form.keyword).to be_empty
 end
 
 When /^I change search term in url to "(.*?)"$/ do |edit_word|

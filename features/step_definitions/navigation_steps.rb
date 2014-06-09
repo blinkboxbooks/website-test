@@ -59,7 +59,7 @@ And /^I click on the (.+) footer link$/ do |link_name|
   click_footer_link(link_name)
 end
 
-When /^I click on the (.*) header tab$/ do |page_name|
+When /^I click on the (.*) header tab$/i do |page_name|
   click_navigation_link(page_name)
 end
 
