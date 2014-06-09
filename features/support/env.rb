@@ -179,14 +179,17 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   caps["browserstack.debug"] = "true"
   caps["name"] = "Testing Selenium 2 with Ruby on BrowserStack"
 
+  raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
+
   if TEST_CONFIG['SERVER'] == "PRODUCTION"
     caps["browserstack.local"] = "false"
   else
     caps["browserstack.local"] = "true"
-    # TODO: Run tunneling binary as background process (and terminate in at_exit hook)
+    # Running tunneling binary as background process
+    # TODO: Add port number for each server in environments.yml!
+    $browser_stack_tunnel = BrowserstackTunnel.new(TEST_CONFIG['BROWSERSTACK_KEY'], environments(TEST_CONFIG['SERVER'].upcase).split(':')[0], environments(TEST_CONFIG['SERVER'].upcase).split(':')[1])
+    $browser_stack_tunnel.start
   end
-
-  raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
 
   grid_url = "http://#{TEST_CONFIG['BROWSERSTACK_USERNAME']}:#{TEST_CONFIG['BROWSERSTACK_KEY']}@hub.browserstack.com/wd/hub"
 
