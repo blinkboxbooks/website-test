@@ -3,16 +3,17 @@ And(/^I search for term "(.*?)"$/) do |term|
   search_blinkbox_books @search
 end
 
-Then(/^I should have a result page with term "(.*?)" matching$/) do |term|
-  expect(find('[data-test="search-results-list"]')).to have_content("#{term}".titleize)
+
+Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
+  expect(books_section.books_written_by(author_name.titleize)).to have_at_least(1).items
 end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
-  expect(search_results_page.current_view).to be == expected_view.to_sym
+  expect(search_results_page.current_view).to be == expected_view.downcase.to_sym
 end
 
 And(/^I should see the sort option drop down$/) do
-  expect(find('div.orderby').find('div.item').find('a.ng-binding')).to be_visible
+  expect(search_results_page).to have_order_by
 end
 
 Given(/^I change from Grid mode to List mode$/) do
@@ -49,8 +50,8 @@ And(/^the Tesco clubcard logo should be visible$/) do
 end
 
 Then(/^I should get a message$/) do
-  expect(page).to have_content(@search)
-  expect(page).to have_selector("#noResults")
+  expect(search_results_page).to have_no_results_element
+  expect(search_results_page.no_results_message).to include(@search)
 end
 
 And(/^the options of switching view mode should not appear$/) do

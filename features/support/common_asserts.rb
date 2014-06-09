@@ -68,7 +68,7 @@ module AssertSearch
   end
 
   def assert_number_of_suggestions number_of_suggestion
-    expect(current_page.search_form.suggestions.size).to be >= number_of_suggestion
+    expect(current_page.search_form.suggestions).to have_at_least(number_of_suggestion).items
   end
 
   def assert_auto_corrected_word corrected_word

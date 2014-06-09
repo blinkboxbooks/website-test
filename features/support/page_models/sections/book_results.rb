@@ -17,6 +17,11 @@ module PageModels
       books.select { |book| book.free? }
     end
 
+    def books_written_by(author_name)
+      wait_for_books
+      books.select { |book| book.author == author_name }
+    end
+
     def random_purchasable_book
       sample = purchasable_books.sample
       raise "There are no purchasable books available on the current page" if sample.nil?
