@@ -2,10 +2,6 @@ Then /^main footer is displayed$/ do
   expect(current_page).to have_footer
 end
 
-Then /^main footer has "(.*?)" displayed$/ do |section|
-   assert_footer_section(section)
-end
-
 When /^number of banners is between (\d+) and (\d+)$/ do |min_banners, max_banners|
  @min_banners = min_banners.to_i
  @max_banners = max_banners.to_i
@@ -22,10 +18,6 @@ end
 
 And /^homepage hero banner has navigation buttons$/ do
   expect(home_page.banner.slide_numbers.count).to be_between(@min_banners, @max_banners)
-end
-
-And /^main footer has (\d+) columns with links$/ do |arg1|
-  pending
 end
 
 Then /^each banner image has title and subtitle$/ do

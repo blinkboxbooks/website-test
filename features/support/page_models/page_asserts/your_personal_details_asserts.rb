@@ -1,7 +1,7 @@
 module PageModels
   module YourPersonalDetailsAsserts
     def expect_account_tab_selected(tab_name)
-      expect(your_account_page.account_nav_frame.selected_tab.name).to eq(tab_name)
+      expect(your_account_page.account_nav_frame.selected_tab.title).to eq(tab_name)
     end
 
     def assert_user_greeting_message_displayed(first_name=nil)

@@ -3,7 +3,7 @@ module PageModels
 
     element :layer, 'div.book'
     element :title_element, 'h2.title'
-    element :author, 'div.author'
+    element :author_element, '[data-test="book-authors"]'
     element :price_element, 'span[data-test="book-price"]'
     element :discount_price_element, 'span[data-test="book-price"] span.discount'
     element :cover_image, 'div.cover'
@@ -70,6 +70,10 @@ module PageModels
 
     def book_details_url
       cover_link[:href]
+    end
+
+    def author
+      author_element[:title]
     end
   end
 end
