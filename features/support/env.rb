@@ -186,7 +186,6 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   else
     caps["browserstack.local"] = "true"
     # Running tunneling binary as background process
-    # TODO: Add port number for each server in environments.yml!
     $browser_stack_tunnel = BrowserstackTunnel.new(TEST_CONFIG['BROWSERSTACK_KEY'], environments(TEST_CONFIG['SERVER'].upcase).split(':')[0], environments(TEST_CONFIG['SERVER'].upcase).split(':')[1])
     $browser_stack_tunnel.start
   end
