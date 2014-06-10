@@ -11,7 +11,6 @@ module PageModels
     set_url_matcher /account\/order-payment-history/
     element :ordered_books, '.order_books'
     element :book_list, '.expandable'
-
   end
 
   class YourPersonalDetailsPage < PageModels::YourAccountPage

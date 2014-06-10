@@ -1,7 +1,3 @@
-Given /I have identified a best selling book to buy$/ do
-  select_book_to_buy_from('Bestsellers', :paid)
-end
-
 When /^I enter valid (.*?) card details$/ do |card_type|
   enter_card_details(set_valid_card_details(card_type))
 end

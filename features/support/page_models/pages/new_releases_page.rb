@@ -2,7 +2,7 @@ module PageModels
   class NewReleasesPage < PageModels::BlinkboxbooksPage
     set_url "/#!/new-releases"
     set_url_matcher /new/
-    element :new_releases_last_30days, '#newreleases'
+
     sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
     element :section_title_element, '[data-test="newreleases-title"]'
 
