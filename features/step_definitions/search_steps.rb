@@ -146,7 +146,7 @@ end
 
 When /^I change search term in url to "(.*?)"$/ do |edit_word|
   @search_word = edit_word
-  visit("/#!/search/?q=#{edit_word}")
+  search_results_page.load(:q => edit_word)
   puts @search_word
 end
 
