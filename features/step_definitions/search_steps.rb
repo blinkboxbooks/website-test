@@ -19,10 +19,6 @@ Given(/^I change from Grid mode to List mode$/) do
   switch_to_list_view
 end
 
-And(/^the result should be displayed in Grid mode$/) do
-  expect(search_results_page.current_view).to eq(:grid)
-end
-
 And(/^the result should be displayed in List mode$/) do
   expect(search_results_page.current_view).to eq(:list)
 end
@@ -78,10 +74,6 @@ end
 
 And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
   assert_search_word_in_suggestions search_word
-end
-
-And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
-  current_page.search_form.suggestions.each { |suggestion| expect(suggestion.text).to include(search_word) }
 end
 
 And /^first suggestions should contain complete word "(.+)"$/ do |search_word|

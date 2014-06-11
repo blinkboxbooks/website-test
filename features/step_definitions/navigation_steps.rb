@@ -78,10 +78,6 @@ Then /^I should be on the Authors page$/ do
   expect_page_displayed("Authors")
 end
 
-And /^footer is displayed$/ do
-  expect(current_page).to have_footer
-end
-
 And /^(.*?) section header is (.*?)$/ do |section_name, text|
   assert_section_header(section_name, text)
 end
@@ -94,14 +90,6 @@ end
 And /^Grid view and List view buttons displayed$/ do
   expect(search_results_page).to have_list_view_button
   expect(search_results_page).to have_grid_view_button
-end
-
-And /^I should see Promotions section header as (.*?)$/ do |promo_text|
-  assert_section_header('bestsellers', promo_text)
-end
-
-And /^I should see (\d+) books being displayed$/ do |books|
-  expect(bestsellers_page.daily_bestsellers.books.count).to be == books.to_i
 end
 
 And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|

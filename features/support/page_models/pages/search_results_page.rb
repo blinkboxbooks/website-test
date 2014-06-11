@@ -6,9 +6,6 @@ module PageModels
     element :searched_term, ".searched_term"
     elements :books, "div.itemsets div[book=\"book\"]"
     sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
-    element :corrected_search_word_link, 'span#did_you_mean.ng-binding span.ng-scope a.ng-binding'
-    element :order_by, '.orderby'
-    elements :sort_options, 'div.orderby ul li.item'
     element :list_view_button, 'a[data-test="list-button"]'
     element :grid_view_button, 'a[data-test="grid-button"]'
 

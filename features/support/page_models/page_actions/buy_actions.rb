@@ -1,22 +1,6 @@
 module PageModels
   module BuyActions
 
-    def enter_card_number(number)
-      confirm_and_pay_page.card_number.set number
-    end
-
-    def enter_cvv(card_type)
-      cvv = '123'
-      if card_type.eql?('American Express')
-        cvv = '1234'
-      end
-      confirm_and_pay_page.cvv.set cvv
-    end
-
-    def enter_name_on_card(name)
-      confirm_and_pay_page.name_on_card.set name
-    end
-
     def enter_address_line_one(line_one)
       confirm_and_pay_page.address_line_one.set line_one
     end
