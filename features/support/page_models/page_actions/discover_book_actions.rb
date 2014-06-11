@@ -22,7 +22,7 @@ module PageModels
     end
 
     def buy_sample_added_book
-      visit(@book_href)
+      book_details_page.load(:isbn => @book_isbn)
       click_buy_now_in_book_details_page
     end
 

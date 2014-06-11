@@ -103,12 +103,12 @@ end
 
 When /^I select a book to view book details$/ do
   book = books_section.random_purchasable_book
-  @book_href = book.book_details_url
+  @book_isbn = book.isbn
   book.click_view_details
 end
 
 Then /^details page of the corresponding book is displayed$/ do
-  expect(current_url).to include(@book_href)
+  expect(current_url).to include(@book_isbn)
 end
 
 And /^details of above book are displayed$/ do

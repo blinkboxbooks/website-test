@@ -38,7 +38,7 @@ module PageModels
     end
 
     def isbn
-      isbn_element.scan(/[0-9]+/)[0]
+      isbn_element['data-test'].scan(/[0-9]+/)[0]
     end
 
     def title
