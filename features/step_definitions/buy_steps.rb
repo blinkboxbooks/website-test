@@ -31,7 +31,7 @@ When /^I click Confirm order$/ do
   click_confirm_order
 end
 
-Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
+Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
   if login_status.eql?('logged')
     sign_in
   else
@@ -39,7 +39,7 @@ Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|
       log_out_current_session
     end
   end
-  select_book_to_buy_from('Search results', :paid)
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
