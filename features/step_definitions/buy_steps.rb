@@ -94,7 +94,9 @@ Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New relea
 end
 
 Given /^I have selected to buy a (paid|free) book$/ do |book_type|
-  @book_title = select_book_to_buy(book_type.to_sym)
+  # @book_title = select_book_to_buy(book_type.to_sym)
+  book_details_page.visit_for(book_type.downcase.to_sym)
+  @book_title = book_details_page.buy_book
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
@@ -275,8 +277,4 @@ end
 When /^I (?:select|selected) a book to (?:buy from Search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
   @account_credit = price
   @book_price = buy_book_by_price(condition, @account_credit)
-end
-
-Given /^I have selected a free book to buy from book details$/ do
-  select_book_to_buy_from('Book details', 'Free')
 end
