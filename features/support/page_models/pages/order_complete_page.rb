@@ -1,6 +1,7 @@
 module PageModels
   class OrderCompletePage < PageModels::BlinkboxbooksPage
     set_url_matcher /order-complete/
+    set_url '/#!/order-complete{?book}{&cpa}'
 
     def navigation_timeout
       30
