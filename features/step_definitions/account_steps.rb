@@ -76,10 +76,6 @@ And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
   end
 end
 
-Given /^I am on my account page$/ do
-  click_link_from_my_account_dropdown('Personal details')
-end
-
 And /^I click Sign out button$/ do
   your_account_page.sign_out_button.click
 end

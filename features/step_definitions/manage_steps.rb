@@ -91,11 +91,6 @@ And /^the selected card is displayed as my default card$/ do
   assert_default_card(@default_card)
 end
 
-When /^I enter valid clubcard number$/ do
-  @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
-  enter_clubcard @valid_clubcard
-end
-
 Then /^clubcard added to my account$/ do
   refresh_current_page
   assert_clubcard @new_clubcard

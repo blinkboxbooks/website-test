@@ -16,22 +16,13 @@ module PageModels
       return @category_name
     end
 
-    def sort_search_results(sort_criteria)
-      search_results_page.order_by.hover
-      search_results_page.sort_options.each do |sort_otpion|
-        sort_otpion.text.eql?(sort_criteria)
-        sort_otpion.click
-      end
-      search_results_page.wait_until_book_results_sections_visible(10)
-    end
-
     def select_book_to_view_details(book_type)
       search_blinkbox_books(return_search_word_for_book_type(book_type))
       book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
     end
 
     def buy_sample_added_book
-      visit(@book_href)
+      book_details_page.load(:isbn => @book_isbn)
       click_buy_now_in_book_details_page
     end
 
@@ -79,19 +70,6 @@ module PageModels
         book_price = select_random_book_cheaper_than(price)
       end
       return book_price
-    end
-
-    def select_best_selling_book_to_buy_from_book_details
-      bestsellers_page.load
-      book_title = books_section.click_details_random_book
-      book_details_page.buy_now.click
-      return book_title
-    end
-
-    def select_free_book_to_buy_from_book_details
-      search_blinkbox_books('free')
-      book_title = books_section.click_buy_now_free_book
-      return book_title
     end
 
   end

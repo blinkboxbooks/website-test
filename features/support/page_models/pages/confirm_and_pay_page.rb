@@ -1,6 +1,8 @@
 module PageModels
   class ConfirmAndPayPage < PageModels::BlinkboxbooksPage
     set_url_matcher /confirm/
+    set_url '/#!/confirm{?book}'
+
     element :details_view, 'div#confirm-pay-card-details-view'
     element :save_card, '#save_details'
     element :cvv , '#number_cvv'
