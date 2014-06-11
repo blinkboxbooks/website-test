@@ -7,7 +7,6 @@
   Background:
     Given I am on the home page
 
-
   Scenario Outline: Corrected word suggestions for misspelled search
     When I search for "<misspelled_word>"
     Then I should see a suggestion text with <corrected_spelling>

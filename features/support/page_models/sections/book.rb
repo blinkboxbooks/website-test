@@ -3,7 +3,7 @@ module PageModels
 
     element :layer, 'div.book'
     element :title_element, 'h2.title'
-    element :author_element, '[data-test="book-authors"]'
+    element :author_element, '[data-test="book-authors"]', :match => :first
     element :price_element, 'span[data-test="book-price"]'
     element :discount_price_element, 'span[data-test="book-price"] span.discount'
     element :cover_image, 'div.cover'
@@ -73,7 +73,9 @@ module PageModels
     end
 
     def author
-      author_element[:title]
+      # Some book does not have author associated to it
+      # ex. https://nodejs-internal.mobcastdev.com/#!/book/9780307554468/at-fenway?q=dan%20brown
+      has_author_element? ? author_element[:title] : ''
     end
   end
 end
