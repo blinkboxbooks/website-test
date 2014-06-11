@@ -198,7 +198,7 @@ When /^I click on link to sign in with already registered email$/ do
  register_page.sign_email_link.click
 end
 
-Given /^I have a (?:pay for|free) (?:book|book sample) in my library$/ do
+Given /^I have a (?:paid|free) (?:book|book sample) in my library$/ do
   set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
 end
 

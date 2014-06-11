@@ -23,7 +23,8 @@ When /^I choose to pay with a new card$/ do
 end
 
 And /^I have identified a (free|paid) book to read sample offline$/ do |book_type|
-  select_book_to_view_details(book_type.to_sym)
+  # select_book_to_view_details(book_type.to_sym)
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I click Confirm order$/ do
@@ -121,13 +122,8 @@ And /^(book|sample) already exists in the library message displayed in confirm a
   assert_book_exists_in_library_message(type)
 end
 
-When /^I select above (pay for|free) book to add sample$/ do |book_type|
-  isbn = test_data('library_isbns', 'pay_for_sample')
-  if book_type.include?('free')
-    isbn = test_data('library_isbns', 'free_sample')
-  end
-  search_blinkbox_books isbn
-  books_section.books[0].click_view_details
+When /^I select above (paid|free) book to add sample$/ do |book_type|
+  book_details_page.visit_for("#{book_type}_sample".to_sym)
   click_read_offline
 end
 
