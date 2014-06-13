@@ -1,17 +1,4 @@
 module MakeTestsRobust
-    RETRY_ERRORS = %w[
-    Capybara::ElementNotFound
-    Spec::Expectations::ExpectationNotMetError
-    RSpec::Expectations::ExpectationNotMetError
-    Capybara::Poltergeist::ClickFailed
-    Capybara::ExpectationNotMet
-    Selenium::WebDriver::Error::StaleElementReferenceError
-    Selenium::WebDriver::Error::NoAlertPresentError
-    Selenium::WebDriver::Error::ElementNotVisibleError
-    Selenium::WebDriver::Error::NoSuchFrameError
-    Selenium::WebDriver::Error::NoAlertPresentError
-  ]
-
   def setup
     page.execute_script <<-JS
       window.ajaxDone = false;
@@ -101,4 +88,3 @@ AfterStep do | scenario |
 
   reset
 end
-
