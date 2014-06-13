@@ -22,7 +22,7 @@ module MakeTestsRobust
   end
 
   def timeout!
-    raise TimeoutError.new("Timeout waiting for AJAX execution.")
+    raise TimeoutError.new("Timeout waiting for AJAX execution - waited " +  Capybara.default_wait_time.to_s)
   end
 
   def ajax_done?
@@ -76,15 +76,19 @@ end
 World(ToleranceForSeleniumSyncIssues)
 World(MakeTestsRobust)
 
-AfterStep do | scenario |
-  setup
+if TEST_CONFIG["WAIT_FOR_AJAX"]  =~ /^on|true$/i 
+  puts 'Waiting for AJAX to complete.'
 
-  start = Time.now
-  until ajax_done?
-    timeout! if timeout?(start)
+  AfterStep do | scenario |
+    setup
 
-    sleep(0.01)
+    start = Time.now
+    until ajax_done?
+      timeout! if timeout?(start)
+
+      sleep(0.01)
+    end
+
+    reset
   end
-
-  reset
 end
