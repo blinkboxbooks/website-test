@@ -42,6 +42,23 @@ module ManageAccount
     return @default_card
   end
 
+  def set_viewing_mode(viewing_mode)
+    case viewing_mode
+      when 'Desktop'
+        maximize_window
+      when 'Mobile Portrait'
+        resize_window(320, 480)
+      when 'Mobile Landscape'
+        resize_window(480, 320)
+      when '10 inch tablet'
+        resize_window(800, 1024)
+      when '7 inch tablet'
+        resize_window(550, 1024)
+      else
+        raise "Unsupported browser viewing mode: #{viewing_mode}"
+    end
+  end
+
 end
 
 module CommonActions
