@@ -66,7 +66,7 @@ Feature: Sign into Blinkbox books
   Scenario: Request Reset my password
     Given I am on reset password page
     When I enter email address registered with blinkbox books
-    And click send reset link button
+    And I click on Send me a reset link
     Then reset password response page is displayed
     And reset email confirmation message is displayed
 

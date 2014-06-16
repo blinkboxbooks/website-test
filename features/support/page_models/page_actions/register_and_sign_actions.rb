@@ -68,6 +68,13 @@ module PageModels
       return @password, @email_address, @first_name, @last_name
     end
 
+    def register_with_existing_email_address
+      @email_address, @first_name, @last_name = enter_personal_details(test_data('emails', 'happypath_user'))
+      enter_password(test_data('passwords', 'valid_password'))
+      accept_terms_and_conditions(true)
+      submit_registration_details
+    end
+
     def sign_in(email_address=@email_address, password=@password)
       email_address ||= test_data("emails", "user_with_devices")
       password ||= test_data("passwords", "valid_password")
@@ -83,6 +90,11 @@ module PageModels
     def set_email_and_password(email_address, password)
       @email_address = email_address
       @password = password
+    end
+
+    def enter_not_matching_passwords
+      register_page.password.set test_data('passwords', 'valid_password')
+      register_page.password_repeat.set test_data('passwords', 'not_matching_password')
     end
 
     def cancel_registration
@@ -102,6 +114,14 @@ module PageModels
     def sign_in_from_redirected_page
       assert_page("sign in page")
       sign_in_page.sign_in_form.submit(@email_address, @password)
+    end
+
+    def click_forgotten_password_link
+      sign_in_page.forgotten_password_link.click
+    end
+
+    def click_send_reset_link
+      reset_password_page.send_reset_link.click
     end
   end
 end
