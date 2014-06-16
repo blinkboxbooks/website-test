@@ -72,7 +72,7 @@ namespace :teamcity do
               if run <= reruns
                   retry
               else
-                  puts 'Retried ' + run.to_s + ' now bailing out.'
+                  puts 'Retried ' + run.to_s + ' times, now bailing out.'
                   puts stats.inspect
               end 
             else
