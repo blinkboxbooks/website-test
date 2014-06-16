@@ -1,9 +1,9 @@
 module PageModels
   class SearchResultsPage < PageModels::BlinkboxbooksPage
-    set_url "/#!/search{?q}"
-    set_url_matcher /search\?q\=/
+    set_url '/#!/search{?q}'
+    set_url_matcher /search\?q=/
 
-    element :searched_term, ".searched_term"
+    element :searched_term, '.searched_term'
     elements :books, "div.itemsets div[book=\"book\"]"
     sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
     element :corrected_search_word_link, 'span#did_you_mean.ng-binding span.ng-scope a.ng-binding'

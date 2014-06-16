@@ -16,7 +16,7 @@ module PageModels
     end
 
     def enter_personal_details(email_address=@email_address)
-      expect_page_displayed("Register")
+      expect_page_displayed('Register')
       email_address ||= generate_random_email_address
       first_name = generate_random_first_name
       last_name = generate_random_last_name
@@ -58,7 +58,7 @@ module PageModels
     end
 
     def register_new_user(provide_clubcard = 'without', clubcard_number = '')
-      @password = test_data("passwords", "valid_password")
+      @password = test_data('passwords', 'valid_password')
       @email_address, @first_name, @last_name = enter_personal_details
       enter_password(@password)
       register_page.fill_in_club_card(clubcard_number) if provide_clubcard.eql?('with')
@@ -69,10 +69,10 @@ module PageModels
     end
 
     def sign_in(email_address=@email_address, password=@password)
-      email_address ||= test_data("emails", "user_with_devices")
-      password ||= test_data("passwords", "valid_password")
+      email_address ||= test_data('emails', 'user_with_devices')
+      password ||= test_data('passwords', 'valid_password')
       if logged_in_session?
-        raise "User is already signed in, which is not expected, please check your flow"
+        raise 'User is already signed in, which is not expected, please check your flow'
       else
         navigate_to_sign_in_form
         submit_sign_in_details(email_address, password)
@@ -100,7 +100,7 @@ module PageModels
     end
 
     def sign_in_from_redirected_page
-      assert_page("sign in page")
+      assert_page('sign in page')
       sign_in_page.sign_in_form.submit(@email_address, @password)
     end
   end

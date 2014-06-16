@@ -1,6 +1,6 @@
 module PageModels
   class CategoriesPage < PageModels::BlinkboxbooksPage
-    set_url "/#!/categories"
+    set_url '/#!/categories'
     set_url_matcher /categories/
 
     element :all_categories_list, '[data-test="all-categories-list"]'
@@ -34,7 +34,7 @@ module PageModels
       category_title = title_for_category index
       puts "Selecting category #{category_title}"
       category_by_index(index).click
-      return category_title
+      category_title
     end
 
     def random_category_index

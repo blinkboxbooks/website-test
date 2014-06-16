@@ -191,7 +191,7 @@ When /^I complete purchase by selecting (to save|not to save) the card details$/
     @name_on_card, @card_type = successful_new_payment(save_payment = false)
   else
     @name_on_card, @card_type = successful_new_payment(save_payment = true)
-    @card_count = 1;
+    @card_count = 1
   end
 end
 

@@ -10,7 +10,7 @@ module Cucumber
           #figure out path to the report HtmlFile (@io will contain filepath - see Cucumber::Formatter::Html)
           #we will put "screenshots" folder in the same location.
           screen_dir = File.join(File.dirname(@io.path), 'screenshots')
-          Dir::mkdir(screen_dir) if not File.directory?(screen_dir)
+          Dir::mkdir(screen_dir) unless File.directory?(screen_dir)
           screenshot_filename = "FAILED_#{filename_base.to_s.gsub(' ', '_').gsub(/[^0-9A-Za-z_]/, '')}.png"
           screenshot = File.join(screen_dir, screenshot_filename)
           #scheenshot's src attribute should be relative location of report HTML
@@ -24,7 +24,7 @@ module Cucumber
             else
               driver.render(screenshot)
             end
-            embed screenshot_src, 'image/png', "CLICK TO VIEW/HIDE SCREENSHOT"
+            embed screenshot_src, 'image/png', 'CLICK TO VIEW/HIDE SCREENSHOT'
           rescue Exception => e
             puts 'THE SCREENSHOT TAKING FAILED, YOUR PAGE IS TOO DAMN BIG'
             puts e.message
