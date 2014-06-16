@@ -87,6 +87,7 @@ namespace :teamcity do
       t.cucumber_opts = ['-p ci-smoke-local --tags @production HEADLESS=true FAIL_FAST=false -f rerun --out rerun.txt']
     end
 
+    # Cucumber just chucks away arguments passed in the standard Rake way so we have to do this.
     desc 'Rerun Cucumber tests'
     task :rerun, [:run_number]  do | t, args |
       Cucumber::Rake::Task.new(:cuke) do | t |
