@@ -84,7 +84,7 @@ namespace :teamcity do
 
     desc 'Run Cucumber task with rerun logic.'
     Cucumber::Rake::Task.new(:run) do | t |
-      t.cucumber_opts = ['-p ci-smoke-local --format Cucumber::Formatter::FlakeyTestFinder features/search/search_suggestions_quality.feature:11 -f rerun --out rerun.txt']
+      t.cucumber_opts = ['-p ci-smoke-local --tags @production HEADLESS=true FAIL_FAST=false -f rerun --out rerun.txt']
     end
 
     desc 'Rerun Cucumber tests'
