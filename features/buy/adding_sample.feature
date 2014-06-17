@@ -7,7 +7,6 @@ Feature: User adding sample to Library
   @CWA-971
   Scenario Outline: First time user cancels adding sample
 #   Given PENDING: CWA-971 First time user cancelling adding sample to library not redirected to the correct page
-    Given I am on the home page
     And I have identified a <book_type> book to read sample offline
     And I am on Register page
     When I cancel registration
@@ -15,12 +14,11 @@ Feature: User adding sample to Library
 
   Examples:
     | book_type |
-    | pay for   |
+    | paid      |
     | free      |
 
   @unstable
   Scenario Outline: First time user adding a sample to library
-    Given I am on the home page
     And I have identified a <book_type> book to read sample offline
     When I select Read offline on the book details page
     And I register to proceed with adding sample
@@ -29,7 +27,7 @@ Feature: User adding sample to Library
  @smoke
  Examples: Adding a paid for book
     | book_type |
-    | pay for   |
+    | paid      |
 
   @unstable
   Examples:  Adding a free book
@@ -38,7 +36,6 @@ Feature: User adding sample to Library
 
   @unstable
   Scenario Outline: Returning user adding a sample to library
-    Given I am on the home page
     And I have identified a <book_type> book to read sample offline
     When I select Read offline on the book details page
     And I sign in to proceed with adding sample
@@ -46,7 +43,7 @@ Feature: User adding sample to Library
 
   Examples:
     | book_type |
-    | pay for   |
+    | paid      |
     | free      |
 
   @negative
@@ -58,7 +55,7 @@ Feature: User adding sample to Library
 
   Examples:
     | book_type |
-    | pay for   |
+    | paid      |
     | free      |
 
   @negative
@@ -70,5 +67,5 @@ Feature: User adding sample to Library
 
   Examples:
     | book_type |
-    | pay for   |
+    | paid      |
     | free      |
