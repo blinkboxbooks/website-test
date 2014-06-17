@@ -1,6 +1,6 @@
 module PageModels
   class HomePage < PageModels::BlinkboxbooksPage
-    set_url "/"
+    set_url '/'
     set_url_matcher Regexp.new("#{Capybara.app_host}\/?(?:#!/)?$")
 
     section :highlights_category, BookResults, '#books_news'

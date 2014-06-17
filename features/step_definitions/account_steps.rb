@@ -10,7 +10,7 @@ end
 
 Given /^I have signed in$/ do
   sign_in(@email_address)
-  assert_page("Home")
+  assert_page('Home')
   assert_user_greeting_message_displayed
 end
 
@@ -71,7 +71,7 @@ And /^I am redirected to (.*?) page$/ do |page_name|
 end
 
 And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
-  pending("CWA-971 - Not the right page after cancelling the order") do
+  pending('CWA-971 - Not the right page after cancelling the order') do
     expect_page_displayed(page_name)
   end
 end
@@ -98,7 +98,7 @@ Given /^I have default expired stored card$/ do
 end
 
 Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
-  if (expired_card.include?('non'))
+  if expired_card.include?('non')
     email_address = test_data('emails', 'multiple_cards_non_default_expired')
   else
     email_address = test_data('emails', 'multiple_cards_default_expired')

@@ -14,7 +14,7 @@ module PageModels
       @category_name = categories_page.select_category_by_index
       expect_page_displayed('Category')
       category_page.wait_until_book_results_sections_visible(10)
-      return @category_name
+      @category_name
     end
 
     def select_book_to_view_details(book_type)
@@ -74,11 +74,10 @@ module PageModels
       search_word = return_search_word_for_book_type('pay for')
       search_blinkbox_books(search_word)
       if condition.eql?('more')
-        book_price = select_random_book_more_expensive_than(price)
+        select_random_book_more_expensive_than(price)
       elsif condition.eql?('less')
-        book_price = select_random_book_cheaper_than(price)
+        select_random_book_cheaper_than(price)
       end
-      return book_price
     end
 
   end

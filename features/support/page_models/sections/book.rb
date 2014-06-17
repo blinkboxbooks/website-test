@@ -18,7 +18,7 @@ module PageModels
 
     def free?
       wait_for_price_element
-      price_element.text.downcase.eql?("Free".downcase)
+      price_element.text.downcase.eql?('Free'.downcase)
     end
 
     def purchasable?

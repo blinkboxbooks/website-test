@@ -3,23 +3,23 @@ module Utilities
     first_part = 'cucumber_test'
     last_part = '@mobcastdev.com'
     middle_part = rand(1..9999).to_s + (0...10).map { ('a'..'z').to_a[rand(26)] }.join
-    return first_part+middle_part+last_part
+    first_part+middle_part+last_part
   end
 
   def generate_random_first_name
     first_part = 'firstname-autotest-'
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
-    return first_part + last_part
+    first_part + last_part
   end
 
   def generate_random_last_name
     first_part = 'lastname-autotest-'
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
-    return first_part + last_part
+    first_part + last_part
   end
 
   def return_search_word_for_book_type (book_type)
-    return book_type == :free ? 'free' : 'summer'
+    book_type == :free ? 'free' : 'summer'
   end
 end
 
@@ -35,8 +35,8 @@ module WebUtilities
     cookie_manager
   end
 
-  def get_cookie(name)
-    cookie_manager.cookie_named('access_token')
+  def get_cookie(name = 'access_token')
+    cookie_manager.cookie_named(name)
   end
 
   def set_cookie(name, value)
@@ -81,13 +81,14 @@ end
 module BlinkboxWebUtilities
   def set_start_cookie_accepted
     visit('/') unless current_path == '/'
-    set_cookie("start_cookie_accepted", "true")
+    set_cookie('start_cookie_accepted', 'true')
     visit('/')
   end
 
   def delete_access_token_cookie
     delete_cookie('access_token')
   rescue
+    puts 'A problem occurred while deleting the access_token cookie!'
   end
 
   def logged_in_session?

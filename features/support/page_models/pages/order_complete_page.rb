@@ -3,8 +3,8 @@ module PageModels
     set_url_matcher /order-complete/
     set_url '/#!/order-complete{?book}{&cpa}'
 
-    element :continue_shopping_button,     "a", :text => /Continue shopping/i
-    element :download_the_free_app_button, "a", :text => /Download the free app/i
+    element :continue_shopping_button,     'a', :text => /Continue shopping/i
+    element :download_the_free_app_button, 'a', :text => /Download the free app/i
     element :order_complete_message, '#order-complete'
   end
 
