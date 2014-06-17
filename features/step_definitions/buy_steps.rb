@@ -26,7 +26,7 @@ When /^I click Confirm order$/ do
   click_confirm_order
 end
 
-Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
+Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
   if login_status.eql?('logged')
     sign_in
   else
