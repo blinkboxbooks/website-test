@@ -84,7 +84,7 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   end
 end
 
-Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
+Given /^I have selected to buy a (paid|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
