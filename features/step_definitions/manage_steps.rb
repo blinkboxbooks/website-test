@@ -24,17 +24,14 @@ And /^(?:I submit|submit) my personal details$$/ do
 end
 
 Then /^the first name and last name are as submitted$/ do
-  expect(your_personal_details_page.first_name.value).to eq(@first_name)
-  expect(your_personal_details_page.last_name.value).to eq(@last_name)
+  assert_name_on_personal_details_page(@first_name, @last_name)
 end
 
 When /^I edit marketing preferences$/ do
-  your_personal_details_page.marketing_prefs_label.click
-  @after_status = your_personal_details_page.marketing_prefs.checked?
+  @after_status = edit_marketing_preferences
 end
 
 And /^marketing preferences are as submitted$/ do
-  refresh_current_page
   assert_marketing_preferences(@after_status)
 end
 
@@ -46,8 +43,7 @@ Given /^I have registered as new user (without|with) a clubcard/ do |provide_clu
 end
 
 When /^I edit email address$/ do
-  @new_email_address = generate_random_email_address
-  your_personal_details_page.email_address.set @new_email_address
+  @new_email_address = set_random_email_address
 end
 
 And /^email address is as submitted$/ do
@@ -55,17 +51,15 @@ And /^email address is as submitted$/ do
 end
 
 And /^I am on the Change your password section$/ do
-  click_link_from_my_account_dropdown('Personal details')
-  your_personal_details_page.change_password_link.click
+  show_change_your_password_section
 end
 
 When /^I change password$/ do
-  @new_password = test_data('passwords', 'change_password')
-  update_password(@current_password, @new_password)
+  @new_password = update_account_password(@current_password, test_data('passwords', 'change_password'))
 end
 
 And /^I confirm changes$/ do
-  your_personal_details_page.confirm_button.click
+  your_personal_details_page.confirm_changes
 end
 
 And /^I can sign in with the new password successfully$/ do
@@ -79,7 +73,7 @@ When /^I delete the first card from the list$/ do
 end
 
 Then /^there are no cards in my account$/ do
-  expect(your_payments_page.saved_cards).to have_exactly(0).items
+  assert_number_of_saved_cards(0)
 end
 
 When /^I set a different card as my default card$/ do
@@ -87,59 +81,43 @@ When /^I set a different card as my default card$/ do
 end
 
 And /^the selected card is displayed as my default card$/ do
-  refresh_current_page
   assert_default_card(@default_card)
 end
 
-Then /^clubcard added to my account$/ do
-  refresh_current_page
-  assert_clubcard @new_clubcard
-end
-
-Then /^my clubcard updated$/ do
-  refresh_current_page
-  assert_clubcard @new_clubcard
+Then /^(?:my )clubcard (?:added to my account|updated)$/i do
+  assert_clubcard(@new_clubcard)
 end
 
 When /^I enter new valid clubcard number$/ do
-  @new_clubcard = test_data('clubcards', 'valid_clubcard_number')
-  enter_clubcard @new_clubcard
+  @new_clubcard = enter_clubcard(test_data('clubcards', 'valid_clubcard_number'))
 end
+
 When /^I attempt to update my clubcard with invalid (\d+)$/ do |clubcard_number|
-  enter_clubcard clubcard_number
-  submit_personal_details
+  enter_clubcard(clubcard_number, :submit => true)
 end
 
 And /^my clubcard is not updated$/ do
-  refresh_current_page
   assert_clubcard @valid_clubcard
 end
 
 And /^my email is not updated$/ do
-  refresh_current_page
-  expect(your_personal_details_page.email_address.value).to eq(@email_before)
+  assert_email_address(@email_address)
 end
 
 When /^I attempt to update email address with already registered email address$/ do
-  wait_until { your_personal_details_page.email_address.value != '' }
-  @email_before = your_personal_details_page.email_address.value
-  your_personal_details_page.email_address.set(test_data('emails', 'happypath_user'))
-  your_personal_details_page.update_personal_details.click
+  @email_before = update_email_address(test_data('emails', 'happypath_user'))
 end
 
 When /^I attempt to update password by providing incorrect current password$/ do
-  update_password(test_data('passwords', 'invalid_password'), test_data('passwords', 'change_password'))
-  change_password_page.confirm_button.click
+  update_password(test_data('passwords', 'invalid_password'), test_data('passwords', 'change_password'), :submit => true)
 end
 
 When /^I attempt to update password by providing not matching passwords$/ do
-  update_password(@current_password, test_data('passwords', 'change_password'), test_data('passwords', 'not_matching_password'))
-  change_password_page.confirm_button.click
+  update_password(@current_password, test_data('passwords', 'change_password'), test_data('passwords', 'not_matching_password'), :submit => true)
 end
 
 When /^I attempt to update password by providing passwords less than 6 characters$/ do
-  update_password(@current_password, test_data('passwords', 'five_digit_password'))
-  change_password_page.confirm_button.click
+  update_password(@current_password, test_data('passwords', 'five_digit_password'), :submit => true)
 end
 
 And /^my password is not updated$/ do
@@ -153,22 +131,18 @@ When /^I remove clubcard number$/ do
 end
 
 Then /^my clubcard field is empty$/ do
-    refresh_current_page
-    assert_clubcard
+  refresh_current_page
+  assert_clubcard
 end
 
-Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_status|
-  if mrkt_status.include?('not')
-    status = false
-  else
-    status = true
-  end
+Then /^my marketing preferences checkbox is (not selected|selected)$/ do |marketing_status|
+  marketing_status.include?('not') ? status = false : status = true
   assert_marketing_preferences(status)
 end
 
 And /^I have a device associated with my blinkbox books account$/ do
   @email_address, @password, @device_name = api_helper.create_new_user!(with_client: "device")
-  @device_count =1
+  @device_count = 1
 end
 
 When /^I navigate to devices tab of my account$/ do
@@ -202,7 +176,7 @@ end
 
 And /^confirm delete$/ do
   confirm_delete_device
-  @device_count = @device_count -1
+  @device_count -= 1
 end
 
 Then /^I have no devices associated with my account$/ do

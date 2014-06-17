@@ -30,6 +30,10 @@ module PageModels
       self.club_card.set club_card
     end
 
+    def confirm_changes
+      confirm_button.click
+    end
+
   end
 
   class YourPaymentsPage < PageModels::YourAccountPage
