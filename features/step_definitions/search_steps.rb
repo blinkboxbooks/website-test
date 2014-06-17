@@ -3,24 +3,21 @@ And(/^I search for term "(.*?)"$/) do |term|
   search_blinkbox_books @search
 end
 
-Then(/^I should have a result page with term "(.*?)" matching$/) do |term|
-  expect(find('[data-test="search-results-list"]')).to have_content("#{term}".titleize)
+
+Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
+  expect(books_section.books_written_by(author_name.titleize)).to have_at_least(1).items
 end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
-  expect(search_results_page.current_view).to be == expected_view.to_sym
+  expect(search_results_page.current_view).to be == expected_view.downcase.to_sym
 end
 
 And(/^I should see the sort option drop down$/) do
-  expect(find('div.orderby').find('div.item').find('a.ng-binding')).to be_visible
+  expect(search_results_page).to have_order_by
 end
 
 Given(/^I change from Grid mode to List mode$/) do
   switch_to_list_view
-end
-
-And(/^the result should be displayed in Grid mode$/) do
-  expect(search_results_page.current_view).to eq(:grid)
 end
 
 And(/^the result should be displayed in List mode$/) do
@@ -49,8 +46,8 @@ And(/^the Tesco clubcard logo should be visible$/) do
 end
 
 Then(/^I should get a message$/) do
-  expect(page).to have_content(@search)
-  expect(page).to have_selector("#noResults")
+  expect(search_results_page).to have_no_results_element
+  expect(search_results_page.no_results_message).to include(@search)
 end
 
 And(/^the options of switching view mode should not appear$/) do
@@ -59,7 +56,7 @@ And(/^the options of switching view mode should not appear$/) do
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
-  current_page.search_form.keyword.set search_word
+  current_page.search_form.set_keyword search_word
 end
 
 And /^search suggestions should be displayed$/ do
@@ -78,10 +75,6 @@ end
 
 And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
   assert_search_word_in_suggestions search_word
-end
-
-And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
-  current_page.search_form.suggestions.each { |suggestion| expect(suggestion.text).to include(search_word) }
 end
 
 And /^first suggestions should contain complete word "(.+)"$/ do |search_word|
@@ -133,20 +126,16 @@ Then /^author name should be "(.*?)"$/ do |author_name|
 end
 
 Then /^"(.*?)" should be visible in search bar$/ do |search_word|
-  within('#searchbox') do
-    expect(find('#term')[:value]).to eq(search_word)
-  end
+  expect(current_page.search_form.keyword).to eq(search_word)
 end
 
 Then /^search term should not be visible in search bar$/ do
-  within('#searchbox') do
-    expect(find('#term')[:value]).to eq("")
-  end
+  expect(current_page.search_form.keyword).to be_empty
 end
 
 When /^I change search term in url to "(.*?)"$/ do |edit_word|
   @search_word = edit_word
-  visit("/#!/search/?q=#{edit_word}")
+  search_results_page.load(:q => edit_word)
   puts @search_word
 end
 

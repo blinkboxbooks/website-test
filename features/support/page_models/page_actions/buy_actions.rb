@@ -1,22 +1,6 @@
 module PageModels
   module BuyActions
 
-    def enter_card_number(number)
-      confirm_and_pay_page.card_number.set number
-    end
-
-    def enter_cvv(card_type)
-      cvv = '123'
-      if card_type.eql?('American Express')
-        cvv = '1234'
-      end
-      confirm_and_pay_page.cvv.set cvv
-    end
-
-    def enter_name_on_card(name)
-      confirm_and_pay_page.name_on_card.set name
-    end
-
     def enter_address_line_one(line_one)
       confirm_and_pay_page.address_line_one.set line_one
     end
@@ -41,7 +25,7 @@ module PageModels
       enter_post_code(details[:postcode])
     end
 
-    def billing_details()
+    def billing_details
       {
           :address_line_one => test_data('payment', 'address_lineone'),
           :address_line_two => test_data('payment', 'address_linetwo'),
@@ -53,13 +37,13 @@ module PageModels
     def click_confirm_and_pay
       confirm_and_pay_page.wait_for_confirm_and_pay
       confirm_and_pay_page.confirm_and_pay.click
-      expect_page_displayed("Order Complete")
+      expect_page_displayed('Order Complete')
     end
 
     def click_confirm_order
       confirm_and_pay_page.wait_for_confirm_order
       confirm_and_pay_page.confirm_order.click
-      expect_page_displayed("Order Complete")
+      expect_page_displayed('Order Complete')
     end
 
     def pay_with_saved_card
@@ -77,13 +61,13 @@ module PageModels
       click_confirm_and_pay
     end
 
-    def choose_to_save_card_details()
+    def choose_to_save_card_details
       unless confirm_and_pay_page.save_card.checked?
         confirm_and_pay_page.save_card.click
       end
     end
 
-    def choose_not_to_save_card_details()
+    def choose_not_to_save_card_details
       if confirm_and_pay_page.save_card.checked?
         confirm_and_pay_page.save_card.click
       end

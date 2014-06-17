@@ -7,7 +7,7 @@ module PageModels
     end
 
     def selected?
-      link.root_element[:class] =~ /selected/
+      root_element[:class] =~ /selected/
     end
 
     def click
@@ -16,7 +16,7 @@ module PageModels
   end
 
   class AccountNavFrame < PageModels::BlinkboxbooksSection
-    element :account_nav_menu, ".account_menu"
+    element :account_nav_menu, '.account_menu'
     sections :tabs, AccountTab, '.account_menu li'
 
     def account_nav_tab(tab_name)

@@ -29,6 +29,8 @@ module AssertNavigation
         free_ebooks_page.section_title.should include(text)
       when 'bestselling authors'
         authors_page.section_title.should include(text)
+      else
+        raise "Unknown section header: #{section_id}"
     end
   end
 
@@ -48,18 +50,18 @@ end
 
 module AssertSearch
   def assert_search_results(search_word)
-    expect_page_displayed("Search Results")
-    expect(search_results_page).to have_content("You searched for")
+    expect_page_displayed('Search Results')
+    expect(search_results_page).to have_content('You searched for')
     expect(search_results_page.searched_term).to have_content(search_word)
     expect(search_results_page).to have_books
     expect(search_results_page.books.count).to be >= 1
   end
 
-  def assert_author_name author_name
+  def assert_author_name(author_name)
     expect(books_section.books.first.author.downcase).to eq(author_name.downcase)
   end
 
-  def assert_title book_title
+  def assert_title(book_title)
     expect(books_section.books.first.title.downcase).to eq(book_title.downcase)
   end
 
@@ -67,11 +69,11 @@ module AssertSearch
     expect(books_section.books).to have_exactly(1).items
   end
 
-  def assert_number_of_suggestions number_of_suggestion
-    expect(current_page.search_form.suggestions.size).to be >= number_of_suggestion
+  def assert_number_of_suggestions(number_of_suggestion)
+    expect(current_page.search_form.suggestions).to have_at_least(number_of_suggestion).items
   end
 
-  def assert_auto_corrected_word corrected_word
+  def assert_auto_corrected_word(corrected_word)
     expect(current_page.search_form.suggestions.count).to be > 0
     current_page.search_form.suggestions.each do |suggestion|
       corrected_word.each do |word|
@@ -80,7 +82,7 @@ module AssertSearch
     end
   end
 
-  def assert_search_word_in_suggestions corrected_word
+  def assert_search_word_in_suggestions(corrected_word)
     suggestions = current_page.search_form.suggestions
     expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to be true, "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
   end

@@ -75,9 +75,6 @@
  NODEJS-INTERNAL:
    <<: *QA
 
- LOCALHOST:
-   <<: *QA
-
  ESTEBAN:
    <<: *QA
 
@@ -127,4 +124,51 @@
     address_linetwo: my address line two
     town_or_city: My town
     postcode: WC18AQ
-    cvv_does_not_match: 200
+    cvv_does_not_match: 200  
+
+ LOCALHOST:
+  emails:
+    happypath_user: books_tester01@blinkbox.com
+    multiple_storedcards: books_tester04@blinkbox.com
+    no_expired_cards: books_tester04@blinkbox.com
+    user_with_devices: books_tester04@blinkbox.com
+    books_in_library: books_tester04@blinkbox.com
+    empty_library_no_devices: fe.books.tester01@gmail.com
+    opted_in_marketing: fe.books.tester01@gmail.com
+    opted_out_marketing: fe.books.tester02@gmail.com
+    fifty_account_credit: books_tester04@blinkbox.com
+    ten_account_credit: user.with.10.credit@gmail.com
+    five_account_credit: user.with.5.credit@gmail.com
+    one_default_expired_card: one.default.expired.card@gmail.com
+    multiple_cards_default_expired: default.expired.card@gmail.com
+    multiple_cards_non_default_expired: nondefault.expired.card@gmail.com
+
+  name:
+    happypath_user: Happy-path
+
+  passwords:
+    valid_password: test1234
+    invalid_password: password
+    five_digit_password: test1
+    not_matching_password: test2345
+    change_password: mypassword123
+
+  clubcards:
+    valid_clubcard_number:
+    valid_clubcard_register:
+    invalid_clubcard_number:
+
+  payment:
+    visa:
+    cvv:
+    mastercard:
+    visadebit:
+    jcb:
+    expiry_month: 12
+    expiry_year: 2023
+    name_on_card: jamie jones
+    address_lineone: my address line one
+    address_linetwo: my address line two
+    town_or_city: My town
+    postcode: WC18AQ
+    cvv_does_not_match: 200  

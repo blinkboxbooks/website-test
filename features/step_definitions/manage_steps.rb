@@ -91,11 +91,6 @@ And /^the selected card is displayed as my default card$/ do
   assert_default_card(@default_card)
 end
 
-When /^I enter valid clubcard number$/ do
-  @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
-  enter_clubcard @valid_clubcard
-end
-
 Then /^clubcard added to my account$/ do
   refresh_current_page
   assert_clubcard @new_clubcard
@@ -172,7 +167,7 @@ Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_s
 end
 
 And /^I have a device associated with my blinkbox books account$/ do
-  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: "device")
+  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: 'device')
   @device_count =1
 end
 

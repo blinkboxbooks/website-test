@@ -1,4 +1,4 @@
-$: << "."
+$: << '.'
 support_dir = File.join(File.dirname(__FILE__))
 $LOAD_PATH.unshift File.expand_path(support_dir)
 
@@ -33,8 +33,8 @@ module KnowsAboutConfig
     lib_array = [lib_array] if lib_array.class != Array
     lib_array.sort!
     lib_array.each { |file|
-      if !$".include?(file.to_s)
-        puts("Loading #{file}") if TEST_CONFIG["debug"]
+      unless $".include?(file.to_s)
+        puts("Loading #{file}") if TEST_CONFIG['debug']
         require file.to_s
       end
     }
@@ -46,7 +46,7 @@ module KnowsAboutConfig
   end
 
   def initialise_test_data
-    @_test_data ||= load_yaml_file("data", "test_data.yml")[TEST_CONFIG['SERVER']]
+    @_test_data ||= load_yaml_file('data', 'test_data.yml')[TEST_CONFIG['SERVER']]
   end
 
   def test_data(data_type, param)
@@ -58,7 +58,7 @@ module KnowsAboutConfig
   end
 
   def environments(name)
-    @_environments ||= load_yaml_file("config", "environments.yml")
+    @_environments ||= load_yaml_file('config', 'environments.yml')
     env = @_environments[name.upcase]
     raise "Environment '#{name}' is not defined in environments.yml" if env.nil?
     env
@@ -69,9 +69,9 @@ World(KnowsAboutConfig)
 
 
 TEST_CONFIG = ENV.to_hash || {}
-TEST_CONFIG["debug"] = !!(TEST_CONFIG["DEBUG"] =~ /^on|true$/i)
-TEST_CONFIG["fail_fast"] = !!(TEST_CONFIG["FAIL_FAST"] =~ /^on|true$/i)
-if TEST_CONFIG["debug"]
+TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
+TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
+if TEST_CONFIG['debug']
   ARGV.each do |a|
     puts "Argument: #{a}"
   end

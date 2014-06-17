@@ -11,7 +11,7 @@ Feature: Search Results page
     Given I am on the home page
       # There is an outstunding issue to fix the case sensitivity issue CP-254
       And I search for term "dan brown"
-     Then I should have a result page with term "dan brown" matching
+     Then I should have a result page with at least one book written by "dan brown"
 
   Scenario: The default mode is Grid
     Given the result is displayed in Grid mode

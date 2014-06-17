@@ -14,7 +14,7 @@ end
 # testing main navigation
 ##############################################################
 
-Then /^(?:the )?([-\&\w\s]*) page is displayed$/i do |page_name|
+Then /^(?:the )?([\-&\w\s]*) page is displayed$/i do |page_name|
   expect_page_displayed(page_name)
 end
 
@@ -59,7 +59,7 @@ And /^I click on the (.+) footer link$/ do |link_name|
   click_footer_link(link_name)
 end
 
-When /^I click on the (.*) header tab$/ do |page_name|
+When /^I click on the (.*) header tab$/i do |page_name|
   click_navigation_link(page_name)
 end
 
@@ -68,18 +68,14 @@ And /^I press browser back$/ do
 end
 
 And /^main header tabs should not be selected$/ do
-  pending "CWA-1300 - Top header is selected on the search results page" do
+  pending 'CWA-1300 - Top header is selected on the search results page' do
     assert_header_tabs_not_selected
   end
 end
 
 Then /^I should be on the Authors page$/ do
   authors_page.wait_until_featured_authors_visible
-  expect_page_displayed("Authors")
-end
-
-And /^footer is displayed$/ do
-  expect(current_page).to have_footer
+  expect_page_displayed('Authors')
 end
 
 And /^(.*?) section header is (.*?)$/ do |section_name, text|
@@ -96,14 +92,6 @@ And /^Grid view and List view buttons displayed$/ do
   expect(search_results_page).to have_grid_view_button
 end
 
-And /^I should see Promotions section header as (.*?)$/ do |promo_text|
-  assert_section_header('bestsellers', promo_text)
-end
-
-And /^I should see (\d+) books being displayed$/ do |books|
-  expect(bestsellers_page.daily_bestsellers.books.count).to be == books.to_i
-end
-
 And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
   tab.include?('Non') ? bestsellers_page.non_fiction_button.click : bestsellers_page.fiction_button.click
 end
@@ -115,12 +103,12 @@ end
 
 When /^I select a book to view book details$/ do
   book = books_section.random_purchasable_book
-  @book_href = book.book_details_url
+  @book_isbn = book.isbn
   book.click_view_details
 end
 
 Then /^details page of the corresponding book is displayed$/ do
-  expect(current_url).to include(@book_href)
+  expect(current_url).to include(@book_isbn)
 end
 
 And /^details of above book are displayed$/ do
@@ -153,7 +141,7 @@ When /^I select (.*?) link from the hamburger Menu$/ do|link_name|
 end
 
 Then /^I am redirected to the "([a-zA-Z ]+)" support page in a new window$/ do |support_page|
-  pending("CWA-1029 - FAQ, Contact us under Support should open in new window") do
+  pending('CWA-1029 - FAQ, Contact us under Support should open in new window') do
     assert_support_page(support_page)
   end
 end

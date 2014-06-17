@@ -7,22 +7,14 @@ module PageModels
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
+      change_to_list_view
     end
 
     def click_on_a_category
       @category_name = categories_page.select_category_by_index
       expect_page_displayed('Category')
       category_page.wait_until_book_results_sections_visible(10)
-      return @category_name
-    end
-
-    def sort_search_results(sort_criteria)
-      search_results_page.order_by.hover
-      search_results_page.sort_options.each do |sort_otpion|
-        sort_otpion.text.eql?(sort_criteria)
-        sort_otpion.click
-      end
-      search_results_page.wait_until_book_results_sections_visible(10)
+      @category_name
     end
 
     def select_book_to_view_details(book_type)
@@ -31,7 +23,7 @@ module PageModels
     end
 
     def buy_sample_added_book
-      visit(@book_href)
+      book_details_page.load(:isbn => @book_isbn)
       click_buy_now_in_book_details_page
     end
 
@@ -43,6 +35,14 @@ module PageModels
       else
         books_section.click_buy_now_random_book
       end
+    end
+
+    def change_to_list_view
+      search_results_page.list_view_button.click
+    end
+
+    def change_to_grid_view
+      search_results_page.grid_view_button.click
     end
 
     def select_book_to_buy_from(page_name, book_type)
@@ -74,24 +74,10 @@ module PageModels
       search_word = return_search_word_for_book_type('pay for')
       search_blinkbox_books(search_word)
       if condition.eql?('more')
-        book_price = select_random_book_more_expensive_than(price)
+        select_random_book_more_expensive_than(price)
       elsif condition.eql?('less')
-        book_price = select_random_book_cheaper_than(price)
+        select_random_book_cheaper_than(price)
       end
-      return book_price
-    end
-
-    def select_best_selling_book_to_buy_from_book_details
-      bestsellers_page.load
-      book_title = books_section.click_details_random_book
-      book_details_page.buy_now.click
-      return book_title
-    end
-
-    def select_free_book_to_buy_from_book_details
-      search_blinkbox_books('free')
-      book_title = books_section.click_buy_now_free_book
-      return book_title
     end
 
   end

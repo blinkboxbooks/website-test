@@ -32,7 +32,7 @@ module PageModels
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
     element :suggestions, 'ul#suggestions'
-    element :logo, "#logo a"
+    element :logo, '#logo a'
     elements :all_links, 'a'
 
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
@@ -44,7 +44,9 @@ module PageModels
     end
 
     def tab(tab_name)
-      tabs.find { |tab| tab.data_test.include?(tab_name.downcase) }
+      #                                     Inconsistent data-test naming made me do this |
+      # The weak link is "Free eBooks" with the data-test of "header-top-free-link"       ▽
+      tabs.find { |tab| tab.data_test.downcase.include?(tab_name.downcase.gsub(' ', '-')) || tab.text.downcase.include?(tab_name.downcase) }
     end
 
     def open_account_menu
@@ -73,16 +75,15 @@ module PageModels
       wait_for_main_menu
       main_menu.click
       expect(hamburger_menu).to be_visible
-      hamburger_menu.find("a", :text => "#{link_name}").click
+      hamburger_menu.find('a', :text => "#{link_name}").click
     end
 
     def navigate_to(link_name)
-      link = link_name.downcase.gsub(' ', '_').gsub('&', 'and')
       header_tab = tab(link_name)
       unless header_tab.nil?
         header_tab.click
       else
-        raise "Not recognised header navigation link: #{link}"
+        raise "Not recognised header navigation link: #{link_name}"
       end
     end
   end

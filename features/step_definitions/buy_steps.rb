@@ -1,7 +1,3 @@
-Given /I have identified a best selling book to buy$/ do
-  select_book_to_buy_from('Bestsellers', :paid)
-end
-
 When /^I enter valid (.*?) card details$/ do |card_type|
   enter_card_details(set_valid_card_details(card_type))
 end
@@ -30,7 +26,7 @@ When /^I click Confirm order$/ do
   click_confirm_order
 end
 
-Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
+Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
   if login_status.eql?('logged')
     sign_in
   else
@@ -192,7 +188,7 @@ When /^I complete purchase by selecting (to save|not to save) the card details$/
     @name_on_card, @card_type = successful_new_payment(save_payment = false)
   else
     @name_on_card, @card_type = successful_new_payment(save_payment = true)
-    @card_count = 1;
+    @card_count = 1
   end
 end
 
