@@ -1,4 +1,5 @@
-@buy #Once QA is back, re-run all the scenarios to check they are passing as part of TTWG-65 and remove this comment.
+#Once QA is back, re-run all the scenarios to check they are passing as part of TTWG-65 and remove this comment.
+@buy 
 Feature: Returning buying book from blinkbox books
   As a returning user of blinkbox books
   I want to the ability to sign in and buy a book
