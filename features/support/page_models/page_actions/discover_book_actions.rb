@@ -85,6 +85,13 @@ module PageModels
       click_read_offline
     end
 
+    def select_random_book
+      book = books_section.random_purchasable_book
+      book_isbn = book.isbn
+      book.click_view_details
+      book_isbn
+    end
+
   end
 end
 World(PageModels::DiscoverBookActions)

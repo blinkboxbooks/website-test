@@ -4,6 +4,7 @@ module PageModels
       expect(category_page).to be_displayed
       title = category_name.downcase.gsub(/&|'|and|,/, '').gsub(/ +/, '-')
       expect(category_page.current_url).to include(title)
+      expect(category_page.category_name.text).to include(category_name)
     end
 
     def assert_number_of_categories(expected_top_categories)
