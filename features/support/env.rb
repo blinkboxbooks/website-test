@@ -14,6 +14,7 @@ require 'rspec/expectations'
 require 'benchmark'
 require 'yaml'
 require 'rspec'
+require 'api_methods.rb'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -109,18 +110,22 @@ Capybara.default_wait_time = 10
 # target browser
 TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
 TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
-caps = case TEST_CONFIG['BROWSER_NAME'].downcase
-         when 'firefox', 'safari', 'ie', 'chrome', 'android'
-           browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
-           Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
-         #TODO: investigate and introduce a reliable headless driver for blinkboxbooks webstie testing
-         #when 'htmlunit', 'webkit', 'poltergeist' #headless mode
-         #  Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
-         else
-           raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
-       end
+if TEST_CONFIG['GRID'] =~ /browserstack/i
+  caps = Selenium::WebDriver::Remote::Capabilities.new
+else
+  caps = case TEST_CONFIG['BROWSER_NAME'].downcase
+           when 'firefox', 'safari', 'ie', 'chrome', 'android'
+             browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
+             Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
+           #TODO: investigate and introduce a reliable headless driver for blinkboxbooks webstie testing
+           #when 'htmlunit', 'webkit', 'poltergeist' #headless mode
+           #  Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
+           else
+             raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
+         end
 
-caps.version = TEST_CONFIG['BROWSER_VERSION']
+  caps.version = TEST_CONFIG['BROWSER_VERSION']
+end
 
 # Overriding the default native events settings for Selenium.
 # This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
@@ -147,6 +152,47 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
 
   # register the remote driver
   grid_url = "http://#{TEST_CONFIG['GRID_HUB_IP']}:4444/wd/hub"
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app,
+                                   :browser => :remote,
+                                   :url => grid_url,
+                                   :desired_capabilities => caps)
+  end
+
+elsif TEST_CONFIG['GRID'] =~ /browserstack/i
+  TEST_CONFIG['BROWSER_NAME'] ||= 'Chrome'
+  TEST_CONFIG['BROWSER_VERSION'] ||= '34.0'
+  TEST_CONFIG['OS'] ||= 'Windows'
+  TEST_CONFIG['OS_VERSION'] ||= '7'
+
+  # TODO: Logger
+  puts "-- BrowserStack settings --"
+  puts "Browser name: #{TEST_CONFIG['BROWSER_NAME']}"
+  puts "Browser version: #{TEST_CONFIG['BROWSER_VERSION']}"
+  puts "OS: #{TEST_CONFIG['OS']}"
+  puts "OS version: #{TEST_CONFIG['OS_VERSION']}"
+
+  caps["browser"] = TEST_CONFIG['BROWSER_NAME']
+  caps["browser_version"] = TEST_CONFIG['BROWSER_VERSION']
+  caps["os"] = TEST_CONFIG['OS']
+  caps["os_version"] = TEST_CONFIG['OS_VERSION']
+  caps["browserstack.debug"] = "true"
+  caps["name"] = "Testing Selenium 2 with Ruby on BrowserStack"
+
+  raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
+
+  if TEST_CONFIG['SERVER'] == "PRODUCTION"
+    caps["browserstack.local"] = "false"
+  else
+    caps["browserstack.local"] = "true"
+    # Running tunneling binary as background process
+    $browser_stack_tunnel = BrowserstackTunnel.new(TEST_CONFIG['BROWSERSTACK_KEY'], environments(TEST_CONFIG['SERVER'].upcase).split(':')[0], environments(TEST_CONFIG['SERVER'].upcase).split(':')[1])
+    $browser_stack_tunnel.start
+  end
+
+  grid_url = "http://#{TEST_CONFIG['BROWSERSTACK_USERNAME']}:#{TEST_CONFIG['BROWSERSTACK_KEY']}@hub.browserstack.com/wd/hub"
+
+  # register the remote driver
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app,
                                    :browser => :remote,

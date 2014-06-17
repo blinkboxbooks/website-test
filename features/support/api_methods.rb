@@ -3,6 +3,44 @@ module APIMethods
   require 'multi_json'
   require 'utilities.rb'
 
+  class Browserstack
+    attr_accessor :username
+    attr_accessor :key
+    attr_accessor :browsers_uri
+
+    def initialize(username, key)
+      @username = username
+      @key = key
+      @browsers_uri = "https://www.browserstack.com/automate/browsers.json"
+    end
+
+    def valid_capabilities?(browser, browser_version, os, os_version)
+      !browser_list.select { |b| b['browser'] =~ /#{browser}/i &&
+                                b['browser_version'] =~ /#{browser_version}/i &&
+                                b['os'] =~ /#{os}/i &&
+                                b['os_version'] =~ /#{os_version}/i }.empty?
+    end
+
+    def http_client
+      @http = HTTPClient.new
+    end
+
+    def browserstack_api_helper(username, key)
+      APIMethods::Browserstack.new(username, key)
+    end
+
+    private
+
+    def browser_list
+      headers = { "Authorization" => Base64.strict_encode64("#{@username}:#{@key}"),
+                   "Content-Type" => "application/x-www-form-urlencoded",
+                         "Accept" => "application/json" }
+      response = http_client.get(@browsers_uri, body: {}, header: headers)
+      raise "Test Error: Failed to get browsers list from browserstack" unless response.status == 200
+      MultiJson.load(response.body)
+    end
+  end
+
   class User
     include Utilities
 

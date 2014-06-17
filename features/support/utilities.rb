@@ -117,6 +117,90 @@ module BlinkboxWebUtilities
 
 end
 
+module BrowserstackUtilities
+
+  require 'childprocess'
+
+  class BrowserstackTunnel
+
+    attr_accessor :binary
+    attr_accessor :process
+    attr_accessor :log
+    attr_accessor :log_filename
+    attr_accessor :host
+    attr_accessor :port
+    attr_accessor :access_key
+
+    def initialize(access_key, host, port)
+      bin = File.dirname(__FILE__) + '/BrowserStackLocal'
+      raise Errno::ENOENT, bin unless File.exist?(bin)
+      @binary = bin
+      @log_filename = "browserstack-tunnel-#{Time.now.to_i}.log"
+      @log = File.open(@log_filename, "w")
+      @process = nil
+      @host = host
+      @port = port
+      @access_key = access_key
+    end
+
+    def start
+      puts("Starting BrowserStack Tunnel...")
+      process.start
+
+      # Wait until Selenium Server fully starts
+      until is_started()
+        # Do nothing, just wait. Todo: Implement a timeout!
+        if is_exiting()
+          stop
+          raise "Something went wrong during startup of BrowserStack binary... Please check logfile: #{@log_filename}"
+        end
+      end
+      puts "Tunnel for #{@host}:#{@port} started!\n\n"
+    end
+
+    def stop
+      puts "Stopping..."
+      stop_process if @process
+      @log.close if @log
+    end
+
+    def stop_process
+      return unless @process.alive?
+
+      begin
+        @process.poll_for_exit(5)
+      rescue ChildProcess::TimeoutError
+        @process.stop
+      end
+    rescue Errno::ECHILD
+      # already dead
+    ensure
+      @process = nil
+    end
+
+    def process
+      @process ||= (
+        cp = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, "#{@host},#{@port}")
+        cp.detach = true # Start in the background
+        cp.io.stdout = cp.io.stderr = @log
+        cp
+      )
+    end
+
+    def is_started
+      File.read(@log_filename).each_line { |line| return true if line.include?('Verified parameters, starting local testing') }
+      false
+    end
+
+    def is_exiting
+      File.read(@log_filename).each_line { |line| true if line =~ /\*\*\* Error:/ }
+      false
+    end
+  end
+
+end
+
 World(Utilities)
 World(WebUtilities)
 World(BlinkboxWebUtilities)
+World(BrowserstackUtilities)

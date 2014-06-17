@@ -18,4 +18,5 @@ After do |scenario|
       Cucumber.wants_to_quit = true
     end
   end
+  $browser_stack_tunnel.stop unless $browser_stack_tunnel.nil?
 end
