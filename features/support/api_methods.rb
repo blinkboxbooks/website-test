@@ -9,10 +9,6 @@ module APIMethods
     @@auth_uri = 'https://auth.mobcastdev.com//oauth2/token'
     @@credit_card_uri = 'https://qa.mobcastdev.com/service/my/creditcards'
 
-    def initialize
-
-    end
-
     def create_new_user! (options ={})
       with_client = options[:with_client]
       @email_address = generate_random_email_address
