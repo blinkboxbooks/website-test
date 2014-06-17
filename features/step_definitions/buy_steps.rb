@@ -23,7 +23,6 @@ When /^I choose to pay with a new card$/ do
 end
 
 And /^I have identified a (free|paid) book to read sample offline$/ do |book_type|
-  # select_book_to_view_details(book_type.to_sym)
   book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
