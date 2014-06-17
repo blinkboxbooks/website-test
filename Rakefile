@@ -14,69 +14,80 @@ class Integer
 end
 
 namespace :teamcity do
-
   namespace :cucumber do 
 
-    def get_record(run = 0)
+    @last_run_record = 'rerun.txt'
+    @run = 0
+    @reruns = 3
+    @rerunning_features = ''
+
+    def next_run
+      @rerunning_features = read_results_of_last_run
+
+      @run += 1
+
+      # By default Rake only lets you run a task twice, so we need to reenable it after the second run.
+      if @run > 1
+          Rake::Task['teamcity:cucumber:rerun'].reenable
+      end
+
+      @last_run_record = run_record_for(@run)
+    end
+
+    def run_record_for(run)
       if run == 0
         'rerun.txt'
       else
-        "rerun-#{run}.txt"
+        "rerun-#{@run}.txt"
       end
     end
 
-    def read_rerun(record)
-      IO.read('./' + record)
+    def read_results_of_last_run
+      IO.read('./' + @last_run_record)
+    end
+
+    def tests_passed_according_to_record?
+      @rerunning_features.to_s.strip.empty?
+    end
+
+    def runs_remaining?
+      @run <= @reruns
     end
 
     desc 'Rerun Cucumber tasks with rerunning on failure.'
     task :all do
-        first_run_record = get_record
-
-        if File.exists?(first_run_record)
-            rm_rf first_run_record
+        if File.exists?(@last_run_record)
+            rm_rf @last_run_record
         end
 
         begin
           Rake::Task['teamcity:cucumber:run'].invoke
         rescue SystemExit
-          if File.exist?(first_run_record)
+          if File.exist?(@last_run_record)
             puts "*********************************"
             puts "TESTS FAILED."
             puts "Rerunning tests."
             puts "*********************************"
 
-            reruns = 1
-            run = 1
-            rerun_features = read_rerun(first_run_record)
-
-            stats = []
-
-            stats.push(rerun_features)
+            next_run
 
             begin
-              puts 'Rerun ' + run.to_s + ' of ' + reruns.to_s
+              puts 'Rerun ' + @run.to_s + ' of ' + @reruns.to_s
 
-              # By default Rake only lets you run a task twice, so we need to reenable it after the second run.
-              if run > 1
-                  Rake::Task['teamcity:cucumber:rerun'].reenable
-              end
+              Rake::Task['teamcity:cucumber:rerun'].invoke(@run) unless tests_passed_according_to_record?
 
-              Rake::Task['teamcity:cucumber:rerun'].invoke(run) unless rerun_features.to_s.strip.empty?
             rescue SystemExit
               puts 'Tests failed again, retrying.'
-              stats.push(read_rerun(get_record(run)))
 
-              run += 1
+              next_run
 
-              if run <= reruns
+              if runs_remaining?
                   retry
               else
-                  puts 'Retried ' + run.to_s + ' times, now bailing out.'
-                  puts stats.inspect
+                  puts 'Retried ' + @run.to_s + ' times, now bailing out.'
               end 
             else
-              puts 'Awesome! - tests passed again on their ' + run.to_i.ordinal + ' attempt.'
+              puts 'Awesome! - tests passed again on their ' + @run.to_i.ordinal + ' attempt.'
             end             
           end
       end
@@ -89,7 +100,7 @@ namespace :teamcity do
 
     # Cucumber just chucks away arguments passed in the standard Rake way so we have to do this.
     desc 'Rerun Cucumber tests'
-    task :rerun, [:run_number]  do | t, args |
+    task :rerun, [:run_number ]  do | t, args |
       Cucumber::Rake::Task.new(:cuke) do | t |
         t.cucumber_opts = "-p ci-smoke-local @rerun.txt HEADLESS=true FAIL_FAST=false -f rerun --out rerun-#{args[:run_number]}.txt"
       end
