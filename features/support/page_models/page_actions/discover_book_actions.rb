@@ -72,6 +72,19 @@ module PageModels
       return book_price
     end
 
+    def select_book_by_isbn_to_buy(isbn)
+      search_blinkbox_books isbn
+      books_section.books[0].click_view_details
+      book_details_page.wait_for_buy_now
+      book_details_page.buy_now.click
+    end
+
+    def select_book_by_isbn_to_read(isbn)
+      search_blinkbox_books isbn
+      books_section.books[0].click_view_details
+      click_read_offline
+    end
+
   end
 end
 World(PageModels::DiscoverBookActions)

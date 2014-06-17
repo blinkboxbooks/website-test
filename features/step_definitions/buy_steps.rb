@@ -29,10 +29,8 @@ end
 Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
   if login_status.eql?('logged')
     sign_in
-  else
-    if logged_in_session?
-      log_out_current_session
-    end
+  elsif logged_in_session?
+    log_out_current_session
   end
   select_book_to_buy_from('Search results', :paid)
 end
@@ -44,11 +42,7 @@ When /^I pay with a new (.*?) card$/ do |card_type|
 end
 
 And /^I choose (to save|not to save)(?: new)? payment details$/ do |save_payment|
-  if save_payment.include?('not')
-    save_card(false)
-  else
-    save_card(true)
-  end
+  save_payment.include?('not') ? save_card(false) : save_card(true)
 end
 
 Then /^(?:my payment|adding sample) is successful$/ do
@@ -57,7 +51,7 @@ Then /^(?:my payment|adding sample) is successful$/ do
 end
 
 When /^I select Read offline on the book details page$/ do
-click_read_offline
+  click_read_offline
 end
 
 When /^I select the above book to buy$/ do
@@ -69,19 +63,11 @@ And /^Confirm and pay button should be (enabled|disabled)$/ do |button_status|
 end
 
 When /^I cancel (order|registration)$/ do |cancel_action|
-  if cancel_action.include?('registration')
-    cancel_registration
-  else
-    cancel_order
-  end
+  cancel_action.include?('registration') ? cancel_registration : cancel_order
 end
 
 And /^confirm cancel (order|registration)$/ do |confirm_action|
-  if confirm_action.include?('registration')
-    confirm_cancel_registration
-  else
-    confirm_cancel_order
-  end
+  confirm_action.include?('registration') ? confirm_cancel_registration : confirm_cancel_order
 end
 
 Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
@@ -102,15 +88,8 @@ And /^I have validation error messages on the page$/ do
   submit_empty_new_payments_form
 end
 
-When /^I select above (pay for|free) book to buy$/ do |book_type|
-  isbn = test_data('library_isbns', 'pay_for_book')
-  if book_type.include?('free')
-    isbn = test_data('library_isbns', 'free_book')
-  end
-  search_blinkbox_books isbn
-  books_section.books[0].click_view_details
-  book_details_page.wait_for_buy_now
-  book_details_page.buy_now.click
+When /^I select above (paid|free) book to buy$/ do |book_type|
+  book_type.include?('free') ? select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'free_book')) : select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'pay_for_book'))
 end
 
 And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
@@ -118,13 +97,7 @@ And /^(book|sample) already exists in the library message displayed in confirm a
 end
 
 When /^I select above (pay for|free) book to add sample$/ do |book_type|
-  isbn = test_data('library_isbns', 'pay_for_sample')
-  if book_type.include?('free')
-    isbn = test_data('library_isbns', 'free_sample')
-  end
-  search_blinkbox_books isbn
-  books_section.books[0].click_view_details
-  click_read_offline
+  book_type.include?('free') ? select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'free_sample')) : select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'pay_for_sample'))
 end
 
 And /^payment failure message should be displayed$/ do
@@ -136,9 +109,7 @@ And /^I submit payment details with not matching cvv (\d+)$/ do |cvv_number|
 end
 
 And(/^submit the payment details with empty credit card form$/) do
-  enter_billing_details
-  confirm_and_pay_page.wait_for_confirm_and_pay
-  confirm_and_pay_page.confirm_and_pay.click
+  submit_payment_details_with_empty_cc_form
 end
 
 And /^submit the payment details with empty (Name on card|Card number|CVV)$/ do |card_field|
@@ -166,24 +137,15 @@ And /^submit the payment details with expiry date in the past$/ do
 end
 
 And(/^following validation error messages are displayed for credit card details:$/) do |table|
-  table.hashes.each do |row|
-    expect(page).to have_content row['Error message']
-  end
+  assert_validation_error_messages(table)
 end
 
 And(/^submit the payment details with not supported card type (.*?)$/) do |card_type|
-  enter_card_details(set_valid_card_details(card_type))
-  enter_billing_details
-  confirm_and_pay_page.wait_for_confirm_and_pay
-  confirm_and_pay_page.confirm_and_pay.click
+  submit_payment_details_with_card_type(card_type)
 end
 
 And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
-  card_details = set_valid_card_details('VISA')
-  card_details[:cvv] = cvv
-  enter_card_details(card_details)
-  enter_billing_details
-  confirm_and_pay_page.confirm_and_pay.click
+  submit_payment_details_with_cvv(cvv)
 end
 
 When /^I complete purchase by selecting (to save|not to save) the card details$/ do |save_payment|
@@ -206,7 +168,7 @@ end
 
 Then /^I can see the payment card saved in my Payment details$/ do
   click_link_from_my_account_dropdown('Saved cards')
-  assert_payment_card_saved(@card_count,@name_on_card, @card_type)
+  assert_payment_card_saved(@card_count, @name_on_card, @card_type)
 end
 
 When /^I complete purchase with new card by selecting (to save|not to save) Payment details$/ do |save_payment|
@@ -228,19 +190,11 @@ And /^I have a stored card$/ do
 end
 
 And /^submit the payment details with cvv (\d+) for (.*?) card$/ do |cvv, card_type|
-  card_details = set_valid_card_details(card_type)
-  card_details[:cvv] = cvv
-  enter_card_details(card_details)
-  enter_billing_details
-  confirm_and_pay_page.confirm_and_pay.click
+  submit_payment_details_with_cvv(cvv, card_type)
 end
 
 And /^submit the payment details with card number (\d+)$/ do |card_number|
-  card_details = set_valid_card_details('VISA')
-  card_details[:card_number] = card_number
-  enter_card_details(card_details)
-  enter_billing_details
-  confirm_and_pay_page.confirm_and_pay.click
+  submit_payment_details_with_card_number(card_number)
 end
 
 Then /^I have no saved payment cards in my account$/ do
@@ -258,8 +212,7 @@ Then /^Confirm and pay page displays my account credit as £(\d+)$/ do |account_
 end
 
 And /^my payment method is account credit$/ do
-  expect(confirm_and_pay_page).to have_account_credit_payment
-  expect(confirm_and_pay_page).to have_no_card_payment
+  assert_payment_method(:credit)
 end
 
 And /^amount left to pay is displayed$/ do
@@ -268,8 +221,7 @@ end
 
 
 And /^my payment method is partial payment$/ do
-  expect(confirm_and_pay_page).to have_account_credit_payment
-  expect(confirm_and_pay_page).to have_card_payment
+  assert_payment_method(:partial)
 end
 
 When /^I (?:select|selected) a book to (?:buy from Search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
