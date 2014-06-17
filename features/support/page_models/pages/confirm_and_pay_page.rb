@@ -15,11 +15,11 @@ module PageModels
     element :town_or_city, '#address_three'
     element :postcode, '#address_four'
     element :pay_with_new_card, 'button[data-test="pay-with-a-new-card-button"]'
-    element :confirm_and_pay, "button", :text => /Confirm & Pay/i
-    element :confirm_order, "button", :text => /Confirm Order/i
+    element :confirm_and_pay, 'button', :text => /Confirm & Pay/i
+    element :confirm_order, 'button', :text => /Confirm Order/i
     element :cancel_order_link, 'a[data-test="cancel-order-button"]'
-    element :confirm_cancel_button, "button", :text => /Cancel Order/i
-    element :cancel_order_popup, "#delete-card"
+    element :confirm_cancel_button, 'button', :text => /Cancel Order/i
+    element :cancel_order_popup, '#delete-card'
     element :account_credit_payment, '#credit-on-account'
     element :account_credit_amount_element, '#credit-on-account .credit-amount'
     element :amount_left_to_pay, 'div.left-to-pay-amount'

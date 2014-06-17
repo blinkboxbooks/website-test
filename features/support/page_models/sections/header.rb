@@ -32,7 +32,7 @@ module PageModels
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
     element :suggestions, 'ul#suggestions'
-    element :logo, "#logo a"
+    element :logo, '#logo a'
     elements :all_links, 'a'
 
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
@@ -75,7 +75,7 @@ module PageModels
       wait_for_main_menu
       main_menu.click
       expect(hamburger_menu).to be_visible
-      hamburger_menu.find("a", :text => "#{link_name}").click
+      hamburger_menu.find('a', :text => "#{link_name}").click
     end
 
     def navigate_to(link_name)

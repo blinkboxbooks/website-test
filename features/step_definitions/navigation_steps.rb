@@ -14,7 +14,7 @@ end
 # testing main navigation
 ##############################################################
 
-Then /^(?:the )?([-\&\w\s]*) page is displayed$/i do |page_name|
+Then /^(?:the )?([\-&\w\s]*) page is displayed$/i do |page_name|
   expect_page_displayed(page_name)
 end
 
@@ -68,14 +68,14 @@ And /^I press browser back$/ do
 end
 
 And /^main header tabs should not be selected$/ do
-  pending "CWA-1300 - Top header is selected on the search results page" do
+  pending 'CWA-1300 - Top header is selected on the search results page' do
     assert_header_tabs_not_selected
   end
 end
 
 Then /^I should be on the Authors page$/ do
   authors_page.wait_until_featured_authors_visible
-  expect_page_displayed("Authors")
+  expect_page_displayed('Authors')
 end
 
 And /^(.*?) section header is (.*?)$/ do |section_name, text|
@@ -141,7 +141,7 @@ When /^I select (.*?) link from the hamburger Menu$/ do|link_name|
 end
 
 Then /^I am redirected to the "([a-zA-Z ]+)" support page in a new window$/ do |support_page|
-  pending("CWA-1029 - FAQ, Contact us under Support should open in new window") do
+  pending('CWA-1029 - FAQ, Contact us under Support should open in new window') do
     assert_support_page(support_page)
   end
 end

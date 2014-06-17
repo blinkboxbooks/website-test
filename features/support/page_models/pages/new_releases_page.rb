@@ -1,6 +1,6 @@
 module PageModels
   class NewReleasesPage < PageModels::BlinkboxbooksPage
-    set_url "/#!/new-releases"
+    set_url '/#!/new-releases'
     set_url_matcher /new/
 
     sections :book_results_sections, BookResults,'[data-test="search-results-list"]'

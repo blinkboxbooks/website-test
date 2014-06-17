@@ -1,5 +1,5 @@
 #from https://gist.github.com/jnicklas/4129937, https://gist.github.com/jnicklas/d8da686061f0a59ffdf7
-require "timeout"
+require 'timeout'
 require 'rspec/expectations'
 
 module WaitSteps
@@ -19,7 +19,7 @@ module WaitSteps
   end
 
   def wait_until
-    require "timeout"
+    require 'timeout'
     Timeout.timeout(Capybara.default_wait_time) do
       sleep(0.1) until value = yield
       value

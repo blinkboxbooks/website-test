@@ -1,8 +1,8 @@
 module PageModels
   class SignInForm < PageModels::BlinkboxbooksSection
-    element :email, "input#email"
-    element :password, "input#password"
-    element :sign_in_button, "button", :text => /Sign in/i
+    element :email, 'input#email'
+    element :password, 'input#password'
+    element :sign_in_button, 'button', :text => /Sign in/i
     element :show_password,'#showPassword'
 
     def submit(email, password)

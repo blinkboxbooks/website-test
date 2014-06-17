@@ -136,7 +136,7 @@ Feature: Navigation around the website
     When I click on a category
     Then Category page is displayed for the selected category
 
-  @smoke @production
+  @smoke @production @unstable
   Scenario: Read a sample
     When I select a book to view book details
     Then details page of the corresponding book is displayed

@@ -2,19 +2,19 @@ module PageModels
   class YourAccountPage < PageModels::BlinkboxbooksPage
     set_url_matcher /account\//
     section :account_nav_frame, AccountNavFrame, '#content'
-    element :sign_out_button, "button", :text => "Sign out"
+    element :sign_out_button, 'button', :text => 'Sign out'
     element :spinner, '.load_spinner'
   end
 
   class OrderAndPaymentHistoryPage < PageModels::YourAccountPage
-    set_url "/#!/account/order-payment-history"
+    set_url '/#!/account/order-payment-history'
     set_url_matcher /account\/order-payment-history/
     element :ordered_books, '.order_books'
     element :book_list, '.expandable'
   end
 
   class YourPersonalDetailsPage < PageModels::YourAccountPage
-    set_url "/#!/account/personal-details"
+    set_url '/#!/account/personal-details'
     set_url_matcher /account\/personal-details/
     element :email_address, '#email'
     element :first_name, '#first_name'
@@ -62,7 +62,7 @@ module PageModels
   end
 
   class YourDevicesPage < PageModels::YourAccountPage
-    set_url "/#!/account/your-devices"
+    set_url '/#!/account/your-devices'
     set_url_matcher /account\/your-devices/
     element :device_list, '.device_list'
     elements :devices, 'ul.device_list li.ng-scope'

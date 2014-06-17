@@ -19,7 +19,7 @@ When /^I choose to pay with a new card$/ do
 end
 
 And /^I have identified a (free|paid) book to read sample offline$/ do |book_type|
-  select_book_to_view_details(book_type.to_sym)
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I click Confirm order$/ do
@@ -34,7 +34,7 @@ Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|
       log_out_current_session
     end
   end
-  select_book_to_buy_from('Search results', :paid)
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -89,7 +89,9 @@ Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New relea
 end
 
 Given /^I have selected to buy a (paid|free) book$/ do |book_type|
-  @book_title = select_book_to_buy(book_type.to_sym)
+  # @book_title = select_book_to_buy(book_type.to_sym)
+  book_details_page.visit_for(book_type.downcase.to_sym)
+  @book_title = book_details_page.buy_book
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
@@ -117,13 +119,8 @@ And /^(book|sample) already exists in the library message displayed in confirm a
   assert_book_exists_in_library_message(type)
 end
 
-When /^I select above (pay for|free) book to add sample$/ do |book_type|
-  isbn = test_data('library_isbns', 'pay_for_sample')
-  if book_type.include?('free')
-    isbn = test_data('library_isbns', 'free_sample')
-  end
-  search_blinkbox_books isbn
-  books_section.books[0].click_view_details
+When /^I select above (paid|free) book to add sample$/ do |book_type|
+  book_details_page.visit_for("#{book_type}_sample".to_sym)
   click_read_offline
 end
 
@@ -191,7 +188,7 @@ When /^I complete purchase by selecting (to save|not to save) the card details$/
     @name_on_card, @card_type = successful_new_payment(save_payment = false)
   else
     @name_on_card, @card_type = successful_new_payment(save_payment = true)
-    @card_count = 1;
+    @card_count = 1
   end
 end
 
@@ -275,8 +272,4 @@ end
 When /^I (?:select|selected) a book to (?:buy from Search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
   @account_credit = price
   @book_price = buy_book_by_price(condition, @account_credit)
-end
-
-Given /^I have selected a free book to buy from book details$/ do
-  select_book_to_buy_from('Book details', 'Free')
 end
