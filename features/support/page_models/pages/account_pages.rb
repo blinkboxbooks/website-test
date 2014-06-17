@@ -1,27 +1,27 @@
 module PageModels
   class YourAccountPage < PageModels::BlinkboxbooksPage
     set_url_matcher /account\//
-    section :account_nav_frame, AccountNavFrame, ".account_frame"
-    element :sign_out_button, "button", :text => "Sign out"
+    section :account_nav_frame, AccountNavFrame, '#content'
+    element :sign_out_button, 'button', :text => 'Sign out'
     element :spinner, '.load_spinner'
   end
 
   class OrderAndPaymentHistoryPage < PageModels::YourAccountPage
-    set_url "/#!/account/order-payment-history"
+    set_url '/#!/account/order-payment-history'
     set_url_matcher /account\/order-payment-history/
     element :ordered_books, '.order_books'
     element :book_list, '.expandable'
-
   end
 
   class YourPersonalDetailsPage < PageModels::YourAccountPage
-    set_url "/#!/account/personal-details"
+    set_url '/#!/account/personal-details'
     set_url_matcher /account\/personal-details/
     element :email_address, '#email'
     element :first_name, '#first_name'
     element :last_name, '#last_name'
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
+    element :marketing_prefs_label, 'label.pseudo_label[for="newsletter"]'
     element :update_personal_details, "button", :text => "UPDATE PERSONAL DETAILS"
     element :change_password_link, 'a.arrowedlink'
     element :confirm_button, 'button[data-test="confirm-button"]'
@@ -49,18 +49,25 @@ module PageModels
     end
 
     def saved_cards
-      wait_until_saved_cards_container_visible
       saved_cards_list
+    end
+
+    def has_credit_card?(card_type, *args)
+      cards = saved_cards.select { |card| card.type == card_type }
+      cards.select! do |card|
+        args.all? { |prop| card.send(prop[0]) == prop[1] }
+      end
+      !cards.empty?
     end
   end
 
   class YourDevicesPage < PageModels::YourAccountPage
-    set_url "/#!/account/your-devices"
+    set_url '/#!/account/your-devices'
     set_url_matcher /account\/your-devices/
     element :device_list, '.device_list'
     elements :devices, 'ul.device_list li.ng-scope'
     element :device_name, 'span.device_name'
-    section :delete_device_pop_up, DeleteDevicePopup '#delete-card'
+    section :delete_device_pop_up, DeleteDevicePopup, '#delete-card'
     element :rename_device, 'div.ng-binding span.rename'
     element :confirm_rename_device, 'div.device_editing span.blue_button'
     element :cancel_rename_device, 'div.device_editing span.cancel'
@@ -75,7 +82,7 @@ module PageModels
     element :enter_new_password, '#password'
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
-    element :confirm_button, "button", :text => /Confirm/i
+    element :confirm_button, 'button[data-test="confirm-button"]'
   end
 
   register_model_caller_method(YourAccountPage)

@@ -3,75 +3,70 @@ And(/^I search for term "(.*?)"$/) do |term|
   search_blinkbox_books @search
 end
 
-Then(/^I should have a result page with term "(.*?)" matching$/) do |term|
-  find('[data-test="search-results-list"]').should have_content("#{term}".titleize)
+
+Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
+  expect(books_section.books_written_by(author_name.titleize)).to have_at_least(1).items
 end
 
-And(/^the result is displayed in Grid mode$/) do
-  find('[data-test="list-button"]').visible?.should == true
+And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
+  expect(search_results_page.current_view).to be == expected_view.downcase.to_sym
 end
 
 And(/^I should see the sort option drop down$/) do
-  find('div.orderby').find('div.item').find('a.ng-binding').visible?.should == true
+  expect(search_results_page).to have_order_by
 end
 
 Given(/^I change from Grid mode to List mode$/) do
-  find('[data-test="list-button"]').click
-end
-
-And(/^the result should be displayed in Grid mode$/) do
-  find('[data-test="grid-button"]').visible?.should == true
+  switch_to_list_view
 end
 
 And(/^the result should be displayed in List mode$/) do
-  find('[data-test="list-button"]').visible?.should == true
+  expect(search_results_page.current_view).to eq(:list)
 end
 
 When(/^I change from List mode to Grid mode$/) do
-  page.find('[data-test="grid-button"]').click
+  switch_to_grid_view
 end
 
 And(/^I take the number books on Grid mode$/) do
-  @grid_mode_li = find('[data-test="search-results-list"]').all('li').length
+  @grid_mode_books = books_section.books.count
 end
 
 And(/^I take the number books on List mode$/) do
-  @list_mode_li = find('[data-test="search-results-list"]').all('li').length
+  @list_mode_books = books_section.books.count
 end
 
 And(/^the number of books should match on both mode$/) do
-  @grid_mode_li.should == @list_mode_li
+  expect(@grid_mode_li).to eq(@list_mode_li)
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  all('[data-test="book-clubcard-points"]').first.visible?.should == true
+  expect(books_section.books.first).to have_clubcard_logo
+  expect(books_section.books.first).to have_clubcard_points
 end
 
 Then(/^I should get a message$/) do
-  page.should have_content(@search)
-  page.should have_selector("#noResults")
+  expect(search_results_page).to have_no_results_element
+  expect(search_results_page.no_results_message).to include(@search)
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  page.should_not have_css('div#controls')
-end
-
-And(/^(\d+) Bestselling books should be returned$/) do |n|
-  find('[data-test="search-results-list"]').all('li').length.should == n.to_i
+  expect(search_results_page).to_not have_list_view_button
+  expect(search_results_page).to_not have_grid_view_button
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
-  current_page.search_form.fill_in 'term', :with => search_word
+  current_page.search_form.set_keyword search_word
 end
 
 And /^search suggestions should be displayed$/ do
   current_page.search_form.wait_for_suggestions
   current_page.search_form.wait_until_suggestions_visible
-  current_page.search_form.should have_suggestions
+  expect(current_page.search_form).to have_suggestions
 end
 
 Then /^search suggestions should not be displayed$/ do
-  current_page.search_form.should have_no_suggestions
+  expect(current_page.search_form).to have_no_suggestions
 end
 
 And /^I should see at least (\d+) suggestions$/ do |number_of_suggestions|
@@ -82,16 +77,8 @@ And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
   assert_search_word_in_suggestions search_word
 end
 
-And /^the last suggestion should be equal to "(.*?)"$/ do |search_word|
-  assert_last_suggestion search_word
-end
-
-And /^all suggestions should contain part of "(.*?)"$/ do |search_word|
-  current_page.search_form.suggestions.each { |suggestion| suggestion.text.should include(search_word) }
-end
-
 And /^first suggestions should contain complete word "(.+)"$/ do |search_word|
-  current_page.search_form.suggestions[0].text.should include(search_word)
+  expect(current_page.search_form.suggestions[0].text).to include(search_word)
 end
 
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
@@ -108,9 +95,8 @@ When (/^I search for "(.*?)"$/) do |word|
 end
 
 And(/^at least 1 search result is shown$/) do
-  page.has_selector?("div.itemsets")
-  search_results_page.has_books?
-  search_results_page.should have_books
+  expect(books_section).to have_books
+  expect(books_section.books).to have_at_least(1).item
 end
 
 Then /^search results should be displayed$/ do
@@ -140,26 +126,21 @@ Then /^author name should be "(.*?)"$/ do |author_name|
 end
 
 Then /^"(.*?)" should be visible in search bar$/ do |search_word|
-  within('#searchbox') do
-    find('#term')[:value].should eql(search_word)
-  end
-
+  expect(current_page.search_form.keyword).to eq(search_word)
 end
 
 Then /^search term should not be visible in search bar$/ do
-  within('#searchbox') do
-    find('#term')[:value].should eql("")
-  end
+  expect(current_page.search_form.keyword).to be_empty
 end
 
 When /^I change search term in url to "(.*?)"$/ do |edit_word|
   @search_word = edit_word
-  visit("/#!/search/?q=#{edit_word}")
+  search_results_page.load(:q => edit_word)
   puts @search_word
 end
 
 And /^page url should have "(.*?)"$/ do |search_word|
-  (current_url.include?(search_word)).should == true
+  expect(current_url).to include(search_word)
   @current_url = current_url.to_s
 end
 

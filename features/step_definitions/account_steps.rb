@@ -10,7 +10,7 @@ end
 
 Given /^I have signed in$/ do
   sign_in(@email_address)
-  assert_page("Home")
+  assert_page('Home')
   assert_user_greeting_message_displayed
 end
 
@@ -44,7 +44,7 @@ And /^I accept terms and conditions$/ do
 end
 
 And /^welcome message is shown$/ do
-  registration_success_page.welcome_label.should have_content(test_data('messages', 'welcome'), :visible => true)
+  expect(registration_success_page.welcome_label).to have_content(test_data('messages', 'welcome'), :visible => true)
 end
 
 And /^I submit registration details$/ do
@@ -71,13 +71,9 @@ And /^I am redirected to (.*?) page$/ do |page_name|
 end
 
 And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
-  pending("CWA-971 - Not the right page after cancelling the order") do
+  pending('CWA-971 - Not the right page after cancelling the order') do
     expect_page_displayed(page_name)
   end
-end
-
-Given /^I am on my account page$/ do
-  click_link_from_my_account_dropdown('Personal details')
 end
 
 And /^I click Sign out button$/ do
@@ -102,7 +98,7 @@ Given /^I have default expired stored card$/ do
 end
 
 Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
-  if (expired_card.include?('non'))
+  if expired_card.include?('non')
     email_address = test_data('emails', 'multiple_cards_non_default_expired')
   else
     email_address = test_data('emails', 'multiple_cards_default_expired')
@@ -143,7 +139,7 @@ When /^I enter valid registration details$/ do
 end
 
 And(/^link to sign in with already registered email address is displayed$/) do
-  register_page.sign_email_link.text.should include(@email_address)
+  expect(register_page.sign_email_link.text).to include(@email_address)
 end
 
 And /^type passwords that are less than 6 characters$/ do
@@ -168,7 +164,7 @@ When /^I try to sign in with email address that is not registered$/ do
 end
 
 And /^link to reset password is displayed$/ do
-   sign_in_page.send_reset_link.should
+  expect(sign_in_page).to have_send_reset_link
 end
 
 When /^I (?:try|have attempted) to sign in with incorrect password$/ do
@@ -198,7 +194,7 @@ When /^I click on link to sign in with already registered email$/ do
  register_page.sign_email_link.click
 end
 
-Given /^I have a (?:pay for|free) (?:book|book sample) in my library$/ do
+Given /^I have a (?:paid|free) (?:book|book sample) in my library$/ do
   set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
 end
 
@@ -227,8 +223,8 @@ And /^click send reset link button$/  do
 end
 
 And /^reset email confirmation message is displayed$/  do
-  reset_password_response_page.should have_email_confirm_message
-  reset_password_response_page.email_confirm_message.text.should include("We've sent you a password reset email")
+  expect(reset_password_response_page).to have_email_confirm_message
+  expect(reset_password_response_page.email_confirm_message.text).to include("We've sent you a password reset email")
 end
 
 Given /^I have £(\d+) account credit$/ do |account_credit|
@@ -242,5 +238,5 @@ Given /^I have £(\d+) account credit$/ do |account_credit|
 end
 
 Then /^title should be "(.+)"$/ do |title|
-  expect(confirm_and_pay_page.title.downcase).to be == title.downcase
+  expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
 end

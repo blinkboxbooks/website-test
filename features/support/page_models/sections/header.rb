@@ -5,28 +5,65 @@ module PageModels
     element :menu_register_link, '[data-test="menu-register-link"]'
   end
 
+  class HeaderTab < PageModels::BlinkboxbooksSection
+    element :link, 'a'
+
+    def title
+      link.text
+    end
+
+    def data_test
+      link['data-test']
+    end
+
+    def selected?
+      root_element[:class] =~ /current/
+    end
+
+    def click
+      link.click
+    end
+  end
+
   class Header < PageModels::BlinkboxbooksSection
-    element :main_pages_navigation, 'div#main-navigation'
     element :user_account_logo, '#user-menu'
     element :main_menu, '#main-menu'
     element :welcome, '.username'
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
     element :suggestions, 'ul#suggestions'
-    element :logo, "#logo a"
+    element :logo, '#logo a'
+    elements :all_links, 'a'
 
     section :account_menu, AccountMenu, 'ul#user-navigation-handheld'
     element :hamburger_menu, 'ul#main-navigation-handheld'
+    sections :tabs, HeaderTab, '#main-navigation li'
+
+    def selected_tab
+      tabs.find { |tab| tab.selected? }
+    end
+
+    def tab(tab_name)
+      #                                     Inconsistent data-test naming made me do this |
+      # The weak link is "Free eBooks" with the data-test of "header-top-free-link"       ▽
+      tabs.find { |tab| tab.data_test.downcase.include?(tab_name.downcase.gsub(' ', '-')) || tab.text.downcase.include?(tab_name.downcase) }
+    end
 
     def open_account_menu
       wait_until_user_account_logo_visible
       user_account_logo.click
-      account_menu.should be_visible
+      expect(account_menu).to be_visible
     end  
 
     def navigate_to_account_option(link_name)
       open_account_menu
-      account_menu.find("a", :text => "#{link_name}").click
+
+      # Transform account option to a data-attribute.
+      account_menu.find('[data-test="' +  link_name.downcase.gsub(/ /, '-') + '"]').click
+    end
+
+    def find_link_by_text(link_text)
+      all_links.find { |link| link.text == link_text }
     end
 
     def click_log_out
@@ -34,17 +71,20 @@ module PageModels
       account_menu.sign_out_button.click
     end
 
-    def main_page_navigation(page_name)
-      within(main_pages_navigation) do
-        click_link page_name
-      end
-    end
-
     def navigate_to_hamburger_menu_option(link_name)
       wait_for_main_menu
       main_menu.click
-      hamburger_menu.should be_visible
-      hamburger_menu.find("a", :text => "#{link_name}").click
+      expect(hamburger_menu).to be_visible
+      hamburger_menu.find('a', :text => "#{link_name}").click
+    end
+
+    def navigate_to(link_name)
+      header_tab = tab(link_name)
+      unless header_tab.nil?
+        header_tab.click
+      else
+        raise "Not recognised header navigation link: #{link_name}"
+      end
     end
   end
 end

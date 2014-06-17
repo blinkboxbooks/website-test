@@ -3,7 +3,7 @@ module PageModels
 
     element :layer, 'div.book'
     element :title_element, 'h2.title'
-    element :author, 'div.author'
+    element :author_element, '[data-test="book-authors"]', :match => :first
     element :price_element, 'span[data-test="book-price"]'
     element :discount_price_element, 'span[data-test="book-price"] span.discount'
     element :cover_image, 'div.cover'
@@ -12,9 +12,13 @@ module PageModels
     element :isbn_element, 'div.details'
     element :cover_link, '[data-test="book-title-cover"]'
 
+    # List View elements
+    element :clubcard_points, '[data-test="book-clubcard-points"]'
+    element :clubcard_logo, '.club_card_logo img'
+
     def free?
       wait_for_price_element
-      price_element.text.downcase.eql?("Free".downcase)
+      price_element.text.downcase.eql?('Free'.downcase)
     end
 
     def purchasable?
@@ -34,7 +38,7 @@ module PageModels
     end
 
     def isbn
-      isbn_element.scan(/[0-9]+/)[0]
+      isbn_element['data-test'].scan(/[0-9]+/)[0]
     end
 
     def title
@@ -66,6 +70,12 @@ module PageModels
 
     def book_details_url
       cover_link[:href]
+    end
+
+    def author
+      # Some book does not have author associated to it
+      # ex. https://nodejs-internal.mobcastdev.com/#!/book/9780307554468/at-fenway?q=dan%20brown
+      has_author_element? ? author_element[:title] : ''
     end
   end
 end

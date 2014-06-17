@@ -24,12 +24,13 @@ And /^(?:I submit|submit) my personal details$$/ do
 end
 
 Then /^the first name and last name are as submitted$/ do
-  your_personal_details_page.first_name.value.should eql(@first_name)
-  your_personal_details_page.last_name.value.should eql(@last_name)
+  expect(your_personal_details_page.first_name.value).to eq(@first_name)
+  expect(your_personal_details_page.last_name.value).to eq(@last_name)
 end
 
 When /^I edit marketing preferences$/ do
-  @after_status = edit_marketing_preferences
+  your_personal_details_page.marketing_prefs_label.click
+  @after_status = your_personal_details_page.marketing_prefs.checked?
 end
 
 And /^marketing preferences are as submitted$/ do
@@ -46,11 +47,11 @@ end
 
 When /^I edit email address$/ do
   @new_email_address = generate_random_email_address
-  fill_form_element('email', @new_email_address)
+  your_personal_details_page.email_address.set @new_email_address
 end
 
 And /^email address is as submitted$/ do
-  find('[id="email"]').value.should.eql?(@new_email_address)
+  expect(your_personal_details_page.email_address.value).to eq(@new_email_address)
 end
 
 And /^I am on the Change your password section$/ do
@@ -90,11 +91,6 @@ And /^the selected card is displayed as my default card$/ do
   assert_default_card(@default_card)
 end
 
-When /^I enter valid clubcard number$/ do
-  @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
-  enter_clubcard @valid_clubcard
-end
-
 Then /^clubcard added to my account$/ do
   refresh_current_page
   assert_clubcard @new_clubcard
@@ -121,7 +117,7 @@ end
 
 And /^my email is not updated$/ do
   refresh_current_page
-  your_personal_details_page.email_address.value.should eql(@email_before)
+  expect(your_personal_details_page.email_address.value).to eq(@email_before)
 end
 
 When /^I attempt to update email address with already registered email address$/ do
@@ -171,7 +167,7 @@ Then /^my marketing preferences checkbox is (not selected|selected)$/ do |mrkt_s
 end
 
 And /^I have a device associated with my blinkbox books account$/ do
-  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: "device")
+  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: 'device')
   @device_count =1
 end
 

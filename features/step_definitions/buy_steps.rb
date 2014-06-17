@@ -1,7 +1,3 @@
-Given /I have identified a best selling book to buy$/ do
-  select_best_selling_book_to_buy_from_book_details
-end
-
 When /^I enter valid (.*?) card details$/ do |card_type|
   enter_card_details(set_valid_card_details(card_type))
 end
@@ -22,19 +18,15 @@ When /^I choose to pay with a new card$/ do
   click_pay_with_new_card
 end
 
-And /^I have identified a (free|pay for) book to (buy|read sample offline)$/ do |book_type, user_action|
-  if user_action.include?('buy')
-    select_book_to_buy_from_search_results_page(book_type)
-  else
-    user_navigates_to_book_details(book_type)
-  end
+And /^I have identified a (free|paid) book to read sample offline$/ do |book_type|
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I click Confirm order$/ do
   click_confirm_order
 end
 
-Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/ do |book_type, login_status|
+Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
   if login_status.eql?('logged')
     sign_in
   else
@@ -42,7 +34,7 @@ Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|
       log_out_current_session
     end
   end
-  select_book_to_buy_from_search_results_page(book_type)
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -92,24 +84,14 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   end
 end
 
-Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks) page$/ do |book_type, page_name|
-  @book_title = select_book_to_buy_from page_name, book_type
+Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
+  @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
-Given /^I have selected to buy a pay for book from Home page$/ do
-  @book_title = select_book_to_buy_from_home_page
-end
-
-Given /^I have selected to buy a pay for book from Category page$/ do
-  @book_title = select_book_to_buy_from_category_page
-end
-
-Given /^I have selected to buy a (pay for|free) book from Search results page$/ do |book_type|
-  @book_title = select_book_to_buy_from_search_results_page book_type
-end
-
-Given /^I have selected to buy a (pay for|free) book from Book details page$/ do |book_type|
-  @book_title = select_book_to_buy_from_book_detials_page book_type
+Given /^I have selected to buy a (paid|free) book$/ do |book_type|
+  # @book_title = select_book_to_buy(book_type.to_sym)
+  book_details_page.visit_for(book_type.downcase.to_sym)
+  @book_title = book_details_page.buy_book
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
@@ -134,17 +116,11 @@ When /^I select above (pay for|free) book to buy$/ do |book_type|
 end
 
 And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
-  find('#already-purchased').should be_visible
-  page.should have_text("You already have this #{type} in your library")
+  assert_book_exists_in_library_message(type)
 end
 
-When /^I select above (pay for|free) book to add sample$/ do |book_type|
-  isbn = test_data('library_isbns', 'pay_for_sample')
-  if book_type.include?('free')
-    isbn = test_data('library_isbns', 'free_sample')
-  end
-  search_blinkbox_books isbn
-  books_section.books[0].click_view_details
+When /^I select above (paid|free) book to add sample$/ do |book_type|
+  book_details_page.visit_for("#{book_type}_sample".to_sym)
   click_read_offline
 end
 
@@ -179,7 +155,7 @@ And /^submit the payment details with malformed post code (.*?)$/ do |value|
 end
 
 Then /^my payment is not successful$/ do
-  expect(confirm_and_pay_page).to(be_displayed)
+  expect(confirm_and_pay_page).to be_displayed
 end
 
 And /^submit the payment details with expiry date in the past$/ do
@@ -188,7 +164,7 @@ end
 
 And(/^following validation error messages are displayed for credit card details:$/) do |table|
   table.hashes.each do |row|
-    page.should have_content row['Error message']
+    expect(page).to have_content row['Error message']
   end
 end
 
@@ -212,7 +188,7 @@ When /^I complete purchase by selecting (to save|not to save) the card details$/
     @name_on_card, @card_type = successful_new_payment(save_payment = false)
   else
     @name_on_card, @card_type = successful_new_payment(save_payment = true)
-    @card_count = 1;
+    @card_count = 1
   end
 end
 
@@ -266,8 +242,7 @@ end
 
 Then /^I have no saved payment cards in my account$/ do
   click_link_from_my_account_dropdown('Saved cards')
-  your_payments_page.should have_no_saved_cards_container
-  page.should have_text ('You have no payment cards saved to your account')
+  expect(your_payments_page).to have_no_saved_cards_container
 end
 
 Then /^my saved Payment details are not updated$/ do
@@ -280,8 +255,8 @@ Then /^Confirm and pay page displays my account credit as £(\d+)$/ do |account_
 end
 
 And /^my payment method is account credit$/ do
-  confirm_and_pay_page.should have_account_credit_payment
-  confirm_and_pay_page.should have_no_card_payment
+  expect(confirm_and_pay_page).to have_account_credit_payment
+  expect(confirm_and_pay_page).to have_no_card_payment
 end
 
 And /^amount left to pay is displayed$/ do
@@ -290,15 +265,11 @@ end
 
 
 And /^my payment method is partial payment$/ do
-  confirm_and_pay_page.should have_account_credit_payment
-  confirm_and_pay_page.should have_card_payment
+  expect(confirm_and_pay_page).to have_account_credit_payment
+  expect(confirm_and_pay_page).to have_card_payment
 end
 
 When /^I (?:select|selected) a book to (?:buy from Search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
   @account_credit = price
   @book_price = buy_book_by_price(condition, @account_credit)
-end
-
-Given /^I have selected a free book to buy from book details$/ do
-  select_free_book_to_buy_from_book_details
 end

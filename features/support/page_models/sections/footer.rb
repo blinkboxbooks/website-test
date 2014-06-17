@@ -8,13 +8,21 @@ module PageModels
   end
 
   class Footer < PageModels::BlinkboxbooksSection
-    element :version_div, "div.versionInfo", visible: false
-    elements :top_authors, "div#footer_authors1 ul.lists li"
-    elements :top_categories, "div#footer_categories ul.lists li"
-    section :links, FooterLinks, "div#bottom_footer"
+    element :version_div, 'div.versionInfo', visible: false
+    elements :top_authors, 'div#footer_authors1 ul.lists li a'
+    elements :top_categories, 'div#footer_categories ul.lists li a'
+    section :links, FooterLinks, 'div#bottom_footer'
 
     def version_info
       version_div.text(:all)
+    end
+
+    def author_by_name(name)
+      top_authors.find { |i| i.text == name }
+    end
+
+    def category_by_name(name)
+      top_categories.find { |i| i.text == name }
     end
 
     def navigate_by_link(link_name)
