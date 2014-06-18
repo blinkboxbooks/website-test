@@ -16,6 +16,7 @@ group :misc_libs do
   gem 'activesupport'
   gem 'cucumber-helpers'
   gem 'i18n'
+  gem 'rake'
 end
 
 group :ci do
