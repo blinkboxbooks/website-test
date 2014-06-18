@@ -37,11 +37,7 @@ namespace :teamcity do
     end
 
     def run_record_for(run)
-      if run == 0
-        'rerun.txt'
-      else
-        "rerun-#{run}.txt"
-      end
+      run == 0 ? 'rerun.txt' : 'rerun-#{run}.txt'
     end
 
     def read_results_of_last_run
@@ -58,9 +54,7 @@ namespace :teamcity do
 
     desc 'Rerun Cucumber tasks with rerunning on failure.'
     task :all do
-        if File.exists?(@run_record)
-            rm_rf @run_record
-        end
+        rm_rf @run_record if File.exists?(@run_record)
 
         begin
           Rake::Task['teamcity:cucumber:run'].invoke
