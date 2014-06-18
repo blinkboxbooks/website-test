@@ -39,7 +39,7 @@ module ManageAccount
     end
 
     click_button('Update default card')
-    return @default_card
+    @default_card
   end
 
   def set_viewing_mode(viewing_mode)

@@ -19,20 +19,20 @@ When /^I choose to pay with a new card$/ do
 end
 
 And /^I have identified a (free|paid) book to read sample offline$/ do |book_type|
-  select_book_to_view_details(book_type.to_sym)
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I click Confirm order$/ do
   click_confirm_order
 end
 
-Given /^I (?:am buying|click Buy now on) a (pay for|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
+Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
   if login_status.eql?('logged')
     sign_in
   elsif logged_in_session?
     log_out_current_session
   end
-  select_book_to_buy_from('Search results', :paid)
+  book_details_page.visit_for(book_type.downcase.to_sym)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -70,12 +70,14 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   confirm_action.include?('registration') ? confirm_cancel_registration : confirm_cancel_order
 end
 
-Given /^I have selected to buy a (pay for|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
+Given /^I have selected to buy a (paid|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
 Given /^I have selected to buy a (paid|free) book$/ do |book_type|
-  @book_title = select_book_to_buy(book_type.to_sym)
+  # @book_title = select_book_to_buy(book_type.to_sym)
+  book_details_page.visit_for(book_type.downcase.to_sym)
+  @book_title = book_details_page.buy_book
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
@@ -96,7 +98,7 @@ And /^(book|sample) already exists in the library message displayed in confirm a
   assert_book_exists_in_library_message(type)
 end
 
-When /^I select above (pay for|free) book to add sample$/ do |book_type|
+When /^I select above (paid|free) book to add sample$/ do |book_type|
   book_type.include?('free') ? select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'free_sample')) : select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'pay_for_sample'))
 end
 
@@ -153,7 +155,7 @@ When /^I complete purchase by selecting (to save|not to save) the card details$/
     @name_on_card, @card_type = successful_new_payment(save_payment = false)
   else
     @name_on_card, @card_type = successful_new_payment(save_payment = true)
-    @card_count = 1;
+    @card_count = 1
   end
 end
 
@@ -227,8 +229,4 @@ end
 When /^I (?:select|selected) a book to (?:buy from Search results |buy )with price (more|less) than £(\d+)$/ do |condition, price|
   @account_credit = price
   @book_price = buy_book_by_price(condition, @account_credit)
-end
-
-Given /^I have selected a free book to buy from book details$/ do
-  select_book_to_buy_from('Book details', 'Free')
 end

@@ -4,19 +4,16 @@ Feature: Unhappy path buy
   I should be shown relevant error messages when attempting to buy a book or add sample I already have in library.
   So that I can edit payment details or payment method.
 
-  Background:
-    Given I am on the home page
-
   @negative @ie @safari
   Scenario Outline: Returning user attempting to buy a book that already exists in his library
     Given I have a <book_type> book in my library
-    When I select above <book_type> book to buy
+    Given I have selected to buy a <book_type> book
     And  sign in to proceed with purchase
     Then book already exists in the library message displayed in confirm and pay page
 
    Examples:
     | book_type |
-    | pay for   |
+    | paid      |
     | free      |
 
   @negative

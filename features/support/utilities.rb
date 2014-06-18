@@ -3,23 +3,23 @@ module Utilities
     first_part = 'cucumber_test'
     last_part = '@mobcastdev.com'
     middle_part = rand(1..9999).to_s + (0...10).map { ('a'..'z').to_a[rand(26)] }.join
-    return first_part+middle_part+last_part
+    first_part+middle_part+last_part
   end
 
   def generate_random_first_name
     first_part = 'firstname-autotest-'
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
-    return first_part + last_part
+    first_part + last_part
   end
 
   def generate_random_last_name
     first_part = 'lastname-autotest-'
     last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
-    return first_part + last_part
+    first_part + last_part
   end
 
   def return_search_word_for_book_type (book_type)
-    return book_type == :free ? 'free' : 'summer'
+    book_type == :free ? 'free' : 'summer'
   end
 end
 
@@ -35,8 +35,8 @@ module WebUtilities
     cookie_manager
   end
 
-  def get_cookie(name)
-    cookie_manager.cookie_named('access_token')
+  def get_cookie(name = 'access_token')
+    cookie_manager.cookie_named(name)
   end
 
   def set_cookie(name, value)
@@ -85,13 +85,14 @@ end
 module BlinkboxWebUtilities
   def set_start_cookie_accepted
     visit('/') unless current_path == '/'
-    set_cookie("start_cookie_accepted", "true")
+    set_cookie('start_cookie_accepted', 'true')
     visit('/')
   end
 
   def delete_access_token_cookie
     delete_cookie('access_token')
   rescue
+    puts 'A problem occurred while deleting the access_token cookie!'
   end
 
   def logged_in_session?
@@ -120,6 +121,90 @@ module BlinkboxWebUtilities
 
 end
 
+module BrowserstackUtilities
+
+  require 'childprocess'
+
+  class BrowserstackTunnel
+
+    attr_accessor :binary
+    attr_accessor :process
+    attr_accessor :log
+    attr_accessor :log_filename
+    attr_accessor :host
+    attr_accessor :port
+    attr_accessor :access_key
+
+    def initialize(access_key, host, port)
+      bin = File.dirname(__FILE__) + '/BrowserStackLocal'
+      raise Errno::ENOENT, bin unless File.exist?(bin)
+      @binary = bin
+      @log_filename = "browserstack-tunnel-#{Time.now.to_i}.log"
+      @log = File.open(@log_filename, "w")
+      @process = nil
+      @host = host
+      @port = port
+      @access_key = access_key
+    end
+
+    def start
+      puts("Starting BrowserStack Tunnel...")
+      process.start
+
+      # Wait until Selenium Server fully starts
+      until is_started()
+        # Do nothing, just wait. Todo: Implement a timeout!
+        if is_exiting()
+          stop
+          raise "Something went wrong during startup of BrowserStack binary... Please check logfile: #{@log_filename}"
+        end
+      end
+      puts "Tunnel for #{@host}:#{@port} started!\n\n"
+    end
+
+    def stop
+      puts "Stopping..."
+      stop_process if @process
+      @log.close if @log
+    end
+
+    def stop_process
+      return unless @process.alive?
+
+      begin
+        @process.poll_for_exit(5)
+      rescue ChildProcess::TimeoutError
+        @process.stop
+      end
+    rescue Errno::ECHILD
+      # already dead
+    ensure
+      @process = nil
+    end
+
+    def process
+      @process ||= (
+        cp = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, "#{@host},#{@port}")
+        cp.detach = true # Start in the background
+        cp.io.stdout = cp.io.stderr = @log
+        cp
+      )
+    end
+
+    def is_started
+      File.read(@log_filename).each_line { |line| return true if line.include?('Verified parameters, starting local testing') }
+      false
+    end
+
+    def is_exiting
+      File.read(@log_filename).each_line { |line| true if line =~ /\*\*\* Error:/ }
+      false
+    end
+  end
+
+end
+
 World(Utilities)
 World(WebUtilities)
 World(BlinkboxWebUtilities)
+World(BrowserstackUtilities)

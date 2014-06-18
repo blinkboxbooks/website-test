@@ -5,11 +5,11 @@ module PageModels
     end
 
     def assert_user_greeting_message_displayed(first_name=nil)
-      first_name ||= "Hi,"
+      first_name ||= 'Hi,'
       expect(current_page.header.welcome).to have_content(first_name, :visible => true)
     end
 
-    def assert_user_greeting_message_not_displayed()
+    def assert_user_greeting_message_not_displayed
       expect(current_page.header.welcome.text).to be_empty
     end
 

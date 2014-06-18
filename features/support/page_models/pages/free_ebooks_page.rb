@@ -1,6 +1,6 @@
 module PageModels
   class FreeEbooksPage < PageModels::BlinkboxbooksPage
-    set_url "/#!/free-books"
+    set_url '/#!/free-books'
     set_url_matcher /free-books/
 
     sections :book_results_sections, BookResults,'[data-test="search-results-list"]'

@@ -1,7 +1,7 @@
 module PageModels
   module ConfirmAndPayPageAsserts
     def assert_confirm_and_pay_button_status(button_status)
-      if (button_status.include?('disabled'))
+      if button_status.include?('disabled')
         expect(confirm_and_pay_page.confirm_and_pay[:class]).to eq('disabled_button')
       else
         expect(confirm_and_pay_page.confirm_and_pay[:class]).to eq('yellow_button')

@@ -7,13 +7,14 @@ module PageModels
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
+      change_to_list_view
     end
 
     def click_on_a_category
       @category_name = categories_page.select_category_by_index
       expect_page_displayed('Category')
       category_page.wait_until_book_results_sections_visible(10)
-      return @category_name
+      @category_name
     end
 
     def select_book_to_view_details(book_type)
@@ -34,6 +35,14 @@ module PageModels
       else
         books_section.click_buy_now_random_book
       end
+    end
+
+    def change_to_list_view
+      search_results_page.list_view_button.click
+    end
+
+    def change_to_grid_view
+      search_results_page.grid_view_button.click
     end
 
     def select_book_to_buy_from(page_name, book_type)
@@ -65,11 +74,10 @@ module PageModels
       search_word = return_search_word_for_book_type('pay for')
       search_blinkbox_books(search_word)
       if condition.eql?('more')
-        book_price = select_random_book_more_expensive_than(price)
+        select_random_book_more_expensive_than(price)
       elsif condition.eql?('less')
-        book_price = select_random_book_cheaper_than(price)
+        select_random_book_cheaper_than(price)
       end
-      return book_price
     end
 
     def select_book_by_isbn_to_buy(isbn)
