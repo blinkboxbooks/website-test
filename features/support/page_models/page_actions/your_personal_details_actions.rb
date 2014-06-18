@@ -39,7 +39,7 @@ module PageModels
     end
 
     def update_email_address(email_address)
-      wait_until { your_personal_details_page.email_address.value != '' }
+      wait_until { !your_personal_details_page.email_address.value.empty? }
       email_before = your_personal_details_page.email_address.value
       your_personal_details_page.email_address.set(email_address)
       your_personal_details_page.update_personal_details.click
