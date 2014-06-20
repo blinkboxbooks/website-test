@@ -7,4 +7,4 @@ module PageModels
 
   end
 end
-World(PageModels::RegistrationSuccess)
+World(PageModels::RegistrationSuccessAsserts)
