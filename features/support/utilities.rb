@@ -141,7 +141,9 @@ module BrowserstackUtilities
       @log = File.open(@log_filename, "w")
       @process = nil
 
+      uri += ':443' unless uri =~ /:\d+/
       @server_uri = URI(uri)
+
       @ssl = ssl
       @access_key = access_key
     end
