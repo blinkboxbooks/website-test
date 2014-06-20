@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Utilities
   def generate_random_email_address
     first_part = 'cucumber_test'
@@ -202,13 +204,12 @@ module BrowserstackUtilities
     end
 
     def is_started
-      File.read(@log_filename).each_line { |line| return true if line.include?('You can now access your local server(s) in our remote browser:') }
-
+      File.read(@log_filename).encode!('UTF-8', 'UTF-8', :invalid => :replace).each_line { |line| return true if line.include?('You can now access your local server(s) in our remote browser:') }
       false
     end
 
     def is_exiting
-      File.read(@log_filename).each_line { |line| true if line =~ /\*\*\* Error:/ }
+      File.read(@log_filename).encode!('UTF-8', 'UTF-8', :invalid => :replace).each_line { |line| return true if line =~ /\*\*\* Error:/ }
       false
     end
   end
