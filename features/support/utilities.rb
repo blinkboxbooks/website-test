@@ -78,6 +78,10 @@ module WebUtilities
     current_page.wait_until_header_visible(10)
   end
 
+  def go_back
+    page.evaluate_script('window.history.back()')
+  end
+
 end
 
 module BlinkboxWebUtilities

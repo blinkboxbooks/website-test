@@ -27,6 +27,26 @@ module PageModels
       assert_message_displayed("You already have this #{type} in your library")
     end
 
+    def assert_validation_error_messages(messages)
+      messages.hashes.each do |row|
+        expect(page).to have_content row['Error message']
+      end
+    end
+
+    def assert_payment_method(method = :credit)
+      expect(confirm_and_pay_page).to have_account_credit_payment
+      case method
+        when :credit
+          expect(confirm_and_pay_page).to have_no_card_payment
+          expect(confirm_and_pay_page).to have_no_card_payment
+          expect(confirm_and_pay_page).to have_no_pay_with_new_card
+        when :partial
+          expect(confirm_and_pay_page).to have_account_credit_payment
+          expect(confirm_and_pay_page).to have_card_payment
+          expect(confirm_and_pay_page).to have_pay_with_new_card
+      end
+    end
+
   end
 end
 World(PageModels::ConfirmAndPayPageAsserts)

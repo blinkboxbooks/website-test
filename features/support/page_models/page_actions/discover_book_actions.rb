@@ -80,6 +80,26 @@ module PageModels
       end
     end
 
+    def select_book_by_isbn_to_buy(isbn)
+      search_blinkbox_books isbn
+      books_section.books[0].click_view_details
+      book_details_page.wait_for_buy_now
+      book_details_page.buy_now.click
+    end
+
+    def select_book_by_isbn_to_read(isbn)
+      search_blinkbox_books isbn
+      books_section.books[0].click_view_details
+      click_read_offline
+    end
+
+    def select_random_book
+      book = books_section.random_purchasable_book
+      book_isbn = book.isbn
+      book.click_view_details
+      book_isbn
+    end
+
   end
 end
 World(PageModels::DiscoverBookActions)
