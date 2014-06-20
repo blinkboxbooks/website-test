@@ -120,6 +120,7 @@ end
 module BrowserstackUtilities
 
   require 'childprocess'
+  require 'uri'
 
   class BrowserstackTunnel
 
@@ -131,15 +132,17 @@ module BrowserstackUtilities
     attr_accessor :port
     attr_accessor :access_key
 
-    def initialize(access_key, host, port)
+    def initialize(access_key, uri, ssl = true)
       bin = File.dirname(__FILE__) + '/BrowserStackLocal'
       raise Errno::ENOENT, bin unless File.exist?(bin)
       @binary = bin
+
       @log_filename = "browserstack-tunnel-#{Time.now.to_i}.log"
       @log = File.open(@log_filename, "w")
       @process = nil
-      @host = host
-      @port = port
+
+      @server_uri = URI(uri)
+      @ssl = ssl
       @access_key = access_key
     end
 
@@ -155,7 +158,7 @@ module BrowserstackUtilities
           raise "Something went wrong during startup of BrowserStack binary... Please check logfile: #{@log_filename}"
         end
       end
-      puts "Tunnel for #{@host}:#{@port} started!\n\n"
+      puts "Tunnel for #{server_info} started!\n\n"
     end
 
     def stop
@@ -180,15 +183,25 @@ module BrowserstackUtilities
 
     def process
       @process ||= (
-        cp = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, "#{@host},#{@port}")
+        puts "Starting BrowserStack proxy for #{server_info}"
+        cp = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, server_info_for_process)
         cp.detach = true # Start in the background
         cp.io.stdout = cp.io.stderr = @log
         cp
       )
     end
 
+    def server_info_for_process
+      "#{@server_uri.host.to_s},#{@server_uri.port.to_s},#{@ssl ? 1 : 0}"
+    end 
+
+    def server_info
+      "#{@server_uri.host.to_s}:#{@server_uri.port.to_s}"
+    end
+
     def is_started
-      File.read(@log_filename).each_line { |line| return true if line.include?('Verified parameters, starting local testing') }
+      File.read(@log_filename).each_line { |line| return true if line.include?('You can now access your local server(s) in our remote browser:') }
+
       false
     end
 
