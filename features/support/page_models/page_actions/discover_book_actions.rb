@@ -1,13 +1,13 @@
 module PageModels
   module DiscoverBookActions
-    def search_blinkbox_books(search_word)
+    def search_blinkbox_books(search_word, view = 'list')
       puts "Searching for books with search word '#{search_word}'"
       current_page.header.wait_until_search_input_visible
       current_page.header.search_input.set search_word
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      change_to_list_view
+      change_to_list_view if view == 'list'
     end
 
     def click_on_a_category
