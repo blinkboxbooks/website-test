@@ -17,7 +17,7 @@ module PageModels
       expect(home_page.banner.slide_numbers.count).to be_between(min_banners, max_banners)
     end
 
-    def assert_promotable_category(category_section, no_of_books)
+    def assert_promotable_category(category_name, no_of_books)
       category_name.include?('Spotlight') ? @category_section = home_page.spotlight_on_category : @category_section = home_page.highlights_category
       expect(@category_section.books).to have(no_of_books.to_i).items
     end
