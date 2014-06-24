@@ -44,7 +44,7 @@ And /^I accept terms and conditions$/ do
 end
 
 And /^welcome message is shown$/ do
-  expect(registration_success_page.welcome_label).to have_content(test_data('messages', 'welcome'), :visible => true)
+  assert_welcome_message
 end
 
 And /^I submit registration details$/ do
@@ -77,7 +77,7 @@ And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
 end
 
 And /^I click Sign out button$/ do
-  your_account_page.sign_out_button.click
+  sign_out_from_account_page
 end
 
 Then /^I should be signed out successfully$/ do
@@ -139,7 +139,7 @@ When /^I enter valid registration details$/ do
 end
 
 And(/^link to sign in with already registered email address is displayed$/) do
-  expect(register_page.sign_email_link.text).to include(@email_address)
+  assert_sign_in_link(@email_address)
 end
 
 And /^type passwords that are less than 6 characters$/ do
@@ -147,8 +147,7 @@ And /^type passwords that are less than 6 characters$/ do
 end
 
 And /^type passwords that are not matching$/ do
-  register_page.password.set test_data('passwords', 'valid_password')
-  register_page.password_repeat.set test_data('passwords', 'not_matching_password')
+  enter_not_matching_passwords
 end
 
 But /^I leave the password field empty$/ do
@@ -164,7 +163,7 @@ When /^I try to sign in with email address that is not registered$/ do
 end
 
 And /^link to reset password is displayed$/ do
-  expect(sign_in_page).to have_send_reset_link
+  assert_reset_password_link
 end
 
 When /^I (?:try|have attempted) to sign in with incorrect password$/ do
@@ -176,7 +175,7 @@ When /^I try to sign in with empty password field$/ do
 end
 
 When /^I click on Send me a reset link$/ do
-  sign_in_page.send_reset_link.click
+  click_send_reset_link
 end
 
 Given /^I am returning user(?: with saved payment details)?$/ do
@@ -184,14 +183,11 @@ Given /^I am returning user(?: with saved payment details)?$/ do
 end
 
 Given /^I have attempted to register with already registered email address$/ do
-  @email_address, @first_name, @last_name = enter_personal_details(test_data('emails', 'happypath_user'))
-  enter_password(test_data('passwords', 'valid_password'))
-  accept_terms_and_conditions(true)
-  submit_registration_details
+  register_with_existing_email_address
 end
 
 When /^I click on link to sign in with already registered email$/ do
- register_page.sign_email_link.click
+  click_sign_in_button
 end
 
 Given /^I have a (?:paid|free) (?:book|book sample) in my library$/ do
@@ -211,20 +207,15 @@ Given /^I have (not opted|opted) in for blinkbox books marketing$/ do |opt_statu
 end
 
 When /^I click on Forgotton your password\? link$/ do
-  sign_in_page.forgotten_password_link.click
+  click_forgotten_password_link
 end
 
 When /^I enter email address registered with blinkbox books$/ do
    reset_password_page.email_address.set test_data('emails', 'happypath_user')
 end
 
-And /^click send reset link button$/  do
-  reset_password_page.send_reset_link.click
-end
-
 And /^reset email confirmation message is displayed$/  do
-  expect(reset_password_response_page).to have_email_confirm_message
-  expect(reset_password_response_page.email_confirm_message.text).to include("We've sent you a password reset email")
+  assert_reset_email_confirmation
 end
 
 Given /^I have £(\d+) account credit$/ do |account_credit|

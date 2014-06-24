@@ -144,6 +144,34 @@ module PageModels
       return name_on_card, card_type
     end
 
+    def submit_payment_details_with_empty_cc_form
+      enter_billing_details
+      confirm_and_pay_page.wait_for_confirm_and_pay
+      confirm_and_pay_page.confirm_and_pay.click
+    end
+
+    def submit_payment_details_with_card_type(card_type)
+      enter_card_details(set_valid_card_details(card_type))
+      enter_billing_details
+      confirm_and_pay_page.wait_for_confirm_and_pay
+      confirm_and_pay_page.confirm_and_pay.click
+    end
+
+    def submit_payment_details_with_cvv(cvv, card_type = 'VISA')
+      card_details = set_valid_card_details(card_type)
+      card_details[:cvv] = cvv
+      enter_card_details(card_details)
+      enter_billing_details
+      confirm_and_pay_page.confirm_and_pay.click
+    end
+
+    def submit_payment_details_with_card_number(card_number)
+      card_details = set_valid_card_details('VISA')
+      card_details[:card_number] = card_number
+      enter_card_details(card_details)
+      enter_billing_details
+      confirm_and_pay_page.confirm_and_pay.click
+    end
 
   end
 end

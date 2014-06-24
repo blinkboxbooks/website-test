@@ -1,6 +1,7 @@
 module PageModels
   module YourPaymentsAsserts
     def assert_default_card(card)
+      refresh_current_page
       default_card = your_payments_page.default_card
       expect(card).to eq(default_card.title + default_card.holder_name)
     end

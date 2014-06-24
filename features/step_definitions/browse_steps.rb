@@ -1,22 +1,9 @@
 When /^I am viewing in (.*?) mode$/ do |viewing_mode|
-  case viewing_mode
-    when 'Desktop'
-      maximize_window
-    when 'Mobile Portrait'
-      resize_window(320, 480)
-    when 'Mobile Landscape'
-      resize_window(480, 320)
-    when '10 inch tablet'
-      resize_window(800, 1024)
-    when '7 inch tablet'
-      resize_window(550, 1024)
-    else
-      raise "Unsupported browser viewing mode: #{viewing_mode}"
-  end
+  set_viewing_mode(viewing_mode)
 end
 
 And /^page should display (\d+) categories in a row$/ do |expected_top_categories|
-  expect(categories_page.top_categories).to have_exactly(expected_top_categories.to_i).items
+  assert_number_of_categories(expected_top_categories)
 end
 
 When /^(\d+) is valid|invalid category id$/ do |category_id|
@@ -24,25 +11,23 @@ When /^(\d+) is valid|invalid category id$/ do |category_id|
 end
 
 Then /^page should display the category$/ do
-  expect(categories_page).to have_category(@category_id)
+  assert_category_displayed(@category_id)
 end
 
 And /^category name should be "(.*?)"$/ do |category_name|
-  expect(categories_page.category_by_id(@category_id).title).to eq(category_name)
+  assert_category_title(@category_id, category_name)
 end
 
 And /^page should display category image$/ do
-  category = categories_page.category_by_id(@category_id)
-  expect(category.cover_image).to be_visible
+  assert_category_image_displayed(@category_id)
 end
 
 Then /^page should not display the category$/ do
-  expect(categories_page).to_not have_category(@category_id)
+  assert_category_not_displayed(@category_id)
 end
 
 And /^page should display categories as list$/ do
-  expect(categories_page).to have_top_categories
-  categories_page.top_categories.each { |category_box| expect(category_box).to have_no_cover_image }
+  assert_categories_list
 end
 
 And /^I select (list|grid) view$/ do |view|

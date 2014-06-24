@@ -64,7 +64,7 @@ When /^I click on the (.*) header tab$/i do |page_name|
 end
 
 And /^I press browser back$/ do
-  page.evaluate_script('window.history.back()')
+  go_back
 end
 
 And /^main header tabs should not be selected$/ do
@@ -74,8 +74,7 @@ And /^main header tabs should not be selected$/ do
 end
 
 Then /^I should be on the Authors page$/ do
-  authors_page.wait_until_featured_authors_visible
-  expect_page_displayed('Authors')
+  assert_authors_page_displayed
 end
 
 And /^(.*?) section header is (.*?)$/ do |section_name, text|
@@ -97,14 +96,11 @@ And(/^I click on (Fiction|Non\-Fiction) tab$/) do |tab|
 end
 
 Then /^I should see (Fiction|Non\-Fiction) books in (grid|list) view$/ do |book_type, view|
-  expect(bestsellers_page.selected_tab).to eq(book_type.gsub('-', '_').downcase.to_sym)
-  expect(search_results_page.current_view).to eq(view.to_sym)
+  assert_books_displayed_with_options(book_type, view)
 end
 
 When /^I select a book to view book details$/ do
-  book = books_section.random_purchasable_book
-  @book_isbn = book.isbn
-  book.click_view_details
+  @book_isbn = select_random_book
 end
 
 Then /^details page of the corresponding book is displayed$/ do
@@ -125,7 +121,7 @@ When /^I click on a category$/ do
 end
 
 Then /^Category page is displayed for the selected category$/ do
-  expect(category_page.category_name.text).to include(@category_name)
+  assert_category_page_displayed(@category_name)
 end
 
 And /^the book reader is displayed$/ do

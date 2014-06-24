@@ -16,6 +16,10 @@ module PageModels
         your_payments_page.wait_until_delete_card_popup_invisible
       end
     end
+
+    def sign_out_from_account_page
+      your_account_page.sign_out_button.click
+    end
   end
 end
 
