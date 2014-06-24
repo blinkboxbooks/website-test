@@ -60,7 +60,7 @@ module KnowsAboutConfig
 
   def test_list(data)
     initialise_test_data
-    raise "Unable to find data_type [#{data_type}] in the test data" if @_test_data[data.to_s].nil?
+    raise "Unable to find data_type [#{data}] in the test data" if @_test_data[data.to_s].nil?
     @_test_data[data.to_s]
   end
 
