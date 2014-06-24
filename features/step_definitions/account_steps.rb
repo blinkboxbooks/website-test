@@ -175,7 +175,7 @@ When /^I try to sign in with empty password field$/ do
 end
 
 When /^I click on Send me a reset link$/ do
-  click_send_reset_link
+  click_forgotten_password_link
 end
 
 Given /^I am returning user(?: with saved payment details)?$/ do
