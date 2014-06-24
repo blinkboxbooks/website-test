@@ -58,6 +58,12 @@ module KnowsAboutConfig
     @_test_data[data_type.to_s][param]
   end
 
+  def test_list(data)
+    initialise_test_data
+    raise "Unable to find data_type [#{data_type}] in the test data" if @_test_data[data.to_s].nil?
+    @_test_data[data.to_s]
+  end
+
   def environments(name)
     @_environments ||= load_yaml_file('config', 'environments.yml')
     env = @_environments[name.upcase]
