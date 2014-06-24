@@ -18,8 +18,8 @@ When /^I choose to pay with a new card$/ do
   click_pay_with_new_card
 end
 
-And /^I have identified a (free|paid) book to read sample offline$/ do |book_type|
-  book_details_page.visit_for(book_type.downcase.to_sym)
+And /^I have identified a (free|paid) book on the (book details|search results) page to read sample offline$/ do |book_type, page|
+  select_book_to_add_as_sample(book_type, page.gsub(' ', '_').to_s)
 end
 
 When /^I click Confirm order$/ do
@@ -32,7 +32,7 @@ Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|log
   elsif logged_in_session?
     log_out_current_session
   end
-  book_details_page.visit_for(book_type.downcase.to_sym)
+  select_book_to_buy(book_type.downcase.to_sym)
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
@@ -70,14 +70,12 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   confirm_action.include?('registration') ? confirm_cancel_registration : confirm_cancel_order
 end
 
-Given /^I have selected to buy a (paid|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/ do |book_type, page_name|
+Given /^I have selected to buy a (paid|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/i do |book_type, page_name|
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
 Given /^I have selected to buy a (paid|free) book$/ do |book_type|
-  # @book_title = select_book_to_buy(book_type.to_sym)
-  book_details_page.visit_for(book_type.downcase.to_sym)
-  @book_title = book_details_page.buy_book
+  @book_title = select_book_to_buy(book_type.to_sym)
 end
 
 And /^my payment failed at Braintree for not matching CVV$/ do
@@ -99,6 +97,7 @@ And /^(book|sample) already exists in the library message displayed in confirm a
 end
 
 When /^I select above (paid|free) book to add sample$/ do |book_type|
+  # TODO: Search for usage
   book_type.include?('free') ? select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'free_sample')) : select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'pay_for_sample'))
 end
 

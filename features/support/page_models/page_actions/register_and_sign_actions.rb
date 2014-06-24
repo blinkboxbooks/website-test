@@ -77,6 +77,10 @@ module PageModels
     end
 
     def sign_in(email_address=@email_address, password=@password)
+
+      ' sdkjdf ' + variab + ''
+
+      " #{variable}"
       email_address ||= test_data('emails', 'user_with_devices')
       password ||= test_data('passwords', 'valid_password')
       if logged_in_session?

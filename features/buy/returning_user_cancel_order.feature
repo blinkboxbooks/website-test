@@ -16,12 +16,12 @@ Feature: Returning user cancels order
 
   Examples:
     | page_name      | book_type |
-    | Home           | pay for   |
-    | Search results | pay for   |
-    | Book details   | pay for   |
-    | Category       | pay for   |
-    | Bestsellers    | pay for   |
-    | New releases   | pay for   |
+    | Home           | paid      |
+    | Search results | paid      |
+    | Book details   | paid      |
+    | Category       | paid      |
+    | Bestsellers    | paid      |
+    | New releases   | paid      |
 
   Scenario Outline: Returning user paying with new payment, user cancels order
     Given I have selected to buy a <book_type> book from <page_name> page
@@ -33,12 +33,12 @@ Feature: Returning user cancels order
 
   Examples:
     | page_name      | book_type |
-    | Home           | pay for   |
-    | Search results | pay for   |
-    | Book details   | pay for   |
-    | Category       | pay for   |
-    | Bestsellers    | pay for   |
-    | New releases   | pay for   |
+    | Home           | paid      |
+    | Search results | paid      |
+    | Book details   | paid      |
+    | Category       | paid      |
+    | Bestsellers    | paid      |
+    | New releases   | paid      |
 
   @CWA-980
   Scenario Outline: Returning user's new payment has failed, user cancels order
@@ -51,12 +51,12 @@ Feature: Returning user cancels order
 
   Examples:
     | page_name      | book_type |
-    | Home           | pay for   |
-    | Search results | pay for   |
-    | Book details   | pay for   |
-    | Category       | pay for   |
-    | Bestsellers    | pay for   |
-    | New releases   | pay for   |
+    | Home           | paid      |
+    | Search results | paid      |
+    | Book details   | paid      |
+    | Category       | paid      |
+    | Bestsellers    | paid      |
+    | New releases   | paid      |
 
   Scenario Outline: Returning user has validation errors for new payment details, user cancels orders
     Given I have selected to buy a <book_type> book from <page_name> page
@@ -69,12 +69,12 @@ Feature: Returning user cancels order
 
   Examples:
     | page_name      | book_type |
-    | Home           | pay for   |
-    | Search results | pay for   |
-    | Book details   | pay for   |
-    | Category       | pay for   |
-    | Bestsellers    | pay for   |
-    | New releases   | pay for   |
+    | Home           | paid      |
+    | Search results | paid      |
+    | Book details   | paid      |
+    | Category       | paid      |
+    | Bestsellers    | paid      |
+    | New releases   | paid      |
 
   Scenario Outline: Returning buying a free book, user cancels order
     Given I have selected to buy a <book_type> book from <page_name> page

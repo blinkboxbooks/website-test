@@ -37,6 +37,16 @@ module PageModels
       end
     end
 
+    def select_book_to_add_as_sample(book_type, page)
+      isbn = test_data('library_isbns', 'free_sample') if book_type == 'free'
+      isbn = test_data('library_isbns', 'pay_for_sample') if book_type == 'paid'
+      if page == :search_results
+        search_blinkbox_books(isbn)
+      else
+        page_model('Book Details').load(isbn: isbn, title: 'a_book_title')
+      end
+    end
+
     def change_to_list_view
       search_results_page.list_view_button.click
     end
@@ -71,7 +81,7 @@ module PageModels
     end
 
     def buy_book_by_price(condition, price)
-      search_word = return_search_word_for_book_type('pay for')
+      search_word = return_search_word_for_book_type('paid')
       search_blinkbox_books(search_word)
       if condition.eql?('more')
         select_random_book_more_expensive_than(price)

@@ -13,12 +13,12 @@ Feature: New user cancels order
 
   Examples:
     | page_name      | book_type |
-    | Home           | pay for   |
-    | Search results | pay for   |
-    | Book details   | pay for   |
-    | Category       | pay for   |
-    | Bestsellers    | pay for   |
-    | New releases   | pay for   |
+    | Home           | paid      |
+    | Search results | paid      |
+    | Book details   | paid      |
+    | Category       | paid      |
+    | Bestsellers    | paid      |
+    | New releases   | paid      |
     | Search results | free      |
     | Book details   | free      |
     | Free eBooks    | free      |
@@ -32,12 +32,12 @@ Feature: New user cancels order
 
   Examples:
     | page_name      | book_type |
-    | Home           | pay for   |
-    | Search results | pay for   |
-    | Book details   | pay for   |
-    | Category       | pay for   |
-    | Bestsellers    | pay for   |
-    | New releases   | pay for   |
+    | Home           | paid      |
+    | Search results | paid      |
+    | Book details   | paid      |
+    | Category       | paid      |
+    | Bestsellers    | paid      |
+    | New releases   | paid      |
     | Search results | free      |
     | Book details   | free      |
     | Free eBooks    | free      |
