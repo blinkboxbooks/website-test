@@ -48,7 +48,7 @@ Feature: Sign into Blinkbox books
     Then sign in is not successful
     And "Please enter your password" message is displayed
 
-  @production @test
+  @production
   Scenario: Click send me a reset link
     Given I am on the Sign in page
     And I have attempted to sign in with incorrect password
