@@ -55,7 +55,7 @@ module PageModels
       search_results_page.grid_view_button.click
     end
 
-    def select_book_to_buy_from(page_name, book_type)
+    def select_book_to_buy_on(page_name, book_type)
       if page_name =~ /Search results/i
         search_blinkbox_books(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
@@ -78,6 +78,29 @@ module PageModels
       else
         books_section.click_buy_now_random_book
       end
+    end
+
+    def select_book_to_buy_from(page_name, book_type)
+      if page_name =~ /Search results/i
+        search_blinkbox_books(return_search_word_for_book_type(book_type))
+      elsif page_name =~ /Book details/i
+        search_blinkbox_books(return_search_word_for_book_type(book_type))
+        book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
+        book_title = book_details_page.title
+        book_details_page.buy_now.click
+        return book_title
+      elsif page_name =~ /Category/i
+        click_navigation_link('categories')
+        categories_page.select_category_by_index
+        switch_to_list_view
+      elsif current_page.header.tab(page_name).nil?
+        page = page_model(page_name)
+        page.load unless page.displayed?
+      else
+        click_navigation_link(page_name) unless page_model(page_name).displayed?
+        switch_to_list_view
+      end
+      book_type == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
     end
 
     def buy_book_by_price(condition, price)
