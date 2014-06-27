@@ -184,15 +184,13 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   caps["os"] = TEST_CONFIG['OS']
   caps["os_version"] = TEST_CONFIG['OS_VERSION']
   caps["browserstack.debug"] = "true"
-  caps["name"] = TEST_CONFIG['BROWSERSTACK_SESSION_TITLE'].empty? ? "Untitled BrowserStack session" : TEST_CONFIG['BROWSERSTACK_SESSION_TITLE']
-  caps["name"] ||= "Untitled BrowserStack session"
+  caps["name"] = TEST_CONFIG['BROWSERSTACK_SESSION_TITLE'].nil? ? "Untitled BrowserStack session" : TEST_CONFIG['BROWSERSTACK_SESSION_TITLE']
   caps["project"] = TEST_CONFIG['BROWSERSTACK_PROJECT']
   caps["browserstack.debug"] = "false"
 
   # Check BrowserStack availability
   raise 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
-  # It seems projects cannot be edited in trial mode. Support contacted.
-  # raise 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
+  raise 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
   raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
 
   if TEST_CONFIG['SERVER'] == "PRODUCTION"
