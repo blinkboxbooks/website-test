@@ -21,6 +21,7 @@ module PageModels
     end
 
     def click
+      puts "Click on #{title} header tab"
       link.click
     end
   end
@@ -46,7 +47,7 @@ module PageModels
     def tab(tab_name)
       #                                     Inconsistent data-test naming made me do this |
       # The weak link is "Free eBooks" with the data-test of "header-top-free-link"       ▽
-      tabs.find { |tab| tab.data_test.downcase.include?(tab_name.downcase.gsub(' ', '-')) || tab.text.downcase.include?(tab_name.downcase) }
+      tabs.find { |tab| tab.data_test.downcase.include?(tab_name.downcase.gsub(' ', '-')) || tab.title.downcase.include?(tab_name.downcase) }
     end
 
     def open_account_menu
