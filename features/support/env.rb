@@ -185,8 +185,11 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   caps["os_version"] = TEST_CONFIG['OS_VERSION']
   caps["browserstack.debug"] = "true"
   caps["name"] = TEST_CONFIG['BROWSERSTACK_SESSION_TITLE'].nil? ? "Untitled BrowserStack session" : TEST_CONFIG['BROWSERSTACK_SESSION_TITLE']
-  caps["project"] = TEST_CONFIG['BROWSERSTACK_PROJECT']
+  caps["project"] = TEST_CONFIG['BROWSERSTACK_PROJECT'].nil? ? "on-demand" : TEST_CONFIG['BROWSERSTACK_PROJECT']
+  caps["build"] = TEST_CONFIG['BROWSERSTACK_BUILD'] unless TEST_CONFIG['BROWSERSTACK_BUILD'].nil?
   caps["browserstack.debug"] = "false"
+  TEST_CONFIG['BROWSERSTACK_USERNAME'] ||= "gabormajor1"
+  TEST_CONFIG['BROWSERSTACK_KEY'] ||= "SwqrhidMjGruyCtdCmx8"
 
   # Check BrowserStack availability
   raise 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
