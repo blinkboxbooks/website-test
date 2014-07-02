@@ -58,6 +58,12 @@ module KnowsAboutConfig
     @_test_data[data_type.to_s][param]
   end
 
+  def test_list(data)
+    initialise_test_data
+    raise "Unable to find data_type [#{data}] in the test data" if @_test_data[data.to_s].nil?
+    @_test_data[data.to_s]
+  end
+
   def environments(name)
     @_environments ||= load_yaml_file('config', 'environments.yml')
     env = @_environments[name.upcase]
@@ -160,8 +166,9 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
   end
 
 elsif TEST_CONFIG['GRID'] =~ /browserstack/i
-  TEST_CONFIG['BROWSER_NAME'] ||= 'Chrome'
-  TEST_CONFIG['BROWSER_VERSION'] ||= '34.0'
+  # Default values
+  TEST_CONFIG['BROWSER_NAME'] ||= 'Firefox'
+  TEST_CONFIG['BROWSER_VERSION'] ||= '30.0'
   TEST_CONFIG['OS'] ||= 'Windows'
   TEST_CONFIG['OS_VERSION'] ||= '7'
 
@@ -177,8 +184,16 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   caps["os"] = TEST_CONFIG['OS']
   caps["os_version"] = TEST_CONFIG['OS_VERSION']
   caps["browserstack.debug"] = "true"
-  caps["name"] = "Testing Selenium 2 with Ruby on BrowserStack"
+  caps["name"] = TEST_CONFIG['BROWSERSTACK_SESSION_TITLE'].nil? ? "Untitled BrowserStack session" : TEST_CONFIG['BROWSERSTACK_SESSION_TITLE']
+  caps["project"] = TEST_CONFIG['BROWSERSTACK_PROJECT'].nil? ? "on-demand" : TEST_CONFIG['BROWSERSTACK_PROJECT']
+  caps["build"] = TEST_CONFIG['BROWSERSTACK_BUILD'] unless TEST_CONFIG['BROWSERSTACK_BUILD'].nil?
+  caps["browserstack.debug"] = "false"
+  TEST_CONFIG['BROWSERSTACK_USERNAME'] ||= "gabormajor1"
+  TEST_CONFIG['BROWSERSTACK_KEY'] ||= "SwqrhidMjGruyCtdCmx8"
 
+  # Check BrowserStack availability
+  raise 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
+  raise 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
   raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
 
   if TEST_CONFIG['SERVER'] == "PRODUCTION"
