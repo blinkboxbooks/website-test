@@ -22,6 +22,10 @@ And /^I have identified a (free|paid) book on the (book details|search results) 
   select_book_to_add_as_sample(book_type, page.gsub(' ', '_').to_s)
 end
 
+And /^I have identified the same (free|paid) book to read offline as a sample$/ do |book_type|
+  step("I have identified a #{book_type} book on the book details page to read sample offline")
+end
+
 When /^I click Confirm order$/ do
   click_confirm_order
 end
