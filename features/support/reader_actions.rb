@@ -14,7 +14,8 @@ module ReaderActions
   end
 
   def get_reader_page_contents
-    book_details_page.reader.page.text
+    # Capybara can't locate elements inside iframe tags using the page model!
+    within_frame(book_details_page.find('iframe')) { page.text }
   end
 end
 

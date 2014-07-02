@@ -6,8 +6,8 @@ module PageModels
     sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
     section :daily_bestsellers, BookResults, '[data-category="daily-bestsellers"]'
     element :section_title_element, 'div[data-test="bestsellers-container"] h2.section_header'
-    element :fiction_tab, '[data-test="bestsellers-container"] a', :text => 'Fiction'
-    element :non_fiction_tab, '[data-test="bestsellers-container"] a', :text => 'Non-Fiction'
+    element :fiction_tab, '[data-test="bestsellers-container"] a', :text => 'Fiction', :match => :first
+    element :non_fiction_tab, '[data-test="bestsellers-container"] a', :text => 'Non-Fiction', :match => :first
     element :fiction_button, '.tabbed a', :text => 'Fiction'
     element :non_fiction_button, '.tabbed a', :text => 'Non-Fiction'
 
@@ -16,10 +16,12 @@ module PageModels
     end
 
     def selected_tab
-      if fiction_tab[:class] =~ 'selected'
+      if fiction_tab.find(:xpath, '..')[:class].include?('selected')
         :fiction
-      elsif non_fiction_tab[:class] =~ 'selected'
+      elsif non_fiction_tab.find(:xpath, '..')[:class].include?('selected')
         :non_fiction
+      else
+        :none
       end
     end
   end
