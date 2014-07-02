@@ -7,7 +7,7 @@ Feature: Unhappy path buy
   @negative @ie @safari
   Scenario Outline: Returning user attempting to buy a book that already exists in his library
     Given I have a <book_type> book in my library
-    When I have selected to buy a paid book from Book details page
+    When I have selected to buy a paid book on Book details page
     And  sign in to proceed with purchase
     Then book already exists in the library message displayed in confirm and pay page
 
@@ -19,7 +19,7 @@ Feature: Unhappy path buy
   @negative
   Scenario Outline: Returning user buying a book, cvv not matching payment failure error from Braintree
     Given I am returning user
-    When I have selected to buy a paid book from Book details page
+    When I have selected to buy a paid book on Book details page
     And sign in to proceed with purchase
     When I choose to pay with a new card
     And I submit payment details with not matching cvv <cvv_number>
