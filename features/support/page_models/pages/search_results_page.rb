@@ -12,6 +12,7 @@ module PageModels
     element :list_view_button, 'a[data-test="list-button"]'
     element :grid_view_button, 'a[data-test="grid-button"]'
     element :no_results_element, '#noResults'
+    element :book_cover, '[data-test=book-title-cover]'
 
     def current_view
       list_view_button[:class].include?('active') ? :list : :grid

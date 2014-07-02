@@ -42,9 +42,11 @@ module PageModels
       isbn = test_data('library_isbns', 'pay_for_sample') if book_type == 'paid'
       if page == :search_results
         search_blinkbox_books(isbn)
+        search_results_page.book_cover.click
       else
         page_model('Book Details').load(isbn: isbn, title: 'a_book_title')
       end
+      book_details_page.read_offline.click
     end
 
     def change_to_list_view
