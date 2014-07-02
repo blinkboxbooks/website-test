@@ -3,13 +3,17 @@ And(/^I search for term "(.*?)"$/) do |term|
   search_blinkbox_books @search
 end
 
+And(/^I search for term "(.*?)" in grid view$/) do |term|
+  @search = term
+  search_blinkbox_books @search, 'grid'
+end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
   expect(books_section.books_written_by(author_name.titleize)).to have_at_least(1).items
 end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
-  expect(search_results_page.current_view).to be == expected_view.downcase.to_sym
+  expect(search_results_page.current_view).to eq(expected_view.downcase.to_sym)
 end
 
 And(/^I should see the sort option drop down$/) do
@@ -18,10 +22,6 @@ end
 
 Given(/^I change from Grid mode to List mode$/) do
   switch_to_list_view
-end
-
-And(/^the result should be displayed in List mode$/) do
-  expect(search_results_page.current_view).to eq(:list)
 end
 
 When(/^I change from List mode to Grid mode$/) do

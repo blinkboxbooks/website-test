@@ -20,10 +20,11 @@ Feature: Redirect to Sign and register page
 
   Scenario Outline: Sign in register redirect for buy action
     Given I am on the home page
-    When I click Buy now on a <book_type> book as a not logged in user
+    When I am buying a <book_type> book as a not logged in user
+    And I click buy now on book details page
     Then Sign in redirect page is displayed
 
   Examples:
     | book_type |
-    | pay for   |
+    | paid      |
     | free      |
