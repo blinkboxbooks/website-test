@@ -8,7 +8,7 @@ Feature: Unhappy path buy
   Scenario Outline: Returning user attempting to buy a book that already exists in his library
     Given I have a <book_type> book in my library
     When I have selected to buy a paid book on Book details page
-    And  sign in to proceed with purchase
+    And sign in to proceed with purchase
     Then book already exists in the library message displayed in confirm and pay page
 
    Examples:
