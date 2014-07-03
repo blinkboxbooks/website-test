@@ -116,6 +116,10 @@ Given /^I am on Categories page$/ do
   expect_page_displayed('Categories')
 end
 
+Given /^I am on the Book Details page of a (paid|free) book$/ do |book_type|
+  book_details_page.visit_for(book_type.downcase.to_sym)
+end
+
 When /^I click on a category$/ do
   @category_name = click_on_a_category
 end

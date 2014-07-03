@@ -7,7 +7,7 @@ module PageModels
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      change_to_list_view if view == 'list'
+      switch_to_list_view if view == 'list'
     end
 
     def click_on_a_category
@@ -47,14 +47,6 @@ module PageModels
         page_model('Book Details').load(isbn: isbn, title: 'a_book_title')
       end
       book_details_page.read_offline.click
-    end
-
-    def change_to_list_view
-      search_results_page.list_view_button.click
-    end
-
-    def change_to_grid_view
-      search_results_page.grid_view_button.click
     end
 
     def select_book_to_buy_on(page_name, book_type)

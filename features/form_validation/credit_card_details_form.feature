@@ -5,7 +5,7 @@ Feature: Credit card details form validation
 
   Background:
     Given I am returning user
-    And I am buying a pay for book as a logged in user
+    And I am buying a paid book as a logged in user
 
   Scenario Outline: Submit Payment details with empty values
     When I choose to pay with a new card

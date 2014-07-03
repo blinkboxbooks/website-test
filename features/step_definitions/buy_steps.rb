@@ -237,3 +237,7 @@ When /^I (?:select|selected) a book to (?:buy from Search results |buy )with pri
   @account_credit = price
   @book_price = buy_book_by_price(condition, @account_credit)
 end
+
+When /^I click buy now on book details page$/i do
+  book_details_page.buy_book
+end

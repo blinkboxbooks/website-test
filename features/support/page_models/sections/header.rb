@@ -21,6 +21,7 @@ module PageModels
     end
 
     def click
+      puts "Click on #{title} header tab"
       link.click
     end
   end
