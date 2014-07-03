@@ -15,7 +15,7 @@ module PageModels
     element :book_cover, '[data-test=book-title-cover]'
 
     def current_view
-      if has_list_view_button
+      if has_list_view_button?
         list_view_button[:class].include?('active') ? :list : :grid
       else
         nil
