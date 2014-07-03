@@ -9,6 +9,7 @@ module PageModels
     element :title_element, '#book-details h1'
 
     def title
+      wait_until_title_element_visible
       title_element.text.scan(/^(.+) by/).first.first
     end
 

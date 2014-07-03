@@ -86,7 +86,7 @@ Feature: Navigating through my account pages
 
   Scenario: FAQ links on Order complete page
     Given I have a stored card
-    And I have selected to buy a paid book
+    And I have selected to buy a paid book from Book details page
     And I sign in to proceed with purchase
     When I complete purchase by paying with saved card
     Then following FAQ links are displayed on confirmation page:
@@ -99,7 +99,7 @@ Feature: Navigating through my account pages
 
    Scenario: Continue shopping button on Order complete page
      Given I have a stored card
-     And I have selected to buy a paid book
+     And I have selected to buy a paid book from Book details page
      And I sign in to proceed with purchase
      When I complete purchase by paying with saved card
      When I click the "Continue shopping" button on order complete page
@@ -107,7 +107,7 @@ Feature: Navigating through my account pages
 
     Scenario: Download free app button on Order complete page
       Given I have a stored card
-      And I have selected to buy a paid book
+      And I have selected to buy a paid book from Book details page
       And I sign in to proceed with purchase
       When I complete purchase by paying with saved card
       Then the "Download the free app" button is displayed on the order complete page
