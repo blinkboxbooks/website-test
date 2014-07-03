@@ -1,6 +1,6 @@
 module PageModels
   class Reader < PageModels::BlinkboxbooksSection
-    element :page, '#reader_container'
+    element :page, '#cpr-reader'
     element :next_page_button, '.right-arrow'
     element :previous_page_button, '.left-arrow'
 
