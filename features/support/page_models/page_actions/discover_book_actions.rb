@@ -10,6 +10,15 @@ module PageModels
       switch_to_list_view if view == 'list'
     end
 
+    def search_in_grid_view(search_word)
+      puts "Searching for books with search word '#{search_word}'"
+      current_page.header.wait_until_search_input_visible
+      current_page.header.search_input.set search_word
+      current_page.header.wait_until_search_button_visible
+      current_page.header.search_button.click
+      search_results_page.wait_for_books
+    end
+
     def click_on_a_category
       @category_name = categories_page.select_category_by_index
       expect_page_displayed('Category')
@@ -95,6 +104,15 @@ module PageModels
         switch_to_list_view
       end
       book_type == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
+    end
+
+    def select_book_from_grid_view(book_type)
+      search_in_grid_view(return_search_word_for_book_type(book_type))
+      if book_type == :free
+        books_section.click_buy_now_free_book
+      else
+        books_section.click_buy_now_random_book
+      end
     end
 
     def buy_book_by_price(condition, price)

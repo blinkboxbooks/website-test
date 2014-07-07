@@ -86,6 +86,10 @@ Given /^I have selected to buy a (paid|free) book$/ do |book_type|
   @book_title = select_book_to_buy(book_type.to_sym)
 end
 
+Given(/^I have selected to buy a (free) book from Grid view$/) do |book_type|
+  @book_title = select_book_from_grid_view(book_type.to_sym)
+end
+
 And /^my payment failed at Braintree for not matching CVV$/ do
   confirm_and_pay_page.pay_with_new_card.click
   submit_new_payment_with_not_matching_cvv

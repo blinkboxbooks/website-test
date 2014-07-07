@@ -5,8 +5,8 @@ Feature: Returning buying book from blinkbox books
   I want to the ability to sign in and buy a book
   So that I can read it
 
-  Background:
-    Given I have a stored card
+#  Background:
+#    Given I have a stored card
 
   @smoke
   Scenario: Returning logged in user buying book with saved payment card
@@ -58,11 +58,11 @@ Feature: Returning buying book from blinkbox books
     When I click Confirm order
     Then my payment is successful
 
-    Scenario: Returning user buy a book from grid view
-      Given I am buying a free book as a logged in user
-      When I select buy now from the gird view
-      And I click Confirm order
-      Then my payment is successful
+  Scenario: Returning user buy a book from grid view
+    Given I have selected to buy a free book from Grid view
+    And I sign in to proceed with purchase
+    When I click Confirm order
+    Then my payment is successful
 
    @CWA-1000
    Scenario: Returning user adding a book sample to library first and then buying the book.
