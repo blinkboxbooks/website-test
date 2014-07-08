@@ -3,6 +3,7 @@ module PageModels
 
     element :layer, 'div.book'
     element :title_element, 'h2.title'
+    element :title_element_list, 'h2.title a'
     element :author_element, '[data-test="book-authors"]', :match => :first
     element :price_element, 'span[data-test="book-price"]'
     element :discount_price_element, 'span[data-test="book-price"] span.discount'
@@ -62,10 +63,16 @@ module PageModels
     end
 
     def click_view_details
-      mouse_over(cover_image)
-      wait_for_book_details_button
-      wait_until_book_details_button_visible
-      book_details_button.click
+      if parent.parent.current_view == :grid
+        mouse_over(cover_image)
+        wait_for_book_details_button
+        wait_until_book_details_button_visible
+        book_details_button.click
+      else
+        wait_for_title_element_list
+        wait_until_title_element_list_visible
+        title_element_list.click
+      end
     end
 
     def book_details_url

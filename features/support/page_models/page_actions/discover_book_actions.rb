@@ -37,7 +37,19 @@ module PageModels
       end
     end
 
-    def select_book_to_buy_from(page_name, book_type)
+    def select_book_to_add_as_sample(book_type, page)
+      isbn = test_data('library_isbns', 'free_sample') if book_type == 'free'
+      isbn = test_data('library_isbns', 'pay_for_sample') if book_type == 'paid'
+      if page == :search_results
+        search_blinkbox_books(isbn)
+        search_results_page.book_cover.click
+      else
+        page_model('Book Details').load(isbn: isbn, title: 'a_book_title')
+      end
+      book_details_page.read_offline.click
+    end
+
+    def select_book_to_buy_on(page_name, book_type)
       if page_name =~ /Search results/i
         search_blinkbox_books(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
@@ -62,8 +74,31 @@ module PageModels
       end
     end
 
+    def select_book_to_buy_from(page_name, book_type)
+      if page_name =~ /Search results/i
+        search_blinkbox_books(return_search_word_for_book_type(book_type))
+      elsif page_name =~ /Book details/i
+        search_blinkbox_books(return_search_word_for_book_type(book_type))
+        book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
+        book_title = book_details_page.title
+        book_details_page.buy_now.click
+        return book_title
+      elsif page_name =~ /Category/i
+        click_navigation_link('categories')
+        categories_page.select_category_by_index
+        switch_to_list_view
+      elsif current_page.header.tab(page_name).nil?
+        page = page_model(page_name)
+        page.load unless page.displayed?
+      else
+        click_navigation_link(page_name) unless page_model(page_name).displayed?
+        switch_to_list_view
+      end
+      book_type == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
+    end
+
     def buy_book_by_price(condition, price)
-      search_word = return_search_word_for_book_type('pay for')
+      search_word = return_search_word_for_book_type('paid')
       search_blinkbox_books(search_word)
       if condition.eql?('more')
         select_random_book_more_expensive_than(price)
