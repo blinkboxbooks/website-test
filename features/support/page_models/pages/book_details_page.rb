@@ -5,7 +5,7 @@ module PageModels
 
     element :read_offline, ".read-offline"
     element :buy_now, 'button[data-test="book-buy-button"]'
-    section :reader, Reader, 'div#individual-book'
+    iframe :reader, Reader, '#cpr-iframe'
     element :title_element, '#book-details h1'
 
     def title
