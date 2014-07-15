@@ -141,7 +141,7 @@ module BrowserstackUtilities
     attr_accessor :access_key
 
     def initialize(access_key, uri, ssl = true)
-      bin = File.dirname(__FILE__) + '/BrowserStackLocal'
+      bin = '/BrowserStackLocal'
       raise Errno::ENOENT, bin unless File.exist?(bin)
       @binary = bin
 
