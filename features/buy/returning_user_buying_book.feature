@@ -5,8 +5,8 @@ Feature: Returning buying book from blinkbox books
   I want to the ability to sign in and buy a book
   So that I can read it
 
-  Background:
-    Given I have a stored card
+#  Background:
+#    Given I have a stored card
 
   @smoke
   Scenario: Returning logged in user buying book with saved payment card
