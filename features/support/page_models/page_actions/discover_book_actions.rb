@@ -97,6 +97,15 @@ module PageModels
       book_type == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
     end
 
+    def select_book_from_grid_view(book_type)
+      search_blinkbox_books(return_search_word_for_book_type(book_type), 'grid')
+      if book_type == :free
+        books_section.click_buy_now_free_book
+      else
+        books_section.click_buy_now_random_book
+      end
+    end
+
     def buy_book_by_price(condition, price)
       search_word = return_search_word_for_book_type('paid')
       search_blinkbox_books(search_word)
