@@ -112,16 +112,16 @@ puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
 case Platform::OS
   when :win32
     separator = ";"
-    chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'chromedrv', 'win')
-    browserstack_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'browserstacklocal', 'win')
+    chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'chromedrv', 'win')
+    browserstack_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'browserstacklocal', 'win')
   when :unix
     separator = ":"
     if Platform::IMPL == :macosx
-      chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'chromedrv', 'mac')
-      browserstack_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'browserstacklocal', 'mac')
+      chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'chromedrv', 'mac')
+      browserstack_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'browserstacklocal', 'mac')
     else
-      chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'chromedrv', 'unix')
-      browserstack_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'browserstacklocal', 'unix')
+      chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'chromedrv', 'unix')
+      browserstack_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'browserstacklocal', 'unix')
     end
   else
     raise "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
