@@ -15,6 +15,7 @@ require 'benchmark'
 require 'yaml'
 require 'rspec'
 require 'api_methods.rb'
+require 'platform'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -104,6 +105,29 @@ require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbook
 require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
 require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+
+# ======= Setup PATH env. variable =======
+puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
+
+case Platform::OS
+  when :win32
+    separator = ";"
+    chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'chromedrv', 'win')
+    browserstack_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'browserstacklocal', 'win')
+  when :unix
+    separator = ":"
+    if Platform::IMPL == :macosx
+      chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'chromedrv', 'mac')
+      browserstack_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'browserstacklocal', 'mac')
+    else
+      chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'chromedrv', 'unix')
+      browserstack_path = File.expand_path File.join(File.dirname(__FILE__), 'lib', 'ext', 'browserstacklocal', 'unix')
+    end
+  else
+    raise "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
+end
+
+ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
 # ======= Setup target environment =======
 Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)

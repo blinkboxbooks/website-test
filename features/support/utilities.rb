@@ -141,8 +141,7 @@ module BrowserstackUtilities
     attr_accessor :access_key
 
     def initialize(access_key, uri, ssl = true)
-      bin = File.dirname(__FILE__) + '/BrowserStackLocal'
-      raise Errno::ENOENT, bin unless File.exist?(bin)
+      bin = 'BrowserStackLocal'
       @binary = bin
 
       @log_filename = "browserstack-tunnel-#{Time.now.to_i}.log"

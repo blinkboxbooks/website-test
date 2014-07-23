@@ -10,6 +10,7 @@ group :automation_libs do
   gem 'selenium-webdriver', '~> 2.39'
   gem 'selendroid', '~>0.4.0'
   gem 'site_prism'
+  gem 'Platform'
 end
 
 group :misc_libs do
