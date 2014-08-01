@@ -129,22 +129,16 @@ module BrowserstackUtilities
 
   require 'childprocess'
   require 'uri'
+  require 'timeout'
 
   class BrowserstackTunnel
-
-    attr_accessor :binary
-    attr_accessor :process
-    attr_accessor :log
-    attr_accessor :log_filename
-    attr_accessor :host
-    attr_accessor :port
-    attr_accessor :access_key
+    attr_accessor :binary, :process, :log, :log_filename, :host, :port, :access_key
 
     def initialize(access_key, uri, ssl = true)
       bin = 'BrowserStackLocal'
       @binary = bin
 
-      @log_filename = "browserstack-tunnel-#{Time.now.to_i}.log"
+      @log_filename = "results/browserstack-tunnel-#{Time.now.to_i}.log"
       @log = File.open(@log_filename, "w")
       @process = nil
 
@@ -158,14 +152,13 @@ module BrowserstackUtilities
     def start
       puts("Starting BrowserStack Tunnel...")
       process.start
-
-      # Wait until Selenium Server fully starts
-      until is_started()
-        # Do nothing, just wait. Todo: Implement a timeout!
-        if is_exiting()
+      # Wait until the tunnel is established
+      wait_until do
+        if is_exiting
           stop
           raise "Something went wrong during startup of BrowserStack binary... Please check logfile: #{@log_filename}"
         end
+        is_started
       end
       puts "Tunnel for #{server_info} started!\n\n"
     end
@@ -216,6 +209,14 @@ module BrowserstackUtilities
     def is_exiting
       File.read(@log_filename).encode!('UTF-8', 'UTF-8', :invalid => :replace).each_line { |line| return true if line =~ /\*\*\* Error:/ }
       false
+    end
+
+    def wait_until
+      require 'timeout'
+      Timeout.timeout(30) do
+        sleep(0.1) until value = yield
+        value
+      end
     end
   end
 
