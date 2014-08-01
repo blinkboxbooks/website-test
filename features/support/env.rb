@@ -124,8 +124,8 @@ case Platform::OS
     raise "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
 end
 
-chromedriver_path = File.expand_path File.join(File.join(File.dirname(__FILE__), '..', '..', 'lib', 'chromedrv'), current_os)
-browserstack_path = File.expand_path File.join(File.join(File.dirname(__FILE__), '..', '..', 'lib', 'browserstacklocal'), current_os)
+chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'chromedrv', current_os)
+browserstack_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'browserstacklocal', current_os)
 
 ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
