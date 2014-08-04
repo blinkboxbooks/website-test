@@ -202,7 +202,7 @@ module BrowserstackUtilities
     end
 
     def is_started
-      File.read(@log_filename).encode!('UTF-8', 'UTF-8', :invalid => :replace).each_line { |line| return true if line.include?('You can now access your local server(s) in our remote browser:') }
+      File.read(@log_filename).encode!('UTF-8', 'UTF-8', :invalid => :replace).each_line { |line| return true if line.include?('You can now access your local server(s) in our remote browser') }
       false
     end
 
