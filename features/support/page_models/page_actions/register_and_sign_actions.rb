@@ -86,6 +86,7 @@ module PageModels
         submit_sign_in_details(email_address, password)
       end
       puts "Email address used for user sign-in: #{email_address}"
+      test_data('name', 'user_with_devices')
     end
 
     def set_email_and_password(email_address, password)
