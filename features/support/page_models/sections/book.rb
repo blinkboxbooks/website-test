@@ -4,7 +4,7 @@ module PageModels
     element :layer, 'div.book'
     element :title_element, 'h2.title'
     element :title_element_list, 'h2.title a'
-    element :author_element, '[data-test="book-authors"]', :match => :first
+    element :author_element, '[data-test^="book-authors"]', :match => :first
     element :price_element, 'span[data-test="book-price"]'
     element :discount_price_element, 'span[data-test="book-price"] span.discount'
     element :cover_image, 'div.cover'
