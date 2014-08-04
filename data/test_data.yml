@@ -108,7 +108,7 @@
  ESTEBAN:
    <<: *QA
 
- PRODUCTION:
+ PRODUCTION: &PRODUCTION
   <<: *COMMON
   emails:
     happypath_user: books_tester01@blinkbox.com
@@ -201,4 +201,7 @@
     address_linetwo: my address line two
     town_or_city: My town
     postcode: WC18AQ
-    cvv_does_not_match: 200  
+    cvv_does_not_match: 200
+
+ DEV:
+  <<: *PRODUCTION
