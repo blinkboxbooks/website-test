@@ -1,6 +1,6 @@
 And(/^I search for term "(.*?)"$/) do |term|
   @search = term
-  search_blinkbox_books @search
+  search_blinkbox_books @search, 'grid'
 end
 
 And(/^I search for term "(.*?)" in grid view$/) do |term|
@@ -51,8 +51,8 @@ Then(/^I should get a message$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  expect(search_results_page).to_not have_list_view_button
-  expect(search_results_page).to_not have_grid_view_button
+  expect(search_results_page).to have_no_list_view_button
+  expect(search_results_page).to have_no_grid_view_button
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
