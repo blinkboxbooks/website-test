@@ -1,11 +1,11 @@
 And(/^I search for term "(.*?)"$/) do |term|
   @search = term
-  search_blinkbox_books @search, 'grid'
+  search(@search, :grid)
 end
 
 And(/^I search for term "(.*?)" in grid view$/) do |term|
   @search = term
-  search_blinkbox_books @search, 'grid'
+  search(@search, :grid)
 end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
@@ -90,8 +90,7 @@ end
 
 
 When (/^I search for "(.*?)"$/) do |word|
-  @search_word = word
-  search_blinkbox_books @search_word
+  search(@search_word = word)
 end
 
 And(/^at least 1 search result is shown$/) do
@@ -151,7 +150,7 @@ end
 
 When /^I search for following words$/ do |table|
    table.hashes.each do |search_word|
-     search_blinkbox_books search_word['words']
+     search(search_word['words'])
    end
 end
 And /^I should see search results page for "(.*?)"$/ do |search_word|
