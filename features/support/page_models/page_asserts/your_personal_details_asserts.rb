@@ -5,15 +5,11 @@ module PageModels
     end
 
     def assert_user_greeting_message_displayed(first_name = nil)
-      expect(current_page.header.logged_in_user_name).to eq(first_name)
+      expect(current_page.header.user_name).to eq(first_name)
     end
 
     def assert_user_greeting_message_not_displayed
-      # This is to prevent sleeping for x seconds. Rspec expectation is flaky, in this rather obscure case due to sync issue.
-      # expect(current_page.header.guest_user?).to be true
-      wait_until { current_page.header.guest_user? }
-    rescue
-      raise "Still logged in as user: #{current_page.header.logged_in_user_name}"
+      expect(current_page.header.logged_in?).to be_false
     end
 
     def assert_marketing_preferences(after_status)

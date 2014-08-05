@@ -89,12 +89,12 @@ module PageModels
       end
     end
 
-    def logged_in_user_name
+    def user_name
       welcome_text_element['data-name']
     end
 
-    def guest_user?
-      logged_in_user_name == 'anonymous'
+    def logged_in?
+      user_name != 'anonymous'
     end
   end
 end
