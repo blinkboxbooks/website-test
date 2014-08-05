@@ -178,6 +178,10 @@ When /^I click on Send me a reset link$/ do
   click_forgotten_password_link
 end
 
+When /^I click on Send reset link$/ do
+  reset_password_page.click_send_reset_password_link
+end
+
 Given /^I am returning user(?: with saved payment details)?$/ do
   set_email_and_password(test_data('emails', 'no_expired_cards'), test_data('passwords', 'valid_password'))
 end
