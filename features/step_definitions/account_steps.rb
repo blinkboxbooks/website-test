@@ -9,9 +9,9 @@ Given /^I am not signed in$/ do
 end
 
 Given /^I have signed in$/ do
-  first_name = sign_in(@email_address)
+  sign_in(@email_address)
   assert_page('Home')
-  assert_user_greeting_message_displayed(first_name)
+  assert_user_greeting_message_displayed
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do

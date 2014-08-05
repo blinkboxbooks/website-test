@@ -4,8 +4,8 @@ module PageModels
       expect(your_account_page.account_nav_frame.selected_tab.title).to eq(tab_name)
     end
 
-    def assert_user_greeting_message_displayed(first_name = nil)
-      expect(current_page.header.user_name).to eq(first_name)
+    def assert_user_greeting_message_displayed()
+      expect(current_page.header.logged_in?).to be_true
     end
 
     def assert_user_greeting_message_not_displayed
