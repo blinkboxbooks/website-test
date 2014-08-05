@@ -78,7 +78,9 @@ And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
 end
 
 And /^first suggestions should contain complete word "(.+)"$/ do |search_word|
-  expect(current_page.search_form.suggestions[0].text).to include(search_word)
+  expect(current_page.search_form).to have_suggestions
+  expect(current_page.search_form.suggestions).to have_at_least(1).item
+  expect(current_page.search_form.suggestions.first.text).to include(search_word)
 end
 
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
