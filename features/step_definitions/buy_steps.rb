@@ -108,11 +108,6 @@ And /^(book|sample) already exists in the library message displayed in confirm a
   assert_book_exists_in_library_message(type)
 end
 
-When /^I select above (paid|free) book to add sample$/ do |book_type|
-  # TODO: Search for usage
-  book_type.include?('free') ? select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'free_sample')) : select_book_by_isbn_to_read(book_type.to_sym, test_data('library_isbns', 'pay_for_sample'))
-end
-
 And /^payment failure message should be displayed$/ do
   assert_payment_failure_message
 end
