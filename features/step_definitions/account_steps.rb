@@ -11,7 +11,7 @@ end
 Given /^I have signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
-  assert_user_greeting_message_displayed
+  assert_user_greeting_message_displayed(@first_name)
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do

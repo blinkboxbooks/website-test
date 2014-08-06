@@ -74,6 +74,7 @@
 
   name:
     happypath_user: Happy-path
+    user_with_devices: bookstester-card
 
   passwords:
     valid_password: test1234
@@ -128,6 +129,7 @@
 
   name:
     happypath_user: Happy-path
+    user_with_devices: bookstester-card
 
   passwords:
     valid_password: test1234
@@ -175,6 +177,7 @@
 
   name:
     happypath_user: Happy-path
+    user_with_devices: bookstester-card
 
   passwords:
     valid_password: test1234

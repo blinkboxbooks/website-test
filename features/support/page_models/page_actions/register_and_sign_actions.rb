@@ -77,7 +77,10 @@ module PageModels
     end
 
     def sign_in(email_address=@email_address, password=@password)
-      email_address ||= test_data('emails', 'user_with_devices')
+      if email_address.nil?
+        email_address = test_data('emails', 'user_with_devices')
+        @first_name = test_data('name', 'user_with_devices')
+      end
       password ||= test_data('passwords', 'valid_password')
       if logged_in_session?
         raise 'User is already signed in, which is not expected, please check your flow'
