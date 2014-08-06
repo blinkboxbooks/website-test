@@ -1,13 +1,13 @@
 module PageModels
   module DiscoverBookActions
-    def search_blinkbox_books(search_word, view = 'list')
+    def search(search_word, view = :list)
       puts "Searching for books with search word '#{search_word}'"
       current_page.header.wait_until_search_input_visible
       current_page.header.search_input.set search_word
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      switch_to_list_view if view == 'list'
+      switch_to_list_view if view.to_sym == :list
     end
 
     def click_on_a_category
@@ -18,7 +18,7 @@ module PageModels
     end
 
     def select_book_to_view_details(book_type)
-      search_blinkbox_books(return_search_word_for_book_type(book_type))
+      search(return_search_word_for_book_type(book_type))
       book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
     end
 
@@ -28,7 +28,7 @@ module PageModels
     end
 
     def select_book_to_buy(book_type)
-      search_blinkbox_books(return_search_word_for_book_type(book_type))
+      search(return_search_word_for_book_type(book_type))
 
       if book_type == :free
         books_section.click_buy_now_free_book
@@ -41,7 +41,7 @@ module PageModels
       isbn = test_data('library_isbns', 'free_sample') if book_type == 'free'
       isbn = test_data('library_isbns', 'pay_for_sample') if book_type == 'paid'
       if page == :search_results
-        search_blinkbox_books(isbn)
+        search(isbn)
         search_results_page.book_cover.click
       else
         page_model('Book Details').load(isbn: isbn, title: 'a_book_title')
@@ -51,7 +51,7 @@ module PageModels
 
     def select_book_to_buy_on(page_name, book_type)
       if page_name =~ /Search results/i
-        search_blinkbox_books(return_search_word_for_book_type(book_type))
+        search(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
         page_model(page_name).load(isbn: test_data('library_isbns', book_type.downcase.gsub(' ', '_') + '_book'), title: 'a_book_title')
         book_title = book_details_page.title
@@ -76,9 +76,9 @@ module PageModels
 
     def select_book_to_buy_from(page_name, book_type)
       if page_name =~ /Search results/i
-        search_blinkbox_books(return_search_word_for_book_type(book_type))
+        search(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
-        search_blinkbox_books(return_search_word_for_book_type(book_type))
+        search(return_search_word_for_book_type(book_type))
         book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
         book_title = book_details_page.title
         book_details_page.buy_now.click
@@ -98,7 +98,7 @@ module PageModels
     end
 
     def select_book_from_grid_view(book_type)
-      search_blinkbox_books(return_search_word_for_book_type(book_type), 'grid')
+      search(return_search_word_for_book_type(book_type), :grid)
       if book_type == :free
         books_section.click_buy_now_free_book
       else
@@ -107,8 +107,7 @@ module PageModels
     end
 
     def buy_book_by_price(condition, price)
-      search_word = return_search_word_for_book_type('paid')
-      search_blinkbox_books(search_word)
+      search(return_search_word_for_book_type('paid'))
       if condition.eql?('more')
         select_random_book_more_expensive_than(price)
       elsif condition.eql?('less')
@@ -117,14 +116,14 @@ module PageModels
     end
 
     def select_book_by_isbn_to_buy(isbn)
-      search_blinkbox_books isbn
+      search(isbn)
       books_section.books[0].click_view_details
       book_details_page.wait_for_buy_now
       book_details_page.buy_now.click
     end
 
     def select_book_by_isbn_to_read(isbn)
-      search_blinkbox_books isbn
+      search(isbn)
       books_section.books[0].click_view_details
       click_read_offline
     end
