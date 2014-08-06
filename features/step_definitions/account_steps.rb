@@ -179,7 +179,7 @@ When /^I click on Send me a reset link$/ do
 end
 
 When /^I click on Send reset link$/ do
-  reset_password_page.click_send_reset_password_link
+  reset_password_page.send_reset_link.click
 end
 
 Given /^I am returning user(?: with saved payment details)?$/ do
