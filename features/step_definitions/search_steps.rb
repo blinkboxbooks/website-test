@@ -90,7 +90,8 @@ end
 
 
 When (/^I search for "(.*?)"$/) do |word|
-  search(@search_word = word)
+  @search_word = word
+  search(@search_word)
 end
 
 And(/^at least 1 search result is shown$/) do
