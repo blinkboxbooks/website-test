@@ -53,7 +53,7 @@
     - Travel
     - New
 
- TEST_ENV: &TEST_ENV
+ TEST_DATA: &TEST_DATA
   <<: *COMMON
   emails:
     happypath_user: happy_path_signin@mobcastdev.com
@@ -101,7 +101,7 @@
     postcode: WC18AQ
     cvv_does_not_match: 200
 
- PROD_ENV: &PROD_ENV
+ LIVE_DATA: &LIVE_DATA
   <<: *COMMON
   emails:
     happypath_user: books_tester01@blinkbox.com
@@ -150,16 +150,16 @@
     cvv_does_not_match: 200
 
  LOCALHOST:
-  <<: *PROD_ENV
+  <<: *LIVE_DATA
 
  NODEJS-INTERNAL:
-  <<: *PROD_ENV
+  <<: *LIVE_DATA
 
  DEV:
-  <<: *PROD_ENV
+  <<: *LIVE_DATA
 
  QA:
-  <<: *PROD_ENV
+  <<: *LIVE_DATA
 
  PRODUCTION:
-  <<: *PROD_ENV
+  <<: *LIVE_DATA
