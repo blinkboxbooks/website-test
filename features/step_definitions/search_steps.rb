@@ -1,11 +1,11 @@
 And(/^I search for term "(.*?)"$/) do |term|
   @search = term
-  search_blinkbox_books @search
+  search(@search, :grid)
 end
 
 And(/^I search for term "(.*?)" in grid view$/) do |term|
   @search = term
-  search_blinkbox_books @search, 'grid'
+  search(@search, :grid)
 end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
@@ -51,8 +51,8 @@ Then(/^I should get a message$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  expect(search_results_page).to_not have_list_view_button
-  expect(search_results_page).to_not have_grid_view_button
+  expect(search_results_page).to have_no_list_view_button
+  expect(search_results_page).to have_no_grid_view_button
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
@@ -93,7 +93,7 @@ end
 
 When (/^I search for "(.*?)"$/) do |word|
   @search_word = word
-  search_blinkbox_books @search_word
+  search(@search_word)
 end
 
 And(/^at least 1 search result is shown$/) do
@@ -153,7 +153,7 @@ end
 
 When /^I search for following words$/ do |table|
    table.hashes.each do |search_word|
-     search_blinkbox_books search_word['words']
+     search(search_word['words'])
    end
 end
 And /^I should see search results page for "(.*?)"$/ do |search_word|
