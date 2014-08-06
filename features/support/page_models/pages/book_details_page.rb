@@ -6,11 +6,12 @@ module PageModels
     element :read_offline, ".read-offline"
     element :buy_now, 'button[data-test="book-buy-button"]'
     iframe :reader, Reader, '#cpr-iframe'
-    element :title_element, '#book-details h1'
+    element :title_element, 'h2.title', :match => :first
 
     def title
+      wait_for_title_element
       wait_until_title_element_visible
-      title_element.text.scan(/^(.+) by/).first.first
+      title_element.text
     end
 
     def visit_for(book_type)
