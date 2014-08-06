@@ -130,9 +130,9 @@
     change_password: mypassword123
 
   clubcards:
-    valid_clubcard_number:
-    valid_clubcard_register:
-    invalid_clubcard_number:
+    valid_clubcard_number: 634004024023421292
+    valid_clubcard_register: 634004024330263890
+    invalid_clubcard_number: 434004024023421292
 
   payment:
     visa:

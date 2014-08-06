@@ -187,7 +187,7 @@ Given /^I have attempted to register with already registered email address$/ do
 end
 
 When /^I click on link to sign in with already registered email$/ do
-  click_sign_in_button
+  register_page.sign_in_with_existing_email_link.click
 end
 
 Given /^I have a (?:paid|free) (?:book|book sample) in my library$/ do
