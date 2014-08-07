@@ -99,7 +99,7 @@ module BlinkboxWebUtilities
   end
 
   def logged_in_session?
-    !current_page.header.welcome.text(:visible).empty?
+    current_page.header.logged_in?
   end
 
   def log_out_current_session

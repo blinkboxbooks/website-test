@@ -30,6 +30,7 @@ module PageModels
     element :user_account_logo, '#user-menu'
     element :main_menu, '#main-menu'
     element :welcome, '.username'
+    element :welcome_text_element, '.username span', :visible => false
     element :search_input, '[data-test="search-input"]'
     element :search_button, '[data-test="search-button"]'
     element :suggestions, 'ul#suggestions'
@@ -86,6 +87,18 @@ module PageModels
       else
         raise "Not recognised header navigation link: #{link_name}"
       end
+    end
+
+    def user_name_displayed
+      welcome_text_element.text.gsub('Hi,', '').strip
+    end
+
+    def user_name
+      welcome_text_element['data-name']
+    end
+
+    def logged_in?
+      user_name != 'anonymous'
     end
   end
 end
