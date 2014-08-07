@@ -160,7 +160,7 @@ And /^clicking above FAQ link opens relevant support page in a new window$/ do
   end
 end
 
-Given /^I am on reset password page$/  do
+Given /^I am on the reset password page$/  do
   reset_password_page.load
 end
 

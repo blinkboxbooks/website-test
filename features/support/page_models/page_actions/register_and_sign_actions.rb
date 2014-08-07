@@ -121,6 +121,7 @@ module PageModels
     end
 
     def click_forgotten_password_link
+      sign_in_page.wait_for_forgotten_password_link
       sign_in_page.forgotten_password_link.click
     end
 

@@ -72,15 +72,15 @@ Feature: Sign into Blinkbox books
 
   @production
   Scenario: Request Reset my password
-    Given I am on reset password page
+    Given I am on the reset password page
     When I enter email address registered with blinkbox books
-    And I click on Send me a reset link
+    And I click on Send reset link
     Then reset password response page is displayed
     And reset email confirmation message is displayed
 
   @negative @production @pending
   Scenario: Enter invalid email address on reset my password screen
-    Given I am on reset password page
+    Given I am on the reset password page
     When I try to enter incorrect email address
     Then the reset password link is not sent
     And "It looks like there’s nothing wrong with this email address. Please make sure you typed it correctly and try again” message is displayed
