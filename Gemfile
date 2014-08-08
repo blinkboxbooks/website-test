@@ -1,14 +1,14 @@
-source 'https://rubygems.org'
-source "http://gems.mobcastdev.com"
+source "http://artifactory.blinkbox.local/artifactory/api/gems/bbb-gems/"
+source "http://artifactory.blinkbox.local/artifactory/api/gems/rubygems/"
 ruby '2.0.0'
 
 group :automation_libs do
   gem 'cucumber'
   gem 'rspec'
-  gem 'capybara', '~> 2.2.1'
+  gem 'capybara', '~> 2.4'
   gem 'capybara-angular'
   gem 'selenium-webdriver', '~> 2.39'
-  gem 'selendroid', '~>0.4.0'
+  gem 'selendroid'
   gem 'site_prism'
   gem 'Platform'
 end
@@ -33,7 +33,7 @@ end
 
 group :reporting do
   gem 'cuporter'
-  gem 'cucumber-blinkbox', '~> 0.2.0'
+  gem 'cucumber-blinkbox', '~> 0.3'
 end
 
 group :debug do
