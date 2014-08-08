@@ -48,10 +48,11 @@ Feature: User adding sample to Library
 
   @negative
   Scenario Outline: Returning user attempting to add book sample that already exists in his library
-    Given I have a <book_type> book sample in my library
-    When I have identified the same <book_type> book to read offline as a sample
-    And sign in to proceed with adding sample
-    Then sample already exists in the library message displayed in confirm and pay page
+    Given I have a <book_type> book as a sample in my library
+    When I am on the Book Details page for the same <book_type> book
+    And I try to add the book as a sample again
+    And I sign in to proceed
+    Then sample already exists in the library message is displayed on the confirm and pay page
 
   Examples:
     | book_type |
@@ -60,10 +61,11 @@ Feature: User adding sample to Library
 
   @negative
   Scenario Outline: Returning user attempting to add book sample of which full book already exists in his library
-    Given I have a <book_type> book in my library
-    When I have identified the same <book_type> book to read offline as a sample
-    And  sign in to proceed with adding sample
-    Then sample already exists in the library message displayed in confirm and pay page
+    Given I have purchased a <book_type> book
+    When I am on the Book Details page for the same <book_type> book
+    And I try to add the book as a sample
+    And sign in to proceed
+    Then book already exists in the library message is displayed on the confirm and pay page
 
   Examples:
     | book_type |

@@ -5,8 +5,8 @@ Feature: New user cancels order
   So that I can cancel unwanted order.
 
   Scenario Outline: First time user cancels order in payments page
-    Given I have selected to buy a <book_type> book from <page_name> page
-    And I register to proceed with purchase
+    Given I have selected to buy a <book_type> book from the <page_name> page
+    And I register to proceed with the purchase
     When I cancel order
     And confirm cancel order
     Then I am redirected to <page_name> page
@@ -24,7 +24,7 @@ Feature: New user cancels order
     | Free eBooks    | free      |
 
   Scenario Outline: First time user cancels order in registration page
-    Given I have selected to buy a <book_type> book from <page_name> page
+    Given I have selected to buy a <book_type> book from the <page_name> page
     And I have selected register option
     When I cancel registration
     And confirm cancel registration

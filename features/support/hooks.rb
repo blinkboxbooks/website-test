@@ -9,6 +9,7 @@ Before('~@reset_session') do
 end
 
 After do |scenario|
+  log_out_current_session if logged_in_session?
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
     puts "'FAIL FAST' option is ON"
     # Tell Cucumber to quit after this scenario is done - if it failed
