@@ -15,12 +15,7 @@ module PageModels
     end
 
     def visit_for(book_type)
-      begin
-        isbn = test_data('library_isbns', book_type.to_s)
-      rescue => e
-        raise "Cannot load book details page with unknown book type: #{book_type.to_s}\n \nTest Data Error: #{e.message}"
-      end
-      self.load(:isbn => isbn, :title => 'test-book')
+      self.load(:isbn => isbn_for_book_type(book_type), :title => 'test-book')
     end
 
     def buy_book

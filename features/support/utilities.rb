@@ -24,6 +24,12 @@ module Utilities
     random_words = test_list('random_search_keywords')
     book_type == :free ? 'free' : random_words.sample
   end
+
+  def isbn_for_book_type(book_type)
+    test_data('library_isbns', book_type.to_s)
+  rescue => e
+    raise "Cannot return isbn for unknown book type: #{book_type.to_s}\n \nTest Data Error: #{e.message}"
+  end
 end
 
 module WebUtilities

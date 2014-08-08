@@ -38,7 +38,7 @@ module PageModels
     end
 
     def select_book_to_add_as_sample(book_type, page)
-      book_type.to_sym == :free ? test_data('library_isbns', 'sample_for_free_book') : test_data('library_isbns', 'sample_for_paid_book')
+      isbn = isbn_for_book_type("sample_for_#{book_type.to_s}_book")
       if page == :search_results
         search(isbn)
         search_results_page.book_cover.click
@@ -52,7 +52,7 @@ module PageModels
       if page_name =~ /Search results/i
         search(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
-        page_model(page_name).load(isbn: test_data('library_isbns', book_type.downcase.gsub(' ', '_') + '_book'), title: 'a_book_title')
+        page_model(page_name).load(isbn: isbn_for_book_type(book_type), title: 'a_book_title')
         book_title = book_details_page.title
         book_details_page.buy_now.click
         return book_title
