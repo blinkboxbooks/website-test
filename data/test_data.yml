@@ -21,8 +21,8 @@
   library_isbns:
     paid_book: 9781448169795
     free_book: 9781782112747
-    paid_sample: 9781603763370
-    free_sample: 9780985491062
+    sample_for_paid_book: 9781603763370
+    sample_for_free_book: 9780985491062
 
   random_search_keywords:
     - Winter
