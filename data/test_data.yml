@@ -19,8 +19,8 @@
     contact_us: https://support.blinkboxbooks.com/anonymous_requests/new
 
   library_isbns:
-    paid_book: 9781448169795
-    free_book: 9781782112747
+    paid: 9781448169795
+    free: 9781782112747
     sample_for_paid_book: 9781603763370
     sample_for_free_book: 9780985491062
 

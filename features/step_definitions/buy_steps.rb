@@ -19,7 +19,7 @@ When /^I choose to pay with a new card$/ do
 end
 
 And /^I have identified a (free|paid) book on the (book details|search results) page to read sample offline$/ do |book_type, page|
-  select_book_to_add_as_sample(book_type, page.gsub(' ', '_').to_s)
+  select_book_to_add_as_sample(book_type, page.gsub(' ', '_').to_sym)
 end
 
 And /^I have identified the same (free|paid) book to read offline as a sample$/ do |book_type|

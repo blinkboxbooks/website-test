@@ -15,13 +15,12 @@ module PageModels
     end
 
     def visit_for(book_type)
-      case book_type
-        when :free then self.load(:isbn => test_data('library_isbns', 'free_book'), :title => 'test-book')
-        when :paid then self.load(:isbn => test_data('library_isbns', 'pay_for_book'), :title => 'test-book')
-        when :free_sample then self.load(:isbn => test_data('library_isbns', 'sample_for_free_book'), :title => 'test-book')
-        when :paid_sample then self.load(:isbn => test_data('library_isbns', 'sample_for_paid_book'), :title => 'test-book')
-        else raise "Cannot load book details page with unknown book type: #{book_type.to_s}"
+      begin
+        isbn = test_data('library_isbns', book_type.to_s)
+      rescue => e
+        raise "Cannot load book details page with unknown book type: #{book_type.to_s}\n \nTest Data Error: #{e.message}"
       end
+      self.load(:isbn => isbn, :title => 'test-book')
     end
 
     def buy_book
