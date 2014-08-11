@@ -11,13 +11,12 @@ end
 Given /^I have signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
-  assert_user_greeting_message_displayed(@first_name)
+  assert_user_greeting_message_displayed
 end
 
-Given /^I have signed in as (.+)$/ do |user_ref|
-  @email_address = test_data('emails', user_ref)
+Given /^I have signed in to change my first name$/ do
+  @email_address = test_data('emails', 'change_first_name')
   @password = test_data('passwords', 'valid_password')
-  @first_name = test_data('name', user_ref)
   sign_in(@email_address)
 end
 

@@ -10,7 +10,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   @CWA-213 @smoke @production
   Scenario: Successfully update Your personal information
-    Given I have signed in as change_name_a_lot
+    Given I have signed in to change my first name
     And I am on the Personal details tab
     When I edit the first name and last name
     And I submit my personal details
