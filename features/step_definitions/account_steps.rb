@@ -14,6 +14,13 @@ Given /^I have signed in$/ do
   assert_user_greeting_message_displayed(@first_name)
 end
 
+Given /^I have signed in as (.+)$/ do |user_ref|
+  @email_address = test_data('emails', user_ref)
+  @password = test_data('passwords', 'valid_password')
+  @first_name = test_data('name', user_ref)
+  sign_in(@email_address)
+end
+
 When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
   sign_in_from_redirected_page
 end
@@ -86,6 +93,7 @@ end
 
 Given /^I have multiple stored cards$/ do
   @email_address = test_data('emails', 'multiple_storedcards')
+  @first_name = test_data('name', 'multiple_storedcards')
 end
 
 Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$/ do
