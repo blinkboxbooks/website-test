@@ -35,11 +35,9 @@ module AssertNavigation
   end
 
   def assert_book_details
-    # Latest CPR (v0.2.3) needs to be rolled out, which includes id="cpr-iframe" (capybara can't locate iframe elements by other than ID!)
-    # expect(book_details_page).to be_all_there
-    expect(book_details_page).to have_read_offline
-    expect(book_details_page).to have_buy_now
-    expect(book_details_page).to have_title_element
+    pending "Latest CPR (v0.2.3) needs to be rolled out, which includes id=\"cpr-iframe\" (capybara can't locate iframe elements by other than ID!)" do
+      expect(book_details_page).to be_all_there
+    end
   end
 
   def assert_book_reader
