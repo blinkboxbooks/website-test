@@ -11,7 +11,7 @@ end
 Given /^I have signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
-  assert_user_greeting_message_displayed
+  assert_logged_in_session
 end
 
 Given /^I have signed in to change my first name$/ do

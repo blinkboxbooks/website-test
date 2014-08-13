@@ -39,7 +39,7 @@ Given /^I have registered as new user (without|with) a clubcard/ do |provide_clu
   navigate_to_register_form
   @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
   @current_password, @email_address, @first_name, @last_name = register_new_user(provide_clubcard, @valid_clubcard)
-  assert_user_greeting_message_displayed
+  assert_user_greeting_message_displayed(@first_name)
 end
 
 When /^I edit email address$/ do
@@ -65,7 +65,7 @@ end
 And /^I can sign in with the new password successfully$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @new_password)
-  assert_user_greeting_message_displayed
+  assert_logged_in_session
 end
 
 When /^I delete the first card from the list$/ do
@@ -123,7 +123,7 @@ end
 And /^my password is not updated$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @current_password)
-  assert_user_greeting_message_displayed
+  assert_logged_in_session
 end
 
 When /^I remove clubcard number$/ do
