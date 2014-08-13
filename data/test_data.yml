@@ -19,10 +19,10 @@
     contact_us: https://support.blinkboxbooks.com/anonymous_requests/new
 
   library_isbns:
-    pay_for_book: 9781448169795
-    free_book: 9781782112747
-    pay_for_sample: 9781603763370
-    free_sample: 9780985491062
+    paid: 9781448169795
+    free: 9781782112747
+    sample_for_paid_book: 9781603763370
+    sample_for_free_book: 9780985491062
 
   random_search_keywords:
     - Winter
