@@ -98,7 +98,7 @@ end
 
 And(/^at least 1 search result is shown$/) do
   expect(books_section).to have_books
-  expect(books_section.books).to have_at_least(1).item
+  expect(books_section.books).to have_at_least(1).items
 end
 
 Then /^search results should be displayed$/ do

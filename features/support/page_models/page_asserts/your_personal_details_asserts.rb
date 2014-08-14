@@ -4,7 +4,7 @@ module PageModels
       expect(your_account_page.account_nav_frame.selected_tab.title).to eq(tab_name)
     end
 
-    def assert_user_greeting_message_displayed(first_name = @first_name)
+    def assert_user_greeting_message_displayed(first_name)
       expect(logged_in_session?).to be true
       expect(current_page.header.user_name_displayed).to eq(first_name)
     end

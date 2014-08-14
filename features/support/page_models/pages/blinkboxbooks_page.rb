@@ -2,6 +2,7 @@ module PageModels
   class BlinkboxbooksPage < SitePrism::Page
     include RSpec::Matchers
     include WebUtilities
+    include Utilities
 
     def navigation_timeout
       Capybara.default_wait_time

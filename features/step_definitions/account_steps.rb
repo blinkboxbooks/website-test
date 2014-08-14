@@ -11,7 +11,13 @@ end
 Given /^I have signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
-  assert_user_greeting_message_displayed(@first_name)
+  assert_logged_in_session
+end
+
+Given /^I have signed in to change my first name$/ do
+  @email_address = test_data('emails', 'change_first_name')
+  @password = test_data('passwords', 'valid_password')
+  sign_in(@email_address)
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
@@ -86,6 +92,7 @@ end
 
 Given /^I have multiple stored cards$/ do
   @email_address = test_data('emails', 'multiple_storedcards')
+  @first_name = test_data('name', 'multiple_storedcards')
 end
 
 Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$/ do
