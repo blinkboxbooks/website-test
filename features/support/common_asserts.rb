@@ -70,11 +70,11 @@ module AssertSearch
   end
 
   def assert_unique_result
-    expect(books_section.books).to have_exactly(1).items
+    expect(books_section.books).to have_exactly(1).item
   end
 
   def assert_number_of_suggestions(number_of_suggestion)
-    expect(current_page.search_form.suggestions).to have_at_least(number_of_suggestion).items
+    expect(current_page.search_form.suggestions).to have_at_least(number_of_suggestion).item
   end
 
   def assert_auto_corrected_word(corrected_word)
