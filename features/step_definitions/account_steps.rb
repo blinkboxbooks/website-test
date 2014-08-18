@@ -22,6 +22,12 @@ Given /^I am on the Sign in page$/ do
   sign_in_page.load
 end
 
+When /^I sign in with incorrect email address and password$/ do
+  enter_sign_in_details("lazy_image@yahoo.co.uk", "password")
+  click_sign_in_button
+end
+
+
 When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
