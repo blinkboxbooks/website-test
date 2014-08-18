@@ -158,8 +158,8 @@
  LOCALHOST:
   <<: *LIVE_DATA
 
- NODEJS-INTERNAL:
-  <<: *LIVE_DATA
+ TEST:
+  <<: *TEST_DATA
 
  DEV:
   <<: *LIVE_DATA
