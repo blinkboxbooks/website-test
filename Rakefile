@@ -49,7 +49,7 @@ namespace :teamcity do
     end
 
     def runs_remaining?
-      @run <= @reruns
+      @run < @reruns
     end
 
     desc 'Rerun Cucumber tasks with rerunning on failure.'
@@ -99,11 +99,13 @@ namespace :teamcity do
 
     desc 'Run Cucumber task with rerun logic.'
     Cucumber::Rake::Task.new(:run) do | t |
+      raise "Please specify a cucumber profile!" if ENV['cucumber_profile'].nil?
       t.cucumber_opts = ["-p #{ENV['cucumber_profile']} -f rerun --out rerun.txt"]
     end
 
     desc 'Rerun Cucumber tests'
     task :rerun, [:last, :current]  do | t, args |
+      raise "Please specify a cucumber profile!" if ENV['cucumber_profile'].nil?
       task = "cuke-#{@run}"
 
       Cucumber::Rake::Task.new(task) do | t |
