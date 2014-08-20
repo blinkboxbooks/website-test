@@ -81,8 +81,9 @@ Feature: Sign into Blinkbox books
   @negative @production
   Scenario: Enter invalid email address on reset my password screen
     Given I am on the reset password page
-    Then I enter incorrect email address
-    When I click on send reset link button
+    When I enter incorrect email address
+    And I click on send reset link button
+    Then I should see reset error message
     And "It looks like there's something wrong with this email address. Please make sure you typed it correctly and try again" message is displayed
 
 

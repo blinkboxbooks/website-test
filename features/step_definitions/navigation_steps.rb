@@ -165,16 +165,15 @@ Given /^I am on the reset password page$/  do
 end
 
 When /^I enter incorrect email address$/  do
-  enter_invalid_email_address(test_data('emails', 'email_with_no_at'))
+  reset_password_page.email_address.set(test_data('emails', 'email_with_no_at'))
 end
 
-Then /^I click on send reset link button$/  do
+And /^I click on send reset link button$/  do
   reset_password_page.send_reset_link.click
-  expect(reset_password_page).to have_reset_message_error
 end
 
-Then /^the reset password link is not sent$/ do
-   expect_page_displayed('reset-password')
+Then /^I should see reset error message$/  do
+  expect(reset_password_page).to have_reset_message_error
 end
 
 Then /^the "Download the free app" button is displayed on the order complete page$/ do
