@@ -17,6 +17,7 @@ Feature: Navigating through my account pages
   Examples:
     | my_account_option | my_account_page         |
     | Order history     | Order & payment history |
+    | Samples           | Samples                 |
     | Personal details  | Your personal details   |
     | Saved cards       | Your payments           |
     | Devices           | Your devices            |

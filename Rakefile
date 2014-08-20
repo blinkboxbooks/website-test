@@ -37,7 +37,7 @@ namespace :teamcity do
     end
 
     def run_record_for(run)
-      run == 0 ? 'rerun.txt' : 'rerun-#{run}.txt'
+      run == 0 ? 'rerun.txt' : "rerun-#{run}.txt"
     end
 
     def read_results_of_last_run
@@ -49,7 +49,7 @@ namespace :teamcity do
     end
 
     def runs_remaining?
-      @run <= @reruns
+      @run < @reruns
     end
 
     desc 'Rerun Cucumber tasks with rerunning on failure.'
@@ -99,15 +99,17 @@ namespace :teamcity do
 
     desc 'Run Cucumber task with rerun logic.'
     Cucumber::Rake::Task.new(:run) do | t |
-      t.cucumber_opts = ['-p ci-smoke-local --tags @production HEADLESS=true FAIL_FAST=false -f rerun --out rerun.txt']
+      raise "Please specify a cucumber profile!" if ENV['cucumber_profile'].nil?
+      t.cucumber_opts = ["-p #{ENV['cucumber_profile']} -f rerun --out rerun.txt"]
     end
 
     desc 'Rerun Cucumber tests'
     task :rerun, [:last, :current]  do | t, args |
+      raise "Please specify a cucumber profile!" if ENV['cucumber_profile'].nil?
       task = "cuke-#{@run}"
 
       Cucumber::Rake::Task.new(task) do | t |
-        t.cucumber_opts = ["-p ci-smoke-local @#{args[:last]} HEADLESS=true FAIL_FAST=false -f rerun --out #{args[:current]}"]
+        t.cucumber_opts = ["-p #{ENV['cucumber_profile']} @#{args[:last]} -f rerun --out #{args[:current]}"]
       end
 
       Rake::Task[task].reenable

@@ -14,6 +14,14 @@ Given /^I have signed in$/ do
   assert_user_greeting_message_displayed(@first_name)
 end
 
+Given(/^I sign in as a user who has no samples in their account$/) do
+  sign_in_page.load
+  email = test_data('emails', 'empty_library_no_devices')
+  password = test_data('passwords', 'valid_password')
+  enter_sign_in_details(email, password)
+  click_sign_in_button
+end
+
 When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to proceed with adding sample)?$/ do
   sign_in_from_redirected_page
 end
@@ -100,6 +108,7 @@ Given /^my default stored card has(:? not)? expired$/ do |expired|
    set_email_and_password(test_data('emails', 'multiple_cards_non_default_expired'), test_data('passwords', 'valid_password'))
  end
 end
+
 Given /^I have multiple saved cards/ do
   #Doing nothing on purpose here as this just makes a good reading for the Steps.
 end

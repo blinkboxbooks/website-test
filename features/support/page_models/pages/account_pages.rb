@@ -13,6 +13,29 @@ module PageModels
     element :book_list, '.expandable'
   end
 
+  class SamplesPage < PageModels::YourAccountPage
+    set_url '/#!/account/samples'
+    set_url_matcher /account\/samples/
+    element :remove_sample, '[data-test="remove-sample-link"]'
+    element :view_sample, '[data-test="view-sample-link"]'
+    element :buy_button, 'button[data-test="book-buy-button"]'
+    element :book_title, '[data-test="book-title"]'
+    element :book_price, '[data-test="book-price"]'
+    element :sample_content_view, '.order_books'
+    elements :highlight_books, ".grid li"
+
+    def all_text
+      wait_for_sample_content_view
+      wait_until_sample_content_view_visible
+      sample_content_view.text
+    end
+
+    def highlight_books_displayed
+      wait_for_highlight_books
+      highlight_books.count
+    end
+  end
+
   class YourPersonalDetailsPage < PageModels::YourAccountPage
     set_url '/#!/account/personal-details'
     set_url_matcher /account\/personal-details/
@@ -91,6 +114,7 @@ module PageModels
 
   register_model_caller_method(YourAccountPage)
   register_model_caller_method(OrderAndPaymentHistoryPage)
+  register_model_caller_method(SamplesPage)
   register_model_caller_method(YourPersonalDetailsPage)
   register_model_caller_method(YourPaymentsPage)
   register_model_caller_method(YourDevicesPage)
