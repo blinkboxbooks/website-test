@@ -201,7 +201,7 @@ When /^I click on link to sign in with already registered email$/ do
   register_page.sign_in_with_existing_email_link.click
 end
 
-Given /^I have a (?:paid|free) book( (?:as a )?sample) in my library$/ do |is_sample|
+Given /^I have a (?:paid|free) book(?: (?:as a )?sample) in my library$/ do
   set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
   @sample = true
 end
