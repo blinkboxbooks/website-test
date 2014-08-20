@@ -173,10 +173,6 @@ Then /^I click on send reset link button$/  do
   expect(reset_password_page).to have_reset_message_error
 end
 
-# When /^I try to enter incorrect email address$/ do
-#   submit_invalid_email_address
-# end
-
 Then /^the reset password link is not sent$/ do
    expect_page_displayed('reset-password')
 end

@@ -48,7 +48,7 @@ Feature: Sign into Blinkbox books
     Then sign in is not successful
     And "Please enter your password" message is displayed
 
-  @negative @production @pending
+  @negative @production
   Scenario: Sign in incorrect email address
     Given I am on the Sign in page
     When I sign in with incorrect email address and password
@@ -78,7 +78,7 @@ Feature: Sign into Blinkbox books
     Then reset password response page is displayed
     And reset email confirmation message is displayed
 
-  @negative @production @pending
+  @negative @production
   Scenario: Enter invalid email address on reset my password screen
     Given I am on the reset password page
     Then I enter incorrect email address
