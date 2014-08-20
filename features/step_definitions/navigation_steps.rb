@@ -164,11 +164,11 @@ Given /^I am on the reset password page$/  do
   reset_password_page.load
 end
 
-And /^I enter incorrect email address$/  do
-  enter_invalid_email_address('A2b.com')
+When /^I enter incorrect email address$/  do
+  enter_invalid_email_address(test_data('emails', 'email_with_no_at'))
 end
 
-When /^I click on send reset link button$/  do
+Then /^I click on send reset link button$/  do
   reset_password_page.send_reset_link.click
   expect(reset_password_page).to have_reset_message_error
 end

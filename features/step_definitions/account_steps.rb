@@ -23,7 +23,7 @@ Given /^I am on the Sign in page$/ do
 end
 
 When /^I sign in with incorrect email address and password$/ do
-  enter_sign_in_details("lazy_image@yahoo.co.uk", "password")
+  enter_sign_in_details(test_data('emails', 'email_address_invalid'), test_data('passwords', 'invalid_password'))
   click_sign_in_button
 end
 

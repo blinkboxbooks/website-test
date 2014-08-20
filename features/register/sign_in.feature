@@ -49,7 +49,7 @@ Feature: Sign into Blinkbox books
     And "Please enter your password" message is displayed
 
   @negative @production @pending
-  Scenario: Sign in with invalid email address but right password
+  Scenario: Sign in incorrect email address
     Given I am on the Sign in page
     When I sign in with incorrect email address and password
     Then sign in is not successful
@@ -81,8 +81,8 @@ Feature: Sign into Blinkbox books
   @negative @production @pending
   Scenario: Enter invalid email address on reset my password screen
     Given I am on the reset password page
-    And I enter incorrect email address
-    When I click on send reset link button
+    When I enter incorrect email address
+    Then I click on send reset link button
     And "It looks like there's something wrong with this email address. Please make sure you typed it correctly and try again" message is displayed
 
 
