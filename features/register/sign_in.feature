@@ -24,22 +24,19 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
+   @negative @production
+   Scenario Outline: Sign in with invalid email or password on sign in page
+     Given I am on the Sign in page
+     When I enter <invalid_email_address> and <invalid_password>
+     Then sign in is not successful
+     And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
+     And link to reset password is displayed
 
-  @negative @production
-  Scenario: Sign in with email address that is not registered
-    Given I am on the Sign in page
-    When I try to sign in with email address that is not registered
-    Then sign in is not successful
-    And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
-    And link to reset password is displayed
-
-  @negative @production
-  Scenario: Sign in with incorrect password
-    Given I am on the Sign in page
-    When I try to sign in with incorrect password
-    Then sign in is not successful
-    And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
-    And link to reset password is displayed
+    Examples:
+      | invalid_email_address             | invalid_password |
+      | cucumber_test100@mobcastdev.com   | test1234 |
+      | happy_path_signin@mobcastdev.com  | test2345 |
+      | lazy_image@yahoo.co.uk            | password |
 
   @negative @production
   Scenario: Sign in with empty password
@@ -47,14 +44,6 @@ Feature: Sign into Blinkbox books
     When I try to sign in with empty password field
     Then sign in is not successful
     And "Please enter your password" message is displayed
-
-  @negative @production
-  Scenario: Sign in incorrect email address
-    Given I am on the Sign in page
-    When I sign in with incorrect email address and password
-    Then sign in is not successful
-    And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your  password, we’ll email you a reset link" message is displayed
-    And link to reset password is displayed
 
   @production
   Scenario: Click send me a reset link

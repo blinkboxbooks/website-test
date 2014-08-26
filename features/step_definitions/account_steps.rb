@@ -22,12 +22,6 @@ Given /^I am on the Sign in page$/ do
   sign_in_page.load
 end
 
-When /^I sign in with incorrect email address and password$/ do
-  enter_sign_in_details(test_data('emails', 'email_address_invalid'), test_data('passwords', 'invalid_password'))
-  click_sign_in_button
-end
-
-
 When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
@@ -164,16 +158,12 @@ Then /^sign in is not successful$/ do
   expect_page_displayed('sign in')
 end
 
-When /^I try to sign in with email address that is not registered$/ do
-  submit_sign_in_details(generate_random_email_address, test_data('passwords', 'valid_password'))
+When /^I enter (.+) and (.+)$/ do |invalid_email_address, invalid_password|
+  submit_sign_in_details(invalid_email_address,invalid_password)
 end
 
 And /^link to reset password is displayed$/ do
   assert_reset_password_link
-end
-
-When /^I (?:try|have attempted) to sign in with incorrect password$/ do
-  submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
 end
 
 When /^I try to sign in with empty password field$/ do
