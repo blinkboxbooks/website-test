@@ -5,7 +5,7 @@ module PageModels
     end
 
     def assert_user_greeting_message_displayed(first_name)
-      expect(logged_in_session?).to be true
+      assert_logged_in_session
       expect(current_page.header.user_name_displayed).to eq(first_name)
     end
 

@@ -93,12 +93,8 @@ module AssertSearch
 end
 
 module AssertLogin
-  #require 'BlinkboxWebUtilities'
-
   def assert_logged_in_session
     expect(logged_in_session?).to be true
-    expect(current_page.header.welcome_text_element).to be_visible
-    expect(current_page.header.welcome_text_element.text).to match(/Hi, [a-zA-Z0-9_\-]+/)
   end
 end
 

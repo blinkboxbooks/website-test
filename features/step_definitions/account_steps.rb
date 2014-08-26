@@ -17,7 +17,7 @@ end
 Given /^I have signed in to change my first name$/ do
   @email_address = test_data('emails', 'change_first_name')
   @password = test_data('passwords', 'valid_password')
-  sign_in(@email_address)
+  sign_in(@email_address, @password)
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
