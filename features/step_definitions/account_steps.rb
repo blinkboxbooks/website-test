@@ -166,6 +166,10 @@ And /^link to reset password is displayed$/ do
   assert_reset_password_link
 end
 
+When /^I (?:try|have attempted) to sign in with incorrect password$/ do
+  submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
+end
+
 When /^I try to sign in with empty password field$/ do
   submit_sign_in_details(test_data('emails', 'happypath_user'),'')
 end
