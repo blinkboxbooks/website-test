@@ -1,7 +1,7 @@
 Before('~@reset_session') do
   visit('/') unless current_path == '/'
   maximize_window
-  Kernel.puts "Web App Version: #{app_version_info}"
+  puts "Web App Version: #{app_version_info}"
   if logged_in_session?
     log_out_current_session
     current_page.header.user_account_logo.click
@@ -19,4 +19,5 @@ After do |scenario|
     end
   end
   $browser_stack_tunnel.stop unless $browser_stack_tunnel.nil?
+
 end

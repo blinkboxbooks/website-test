@@ -105,7 +105,7 @@ module PageModels
     end
 
     def logged_in?
-      user_name != 'anonymous'
+      user_name != 'anonymous' && has_welcome_text_element?
     end
   end
 end
