@@ -165,8 +165,8 @@ Then /^sign in is not successful$/ do
   expect_page_displayed('sign in')
 end
 
-When /^I try to sign in with email address that is not registered$/ do
-  submit_sign_in_details(generate_random_email_address, test_data('passwords', 'valid_password'))
+When /^I enter (.+) and (.+)$/ do |invalid_email_address, invalid_password|
+  submit_sign_in_details(invalid_email_address,invalid_password)
 end
 
 And /^link to reset password is displayed$/ do

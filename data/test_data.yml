@@ -71,6 +71,8 @@
     ten_account_credit: user_with_10_credit@mobcastdev.com
     five_account_credit: user_with_5_credit@mobcastdev.com
     change_first_name: 100ccv2@gmail.com
+    email_address_invalid: lazy_image@yahoo.co.uk
+    email_with_no_at: A2b.com
 
   name:
     happypath_user: Happy-path
@@ -122,6 +124,8 @@
     multiple_cards_default_expired: default.expired.card@gmail.com
     multiple_cards_non_default_expired: nondefault.expired.card@gmail.com
     change_first_name: 100ccv2@gmail.com
+    email_address_invalid: lazy_image@yahoo.co.uk
+    email_with_no_at: A2b.com
 
   name:
     happypath_user: Happy-path
