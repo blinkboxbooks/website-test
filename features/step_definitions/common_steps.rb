@@ -2,6 +2,10 @@ Then /^"(.*?)" message is displayed$/ do |message_text|
   assert_message_displayed(message_text)
 end
 
+Then (/^the following (?:error )?message is displayed:?$/) do |message_text|
+  assert_message_displayed(message_text)
+end
+
 When /^I click on the (.*) author link from footer$/ do |author_name|
   click_author_link_on_footer(author_name)
 end

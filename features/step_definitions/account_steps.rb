@@ -165,8 +165,16 @@ Then /^sign in is not successful$/ do
   expect_page_displayed('sign in')
 end
 
-When /^I try to sign in with email address that is not registered$/ do
-  submit_sign_in_details(generate_random_email_address, test_data('passwords', 'valid_password'))
+When /^I try to sign in with not registered email address$/ do
+  submit_sign_in_details(generate_random_email_address, test_data('passwords', 'invalid_password'))
+end
+
+When /^I try to sign in with wrong password$/ do
+  submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
+end
+
+When /^I try to sign with email address of invalid format$/ do
+  submit_sign_in_details(test_data('emails', 'email_with_no_at'), test_data('passwords', 'invalid_password'))
 end
 
 And /^link to reset password is displayed$/ do
