@@ -1,5 +1,6 @@
 $: << '.'
 support_dir = File.join(File.dirname(__FILE__))
+path_to_root = support_dir + '/../../'
 $LOAD_PATH.unshift File.expand_path(support_dir)
 
 require 'selenium-webdriver'
@@ -125,8 +126,8 @@ case Platform::OS
     raise "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
 end
 
-chromedriver_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'chromedrv', current_os)
-browserstack_path = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'lib', 'browserstacklocal', current_os)
+chromedriver_path = File.expand_path File.join(path_to_root, 'lib', 'chromedrv', current_os)
+browserstack_path = File.expand_path File.join(path_to_root, 'lib', 'browserstacklocal', current_os)
 
 ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
@@ -139,7 +140,7 @@ Capybara.default_driver = :selenium
 Capybara.default_wait_time = 10
 
 # target browser
-TEST_CONFIG['BROWSER_NAME'] ||= 'firefox'
+TEST_CONFIG['BROWSER_NAME'] ||= 'chrome'
 TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'internet explorer'
 if TEST_CONFIG['GRID'] =~ /browserstack/i
   caps = Selenium::WebDriver::Remote::Capabilities.new
@@ -192,7 +193,7 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
 
 elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   # Default values
-  TEST_CONFIG['BROWSER_NAME'] ||= 'Firefox'
+  TEST_CONFIG['BROWSER_NAME'] ||= 'chrome'
   TEST_CONFIG['BROWSER_VERSION'] ||= '30.0'
   TEST_CONFIG['OS'] ||= 'Windows'
   TEST_CONFIG['OS_VERSION'] ||= '7'

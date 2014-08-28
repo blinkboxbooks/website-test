@@ -1,6 +1,9 @@
 .idea/
+.bundle/
+.bundle_gems/
 results/
 *.iml
+*.html
 
 # OSX-specific
 .DS_Store
