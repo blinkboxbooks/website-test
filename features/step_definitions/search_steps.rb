@@ -9,7 +9,7 @@ And(/^I search for term "(.*?)" in grid view$/) do |term|
 end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
-  expect(books_section.books_written_by(author_name.titleize)).to have_at_least(1).items
+  expect(books_section.books_written_by(author_name.titleize)).to have_at_least(1).item
 end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
