@@ -27,16 +27,27 @@ Feature: Sign into Blinkbox books
    @negative @production
    Scenario Outline: Sign in with invalid email or password on sign in page
      Given I am on the Sign in page
-     When I enter <invalid_email_address> and <invalid_password>
+     When I try to sign in with <invalid_credentials>
      Then sign in is not successful
-     And "Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password, we’ll email you a reset link" message is displayed
+     And the following error message is displayed:
+     """
+     Your sign in details are incorrect.
+     Please try typing them in again, or if you have forgotten your password,
+     we’ll email you a reset link
+     """
      And link to reset password is displayed
 
     Examples:
-      | invalid_email_address             | invalid_password |
-      | cucumber_test100@mobcastdev.com   | test1234 |
-      | happy_path_signin@mobcastdev.com  | test2345 |
-      | lazy_image@yahoo.co.uk            | password |
+    | invalid_credentials             |
+    | not registered email address    |
+    | wrong password                  |
+
+  @negative @production
+  Scenario: Sign in with email address with invalid format
+    Given I am on the Sign in page
+    When I try to sign with email address of invalid format
+    Then sign in is not successful
+    And "Please enter the email address you used to sign up to blinkbox books" message is displayed
 
   @negative @production
   Scenario: Sign in with empty password
