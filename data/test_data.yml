@@ -70,10 +70,12 @@
     fifty_account_credit: user_with_50_credit@mobcastdev.com
     ten_account_credit: user_with_10_credit@mobcastdev.com
     five_account_credit: user_with_5_credit@mobcastdev.com
+    change_first_name: 100ccv2@gmail.com
 
   name:
     happypath_user: Happy-path
     user_with_devices: bookstester-card
+    multiple_storedcards: bookstester-card
 
   passwords:
     valid_password: test1234
@@ -119,10 +121,12 @@
     one_default_expired_card: one.default.expired.card@gmail.com
     multiple_cards_default_expired: default.expired.card@gmail.com
     multiple_cards_non_default_expired: nondefault.expired.card@gmail.com
+    change_first_name: 100ccv2@gmail.com
 
   name:
     happypath_user: Happy-path
     user_with_devices: bookstester-card
+    multiple_storedcards: bookstester-card
 
   passwords:
     valid_password: test1234
@@ -154,8 +158,8 @@
  LOCALHOST:
   <<: *LIVE_DATA
 
- NODEJS-INTERNAL:
-  <<: *LIVE_DATA
+ TEST:
+  <<: *TEST_DATA
 
  DEV:
   <<: *LIVE_DATA

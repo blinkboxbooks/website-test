@@ -10,14 +10,14 @@ Feature: Update the Personal details of the user under 'your account'
 
   @CWA-213 @smoke @production
   Scenario: Successfully update Your personal information
-    Given I have signed in
+    Given I have signed in to change my first name
     And I am on the Personal details tab
     When I edit the first name and last name
     And I submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
     And the first name and last name are as submitted
 
-  @smoke @CWA-1014 @production
+  @smoke @CWA-1014 @production @unstable
   Scenario: Successfully update Your marketing preferences
     Given I have signed in
     And I am on the Personal details tab
