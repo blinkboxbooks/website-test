@@ -1,4 +1,4 @@
-@register @ie @safari
+@register @ie @safari @CWA-143
 Feature: Sign into Blinkbox books
   As a registered user of Blinkbox books
   I want to sign in
@@ -6,85 +6,71 @@ Feature: Sign into Blinkbox books
 
   Background: Navigate to sign in
     Given I am not signed in
+    And I am on the Sign in page
 
   @smoke @production
   Scenario: Happy path user sign in
-    Given I am on the Sign in page
     When I enter valid sign in details
     And I click sign in button
     Then I am successfully signed in
     And I am redirected to Home page
 
-   @pending
+  @pending
   Scenario: Sign in by selecting Keep me signed in
-    Given I am on the Sign in page
     When I enter valid sign in details
     And select Keep me signed in
     And I click sign in button
     Then I am successfully signed in
     And I am redirected to Home page
 
-   @negative @production
-   Scenario Outline: Sign in with invalid email or password on sign in page
-     Given I am on the Sign in page
-     When I try to sign in with <invalid_credentials>
-     Then sign in is not successful
-     And the following error message is displayed:
-     """
-     Your sign in details are incorrect.
-     Please try typing them in again, or if you have forgotten your password,
-     we’ll email you a reset link
-     """
-     And link to reset password is displayed
-
-    Examples:
-    | invalid_credentials             |
-    | not registered email address    |
-    | wrong password                  |
-
   @negative @production
-  Scenario: Sign in with email address with invalid format
-    Given I am on the Sign in page
-    When I try to sign with email address of invalid format
+  Scenario Outline: Sign in with invalid email or password
+    When I try to sign in with <invalid_credentials>
     Then sign in is not successful
-    And "Please enter the email address you used to sign up to blinkbox books" message is displayed
-
-  @negative @production
-  Scenario: Sign in with empty password
-    Given I am on the Sign in page
-    When I try to sign in with empty password field
-    Then sign in is not successful
-    And "Please enter your password" message is displayed
-
-  @production
-  Scenario: Click send me a reset link
-    Given I am on the Sign in page
-    And I have attempted to sign in with incorrect password
+    And the following error message is displayed:
+    """
+    Your sign in details are incorrect. Please try typing them in again, or if you have forgotten your password,
+    we’ll email you a reset link
+    """
     And link to reset password is displayed
-    When I click on Send me a reset link
-    Then reset password page is displayed
 
-  @production
-  Scenario:  Forgotten password link
-    Given I am on the Sign in page
-    When I click on Forgotton your password? link
-    Then reset password page is displayed
-
-  @production
-  Scenario: Request Reset my password
-    Given I am on the reset password page
-    When I enter email address registered with blinkbox books
-    And I click on Send reset link
-    Then reset password response page is displayed
-    And reset email confirmation message is displayed
+  Examples:
+    | invalid_credentials          |
+    | not registered email address |
+    | wrong password               |
 
   @negative @production
-  Scenario: Enter invalid email address on reset my password screen
-    Given I am on the reset password page
-    When I enter incorrect email address
-    And I click on send reset link button
-    Then I should see reset error message
-    And "It looks like there's something wrong with this email address. Please make sure you typed it correctly and try again" message is displayed
+  Scenario Outline: Sign in with email address of invalid format
+    When I try to sign in with email address of invalid format: <invalid_email>
+    Then sign in is not successful
+    And the following error message is displayed:
+    """
+    We could not recognise this email address. Please make sure you typed it correctly and try again
+    """
 
+  Examples:
+    | invalid_email     |
+    | no_dot@missingdot |
 
+  @pending @CWA-143
+  Examples: Bug? This message is displayed instead "Please enter the email address you used to sign up to blinkbox books"
+    | invalid_email            |
+    | only_account_name        |
+    | no_email_server_address@ |
+    | no_dot@missingdot        |
+    | no_domain@mail.          |
+    | @no_account_name.com     |
+    | @no_account_name_no_dot  |
+    | £$%#@special.chars       |
 
+  @negative @production
+  Scenario Outline: Sign in with empty email or password field
+    When I try to sign in with empty <field_name> field
+    Then sign in is not successful
+    And "<message>" error message is displayed
+
+  Examples:
+    | field_name         | message                                                                                         |
+    | email              | Please enter the email address you used to sign up to blinkbox books                            |
+    | password           | Please enter your password                                                                      |
+    | email and password | Please enter the email address you used to sign up to blinkbox books Please enter your password |
