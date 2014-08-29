@@ -73,6 +73,7 @@
     change_first_name: 100ccv2@gmail.com
     email_address_invalid: lazy_image@yahoo.co.uk
     email_with_no_at: A2b.com
+    dummy_email: this_email_is_not_registered_with@blinkboxbooks.com
 
   name:
     happypath_user: Happy-path
@@ -126,6 +127,7 @@
     change_first_name: 100ccv2@gmail.com
     email_address_invalid: lazy_image@yahoo.co.uk
     email_with_no_at: A2b.com
+    dummy_email: this_email_is_not_registered_with@blinkboxbooks.com
 
   name:
     happypath_user: Happy-path
