@@ -54,14 +54,14 @@ Feature: Sign into Blinkbox books
 
   @pending @CWA-143
   Examples: Bug? This message is displayed instead "Please enter the email address you used to sign up to blinkbox books"
-    | invalid_email            |
-    | only_account_name        |
-    | no_email_server_address@ |
-    | no_dot@missingdot        |
-    | no_domain@mail.          |
-    | @no_account_name.com     |
-    | @no_account_name_no_dot  |
-    | £$%#@special.chars       |
+    | invalid_email                  |
+    | only_account_name              |
+    | no_email_server_address@       |
+    | no_domain@mail.                |
+    | @no_account_name.com           |
+    | @no_account_name_no_dot        |
+    | £$%#@special.chars             |
+    | special_chars@_£$%#_domain.com |
 
   @negative @production
   Scenario Outline: Sign in with empty email or password field
