@@ -164,10 +164,6 @@ Given /^I am on the reset password page$/  do
   reset_password_page.load
 end
 
-When /^I enter incorrect email address$/  do
-  reset_password_page.email_address.set(test_data('emails', 'email_with_no_at'))
-end
-
 And /^I click on send reset link button$/  do
   reset_password_page.send_reset_link.click
 end

@@ -184,7 +184,7 @@ And /^link to reset password is displayed$/ do
 end
 
 When /^I try to sign in with empty (email|password|email and password) fields?$/ do |empty_field|
-  email    = empty_field.include?('email')    ? '' : test_data('emails', 'happypath_user')
+  email = empty_field.include?('email') ? '' : test_data('emails', 'happypath_user')
   password = empty_field.include?('password') ? '' : 'password'
   submit_sign_in_details(email, password)
 end
@@ -229,8 +229,21 @@ When /^I click on Forgotten your password\? link$/ do
   click_forgotten_password_link
 end
 
-When /^I enter email address registered with blinkbox books$/ do
-  reset_password_page.email_address.set test_data('emails', 'happypath_user')
+When /^I enter email address (not )?registered with blinkbox books$/ do |not_registered|
+  if not_registered
+    reset_password_page.email_address.set test_data('emails', 'dummy_email')
+  else
+    reset_password_page.email_address.set test_data('emails', 'happypath_user')
+  end
+end
+
+When(/^I enter email address of invalid format(?:\: (.*))?$/) do  |invalid_email_address|
+  invalid_email_address ||= test_data('emails', 'email_with_no_at')
+  reset_password_page.email_address.set invalid_email_address
+end
+
+When(/^I enter blank email address$/) do
+  reset_password_page.email_address.set ''
 end
 
 And /^reset email confirmation message is displayed$/ do

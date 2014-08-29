@@ -20,21 +20,51 @@ Feature: Reset password with blinkbox books
     When I click on Forgotten your password? link
     Then reset password page is displayed
 
-  @production
-  Scenario: Request Reset my password
+  @production @CP-314
+  Scenario: Password reset with valid email
     Given I am on the reset password page
     When I enter email address registered with blinkbox books
     And I click on Send reset link
     Then reset password response page is displayed
     And reset email confirmation message is displayed
 
-  @production @negative
-  Scenario: Enter invalid email address on reset my password screen
+  @production @CP-314
+  Scenario: Password reset with invalid email - app should not expose registered email addresses
     Given I am on the reset password page
-    When I enter incorrect email address
+    When I enter email address not registered with blinkbox books
+    And I click on Send reset link
+    Then reset password response page is displayed
+    And reset email confirmation message is displayed
+
+  @negative @production
+  Scenario Outline: Enter invalid email address on reset my password screen
+    Given I am on the reset password page
+    When I enter email address of invalid format: <invalid_email>
     And I click on send reset link button
     Then I should see reset error message
     And the following error message is displayed:
     """
     It looks like there's something wrong with this email address. Please make sure you typed it correctly and try again
+    """
+
+  Examples:
+    | invalid_email                  |
+    | no_dot@missingdot              |
+    | only_account_name              |
+    | no_email_server_address@       |
+    | no_domain@mail.                |
+    | @no_account_name.com           |
+    | @no_account_name_no_dot        |
+    | £$%#_@special.chars            |
+    | special_chars@_£$%#_domain.com |
+
+  @negative @production
+  Scenario: Leave blank email address on reset my password screen
+    Given I am on the reset password page
+    When I enter blank email address
+    And I click on send reset link button
+    Then I should see reset error message
+    And the following error message is displayed:
+    """
+    Please enter the email address you used to sign up to blinkbox books
     """
