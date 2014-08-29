@@ -1,4 +1,4 @@
-Then /^"(.*?)" message is displayed$/ do |message_text|
+Then /^"(.*?)" (?:error )?message is displayed$/ do |message_text|
   assert_message_displayed(message_text)
 end
 

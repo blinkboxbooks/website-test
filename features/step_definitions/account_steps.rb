@@ -1,6 +1,6 @@
 Given /^I am a guest user$/ do
   if logged_in_session?
-  log_out_current_session
+    log_out_current_session
   end
 end
 
@@ -69,6 +69,7 @@ And /^I click sign in button$/ do
 end
 
 Then /^I am successfully signed in$/ do
+  assert_logged_in_session
   assert_user_greeting_message_displayed(@first_name)
 end
 
@@ -101,7 +102,7 @@ Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$
 end
 
 Given /^I have default expired stored card$/ do
- set_email_and_password(test_data('emails', 'one_default_expired_card'), test_data('passwords', 'valid_password'))
+  set_email_and_password(test_data('emails', 'one_default_expired_card'), test_data('passwords', 'valid_password'))
 end
 
 Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
@@ -173,20 +174,19 @@ When /^I try to sign in with wrong password$/ do
   submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
 end
 
-When /^I try to sign with email address of invalid format$/ do
-  submit_sign_in_details(test_data('emails', 'email_with_no_at'), test_data('passwords', 'invalid_password'))
+When /^I try to sign in with email address of invalid format(?:\: (.*))?$/ do |invalid_email_address|
+  invalid_email_address ||= test_data('emails', 'email_with_no_at')
+  submit_sign_in_details(invalid_email_address, test_data('passwords', 'valid_password'))
 end
 
 And /^link to reset password is displayed$/ do
   assert_reset_password_link
 end
 
-When /^I (?:try|have attempted) to sign in with incorrect password$/ do
-  submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
-end
-
-When /^I try to sign in with empty password field$/ do
-  submit_sign_in_details(test_data('emails', 'happypath_user'),'')
+When /^I try to sign in with empty (email|password|email and password) fields?$/ do |empty_field|
+  email    = empty_field.include?('email')    ? '' : test_data('emails', 'happypath_user')
+  password = empty_field.include?('password') ? '' : 'password'
+  submit_sign_in_details(email, password)
 end
 
 When /^I click on Send me a reset link$/ do
@@ -225,15 +225,15 @@ Given /^I have (not opted|opted) in for blinkbox books marketing$/ do |opt_statu
   end
 end
 
-When /^I click on Forgotton your password\? link$/ do
+When /^I click on Forgotten your password\? link$/ do
   click_forgotten_password_link
 end
 
 When /^I enter email address registered with blinkbox books$/ do
-   reset_password_page.email_address.set test_data('emails', 'happypath_user')
+  reset_password_page.email_address.set test_data('emails', 'happypath_user')
 end
 
-And /^reset email confirmation message is displayed$/  do
+And /^reset email confirmation message is displayed$/ do
   assert_reset_email_confirmation
 end
 
