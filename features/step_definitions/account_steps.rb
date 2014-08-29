@@ -167,7 +167,7 @@ Then /^sign in is not successful$/ do
 end
 
 When /^I try to sign in with not registered email address$/ do
-  submit_sign_in_details(generate_random_email_address, test_data('passwords', 'invalid_password'))
+  submit_sign_in_details(test_data('emails', 'dummy_email'), test_data('passwords', 'valid_password'))
 end
 
 When /^I try to sign in with wrong password$/ do
