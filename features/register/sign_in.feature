@@ -57,11 +57,10 @@ Feature: Sign into Blinkbox books
     | invalid_email                  |
     | only_account_name              |
     | no_email_server_address@       |
-    | no_dot@missingdot              |
     | no_domain@mail.                |
     | @no_account_name.com           |
     | @no_account_name_no_dot        |
-    | £$%#_@special.chars            |
+    | £$%#@special.chars             |
     | special_chars@_£$%#_domain.com |
 
   @negative @production
