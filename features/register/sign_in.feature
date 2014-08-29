@@ -15,7 +15,7 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
-  @pending
+  @production
   Scenario: Sign in by selecting Keep me signed in
     When I enter valid sign in details
     And select Keep me signed in

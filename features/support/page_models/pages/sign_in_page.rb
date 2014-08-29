@@ -7,6 +7,7 @@ module PageModels
     element :show_password,'#showPassword'
     section :sign_in_form, SignInForm, '#signin'
     element :forgotten_password_link, '[data-test="send-me-a-reset-link"]'
+    element :remember_me, '#remember_me'
     element :error, '#error_signin'
   end
 

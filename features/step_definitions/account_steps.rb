@@ -64,6 +64,10 @@ When /^I enter valid sign in details$/ do
   enter_sign_in_details(email, password)
 end
 
+When(/^select Keep me signed in$/) do
+  sign_in_page.remember_me.set true
+end
+
 And /^I click sign in button$/ do
   click_sign_in_button
 end
