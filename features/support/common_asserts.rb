@@ -13,6 +13,7 @@ module AssertNavigation
   rescue PageModelHelpers::TimeOutWaitingForPageToAppear => e
     raise RSpec::Expectations::ExpectationNotMetError, "Page verification failed\n   Expected page: '#{page_name}' with url_matcher #{page.url_matcher}\n   Current url: #{current_url}\nTimeOutWaitingForPageToAppear: #{e.message}"
   end
+
   alias :expect_page_displayed :assert_page
 
   def assert_message_displayed(message_text)
@@ -94,7 +95,7 @@ end
 
 module AssertLogin
   def assert_logged_in_session
-    expect(logged_in_session?).to be true
+    expect {logged_in_session?}.to become_true, "User is not logged in as expected"
   end
 end
 
