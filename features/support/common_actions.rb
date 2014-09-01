@@ -1,7 +1,5 @@
 module ManageAccount
   def click_link_from_my_account_dropdown(link_name)
-    current_page.header.user_account_logo.click
-    expect(current_page.header).to be_visible
     current_page.header.navigate_to_account_option(link_name)
   end
 

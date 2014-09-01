@@ -65,7 +65,7 @@ end
 And /^I can sign in with the new password successfully$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @new_password)
-  assert_user_greeting_message_displayed(@first_name)
+  assert_logged_in_session
 end
 
 When /^I delete the first card from the list$/ do
@@ -123,7 +123,7 @@ end
 And /^my password is not updated$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @current_password)
-  assert_user_greeting_message_displayed(@first_name)
+  assert_logged_in_session
 end
 
 When /^I remove clubcard number$/ do

@@ -3,6 +3,10 @@ module PageModels
     element :sign_out_button, 'a[data-test="menu-sign-out-button"]'
     element :sign_in_button, 'a[data-test="menu-sign-in-button"]'
     element :menu_register_link, '[data-test="menu-register-link"]'
+    element :order_history, 'a[data-test="order-history"]'
+    element :personal_details, 'a[data-test="personal-details"]'
+    element :saved_cards, 'a[data-test="saved-cards"]'
+    element :devices, 'a[data-test="devices"]'
   end
 
   class HeaderTab < PageModels::BlinkboxbooksSection
@@ -59,9 +63,12 @@ module PageModels
 
     def navigate_to_account_option(link_name)
       open_account_menu
-
-      # Transform account option to a data-attribute.
-      account_menu.find('[data-test="' +  link_name.downcase.gsub(/ /, '-') + '"]').click
+      link = link_name.downcase.gsub(' ', '_')
+      if account_menu.respond_to?(link)
+        account_menu.send(link).click
+      else
+        raise "Cannot find link \"#{link_name}\" in hamburger menu!"
+      end
     end
 
     def find_link_by_text(link_text)
@@ -98,7 +105,7 @@ module PageModels
     end
 
     def logged_in?
-      user_name != 'anonymous'
+      user_name != 'anonymous' && welcome_text_element.visible?
     end
   end
 end

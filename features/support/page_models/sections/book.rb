@@ -28,12 +28,14 @@ module PageModels
 
     def price
       if has_discount_price_element?
+        wait_for_discount_price_element
         book_price = discount_price_element.text
       elsif has_price_element?
+        wait_for_price_element
         book_price = price_element.text
       else
         book_price = 0
-        puts "Book '#{title.text}' has no price information displayed!"
+        puts "Book '#{title}' has no price information displayed!"
       end
       book_price.gsub(/£/, '').to_f
     end

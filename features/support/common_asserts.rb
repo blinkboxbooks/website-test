@@ -13,6 +13,7 @@ module AssertNavigation
   rescue PageModelHelpers::TimeOutWaitingForPageToAppear => e
     raise RSpec::Expectations::ExpectationNotMetError, "Page verification failed\n   Expected page: '#{page_name}' with url_matcher #{page.url_matcher}\n   Current url: #{current_url}\nTimeOutWaitingForPageToAppear: #{e.message}"
   end
+
   alias :expect_page_displayed :assert_page
 
   def assert_message_displayed(message_text)
@@ -35,11 +36,15 @@ module AssertNavigation
   end
 
   def assert_book_details
-    expect(book_details_page).to be_all_there
+    pending "Latest CPR (v0.2.3) needs to be rolled out, which includes id=\"cpr-iframe\" (capybara can't locate iframe elements by other than ID!)" do
+      expect(book_details_page).to be_all_there
+    end
   end
 
   def assert_book_reader
-    expect(book_details_page).to have_reader
+    pending("Latest CPR (v0.2.3) needs to be rolled out") do
+      expect(book_details_page).to have_reader
+    end
   end
 
   def assert_order_complete
@@ -66,11 +71,11 @@ module AssertSearch
   end
 
   def assert_unique_result
-    expect(books_section.books).to have_exactly(1).items
+    expect(books_section.books).to have_exactly(1).item
   end
 
   def assert_number_of_suggestions(number_of_suggestion)
-    expect(current_page.search_form.suggestions).to have_at_least(number_of_suggestion).items
+    expect(current_page.search_form.suggestions).to have_at_least(number_of_suggestion).item
   end
 
   def assert_auto_corrected_word(corrected_word)
@@ -88,5 +93,12 @@ module AssertSearch
   end
 end
 
+module AssertLogin
+  def assert_logged_in_session
+    expect {logged_in_session?}.to become_true, "User is not logged in as expected"
+  end
+end
+
 World(AssertNavigation)
 World(AssertSearch)
+World(AssertLogin)

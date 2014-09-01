@@ -19,10 +19,10 @@
     contact_us: https://support.blinkboxbooks.com/anonymous_requests/new
 
   library_isbns:
-    pay_for_book: 9781448169795
-    free_book: 9781782112747
-    pay_for_sample: 9781603763370
-    free_sample: 9780985491062
+    paid: 9781448169795
+    free: 9781782112747
+    sample_for_paid_book: 9781603763370
+    sample_for_free_book: 9780985491062
 
   random_search_keywords:
     - Winter
@@ -70,10 +70,15 @@
     fifty_account_credit: user_with_50_credit@mobcastdev.com
     ten_account_credit: user_with_10_credit@mobcastdev.com
     five_account_credit: user_with_5_credit@mobcastdev.com
+    change_first_name: 100ccv2@gmail.com
+    email_address_invalid: lazy_image@yahoo.co.uk
+    email_with_no_at: A2b.com
+    dummy_email: this_email_is_not_registered_with@blinkboxbooks.com
 
   name:
     happypath_user: Happy-path
     user_with_devices: bookstester-card
+    multiple_storedcards: bookstester-card
 
   passwords:
     valid_password: test1234
@@ -119,10 +124,15 @@
     one_default_expired_card: one.default.expired.card@gmail.com
     multiple_cards_default_expired: default.expired.card@gmail.com
     multiple_cards_non_default_expired: nondefault.expired.card@gmail.com
+    change_first_name: 100ccv2@gmail.com
+    email_address_invalid: lazy_image@yahoo.co.uk
+    email_with_no_at: A2b.com
+    dummy_email: this_email_is_not_registered_with@blinkboxbooks.com
 
   name:
     happypath_user: Happy-path
     user_with_devices: bookstester-card
+    multiple_storedcards: bookstester-card
 
   passwords:
     valid_password: test1234
@@ -154,8 +164,8 @@
  LOCALHOST:
   <<: *LIVE_DATA
 
- NODEJS-INTERNAL:
-  <<: *LIVE_DATA
+ TEST:
+  <<: *TEST_DATA
 
  DEV:
   <<: *LIVE_DATA

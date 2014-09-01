@@ -19,7 +19,7 @@ When /^I choose to pay with a new card$/ do
 end
 
 And /^I have identified a (free|paid) book on the (book details|search results) page to read sample offline$/ do |book_type, page|
-  select_book_to_add_as_sample(book_type, page.gsub(' ', '_').to_s)
+  select_book_to_add_as_sample(book_type, page.gsub(' ', '_').to_sym)
 end
 
 And /^I have identified the same (free|paid) book to read offline as a sample$/ do |book_type|
@@ -74,8 +74,8 @@ Given /^I have selected to buy a (paid|free) book from the (Bestsellers|New rele
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
-Given /^I am on the Confirm and pay page trying to buy a paid book$/i do
-  @book_title = select_book_to_buy_on(page_name, book_type)
+Given /^I am on the Confirm and pay page trying to buy a (paid|free) book$/i do |book_type|
+  @book_title = select_book_to_buy_on('Book details', book_type)
   sign_in_from_redirected_page
 end
 
