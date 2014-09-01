@@ -1,6 +1,6 @@
 Given /^I am a guest user$/ do
   if logged_in_session?
-  log_out_current_session
+    log_out_current_session
   end
 end
 
@@ -11,7 +11,13 @@ end
 Given /^I have signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
-  assert_user_greeting_message_displayed(@first_name)
+  assert_logged_in_session
+end
+
+Given /^I have signed in to change my first name$/ do
+  @email_address = test_data('emails', 'change_first_name')
+  @password = test_data('passwords', 'valid_password')
+  sign_in(@email_address, @password)
 end
 
 Given(/^I sign in as a user who has no samples in their account$/) do
@@ -33,7 +39,6 @@ end
 When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
-
 
 Given /^I am on Register page$/ do
   register_page.load
@@ -66,11 +71,16 @@ When /^I enter valid sign in details$/ do
   enter_sign_in_details(email, password)
 end
 
+When(/^select Keep me signed in$/) do
+  sign_in_page.remember_me.set true
+end
+
 And /^I click sign in button$/ do
   click_sign_in_button
 end
 
 Then /^I am successfully signed in$/ do
+  assert_logged_in_session
   assert_user_greeting_message_displayed(@first_name)
 end
 
@@ -94,6 +104,7 @@ end
 
 Given /^I have multiple stored cards$/ do
   @email_address = test_data('emails', 'multiple_storedcards')
+  @first_name = test_data('name', 'multiple_storedcards')
 end
 
 Given /^I register(?: to proceed with the purchase| to proceed with adding sample)?$/ do
@@ -174,20 +185,27 @@ Then /^sign in is not successful$/ do
   expect_page_displayed('sign in')
 end
 
-When /^I try to sign in with email address that is not registered$/ do
-  submit_sign_in_details(generate_random_email_address, test_data('passwords', 'valid_password'))
+When /^I try to sign in with not registered email address$/ do
+  submit_sign_in_details(test_data('emails', 'dummy_email'), test_data('passwords', 'valid_password'))
+end
+
+When /^I try to sign in with wrong password$/ do
+  submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
+end
+
+When /^I try to sign in with email address of invalid format(?:\: (.*))?$/ do |invalid_email_address|
+  invalid_email_address ||= test_data('emails', 'email_with_no_at')
+  submit_sign_in_details(invalid_email_address, test_data('passwords', 'valid_password'))
 end
 
 And /^link to reset password is displayed$/ do
   assert_reset_password_link
 end
 
-When /^I (?:try|have attempted) to sign in with incorrect password$/ do
-  submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
-end
-
-When /^I try to sign in with empty password field$/ do
-  submit_sign_in_details(test_data('emails', 'happypath_user'),'')
+When /^I try to sign in with empty (email|password|email and password) fields?$/ do |empty_field|
+  email = empty_field.include?('email') ? '' : test_data('emails', 'happypath_user')
+  password = empty_field.include?('password') ? '' : 'password'
+  submit_sign_in_details(email, password)
 end
 
 When /^I click on Send me a reset link$/ do
@@ -232,15 +250,28 @@ Given /^I have (not opted|opted) in for blinkbox books marketing$/ do |opt_statu
   end
 end
 
-When /^I click on Forgotton your password\? link$/ do
+When /^I click on Forgotten your password\? link$/ do
   click_forgotten_password_link
 end
 
-When /^I enter email address registered with blinkbox books$/ do
-   reset_password_page.email_address.set test_data('emails', 'happypath_user')
+When /^I enter email address (not )?registered with blinkbox books$/ do |not_registered|
+  if not_registered
+    reset_password_page.email_address.set test_data('emails', 'dummy_email')
+  else
+    reset_password_page.email_address.set test_data('emails', 'happypath_user')
+  end
 end
 
-And /^reset email confirmation message is displayed$/  do
+When(/^I enter email address of invalid format(?:\: (.*))?$/) do  |invalid_email_address|
+  invalid_email_address ||= test_data('emails', 'email_with_no_at')
+  reset_password_page.email_address.set invalid_email_address
+end
+
+When(/^I enter blank email address$/) do
+  reset_password_page.email_address.set ''
+end
+
+And /^reset email confirmation message is displayed$/ do
   assert_reset_email_confirmation
 end
 
