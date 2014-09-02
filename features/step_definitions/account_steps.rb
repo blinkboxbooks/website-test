@@ -114,15 +114,6 @@ Given /^I have multiple saved cards/ do
   #Doing nothing on purpose here as this just makes a good reading for the Steps.
 end
 
-Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
-  if expired_card.include?('non')
-    email_address = test_data('emails', 'multiple_cards_non_default_expired')
-  else
-    email_address = test_data('emails', 'multiple_cards_default_expired')
-  end
-  set_email_and_password(email_address, test_data('passwords', 'valid_password'))
-end
-
 When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
   club_card = test_data('clubcards', 'valid_clubcard_number')
   if club_card_type.include?('invalid')
