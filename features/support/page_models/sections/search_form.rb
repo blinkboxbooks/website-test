@@ -12,5 +12,9 @@ module PageModels
     def set_keyword(keyword)
       keyword_element.set keyword
     end
+
+    def click_on_suggestion(search_word)
+      suggestions.find('a').find{|suggestion|suggestion.text==search_word}.click
+    end
   end
 end
