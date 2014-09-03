@@ -20,7 +20,7 @@ Given /^I have signed in to change my first name$/ do
   sign_in(@email_address, @password)
 end
 
-When /^(?:I sign in|sign in|signed in)(?: to proceed with purchase| to proceed with adding sample)?$/ do
+When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to proceed with adding sample)?$/ do
   sign_in_from_redirected_page
 end
 
@@ -100,22 +100,18 @@ Given /^I have multiple stored cards$/ do
   @first_name = test_data('name', 'multiple_storedcards')
 end
 
-Given /^I register(?: to proceed with purchase| to proceed with adding sample)?$/ do
+Given /^I register(?: to proceed with the purchase| to proceed with adding sample)?$/ do
   click_register_button
   register_new_user
 end
 
-Given /^I have default expired stored card$/ do
-  set_email_and_password(test_data('emails', 'one_default_expired_card'), test_data('passwords', 'valid_password'))
+Given /^my default stored card has( not)? expired$/ do |not_expired|
+   email = not_expired ? test_data('emails', 'multiple_cards_non_default_expired') : test_data('emails', 'one_default_expired_card')
+   set_email_and_password(email, test_data('passwords', 'valid_password'))
 end
 
-Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
-  if expired_card.include?('non')
-    email_address = test_data('emails', 'multiple_cards_non_default_expired')
-  else
-    email_address = test_data('emails', 'multiple_cards_default_expired')
-  end
-  set_email_and_password(email_address, test_data('passwords', 'valid_password'))
+Given /^I have multiple saved cards/ do
+  #Doing nothing on purpose here as this just makes a good reading for the Steps.
 end
 
 When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
@@ -213,8 +209,14 @@ When /^I click on link to sign in with already registered email$/ do
   register_page.sign_in_with_existing_email_link.click
 end
 
-Given /^I have a (?:paid|free) (?:book|book sample) in my library$/ do
+Given /^I have a (?:paid|free) book(?: (?:as a )?sample) in my library$/ do
   set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
+  @sample = true
+end
+
+Given /^I have purchased a (?:paid|free) book$/ do
+  set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
+  @sample = false
 end
 
 Given /^I am returning user with no (?:associated devices|saved payment cards|orders in the past)$/ do
@@ -264,6 +266,6 @@ Given /^I have £(\d+) account credit$/ do |account_credit|
   end
 end
 
-Then /^title should be "(.+)"$/ do |title|
+Then /^the page title should be "(.+)"$/ do |title|
   expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
 end

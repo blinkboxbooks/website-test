@@ -6,11 +6,11 @@ Feature: New user buying book from blinkbox books
 
   Scenario Outline: First time user buying book and saving payment details
     Given I have selected to buy a paid book
-    When I register to proceed with purchase
+    When I register to proceed with the purchase
     And I enter valid <card_type> card details
     And I enter valid Billing address
-    And I choose to save payment details
-    And I submit payment details
+    And I choose to save the payment details
+    And I submit the payment details
     Then my payment is successful
 
   @smoke
@@ -25,11 +25,11 @@ Feature: New user buying book from blinkbox books
 
   Scenario Outline: First time user buying book and not saving payment details
     Given I have selected to buy a paid book
-    When I register to proceed with purchase
+    When I register to proceed with the purchase
     And I enter valid <card_type> card details
     And I enter valid Billing address
-    And I choose not to save payment details
-    And I submit payment details
+    And I choose not to save the payment details
+    And I submit the payment details
     Then my payment is successful
 
   @smoke
@@ -45,6 +45,6 @@ Feature: New user buying book from blinkbox books
   @smoke
   Scenario: First time user buying a free book
     Given I have selected to buy a free book
-    And I register to proceed with purchase
-    When I click Confirm order
+    When I register to proceed with the purchase
+    And I click on Confirm order
     Then my payment is successful

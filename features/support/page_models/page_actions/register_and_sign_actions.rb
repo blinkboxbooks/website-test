@@ -116,6 +116,7 @@ module PageModels
     end
 
     def sign_in_from_redirected_page
+      set_email_and_password(test_data('emails', 'no_expired_cards'), test_data('passwords', 'valid_password')) if @email_address.nil?
       assert_page('sign in page')
       sign_in_page.sign_in_form.submit(@email_address, @password)
     end

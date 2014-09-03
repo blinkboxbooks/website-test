@@ -6,11 +6,11 @@ And /^I enter valid Billing address$/ do
   enter_billing_details
 end
 
-And /^I submit payment details$/ do
+And /^I submit the payment details$/ do
   click_confirm_and_pay
 end
 
-When /^I pay with saved default card$/ do
+When /^I pay with my default saved card$/ do
   pay_with_saved_card
 end
 
@@ -26,16 +26,12 @@ And /^I have identified the same (free|paid) book to read offline as a sample$/ 
   step("I have identified a #{book_type} book on the book details page to read sample offline")
 end
 
-When /^I click Confirm order$/ do
+When /^I click on Confirm order$/ do
   click_confirm_order
 end
 
 Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
-  if login_status.eql?('logged')
-    sign_in
-  elsif logged_in_session?
-    log_out_current_session
-  end
+  sign_in unless login_status.include?('not')
   select_book_to_buy(book_type.downcase.to_sym)
 end
 
@@ -45,7 +41,7 @@ When /^I pay with a new (.*?) card$/ do |card_type|
   enter_billing_details
 end
 
-And /^I choose (to save|not to save)(?: new)? payment details$/ do |save_payment|
+And /^I choose (to save|not to save) the(?: new)? payment details$/ do |save_payment|
   save_payment.include?('not') ? save_card(false) : save_card(true)
 end
 
@@ -54,7 +50,7 @@ Then /^(?:my payment|adding sample) is successful$/ do
   assert_order_complete
 end
 
-When /^I select Read offline on the book details page$/ do
+When /^I select Read offline on the book details page|I try to add the book as a sample(?: again)?$/ do
   click_read_offline
 end
 
@@ -74,12 +70,13 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   confirm_action.include?('registration') ? confirm_cancel_registration : confirm_cancel_order
 end
 
-Given /^I have selected to buy a (paid|free) book from (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/i do |book_type, page_name|
+Given /^I have selected to buy a (paid|free) book from the (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/i do |book_type, page_name|
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
-Given /^I have selected to buy a (paid|free) book on Book details page$/i do |book_type|
+Given /^I am on the Confirm and pay page trying to buy a (paid|free) book$/i do |book_type|
   @book_title = select_book_to_buy_on('Book details', book_type)
+  sign_in_from_redirected_page
 end
 
 Given /^I have selected to buy a (paid|free) book$/ do |book_type|
@@ -104,7 +101,7 @@ When /^I select above (paid|free) book to buy$/ do |book_type|
   book_type.include?('free') ? select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'free_book')) : select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'pay_for_book'))
 end
 
-And /^(book|sample) already exists in the library message displayed in confirm and pay page$/ do |type|
+And /^(book|sample) already exists in the library message (?:is )?displayed (?:in |on the )?confirm and pay page$/ do |type|
   assert_book_exists_in_library_message(type)
 end
 
@@ -112,7 +109,7 @@ And /^payment failure message should be displayed$/ do
   assert_payment_failure_message
 end
 
-And /^I submit payment details with not matching cvv (\d+)$/ do |cvv_number|
+And /^I submit the payment details with not matching cvv (\d+)$/ do |cvv_number|
   submit_new_payment_with_not_matching_cvv(cvv_number)
 end
 
