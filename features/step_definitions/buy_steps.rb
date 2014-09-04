@@ -83,7 +83,13 @@ Given /^I have selected to buy a (paid|free) book on Book details page$/i do |bo
 end
 
 Given /^I have selected to buy a (paid|free) book$/ do |book_type|
-  @book_title = select_book_to_buy(book_type.to_sym)
+  # TODO: Remove once 'free' keyword returns results on test env
+  if book_type == 'free'
+    free_ebooks_page.load
+    books_section.click_buy_now_free_book
+  else
+    @book_title = select_book_to_buy(book_type.to_sym)
+  end
 end
 
 Given(/^I have selected to buy a (free) book from Grid view$/) do |book_type|

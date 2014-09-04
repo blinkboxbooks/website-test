@@ -36,8 +36,7 @@ module PageModels
 
     def click_confirm_and_pay
       confirm_and_pay_page.wait_for_confirm_and_pay
-      confirm_and_pay_page.confirm_and_pay.click
-      expect_page_displayed('Order Complete')
+      expect{ confirm_and_pay_page.confirm_and_pay.click; page_model('Order Complete').displayed? }.to become_true
     end
 
     def click_confirm_order
