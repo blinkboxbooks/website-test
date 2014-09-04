@@ -9,7 +9,7 @@ Feature: Verify that search results match search criteria
 
   @smoke @data-dependent @production
   Scenario: Search results displayed
-    When I search for "spring"
+    When I search for "history"
     Then Search Results page is displayed
     And at least 1 search result is shown
 

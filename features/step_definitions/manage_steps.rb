@@ -39,7 +39,7 @@ Given /^I have registered as new user (without|with) a clubcard/ do |provide_clu
   navigate_to_register_form
   @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
   @current_password, @email_address, @first_name, @last_name = register_new_user(provide_clubcard, @valid_clubcard)
-  assert_user_greeting_message_displayed(@first_name)
+  assert_logged_in_session
 end
 
 When /^I edit email address$/ do
@@ -77,7 +77,9 @@ Then /^there are no cards in my account$/ do
 end
 
 When /^I set a different card as my default card$/ do
-  @default_card = set_card_default
+  pending "CWA-1784: Send boolean to credit card update service" do
+    @default_card = set_card_default
+  end
 end
 
 And /^the selected card is displayed as my default card$/ do

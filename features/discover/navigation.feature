@@ -108,7 +108,7 @@ Feature: Navigation around the website
     | Authors      |
     | New releases |
 
-  @smoke @production @CWA-1029
+  @smoke @production @CWA-1029 @pending
   Scenario Outline: Clicking Support links from the hamburger Menu
     When I select <support_link> link from the hamburger Menu
     Then I am redirected to the "<support_page>" support page in a new window
@@ -173,7 +173,7 @@ Feature: Navigation around the website
     | Free eBooks  |
     | Authors      |
 
-  @CWA-71 @wip
+  @CWA-71 @pending
   Scenario: Promotable category-All time best selling books
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
