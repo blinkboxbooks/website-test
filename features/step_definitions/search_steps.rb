@@ -45,7 +45,7 @@ And(/^the Tesco clubcard logo should be visible$/) do
   expect(books_section.books.first).to have_clubcard_points
 end
 
-Then(/^I should get a message$/) do
+Then(/^no result message is displayed$/) do
   expect(search_results_page).to have_no_results_element
   expect(search_results_page.no_results_message).to include(@search)
 end
@@ -90,8 +90,8 @@ And /^last suggestion should contain (.*?)$/ do |search_word|
   expect(current_page.search_form.suggestions.last.text).to include(search_word)
 end
 
-When /^I select suggestion which contains (.*?)$/ do |search_word|
-  current_page.search_form.click_on_suggestion(search_word)
+When /^I select suggestion which contains (.*?)$/ do |text|
+  current_page.search_form.select_suggestion(text)
 end
 
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|

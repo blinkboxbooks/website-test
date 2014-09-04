@@ -16,7 +16,7 @@ Feature: Verify that search results match search criteria
    @CWA-866
    Scenario Outline: Search for a word that does not return any results
      When I search for "<invalid_search_item>"
-     Then I should get a message
+     Then no result message is displayed
      And the options of switching view mode should not appear
 
    Examples:
