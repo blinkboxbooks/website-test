@@ -1,11 +1,17 @@
 module PageModels
+  class ReaderFrame < PageModels::BlinkboxbooksPage
+    element :page, '#cpr-reader'
+  end
+  register_model_caller_method(ReaderFrame)
+
   class BookDetailsPage < PageModels::BlinkboxbooksPage
     set_url_matcher /book/
     set_url "/#!/book/{isbn}/{title}"
 
     element :read_offline, ".read-offline"
     element :buy_now, 'button[data-test="book-buy-button"]'
-    iframe :reader, Reader, '#cpr-iframe'
+    section :reader, Reader, '.right-column'
+    iframe :reader_frame, ReaderFrame, '#cpr-iframe'
     element :title_element, '#book-details h2.title', :match => :first
 
     def title
@@ -22,6 +28,10 @@ module PageModels
       book_title = title
       buy_now.click
       book_title
+    end
+
+    def reader_page_text
+      reader_frame { |frame| return page.text }
     end
   end
   register_model_caller_method(BookDetailsPage)
