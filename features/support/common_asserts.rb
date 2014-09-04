@@ -58,7 +58,7 @@ module AssertSearch
     expect_page_displayed('Search Results')
     expect(search_results_page).to have_content('You searched for')
     expect(search_results_page.searched_term).to have_content(search_word)
-    expect(search_results_page).to have_books
+    expect {search_results_page.has_books?}.to become_true, "Books not displayed"
     expect(search_results_page.books.count).to be >= 1
   end
 
