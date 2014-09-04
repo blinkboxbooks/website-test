@@ -90,7 +90,7 @@ And /^last suggestion should contain (.*?)$/ do |search_word|
   expect(current_page.search_form.suggestions.last.text).to include(search_word)
 end
 
-Then /^I select last suggestion that contains (.*?)$/ do |search_word|
+When /^I select suggestion which contains (.*?)$/ do |search_word|
   current_page.search_form.click_on_suggestion(search_word)
 end
 

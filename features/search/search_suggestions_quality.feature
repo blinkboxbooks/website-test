@@ -43,6 +43,6 @@ Feature: Suggestions for user search
     When I type "Gone girl" into search field
     Then search suggestions should be displayed
     And last suggestion should contain More results for "Gone girl"
-    Then I select last suggestion that contains More results for "Gone girl"
-    And search results should be displayed
+    When I select suggestion which contains More results for "Gone girl"
+    Then search results should be displayed
 
