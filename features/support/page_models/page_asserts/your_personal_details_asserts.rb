@@ -28,8 +28,8 @@ module PageModels
     end
 
     def assert_name_on_personal_details_page(first_name, last_name)
-      expect(your_personal_details_page.first_name.value).to eq(first_name)
-      expect(your_personal_details_page.last_name.value).to eq(last_name)
+      expect(your_personal_details_page.first_name).to eq(first_name)
+      expect(your_personal_details_page.last_name).to eq(last_name)
     end
 
     def edit_marketing_preferences
