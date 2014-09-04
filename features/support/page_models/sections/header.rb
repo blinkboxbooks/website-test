@@ -97,7 +97,7 @@ module PageModels
     end
 
     def user_name_displayed
-      welcome_text_element.text.gsub('Hi,', '').strip
+      welcome_text_element.text.gsub('Hi, ', '').strip
     end
 
     def user_name
