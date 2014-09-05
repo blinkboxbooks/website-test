@@ -21,3 +21,9 @@ Then /^the new releases on the footer is generated from new releases section$/ d
     expect(new_releases).to include(book_title.text.upcase)
   end
 end
+
+Then /"(Discover|Register|Download|Read)" step is displayed on the footer/ do |step|
+  step = current_page.footer.step_by_title(step)
+  expect(step).to have_image
+  expect(step.image).to be_visible
+end

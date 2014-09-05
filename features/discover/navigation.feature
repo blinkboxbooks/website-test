@@ -229,6 +229,12 @@ Feature: Navigation around the website
     When I click on the New releases header tab
     Then the new releases on the footer is generated from new releases section
 
+  Scenario: Redesigned footer is displayed
+    Then "Discover" step is displayed on the footer
+     And "Register" step is displayed on the footer
+     And "Download" step is displayed on the footer
+     And "Read" step is displayed on the footer
+
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
     When I click on the Bestsellers header tab
