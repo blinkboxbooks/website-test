@@ -45,7 +45,7 @@ And(/^the Tesco clubcard logo should be visible$/) do
   expect(books_section.books.first).to have_clubcard_points
 end
 
-Then(/^I should get a message$/) do
+Then(/^no result message is displayed$/) do
   expect(search_results_page).to have_no_results_element
   expect(search_results_page.no_results_message).to include(@search)
 end
@@ -56,6 +56,7 @@ And(/^the options of switching view mode should not appear$/) do
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
+  @search_word = search_word
   current_page.search_form.set_keyword search_word
 end
 
@@ -83,17 +84,27 @@ And /^first suggestions should contain complete word "(.+)"$/ do |search_word|
   expect(current_page.search_form.suggestions.first.text).to include(search_word)
 end
 
+And /^last suggestion should contain (.*?)$/ do |search_word|
+  expect(current_page.search_form).to have_suggestions
+  expect(current_page.search_form.suggestions).to have_at_least(1).item
+  expect(current_page.search_form.suggestions.last.text).to include(search_word)
+end
+
+When /^I select suggestion which contains (.*?)$/ do |text|
+  current_page.search_form.select_suggestion(text)
+end
+
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
  assert_auto_corrected_word [corrected_word]
 end
+
 And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |first_part,second_part|
   assert_auto_corrected_word [first_part, second_part ]
 end
 
-
-When (/^I search for "(.*?)"$/) do |word|
-  @search_word = word
-  search(@search_word)
+When (/^I search for "(.+)"$/) do |word|
+  @search = word
+  search(@search, :grid)
 end
 
 And(/^at least 1 search result is shown$/) do

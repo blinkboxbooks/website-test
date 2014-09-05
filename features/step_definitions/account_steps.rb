@@ -112,25 +112,13 @@ Given /^I register(?: to proceed with the purchase| to proceed with adding sampl
   register_new_user
 end
 
-Given /^my default stored card has(:? not)? expired$/ do |expired|
- if expired.nil?
-   set_email_and_password(test_data('emails', 'one_default_expired_card'), test_data('passwords', 'valid_password'))
- else
-   set_email_and_password(test_data('emails', 'multiple_cards_non_default_expired'), test_data('passwords', 'valid_password'))
- end
+Given /^my default stored card has( not)? expired$/ do |not_expired|
+   email = not_expired ? test_data('emails', 'multiple_cards_non_default_expired') : test_data('emails', 'one_default_expired_card')
+   set_email_and_password(email, test_data('passwords', 'valid_password'))
 end
 
 Given /^I have multiple saved cards/ do
   #Doing nothing on purpose here as this just makes a good reading for the Steps.
-end
-
-Given /^I have multiple saved cards with (default|non-default) card expired$/ do |expired_card|
-  if expired_card.include?('non')
-    email_address = test_data('emails', 'multiple_cards_non_default_expired')
-  else
-    email_address = test_data('emails', 'multiple_cards_default_expired')
-  end
-  set_email_and_password(email_address, test_data('passwords', 'valid_password'))
 end
 
 When /^I enter personal details with (valid|invalid) clubcard number$/ do |club_card_type|
@@ -228,7 +216,7 @@ When /^I click on link to sign in with already registered email$/ do
   register_page.sign_in_with_existing_email_link.click
 end
 
-Given /^I have a (?:paid|free) book( (?:as a )?sample) in my library$/ do |is_sample|
+Given /^I have a (?:paid|free) book(?: (?:as a )?sample) in my library$/ do
   set_email_and_password(test_data('emails', 'books_in_library'), test_data('passwords', 'valid_password'))
   @sample = true
 end

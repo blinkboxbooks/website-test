@@ -117,7 +117,7 @@ Given /^I am on Categories page$/ do
 end
 
 Given /^I am on the Book Details page (?:of a|for the same)? (paid|free) book$/ do |book_type|
-  @sample ? type = "#{book_type}_sample" : type = book_type
+  @sample ? type = "sample_for_#{book_type}_book" : type = book_type
   book_details_page.visit_for(type.downcase.to_sym)
 end
 

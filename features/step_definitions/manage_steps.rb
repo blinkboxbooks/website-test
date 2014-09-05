@@ -15,7 +15,7 @@ Given /^I am on the (.*?) tab/ do |tab_name|
   current_page.header.navigate_to_account_option(tab_name)
 end
 
-Then /^I see a message/ do
+Then /^I see a message that I do not have any samples yet/ do
   expect(samples_page.all_text).to include "You haven't got any samples yet. Why not give these a try?"
 end
 

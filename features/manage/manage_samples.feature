@@ -10,7 +10,7 @@ Feature: Manage Samples under My account section.
   Scenario: Verifying user has no samples in their account.
     Given I sign in as a user who has no samples in their account
     And I am on the Samples tab
-    Then I see a message
+    Then I see a message that I do not have any samples yet
     And the Books from the Highlight section
 
   @pending
