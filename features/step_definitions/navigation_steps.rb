@@ -49,10 +49,32 @@ Given /^the blinkbox music link is present in the footer$/ do
   @music_link = current_page.footer.links.blinkbox_music
 end
 
+Given /^the blinkbox blogs link is present in the footer$/ do
+  expect(current_page.footer.links).to have_blinkbox_blogs
+  @blog_link = current_page.footer.links.blinkbox_blogs
+end
+
+Given /^the blinkbox careers link is present in the footer$/ do
+  expect(current_page.footer.links).to have_blinkbox_careers
+  @careers_link = current_page.footer.links.blinkbox_careers
+end
+
 Then /^the link should point to the blinkbox music home page$/ do
   expect(@music_link[:href]).to include('www.blinkboxmusic.com')
   expect(@music_link[:target]).to eq('_blank')
   expect(@music_link.text).to eq('blinkbox music')
+end
+
+Then /^the link should point to the blinkbox blog page$/ do
+  expect(@blog_link[:href]).to include('https://blog.blinkboxbooks.com/')
+  expect(@blog_link[:target]).to eq('_blank')
+  expect(@blog_link.text).to eq('blinkbox Books blog')
+end
+
+Then /^the link should point to the blinkbox careers page$/ do
+  expect(@careers_link[:href]).to include('http://careers.blinkbox.com/')
+  expect(@careers_link[:target]).to eq('_blank')
+  expect(@careers_link.text).to eq('Careers')
 end
 
 And /^I click on the (.+) footer link$/ do |link_name|

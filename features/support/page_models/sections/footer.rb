@@ -5,12 +5,15 @@ module PageModels
     element :terms_and_conditions, "a[data-test='footer-t-and-c-link']"
     element :blinkbox_movies, "a[data-test='footer-movies-link']"
     element :blinkbox_music, "a[data-test='footer-music-link']"
+    element :blinkbox_blogs, "a[data-test='footer-blog-link']"
+    element :blinkbox_careers, "a[data-test='footer-careers-link']"
   end
 
   class Footer < PageModels::BlinkboxbooksSection
     element :version_div, 'div.versionInfo', visible: false
     elements :top_authors, 'div#footer_authors1 ul.lists li a'
     elements :top_categories, 'div#footer_categories ul.lists li a'
+    elements :new_releases, 'div#footer_releases ul.lists li a[bo-text]'
     section :links, FooterLinks, 'div#bottom_footer'
 
     def version_info

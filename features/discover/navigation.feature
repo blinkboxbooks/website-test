@@ -38,6 +38,16 @@ Feature: Navigation around the website
     Then the link should point to the blinkbox music home page
 
   @smoke @production
+  Scenario: Navigating to the blinkbox blogs site from the footer
+    Given the blinkbox blogs link is present in the footer
+    Then the link should point to the blinkbox blog page
+
+  @smoke @production
+  Scenario: Navigating to the blinkbox careers site from the footer
+    Given the blinkbox careers link is present in the footer
+    Then the link should point to the blinkbox careers page
+
+  @smoke @production
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions footer link
     Then Terms and conditions page is displayed
@@ -207,41 +217,17 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
-  Scenario Outline: Click Top authors links from footer
-    When I click on the <author_name> author link from footer
-    Then selected <author_name> author page displayed
+  Scenario: Top authors links from footer is dynamically generated
+    When I click on the Authors header tab
+    Then the top authors on the footer is generated from featured authors section
 
-  Examples:
-    | author_name       |
-    | James Patterson   |
-    | David Walliams    |
-    | John Green        |
-    | Kate Atkinson     |
-    | Suzanne Collins   |
-    | Jodi Picoult      |
-    | Jacqueline Wilson |
-    | Lee Child         |
-    | Graeme Simsion    |
-    | Santa Montefiore  |
+  Scenario: Top categories links from footer is dynamically generated
+    When I click on the Categories header tab
+    Then the top categories on the footer is generated from top categories section
 
-  @unstable
-  Scenario Outline: Click Top categories links from footer
-    # Have to liaison with developers to make the titles uniform across pages (& <-> and)
-    When I click on the <category_name> category link from footer
-    Then selected <category_name> category page displayed
-
-  Examples:
-    | category_name           |
-    | Biography & Memoir      |
-    | Children's Fiction      |
-    | Crime & Mystery         |
-    | Fiction & Literature    |
-    | Food & Drink            |
-    | Health & Wellbeing      |
-    | Humour                  |
-    | Music, Stage and Screen |
-    | Romance                 |
-    | Thriller & Suspense     |
+  Scenario: New releases links from footer is dynamically generated
+    When I click on the New releases header tab
+    Then the new releases on the footer is generated from new releases section
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
