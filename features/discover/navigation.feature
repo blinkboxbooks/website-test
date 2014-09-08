@@ -39,7 +39,7 @@ Feature: Navigation around the website
 
   @smoke @production
   Scenario: Navigating to the blinkbox blogs site from the footer
-    Given the blinkbox blogs link is present in the footer
+    Given the blinkbox books blog link is present in the footer
     Then the link should point to the blinkbox blog page
 
   @smoke @production
@@ -218,16 +218,16 @@ Feature: Navigation around the website
     Then I should see Non-Fiction books in list view
 
   Scenario: Top authors links from footer is dynamically generated
-    When I click on the Authors header tab
-    Then the top authors on the footer is generated from featured authors section
+    Given there are top five authors on the Authors page
+    Then the same Top authors are displayed in the footer
 
   Scenario: Top categories links from footer is dynamically generated
-    When I click on the Categories header tab
-    Then the top categories on the footer is generated from top categories section
+    Given there are top five categories on the Categories page
+    Then the same Top categories are displayed in the footer
 
   Scenario: New releases links from footer is dynamically generated
-    When I click on the New releases header tab
-    Then the new releases on the footer is generated from new releases section
+    Given there are top five books on the New release page
+    Then the same New releases are displayed in the footer
 
   Scenario: Redesigned footer is displayed
     Then "Discover" step is displayed on the footer

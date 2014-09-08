@@ -1,24 +1,18 @@
-Then /^the top authors on the footer is generated from featured authors section$/ do
-  featured_authors = authors_page.featured_authors_names
-
+Then /^the same Top authors are displayed in the footer$/ do
   current_page.footer.top_authors.each do |author_link|
-    expect(featured_authors).to include(author_link.text)
+    expect(@featured_authors).to include(author_link.text)
   end
 end
 
-Then /^the top categories on the footer is generated from top categories section$/ do
-  top_categories = categories_page.top_categories_titles
-
+Then /^the same Top categories are displayed in the footer$/ do
   current_page.footer.top_categories.each do |category|
-    expect(top_categories).to include(category.text)
+    expect(@top_categories).to include(category.text)
   end
 end
 
-Then /^the new releases on the footer is generated from new releases section$/ do
-  new_releases = new_releases_page.new_releases_titles
-
+Then /^the same New releases are displayed in the footer$/ do
   current_page.footer.new_releases.each do |book_title|
-    expect(new_releases).to include(book_title.text.upcase)
+    expect(@new_releases).to include(book_title.text.upcase)
   end
 end
 

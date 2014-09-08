@@ -49,7 +49,7 @@ Given /^the blinkbox music link is present in the footer$/ do
   @music_link = current_page.footer.links.blinkbox_music
 end
 
-Given /^the blinkbox blogs link is present in the footer$/ do
+Given /^the blinkbox books blog link is present in the footer$/ do
   expect(current_page.footer.links).to have_blinkbox_blogs
   @blog_link = current_page.footer.links.blinkbox_blogs
 end
@@ -83,6 +83,21 @@ end
 
 When /^I click on the (.*) header tab$/i do |page_name|
   click_navigation_link(page_name)
+end
+
+Given /^there are top five authors on the Authors page$/ do
+  authors_page.load
+  @featured_authors = authors_page.featured_authors_names
+end
+
+Given /^there are top five books on the New release page$/ do
+  new_releases_page.load
+  @new_releases = new_releases_page.new_releases_titles
+end
+
+Given /^there are top five categories on the Categories page$/ do
+  categories_page.load
+  @top_categories = categories_page.top_categories_titles
 end
 
 And /^I press browser back$/ do
