@@ -38,9 +38,9 @@ Feature: Navigation around the website
     Then the link should point to the blinkbox music home page
 
   @smoke @production
-  Scenario: Navigating to the blinkbox books blogs page from the footer
-    Given the blinkbox books blog page link is present in the footer
-    Then the link should point to the blinkbox books blog page
+  Scenario: Navigating to the blinkbox books blogs from the footer
+    Given the blinkbox books blog link is present in the footer
+    Then the link should point to the blinkbox books blog
 
   @smoke @production
   Scenario: Navigating to the blinkbox careers site from the footer

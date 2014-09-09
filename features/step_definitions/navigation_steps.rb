@@ -49,7 +49,7 @@ Given /^the blinkbox music link is present in the footer$/ do
   @music_link = current_page.footer.links.blinkbox_music
 end
 
-Given /^the blinkbox books blog page link is present in the footer$/ do
+Given /^the blinkbox books blog link is present in the footer$/ do
   expect(current_page.footer.links).to have_blinkbox_blogs
   @blog_link = current_page.footer.links.blinkbox_blogs
 end
@@ -65,7 +65,7 @@ Then /^the link should point to the blinkbox music home page$/ do
   expect(@music_link.text).to eq('blinkbox music')
 end
 
-Then /^the link should point to the blinkbox books blog page$/ do
+Then /^the link should point to the blinkbox books blog$/ do
   expect(@blog_link[:href]).to include('https://blog.blinkboxbooks.com/')
   expect(@blog_link[:target]).to eq('_blank')
   expect(@blog_link.text).to eq('blinkbox Books blog')
