@@ -15,12 +15,11 @@ Given /^I am on the (.*?) tab/ do |tab_name|
   current_page.header.navigate_to_account_option(tab_name)
 end
 
-Then /^I see a message that I do not have any samples yet/ do
-  expect(samples_page.all_text).to include "You haven't got any samples yet. Why not give these a try?"
-end
 
-And /^the Books from the Highlight section/ do
-  expect(samples_page.highlight_books_displayed).to be > 1
+And /^the Books from the Highlight section are shown/ do
+  expect(samples_page).to have_highlights_section
+  samples_page.highlights_section.wait_for_books
+  expect(samples_page.highlights_section.books).to have_at_least(1).item
 end
 
 When /^I edit the first name and last name$/ do
