@@ -16,8 +16,12 @@ Then /^the same New releases are displayed in the footer$/ do
   end
 end
 
-Then /"(Discover|Register|Download|Read)" step is displayed on the footer/ do |step|
+Then /the new (Discover|Register|Download|Read) image should be displayed/ do |step|
   step = current_page.footer.step_by_title(step)
   expect(step).to have_image
   expect(step.image).to be_visible
+end
+
+Then /I scroll down to the footer/ do
+  # Do nothing on purpose. This step is just to improve clarity.
 end
