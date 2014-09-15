@@ -12,6 +12,7 @@ group :automation_libs do
   gem 'selendroid'
   gem 'site_prism'
   gem 'Platform'
+  gem 'require_all'
 end
 
 group :misc_libs do

@@ -21,7 +21,7 @@ module Utilities
   end
 
   def return_search_word_for_book_type (book_type)
-    random_words = test_list('random_search_keywords')
+    random_words = test_data('random_search_keywords')
     book_type == :free ? 'free' : random_words.sample
   end
 

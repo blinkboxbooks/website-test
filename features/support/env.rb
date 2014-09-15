@@ -1,112 +1,33 @@
-$: << '.'
+# ======== Set Load Paths ======
 support_dir = File.join(File.dirname(__FILE__))
 path_to_root = support_dir + '/../../'
-$LOAD_PATH.unshift File.expand_path(support_dir)
+$: << '.'
+$: << support_dir
+$: << path_to_root
 
-require 'selenium-webdriver'
-require 'capybara'
-require 'capybara/dsl'
-require 'capybara/cucumber'
-require 'capybara/angular'
-require 'site_prism'
-require 'active_support'
-require 'active_support/core_ext'
-require 'rspec/expectations'
-require 'rspec/collection_matchers'
-require 'benchmark'
-require 'yaml'
-require 'rspec'
-require 'api_methods.rb'
-require 'platform'
-
-RSpec.configure do |config|
-  config.expect_with :rspec do |c|
-    c.syntax = :expect, :should
-  end
-end
-
-World(Capybara::Angular::DSL)
-World(RSpec::Matchers)
-
-# ======= Setup Test Config =======
-module KnowsAboutConfig
-  path_to_root = File.dirname(__FILE__) + '/../../'
-  $LOAD_PATH.unshift File.expand_path(path_to_root)
-
-  def require_and_log(lib_array)
-    lib_array = [lib_array] if lib_array.class != Array
-    lib_array.sort!
-    lib_array.each { |file|
-      unless $".include?(file.to_s)
-        puts("Loading #{file}") if TEST_CONFIG['debug']
-        require file.to_s
-      end
-    }
-  end
-
-  def load_yaml_file(dir, filename)
-    path = "#{dir}/#{filename}"
-    YAML.load_file(path)
-  end
-
-  def initialise_test_data
-    @_test_data ||= load_yaml_file('data', 'test_data.yml')[TEST_CONFIG['SERVER']]
-  end
-
-  def test_data(data_type, param)
-    initialise_test_data
-    param = param.to_s.gsub(' ', '_').downcase
-    raise "Unable to find data_type [#{data_type}] in the test data" if @_test_data[data_type.to_s].nil?
-    raise "Unable to find parameter [#{param}] in the test data set of [#{data_type}]" if @_test_data[data_type.to_s][param].nil?
-    @_test_data[data_type.to_s][param]
-  end
-
-  def test_list(data)
-    initialise_test_data
-    raise "Unable to find data_type [#{data}] in the test data" if @_test_data[data.to_s].nil?
-    @_test_data[data.to_s]
-  end
-
-  def environments(name)
-    @_environments ||= load_yaml_file('config', 'environments.yml')
-    env = @_environments[name.upcase]
-    raise "Environment '#{name}' is not defined in environments.yml" if env.nil?
-    env
-  end
-end
-include KnowsAboutConfig
-World(KnowsAboutConfig)
-
-
-TEST_CONFIG = ENV.to_hash || {}
-TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
-TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
-if TEST_CONFIG['debug']
-  ARGV.each do |a|
-    puts "Argument: #{a}"
-  end
-  puts "TEST_CONFIG: #{TEST_CONFIG}"
-end
-
-#======== Load environment specific test data ======
-TEST_CONFIG['SERVER'] ||= 'QA'
-initialise_test_data
+# ======== Load gems and config ======
+puts 'Loading gems and config...'
+require 'env_gems'
+require 'env_config'
 
 # ======= load common helpers =======
-
 puts 'Loading custom cucumber formatters...'
-require_and_log Dir[File.join(support_dir, 'formatter', '*.rb')]
+require_and_log 'formatter/*.rb'
 
 puts 'Loading support files...'
-require_and_log Dir[File.join(support_dir, 'core_ruby_overrides.rb')]
-require_and_log Dir[File.join(support_dir, '*.rb')]
+require_and_log 'core_ruby_overrides.rb'
+require_and_log '*.rb'
 
 puts 'Loading page models...'
-require_and_log Dir[File.join(support_dir, 'page_models', '*.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbooks_section.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+require_and_log 'page_models/*.rb'
+require_and_log 'page_models/sections/blinkboxbooks_section.rb'
+require_and_log 'page_models/sections/*.rb'
+require_and_log 'page_models/pages/blinkboxbooks_page.rb'
+require_and_log 'page_models/pages/*.rb'
+
+# ======== Load environment specific test data ======
+TEST_CONFIG['SERVER'] ||= 'QA'
+initialise_test_data
 
 # ======= Setup PATH env. variable =======
 puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
@@ -164,7 +85,7 @@ end
 caps.native_events=false
 
 # grid setup
-if TEST_CONFIG['GRID'] =~ /^true|on$/i
+if on?(TEST_CONFIG['GRID'])
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'FIRST_AVAILABLE'
   case TEST_CONFIG['PLATFORM'].upcase
@@ -249,14 +170,4 @@ else
                                    :desired_capabilities => caps)
   end
 
-end
-
-# Headless mode
-if TEST_CONFIG['HEADLESS']  =~ /^true|on$/i
-  puts 'Headless mode.'
-
-  require 'headless'
-
-  headless = Headless.new
-  headless.start
 end
