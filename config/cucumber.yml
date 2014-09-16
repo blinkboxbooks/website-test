@@ -42,7 +42,7 @@ local_debug_tablet:  <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_tablet_qa %
 #win-vista-firefox: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
 #win-vista-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
 
-# COMMAND LINE OPTIONS 
+# COMMAND LINE OPTIONS
 # SERVER: LOCALHOST, TEST, QA, STAGING, PRODUCTION
 # DEVICE: MOBILE, TABLET-PORTRAIT, TABLET-LANDSCAPE, DESKTOP
 

@@ -20,6 +20,14 @@ Given /^I have signed in to change my first name$/ do
   sign_in(@email_address, @password)
 end
 
+Given(/^I sign in as a user who has no samples in their account$/) do
+  sign_in_page.load
+  email = test_data('emails', 'empty_library_no_devices')
+  password = test_data('passwords', 'valid_password')
+  enter_sign_in_details(email, password)
+  click_sign_in_button
+end
+
 When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to proceed with adding sample)?$/ do
   sign_in_from_redirected_page
 end
@@ -31,7 +39,6 @@ end
 When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
-
 
 Given /^I am on Register page$/ do
   register_page.load

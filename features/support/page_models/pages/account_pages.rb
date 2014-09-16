@@ -13,6 +13,14 @@ module PageModels
     element :book_list, '.expandable'
   end
 
+  class SamplesPage < PageModels::YourAccountPage
+    set_url '/#!/account/samples'
+    set_url_matcher /account\/samples/
+    sections :samples_section, SampleResults, 'expandable itemsets'
+    section :highlights_section, BookResults, '#books_news'
+    sections :sample_list, SampleResults, '.order_books'
+  end
+
   class YourPersonalDetailsPage < PageModels::YourAccountPage
     set_url '/#!/account/personal-details'
     set_url_matcher /account\/personal-details/
@@ -91,6 +99,7 @@ module PageModels
 
   register_model_caller_method(YourAccountPage)
   register_model_caller_method(OrderAndPaymentHistoryPage)
+  register_model_caller_method(SamplesPage)
   register_model_caller_method(YourPersonalDetailsPage)
   register_model_caller_method(YourPaymentsPage)
   register_model_caller_method(YourDevicesPage)
