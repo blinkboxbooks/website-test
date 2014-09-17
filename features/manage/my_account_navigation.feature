@@ -115,3 +115,16 @@ Feature: Navigating through my account pages
       Given PENDING: @CWA-1311, FAQ Links on order confirmation page pointing to old url (zendesk)
       When I click the "Download the free app" button on order complete page
       Then the "Download the free app" support page opens up in a new window
+
+  Scenario Outline: Personification message on account pages
+    Given I have signed in
+    When I am on the <my_account> tab
+    Then "You have 0 books and 1 registered devices" message is displayed
+
+    Examples:
+      | my_account              |
+      | Order & payment history |
+      | Samples                 |
+      | Your personal details   |
+      | Your payments           |
+      | Your devices            |
