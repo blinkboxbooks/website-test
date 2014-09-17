@@ -229,16 +229,12 @@ Feature: Navigation around the website
     Given there are top five books on the New release page
     Then the same New releases are displayed in the footer
 
-  Scenario Outline: Redesigned footer is displayed
-    And I scroll down to the footer
-    Then the new <footer> image should be displayed
-
-  Examples:
-    | footer   |
-    | Discover |
-    | Register |
-    | Download |
-    | Read     |
+  Scenario: Redesigned footer is displayed
+    When I scroll down to the footer
+    Then the new Discover image should be displayed
+    Then the new Register image should be displayed
+    Then the new Download image should be displayed
+    Then the new Read image should be displayed
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
