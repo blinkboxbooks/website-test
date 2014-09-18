@@ -276,3 +276,11 @@ end
 Then /^the page title should be "(.+)"$/ do |title|
   expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
 end
+
+Then /^I should see (\d+) purchases? in the personification message$/ do |books|
+  expect(your_account_page.account_message_books).to eq(books)
+end
+
+Then /^I should see (\d+) registered devices? in the personification message$/ do |devices|
+  expect(your_account_page.account_message_devices).to eq(devices)
+end

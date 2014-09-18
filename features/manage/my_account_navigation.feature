@@ -119,7 +119,8 @@ Feature: Navigating through my account pages
   Scenario Outline: Personification message on account pages
     Given I have signed in
     When I am on the <my_account> tab
-    Then "You have 0 books and 1 registered devices" message is displayed
+    Then I should see 0 purchase in the personification message
+    And I should see 1 registered device in the personification message
 
     Examples:
       | my_account              |
