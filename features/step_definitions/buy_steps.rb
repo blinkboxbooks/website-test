@@ -31,11 +31,7 @@ When /^I click Confirm order$/ do
 end
 
 Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
-  if login_status.eql?('logged')
-    sign_in
-  elsif logged_in_session?
-    log_out_current_session
-  end
+  sign_in unless login_status.include?('not')
   select_book_to_buy(book_type.downcase.to_sym)
 end
 
@@ -78,8 +74,9 @@ Given /^I have selected to buy a (paid|free) book from (Bestsellers|New releases
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
-Given /^I have selected to buy a (paid|free) book on Book details page$/i do |book_type|
+Given /^I am on the Confirm and pay page trying to buy a (paid|free) book$/i do |book_type|
   @book_title = select_book_to_buy_on('Book details', book_type)
+  sign_in_from_redirected_page
 end
 
 Given /^I have selected to buy a (paid|free) book$/ do |book_type|
@@ -232,7 +229,6 @@ end
 And /^amount left to pay is displayed$/ do
    assert_amount_left_to_pay(@account_credit, @book_price)
 end
-
 
 And /^my payment method is partial payment$/ do
   assert_payment_method(:partial)

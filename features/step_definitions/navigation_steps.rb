@@ -116,8 +116,14 @@ Given /^I am on Categories page$/ do
   expect_page_displayed('Categories')
 end
 
-Given /^I am on the Book Details page of a (paid|free) book$/ do |book_type|
-  book_details_page.visit_for(book_type.downcase.to_sym)
+Given /^I am on the Book Details page (?:of a|for the same)? (paid|free) book$/ do |book_type|
+  @sample ? type = "sample_for_#{book_type}_book" : type = book_type
+  book_details_page.visit_for(type.downcase.to_sym)
+end
+
+And /^I try to buy the book again/ do
+  click_buy_now_in_book_details_page
+  sign_in_from_redirected_page
 end
 
 When /^I click on a category$/ do

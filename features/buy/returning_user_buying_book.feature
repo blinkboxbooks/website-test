@@ -11,22 +11,22 @@ Feature: Returning buying book from blinkbox books
   @smoke
   Scenario: Returning logged in user buying book with saved payment card
     Given I am buying a paid book as a logged in user
-    When I pay with saved default card
+    When I pay with my default saved card
     Then my payment is successful
 
   @smoke
   Scenario: Returning user not logged in buying book with saved payment card
     Given I am buying a paid book as a not logged in user
-    When I sign in to proceed with purchase
-    Then title should be "confirm & pay"
-    And I pay with saved default card
+    When I sign in to proceed
+    Then the page title should be "confirm & pay"
+    And I pay with my default saved card
     Then my payment is successful
 
   Scenario Outline: Returning logged in user buying book with new payment card and saving card details
     Given I am buying a paid book as a logged in user
     When I pay with a new <card_type> card
-    And I choose to save new payment details
-    And I submit payment details
+    And I choose to save the new payment details
+    And I submit the payment details
     Then my payment is successful
 
   Examples: Card types
@@ -36,10 +36,10 @@ Feature: Returning buying book from blinkbox books
 
   Scenario Outline: Returning user not logged in, buying book with one off new payment card
     Given I am buying a paid book as a not logged in user
-    And I sign in to proceed with purchase
+    And I sign in to proceed
     When I pay with a new <card_type> card
-    And I choose not to save new payment details
-    And I submit payment details
+    And I choose not to save the new payment details
+    And I submit the payment details
     Then my payment is successful
 
   Examples: Card types
@@ -49,19 +49,19 @@ Feature: Returning buying book from blinkbox books
 
   Scenario: Returning user logged in buying a free book
     Given I am buying a free book as a logged in user
-    When I click Confirm order
+    When I click on Confirm order
     Then my payment is successful
 
   Scenario: Returning user not logged in buying a free book
     Given I am buying a free book as a not logged in user
-    And I sign in to proceed with purchase
-    When I click Confirm order
+    And I sign in to proceed with the purchase
+    When I click on Confirm order
     Then my payment is successful
 
   Scenario: Returning user buying a free book from grid view
     Given I have selected to buy a free book from Grid view
-    And I sign in to proceed with purchase
-    When I click Confirm order
+    And I sign in to proceed with the purchase
+    When I click on Confirm order
     Then my payment is successful
 
    @CWA-1000
@@ -72,5 +72,5 @@ Feature: Returning buying book from blinkbox books
     And I sign in to proceed with adding sample
     Then adding sample is successful
     When I select the above book to buy
-    And I submit payment details
+    And I submit the payment details
     Then my payment is successful

@@ -4,6 +4,7 @@ module PageModels
     element :sign_in_button, 'a[data-test="menu-sign-in-button"]'
     element :menu_register_link, '[data-test="menu-register-link"]'
     element :order_history, 'a[data-test="order-history"]'
+    element :samples, 'a[data-test="samples"]'
     element :personal_details, 'a[data-test="personal-details"]'
     element :saved_cards, 'a[data-test="saved-cards"]'
     element :devices, 'a[data-test="devices"]'
@@ -97,7 +98,7 @@ module PageModels
     end
 
     def user_name_displayed
-      welcome_text_element.text.gsub('Hi,', '').strip
+      welcome_text_element.text.gsub('Hi, ', '').strip
     end
 
     def user_name

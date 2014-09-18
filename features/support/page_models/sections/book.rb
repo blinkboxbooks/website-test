@@ -18,7 +18,12 @@ module PageModels
     element :clubcard_logo, '.club_card_logo img'
 
     def free?
-      wait_for_price_element
+      begin
+        wait_for_price_element
+      rescue
+        puts 'Timed out waiting for price element'
+        return false
+      end
       if has_price_element?
         price_element.text.downcase.eql?('Free'.downcase)
       else

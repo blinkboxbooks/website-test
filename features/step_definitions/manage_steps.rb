@@ -10,9 +10,16 @@ And /^(.*?) tab is selected$/ do |tab_name|
   expect_account_tab_selected(tab_name)
 end
 
-
 Given /^I am on the (.*?) tab/ do |tab_name|
-  click_link_from_my_account_dropdown(tab_name)
+  expect_page_displayed('HomePage')
+  current_page.header.navigate_to_account_option(tab_name)
+end
+
+
+And /^the Books from the Highlight section are shown/ do
+  expect(samples_page).to have_highlights_section
+  samples_page.highlights_section.wait_for_books
+  expect(samples_page.highlights_section.books).to have_at_least(1).item
 end
 
 When /^I edit the first name and last name$/ do

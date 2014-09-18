@@ -9,6 +9,10 @@ Before('~@reset_session') do
 end
 
 After do |scenario|
+  if page.driver.browser.window_handles.count > 0 && logged_in_session?
+    log_out_current_session
+  end
+  
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
     puts "'FAIL FAST' option is ON"
     # Tell Cucumber to quit after this scenario is done - if it failed

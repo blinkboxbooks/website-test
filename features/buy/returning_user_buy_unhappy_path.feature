@@ -6,10 +6,10 @@ Feature: Unhappy path buy
 
   @negative @ie @safari
   Scenario Outline: Returning user attempting to buy a book that already exists in his library
-    Given I have a <book_type> book in my library
-    When I have selected to buy a paid book on Book details page
-    And sign in to proceed with purchase
-    Then book already exists in the library message displayed in confirm and pay page
+    Given I have purchased a <book_type> book
+    When I am on the Book Details page for the same <book_type> book
+    And I try to buy the book again
+    Then "You already have this book in your library" message is displayed
 
    Examples:
     | book_type |
@@ -18,11 +18,9 @@ Feature: Unhappy path buy
 
   @negative
   Scenario Outline: Returning user buying a book, cvv not matching payment failure error from Braintree
-    Given I am returning user
-    When I have selected to buy a paid book on Book details page
-    And sign in to proceed with purchase
+    Given I am on the Confirm and pay page trying to buy a paid book
     When I choose to pay with a new card
-    And I submit payment details with not matching cvv <cvv_number>
+    And I submit the payment details with not matching cvv <cvv_number>
     Then my payment is not successful
     And payment failure message should be displayed
 

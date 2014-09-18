@@ -79,7 +79,7 @@ module PageModels
         search(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
         search(return_search_word_for_book_type(book_type))
-        book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
+        book_type.to_sym == :free ? books_section.click_details_free_book : books_section.click_details_random_book
         book_title = book_details_page.title
         book_details_page.buy_now.click
         return book_title
@@ -94,7 +94,7 @@ module PageModels
         click_navigation_link(page_name) unless page_model(page_name).displayed?
         switch_to_list_view
       end
-      book_type == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
+      book_type.to_sym == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
     end
 
     def select_book_from_grid_view(book_type)

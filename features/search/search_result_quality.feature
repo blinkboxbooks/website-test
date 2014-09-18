@@ -13,11 +13,16 @@ Feature: Verify that search results match search criteria
     Then Search Results page is displayed
     And at least 1 search result is shown
 
-  @CWA-866
-  Scenario: Search for a word that does not return any results
-    Given I search for term "blahblahblahblah"
-    Then I should get a message
-    And the options of switching view mode should not appear
+   @CWA-866
+   Scenario Outline: Search for a word that does not return any results
+     When I search for "<invalid_search_item>"
+     Then no result message is displayed
+     And the options of switching view mode should not appear
+
+   Examples:
+     | invalid_search_item |
+     | blahblahblahblah    |
+     | $%^$%&^%*^&         |
 
   @CWA-866 @pending
   Scenario: Suggested word for misspelled search words

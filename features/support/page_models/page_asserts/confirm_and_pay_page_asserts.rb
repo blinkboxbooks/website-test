@@ -23,7 +23,7 @@ module PageModels
     end
 
     def assert_book_exists_in_library_message(type)
-      expect(confirm_and_pay_page).to have_already_purchased_message
+      expect{confirm_and_pay_page.already_purchased_message.visible?}.to become_true
       assert_message_displayed("You already have this #{type} in your library")
     end
 
