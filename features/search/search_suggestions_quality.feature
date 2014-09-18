@@ -7,12 +7,11 @@ Feature: Suggestions for user search
   Background: Opens Blinkbox books home page
     Given I am on the home page
 
-  @smoke @production @data-dependent @pending
+  @smoke @production @data-dependent
   Scenario: Search suggestions displayed
     When I type "spring" into search field
     Then search suggestions should be displayed
 
-  @pending
   Scenario: Typing valid sequence of letters returns relevant suggestions
     When I type "Gone" into search field
     Then search suggestions should be displayed
