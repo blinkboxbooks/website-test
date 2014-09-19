@@ -173,11 +173,10 @@ Feature: Navigation around the website
     | Free eBooks  |
     | Authors      |
 
-  @CWA-71 @wip
-  Scenario: Promotable category-All time best selling books
+  Scenario: Promotable category - Daily bestsellers
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
-    And I should see Promotions section header as Bestsellers Top 100 this month
+    And I should see Promotions section header as Daily bestsellers
     And I should see 5 books being displayed
 
   @production

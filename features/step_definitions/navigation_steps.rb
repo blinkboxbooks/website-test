@@ -28,7 +28,7 @@ Given /^the blinkbox books help link is present in the footer$/ do
 end
 
 Then /^the link should point to the blinkbox books help home page$/ do
-  expect(@help_link[:href]).to include('support.blinkboxbooks.com')
+  expect(@help_link[:href]).to include('http://tiny.cc/s00amix')
   expect(@help_link[:target]).to eq('_blank')
   expect(@help_link.text).to eq('Help')
 end
