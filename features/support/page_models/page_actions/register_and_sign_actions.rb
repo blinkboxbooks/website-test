@@ -28,6 +28,10 @@ module PageModels
       register_page.fill_in_password(value)
     end
 
+    def enter_password_signin_page(value)
+      sign_in_page.sign_in_form.fill_in_password(value)
+    end
+
     def update_password(current_password, new_password, re_enter_password = new_password, args = {:submit => false})
       change_password_page.current_password.set current_password
       change_password_page.enter_new_password.set new_password
@@ -99,6 +103,11 @@ module PageModels
     def enter_not_matching_passwords
       register_page.password.set test_data('passwords', 'valid_password')
       register_page.password_repeat.set test_data('passwords', 'not_matching_password')
+    end
+
+    def enter_passwords_registration
+      register_page.password.set test_data('passwords', 'valid_password')
+      register_page.password_repeat.set test_data('passwords', 'valid_password')
     end
 
     def cancel_registration

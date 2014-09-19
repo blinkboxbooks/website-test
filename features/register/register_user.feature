@@ -85,3 +85,20 @@ Feature: Register a new Blinkbox books user
     And link to sign in with already registered email address is displayed
     When I click on link to sign in with already registered email
     Then Sign in page is displayed
+
+  Scenario: Verify promotion check box is ticked by default
+    Given I am on Register page
+    And promotion checkbox is ticked by default
+
+  Scenario: Tick to show password after entering passwords
+    Given I am on Register page
+    When I enter password on register screen
+    And I tick show password while typing checkbox
+    Then check passwords shows in text on register screen
+
+  Scenario: Check password is hidden as you type
+    Given I am on Register page
+    When I enter password on register screen
+    Then check passwords are hidden on register screen
+
+

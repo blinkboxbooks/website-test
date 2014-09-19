@@ -276,3 +276,50 @@ end
 Then /^the page title should be "(.+)"$/ do |title|
   expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
 end
+
+And /^promotion checkbox is ticked by default$/ do
+  assert_promotion_checkbox_ticked
+end
+
+And /^I tick show password while typing checkbox$/ do
+  register_page.show_password.set true
+end
+
+And /^I tick show password while typing checkbox on sign in page$/ do
+  sign_in_page.sign_in_form.show_password.set true
+end
+
+When /^I enter password into sign in page$/ do
+  enter_password_signin_page(test_data('passwords', 'valid_password'))
+end
+
+When /^I enter password on register screen$/ do
+  enter_passwords_registration
+end
+
+Then /^check passwords shows in text on register screen$/ do
+  expect(register_page.password[:type]).to eq('text')
+  expect(register_page.password_repeat[:type]).to eq('text')
+  expect(register_page.password[:value]).to eq(test_data('passwords', 'valid_password'))
+  expect(register_page.password_repeat[:value]).to eq(test_data('passwords', 'valid_password'))
+end
+
+Then /^check passwords are hidden on register screen$/ do
+  expect(register_page.password[:type]).to eq('password')
+  expect(register_page.password_repeat[:type]).to eq('password')
+end
+
+Then /^check password is shown in the field$/ do
+  expect(sign_in_page.sign_in_form.password[:type]).to eq('text')
+  expect(sign_in_page.sign_in_form.password[:value]).to eq(test_data('passwords', 'valid_password'))
+end
+
+Then /^check password value is hidden in the field$/ do
+  expect(sign_in_page.sign_in_form.password[:type]).to eq('password')
+end
+
+
+
+
+
+

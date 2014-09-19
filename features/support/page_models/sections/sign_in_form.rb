@@ -13,6 +13,10 @@ module PageModels
       self.sign_in_button.click
     end
 
+    def fill_in_password(password)
+      self.password.set password
+    end
+
     def click_sign_in_button
       expect(self).to have_sign_in_button
       self.sign_in_button.click
