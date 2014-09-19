@@ -1,7 +1,7 @@
 module PageModels
   module SearchResultsActions
     def switch_to_grid_view
-      search_results_page.wait_for_list_view_button
+      search_results_page.wait_for_grid_view_button
       search_results_page.grid_view_button.click
       wait_until { search_results_page.current_view == :grid }
     end

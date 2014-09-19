@@ -18,18 +18,11 @@ module PageModels
     element :clubcard_logo, '.club_card_logo img'
 
     def free?
-      begin
-        wait_for_price_element
-      rescue
-        puts 'Timed out waiting for price element'
-        return false
-      end
-      if has_price_element?
-        price_element.text.downcase.eql?('Free'.downcase)
-      else
-        puts 'Warning: Book doesn\'t have price or \'free\' displayed (possibly caching issue)'
-        false
-      end
+      wait_for_price_element
+      has_price_element? && price_element.text.downcase.eql?('free')
+    rescue e
+      puts "Warning: Book '#{self.isbn}' doesn't have price or text 'free' displayed (possibly a caching issue).\n \n#{e.message}"
+      false
     end
 
     def purchasable?
