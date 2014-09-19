@@ -116,16 +116,32 @@ Feature: Navigating through my account pages
       When I click the "Download the free app" button on order complete page
       Then the "Download the free app" support page opens up in a new window
 
+  @smoke
   Scenario Outline: Personification message on account pages
-    Given I have signed in
+    Given I sign in as a user who has no samples in their account
     When I am on the <my_account> tab
     Then I should see 0 purchase in the personification message
-    And I should see 1 registered device in the personification message
+    And I should see 0 registered device in the personification message
 
     Examples:
-      | my_account              |
-      | Order & payment history |
-      | Samples                 |
-      | Your personal details   |
-      | Your payments           |
-      | Your devices            |
+      | my_account       |
+      | Order History    |
+      | Samples          |
+      | Personal Details |
+      | Saved Cards      |
+      | Devices          |
+
+  @smoke @production
+  Scenario Outline: Personification message on account pages [production]
+    Given I have signed in
+    When I am on the <my_account> tab
+    Then I should see 37 purchase in the personification message
+    And I should see 0 registered device in the personification message
+
+  Examples:
+    | my_account       |
+    | Order History    |
+    | Samples          |
+    | Personal Details |
+    | Saved Cards      |
+    | Devices          |
