@@ -36,15 +36,11 @@ module AssertNavigation
   end
 
   def assert_book_details
-    pending "Latest CPR (v0.2.3) needs to be rolled out, which includes id=\"cpr-iframe\" (capybara can't locate iframe elements by other than ID!)" do
-      expect(book_details_page).to be_all_there
-    end
+    expect{book_details_page.all_there?}.to become_true
   end
 
   def assert_book_reader
-    pending("Latest CPR (v0.2.3) needs to be rolled out") do
-      expect(book_details_page).to have_reader
-    end
+    expect(book_details_page).to have_reader
   end
 
   def assert_order_complete
