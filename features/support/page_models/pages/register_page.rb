@@ -17,8 +17,6 @@ module PageModels
     element :sign_in_with_existing_email_link, '#error_signin a'
     element :newsletter_checkbox, '#newsletter'
     element :show_password, '#show'
-
-
     element :errors_section, '#error_signin'
     element :sign_email_link, 'a', :text => /Sign in with/i
 

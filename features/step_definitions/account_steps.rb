@@ -293,10 +293,6 @@ When /^I enter password into sign in page$/ do
   enter_password_signin_page(test_data('passwords', 'valid_password'))
 end
 
-When /^I enter password on register screen$/ do
-  enter_passwords_registration
-end
-
 Then /^check passwords shows in text on register screen$/ do
   expect(register_page.password[:type]).to eq('text')
   expect(register_page.password_repeat[:type]).to eq('text')
@@ -317,9 +313,3 @@ end
 Then /^check password value is hidden in the field$/ do
   expect(sign_in_page.sign_in_form.password[:type]).to eq('password')
 end
-
-
-
-
-
-

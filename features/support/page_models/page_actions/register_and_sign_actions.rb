@@ -105,11 +105,6 @@ module PageModels
       register_page.password_repeat.set test_data('passwords', 'not_matching_password')
     end
 
-    def enter_passwords_registration
-      register_page.password.set test_data('passwords', 'valid_password')
-      register_page.password_repeat.set test_data('passwords', 'valid_password')
-    end
-
     def cancel_registration
       register_page.cancel_registration.click
     end
