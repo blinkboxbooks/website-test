@@ -9,12 +9,12 @@ module PageModels
 
     def account_message_books
       wait_for_account_message_books_element
-      /\d+/.match(account_message_books_element.text)[0]
+      /\d+/.match(account_message_books_element.text)[0].to_i
     end
 
     def account_message_devices
       wait_for_account_message_devices_element
-      /\d+/.match(account_message_devices_element.text)[0]
+      /\d+/.match(account_message_devices_element.text)[0].to_i
     end
   end
 

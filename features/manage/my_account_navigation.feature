@@ -118,10 +118,10 @@ Feature: Navigating through my account pages
 
   @smoke
   Scenario Outline: Personification message on account pages
-    Given I sign in as a user who has no samples in their account
+    Given I sign in as a user who has no books in their account
     When I am on the <my_account> tab
-    Then I should see 0 purchase in the personification message
-    And I should see 0 registered device in the personification message
+    Then I see the personification message showing that I have no full ebooks with this account
+    Then I see the personification message showing that I have no devices associated with this account
 
     Examples:
       | my_account       |
@@ -133,10 +133,10 @@ Feature: Navigating through my account pages
 
   @smoke @production
   Scenario Outline: Personification message on account pages [production]
-    Given I have signed in
+    Given I sign in as a user who has books in their account
     When I am on the <my_account> tab
-    Then I should see 37 purchase in the personification message
-    And I should see 0 registered device in the personification message
+    Then I see the personification message showing that I have 37 full ebooks with this account
+    Then I see the personification message showing that I have no devices associated with this account
 
   Examples:
     | my_account       |
