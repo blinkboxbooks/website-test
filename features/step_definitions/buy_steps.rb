@@ -79,14 +79,17 @@ Given /^I am on the Confirm and pay page trying to buy a (paid|free) book$/i do 
   sign_in_from_redirected_page
 end
 
-Given /^I have selected to buy a (paid|free) book$/ do |book_type|
-  # TODO: Remove once 'free' keyword returns results on test env
-  if book_type == 'free'
+Given /^I have selected to buy a free book( via search)?$/ do |do_search|
+  if do_search
+    @book_title = select_book_to_buy(book_type.to_sym)
+  else
     free_ebooks_page.load
     books_section.click_buy_now_free_book
-  else
-    @book_title = select_book_to_buy(book_type.to_sym)
   end
+end
+
+Given /^I have selected to buy a paid book$/ do
+  @book_title = select_book_to_buy(book_type.to_sym)
 end
 
 Given(/^I have selected to buy a (free) book from Grid view$/) do |book_type|
