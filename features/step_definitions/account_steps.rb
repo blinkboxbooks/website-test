@@ -40,7 +40,7 @@ When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
 
-Given /^I am on Register page$/ do
+Given /^I am on the Register page$/ do
   register_page.load
 end
 
@@ -277,39 +277,36 @@ Then /^the page title should be "(.+)"$/ do |title|
   expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
 end
 
-And /^promotion checkbox is ticked by default$/ do
+Then /^the promotion checkbox should be ticked by default$/ do
   assert_promotion_checkbox_ticked
 end
 
-And /^I tick show password while typing checkbox$/ do
+And /^I tick the checkbox show password while typing$/ do
   register_page.show_password.set true
 end
 
-And /^I tick show password while typing checkbox on sign in page$/ do
+And /^I tick the checkbox show password while typing on the Sign in page/ do
   sign_in_page.sign_in_form.show_password.set true
 end
 
-When /^I enter password into sign in page$/ do
+When /^I enter a password$/ do
   enter_password_signin_page(test_data('passwords', 'valid_password'))
 end
 
-Then /^check passwords shows in text on register screen$/ do
-  expect(register_page.password[:type]).to eq('text')
-  expect(register_page.password_repeat[:type]).to eq('text')
-  expect(register_page.password[:value]).to eq(test_data('passwords', 'valid_password'))
-  expect(register_page.password_repeat[:value]).to eq(test_data('passwords', 'valid_password'))
+Then /^the passwords should( not)? be visible$/ do |password_status|
+  if password_status
+    expect(register_page.password[:type]).to eq('password')
+    expect(register_page.password_repeat[:type]).to eq('password')
+  else
+    expect(register_page.password[:type]).to eq('text')
+    expect(register_page.password_repeat[:type]).to eq('text')
+  end
 end
 
-Then /^check passwords are hidden on register screen$/ do
-  expect(register_page.password[:type]).to eq('password')
-  expect(register_page.password_repeat[:type]).to eq('password')
-end
-
-Then /^check password is shown in the field$/ do
-  expect(sign_in_page.sign_in_form.password[:type]).to eq('text')
-  expect(sign_in_page.sign_in_form.password[:value]).to eq(test_data('passwords', 'valid_password'))
-end
-
-Then /^check password value is hidden in the field$/ do
-  expect(sign_in_page.sign_in_form.password[:type]).to eq('password')
+Then /^the password should( not)? be visible on the Sign in page$/ do |password_status|
+  if password_status
+    expect(sign_in_page.sign_in_form.password[:type]).to eq('password')
+  else
+    expect(sign_in_page.sign_in_form.password[:type]).to eq('text')
+  end
 end

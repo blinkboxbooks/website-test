@@ -77,14 +77,11 @@ Feature: Sign into Blinkbox books
 
   Scenario: Tick to show password after entering password
     Given I am on the Sign in page
-    When I enter password into sign in page
-    And I tick show password while typing checkbox on sign in page
-    Then check password is shown in the field
+    When I enter a password
+    And I tick the checkbox show password while typing on the Sign in page
+    Then the password should be visible on the Sign in page
 
   Scenario: Check password is hidden as you type
     Given I am on the Sign in page
-    And I enter password into sign in page
-    Then check password value is hidden in the field
-
-
-
+    When I enter a password
+    Then the password should not be visible on the Sign in page
