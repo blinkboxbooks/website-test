@@ -38,6 +38,16 @@ Feature: Navigation around the website
     Then the link should point to the blinkbox music home page
 
   @smoke @production
+  Scenario: Navigating to the blinkbox books blogs from the footer
+    Given the blinkbox books blog link is present in the footer
+    Then the link should point to the blinkbox books blog
+
+  @smoke @production
+  Scenario: Navigating to the blinkbox careers site from the footer
+    Given the blinkbox careers link is present in the footer
+    Then the link should point to the blinkbox careers page
+
+  @smoke @production
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions footer link
     Then Terms and conditions page is displayed
@@ -206,41 +216,24 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
-  Scenario Outline: Click Top authors links from footer
-    When I click on the <author_name> author link from footer
-    Then selected <author_name> author page displayed
+  Scenario: Top authors links from footer is dynamically generated
+    Given there are top five authors on the Authors page
+    Then the same Top authors are displayed in the footer
 
-  Examples:
-    | author_name       |
-    | James Patterson   |
-    | David Walliams    |
-    | John Green        |
-    | Kate Atkinson     |
-    | Suzanne Collins   |
-    | Jodi Picoult      |
-    | Jacqueline Wilson |
-    | Lee Child         |
-    | Graeme Simsion    |
-    | Santa Montefiore  |
+  Scenario: Top categories links from footer is dynamically generated
+    Given there are top five categories on the Categories page
+    Then the same Top categories are displayed in the footer
 
-  @unstable
-  Scenario Outline: Click Top categories links from footer
-    # Have to liaison with developers to make the titles uniform across pages (& <-> and)
-    When I click on the <category_name> category link from footer
-    Then selected <category_name> category page displayed
+  Scenario: New releases links from footer is dynamically generated
+    Given there are top five books on the New release page
+    Then the same New releases are displayed in the footer
 
-  Examples:
-    | category_name           |
-    | Biography & Memoir      |
-    | Children's Fiction      |
-    | Crime & Mystery         |
-    | Fiction & Literature    |
-    | Food & Drink            |
-    | Health & Wellbeing      |
-    | Humour                  |
-    | Music, Stage and Screen |
-    | Romance                 |
-    | Thriller & Suspense     |
+  Scenario: Redesigned footer is displayed
+    When I scroll down to the footer
+    Then the new Discover image should be displayed
+    Then the new Register image should be displayed
+    Then the new Download image should be displayed
+    Then the new Read image should be displayed
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display

@@ -49,10 +49,32 @@ Given /^the blinkbox music link is present in the footer$/ do
   @music_link = current_page.footer.links.blinkbox_music
 end
 
+Given /^the blinkbox books blog link is present in the footer$/ do
+  expect(current_page.footer.links).to have_blinkbox_blogs
+  @blog_link = current_page.footer.links.blinkbox_blogs
+end
+
+Given /^the blinkbox careers link is present in the footer$/ do
+  expect(current_page.footer.links).to have_blinkbox_careers
+  @careers_link = current_page.footer.links.blinkbox_careers
+end
+
 Then /^the link should point to the blinkbox music home page$/ do
   expect(@music_link[:href]).to include('www.blinkboxmusic.com')
   expect(@music_link[:target]).to eq('_blank')
   expect(@music_link.text).to eq('blinkbox music')
+end
+
+Then /^the link should point to the blinkbox books blog$/ do
+  expect(@blog_link[:href]).to include('https://blog.blinkboxbooks.com/')
+  expect(@blog_link[:target]).to eq('_blank')
+  expect(@blog_link.text).to eq('blinkbox Books blog')
+end
+
+Then /^the link should point to the blinkbox careers page$/ do
+  expect(@careers_link[:href]).to include('http://careers.blinkbox.com/')
+  expect(@careers_link[:target]).to eq('_blank')
+  expect(@careers_link.text).to eq('Careers')
 end
 
 And /^I click on the (.+) footer link$/ do |link_name|
@@ -61,6 +83,21 @@ end
 
 When /^I click on the (.*) header tab$/i do |page_name|
   click_navigation_link(page_name)
+end
+
+Given /^there are top five authors on the Authors page$/ do
+  authors_page.load
+  @featured_authors = authors_page.featured_authors_names
+end
+
+Given /^there are top five books on the New release page$/ do
+  new_releases_page.load
+  @new_releases = new_releases_page.new_releases_titles
+end
+
+Given /^there are top five categories on the Categories page$/ do
+  categories_page.load
+  @top_categories = categories_page.top_categories_titles
 end
 
 And /^I press browser back$/ do

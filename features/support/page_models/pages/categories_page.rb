@@ -43,6 +43,13 @@ module PageModels
       rand(0...categories.count)
     end
 
+    def top_categories_titles
+      wait_for_top_categories
+      categories = []
+      top_categories.each { |category| categories << category.title }
+      categories
+    end
+
   end
   register_model_caller_method(CategoriesPage)
 end

@@ -9,6 +9,13 @@ module PageModels
     def section_title
       section_title_element.text
     end
+
+    def new_releases_titles
+      wait_for_book_results_sections
+      titles = []
+      book_results_sections[0].books.each { |book| titles << book.title }
+      titles
+    end
   end
 
   register_model_caller_method(NewReleasesPage)
