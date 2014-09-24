@@ -6,6 +6,7 @@ module PageModels
     element :all_categories_list, '[data-test="all-categories-list"]'
     elements :categories, 'div.category div.cover a img'
     elements :category_titles, 'div.category div.title'
+    sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
 
     sections :top_categories, CategoryBox, '[data-test="recommended-category-container"] li'
     sections :all_categories, CategoryBox, '[data-test="all-categories-container"] li'
