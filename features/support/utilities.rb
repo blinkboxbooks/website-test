@@ -124,6 +124,14 @@ module BlinkboxWebUtilities
     assert_browser_count(1)
   end
 
+  def assert_page_new_window(page_name)
+    new_window = page.driver.browser.window_handles.last
+    page.within_window new_window do
+      assert_page(page_name)
+      page.driver.browser.close
+    end
+  end
+
   def assert_browser_count(count)
     browser_windows = page.driver.browser.window_handles
     expect(browser_windows.count).to eq(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"

@@ -3,6 +3,7 @@ module PageModels
 
     def click_reader_next_page
       book_details_page.reader.turn_to_next_page
+      sleep 1
     end
 
     def get_reader_page_contents
