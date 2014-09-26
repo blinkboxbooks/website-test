@@ -45,7 +45,7 @@ When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
 
-Given /^I am on Register page$/ do
+Given /^I am on the Register page$/ do
   register_page.load
 end
 
@@ -288,4 +288,38 @@ end
 
 Then /^I see the personification message showing that I have (some|no) devices? associated with this account$/ do |devices|
   devices == 'no' ? expect(your_account_page.account_message_devices).to eq(0) : expect(your_account_page.account_message_devices).to be > 0
+end
+
+Then /^the promotion checkbox should be ticked by default$/ do
+  assert_promotion_checkbox_ticked
+end
+
+And /^I tick the checkbox show password while typing$/ do
+  register_page.show_password.set true
+end
+
+And /^I tick the checkbox show password while typing on the Sign in page/ do
+  sign_in_page.sign_in_form.show_password.set true
+end
+
+When /^I enter a password$/ do
+  enter_password_signin_page(test_data('passwords', 'valid_password'))
+end
+
+Then /^the passwords should( not)? be visible$/ do |password_status|
+  if password_status
+    expect(register_page.password[:type]).to eq('password')
+    expect(register_page.password_repeat[:type]).to eq('password')
+  else
+    expect(register_page.password[:type]).to eq('text')
+    expect(register_page.password_repeat[:type]).to eq('text')
+  end
+end
+
+Then /^the password should( not)? be visible on the Sign in page$/ do |password_status|
+  if password_status
+    expect(sign_in_page.sign_in_form.password[:type]).to eq('password')
+  else
+    expect(sign_in_page.sign_in_form.password[:type]).to eq('text')
+  end
 end

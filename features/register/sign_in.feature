@@ -74,3 +74,14 @@ Feature: Sign into Blinkbox books
     | email              | Please enter the email address you used to sign up to blinkbox books                            |
     | password           | Please enter your password                                                                      |
     | email and password | Please enter the email address you used to sign up to blinkbox books Please enter your password |
+
+  Scenario: Tick to show password after entering password
+    Given I am on the Sign in page
+    When I enter a password
+    And I tick the checkbox show password while typing on the Sign in page
+    Then the password should be visible on the Sign in page
+
+  Scenario: Check password is hidden as you type
+    Given I am on the Sign in page
+    When I enter a password
+    Then the password should not be visible on the Sign in page

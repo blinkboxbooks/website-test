@@ -6,6 +6,7 @@ module PageModels
     element :all_categories_list, '[data-test="all-categories-list"]'
     elements :categories, 'div.category div.cover a img'
     elements :category_titles, 'div.category div.title'
+    sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
 
     sections :top_categories, CategoryBox, '[data-test="recommended-category-container"] li'
     sections :all_categories, CategoryBox, '[data-test="all-categories-container"] li'
@@ -40,6 +41,13 @@ module PageModels
     def random_category_index
       wait_until_all_categories_list_visible(10)
       rand(0...categories.count)
+    end
+
+    def top_categories_titles
+      wait_for_top_categories
+      categories = []
+      top_categories.each { |category| categories << category.title }
+      categories
     end
 
   end

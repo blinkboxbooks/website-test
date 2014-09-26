@@ -3,6 +3,7 @@ module PageModels
     def search(search_word, view = :list)
       puts "Searching for books with search word '#{search_word}'"
       current_page.header.wait_until_search_input_visible
+      current_page.header.search_input.click
       current_page.header.search_input.set search_word
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
@@ -13,7 +14,7 @@ module PageModels
     def click_on_a_category
       @category_name = categories_page.select_category_by_index
       expect_page_displayed('Category')
-      category_page.wait_until_book_results_sections_visible(10)
+      categories_page.wait_until_book_results_sections_visible(15)
       @category_name
     end
 

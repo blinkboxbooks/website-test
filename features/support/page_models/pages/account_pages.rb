@@ -37,8 +37,8 @@ module PageModels
     set_url '/#!/account/personal-details'
     set_url_matcher /account\/personal-details/
     element :email_address, '#email'
-    element :first_name, '#first_name'
-    element :last_name, '#last_name'
+    element :first_name_element, '#first_name'
+    element :last_name_element, '#last_name'
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
     element :marketing_prefs_label, 'label.pseudo_label[for="newsletter"]'
@@ -52,6 +52,16 @@ module PageModels
 
     def confirm_changes
       confirm_button.click
+    end
+
+    def first_name
+      wait_for_first_name_element
+      first_name_element.value
+    end
+
+    def last_name
+      wait_for_last_name_element
+      last_name_element.value
     end
 
   end

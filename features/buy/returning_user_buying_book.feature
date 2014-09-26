@@ -11,7 +11,7 @@ Feature: Returning buying book from blinkbox books
   @smoke
   Scenario: Returning logged in user buying book with saved payment card
     Given I am buying a paid book as a logged in user
-    When I pay with my default saved card
+    When I pay with my saved default card
     Then my payment is successful
 
   @smoke
@@ -19,7 +19,7 @@ Feature: Returning buying book from blinkbox books
     Given I am buying a paid book as a not logged in user
     When I sign in to proceed
     Then the page title should be "confirm & pay"
-    And I pay with my default saved card
+    When I pay with my saved default card
     Then my payment is successful
 
   Scenario Outline: Returning logged in user buying book with new payment card and saving card details
@@ -67,7 +67,7 @@ Feature: Returning buying book from blinkbox books
    @CWA-1000
    Scenario: Returning user adding a book sample to library first and then buying the book.
     Given PENDING: CWA-1000 ?????
-    Given I have identified a paid book to read sample offline
+    Given I have identified a paid book on the book details page to read sample offline
     When I select Read offline on the book details page
     And I sign in to proceed with adding sample
     Then adding sample is successful
