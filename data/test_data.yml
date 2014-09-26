@@ -64,6 +64,7 @@
     multiple_cards_non_default_expired: nondefault_expired_card@mobcastdev.com
     user_with_devices: with_devices@mobcastdev.com
     books_in_library: books_in_library@mobcastdev.com
+    books_in_library_and_devices: books_in_library_and_devices@blinkbox.com
     empty_library_no_devices: empty_library_no_devices@mobcastdev.com
     opted_in_marketing: opted_in_marketing@mobcastdev.com
     opted_out_marketing: opted_out_marketing@mobcastdev.com
@@ -115,6 +116,7 @@
     no_expired_cards: books_tester04@blinkbox.com
     user_with_devices: books_tester04@blinkbox.com
     books_in_library: books_tester04@blinkbox.com
+    books_in_library_and_devices: books_tester06@blinkbox.com
     empty_library_no_devices: fe.books.tester01@gmail.com
     opted_in_marketing: fe.books.tester01@gmail.com
     opted_out_marketing: fe.books.tester02@gmail.com

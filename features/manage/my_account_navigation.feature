@@ -117,8 +117,8 @@ Feature: Navigating through my account pages
       Then the "Download the free app" support page opens up in a new window
 
   @smoke
-  Scenario Outline: Personification message on account pages
-    Given I sign in as a user who has no books in their account
+  Scenario Outline: Personification message on account pages for a user with no books and devices
+    Given I sign in as a user who has no book or device in their account
     When I am on the <my_account> tab
     Then I see the personification message showing that I have no full ebooks with this account
     And I see the personification message showing that I have no devices associated with this account
@@ -131,12 +131,12 @@ Feature: Navigating through my account pages
       | Saved Cards      |
       | Devices          |
 
-  @smoke @production
-  Scenario Outline: Personification message on account pages [production]
-    Given I sign in as a user who has books in their account
+  @smoke
+  Scenario Outline: Personification message on account pages for a user with some books and devices
+    Given I sign in as a user who has books and devices in their account
     When I am on the <my_account> tab
-    Then I see the personification message showing that I have 37 full ebooks with this account
-    And I see the personification message showing that I have no devices associated with this account
+    Then I see the personification message showing that I have some full ebooks with this account
+    And I see the personification message showing that I have some devices associated with this account
 
   Examples:
     | my_account       |

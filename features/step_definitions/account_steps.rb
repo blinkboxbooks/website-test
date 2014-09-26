@@ -28,8 +28,9 @@ Given(/^I sign in as a user who has no samples in their account$/) do
   click_sign_in_button
 end
 
-Given /^I sign in as a user who has( no)? books in their account$/ do |no_books|
-  no_books ? step('I sign in as a user who has no samples in their account') : step('I have signed in')
+Given /^I sign in as a user who has( no)? books? (?:and|or) devices? in their account$/ do |no_books|
+  no_books ? @email_address = test_data('emails', 'happypath_user')  : @email_address = test_data('emails', 'books_in_library_and_devices')
+  step('I have signed in')
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to proceed with adding sample)?$/ do
@@ -281,12 +282,10 @@ Then /^the page title should be "(.+)"$/ do |title|
   expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
 end
 
-Then /^I see the personification message showing that I have (\d+|no) full ebooks? with this account$/ do |books|
-  books = 0 if books == 'no'
-  expect(your_account_page.account_message_books).to eq(books.to_i)
+Then /^I see the personification message showing that I have (some|no) full ebooks? with this account$/ do |books|
+  books == 'no' ? expect(your_account_page.account_message_books).to eq(0) : expect(your_account_page.account_message_books).to be > 0
 end
 
-Then /^I see the personification message showing that I have (\d+|no) devices? associated with this account$/ do |devices|
-  devices = 0 if devices == 'no'
-  expect(your_account_page.account_message_devices).to eq(devices.to_i)
+Then /^I see the personification message showing that I have (some|no) devices? associated with this account$/ do |devices|
+  devices == 'no' ? expect(your_account_page.account_message_devices).to eq(0) : expect(your_account_page.account_message_devices).to be > 0
 end
