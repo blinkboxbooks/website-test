@@ -40,7 +40,8 @@ module AssertNavigation
   end
 
   def assert_book_reader
-    expect(book_details_page).to have_reader
+    book_details_page.wait_for_reader
+    expect(book_details_page.reader).to have_next_page_button
   end
 
   def assert_order_complete

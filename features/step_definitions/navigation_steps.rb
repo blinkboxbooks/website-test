@@ -14,8 +14,8 @@ end
 # testing main navigation
 ##############################################################
 
-Then /^(?:the )?([\-&\w\s]*) page is displayed$/i do |page_name|
-  expect_page_displayed(page_name)
+Then /^(?:the )?([\-&\w\s]*) page is displayed( in a new window)?$/i do |page_name, new_window|
+  new_window ? assert_page_new_window(page_name) : expect_page_displayed(page_name)
 end
 
 ##############################################################
@@ -197,9 +197,11 @@ Then /^following FAQ links are displayed(?: on confirmation page)?:$/ do |table|
 end
 
 And /^clicking above FAQ link opens relevant support page in a new window$/ do
-  @support_links.hashes.each do |row|
-    click_link(row['support links'])
-    assert_support_page(row['support links'])
+  pending('CWA-1029 - FAQ, Contact us under Support should open in new window') do
+    @support_links.hashes.each do |row|
+      click_link(row['support links'])
+      assert_support_page(row['support links'])
+    end
   end
 end
 

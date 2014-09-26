@@ -50,7 +50,7 @@ Feature: Navigation around the website
   @smoke @production
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions footer link
-    Then Terms and conditions page is displayed
+    Then Terms and conditions page is displayed in a new window
 
   @smoke @production
   Scenario: Navigate to categories page
