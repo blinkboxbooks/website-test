@@ -14,7 +14,7 @@ module PageModels
     def click_on_a_category
       @category_name = categories_page.select_category_by_index
       expect_page_displayed('Category')
-      categories_page.wait_until_book_results_sections_visible(15)
+      categories_page.wait_until_book_results_sections_visible(20)
       @category_name
     end
 
