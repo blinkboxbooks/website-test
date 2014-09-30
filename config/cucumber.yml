@@ -10,7 +10,7 @@ default:              -p local_debug
 local_debug:          -r features --tags ~@wip GRID=false SERVER=TEST DEBUG=true
 
 ci-no-grid:           <%= ci_opts %>
-ci-smoke-local:       <%= ci_opts %> --tags @smoke --tags @production SERVER=LOCALHOST BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=true
+ci-smoke-local:       <%= ci_opts %> --tags @smoke --tags @production SERVER=LOCALHOST BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=false
 ci-smoke-test:        <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_test %> --tags @smoke SERVER=TEST FAIL_FAST=false
 ci-smoke-dev:         <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_dev %> --tags @smoke --tags @production SERVER=DEV
 ci-smoke-qa:          <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_qa %> --tags @smoke SERVER=QA
