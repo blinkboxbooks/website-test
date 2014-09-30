@@ -1,4 +1,4 @@
-@buy @devint
+@buy
 Feature: New user buying book from blinkbox books
   As a Guest user of blinkbox books
   I want to the ability to complete register and buy book in one flow
