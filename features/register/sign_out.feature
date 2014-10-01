@@ -1,5 +1,5 @@
-@register @ie @safari
-Feature: Sign out from blinkbox books
+  @register @ie @safari
+  Feature: Sign out from blinkbox books
   As a signed in user
   I want to sign out from blinkbox books
   So that I can prevent unauthorised access to my account

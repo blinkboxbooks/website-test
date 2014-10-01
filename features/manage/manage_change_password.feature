@@ -40,18 +40,25 @@ Feature: Manage personal details - change password
     Then "Your new password is too short" message is displayed
     And my password is not updated
 
-  @pending @negative
-  Scenario: Change password with empty enter password
+ @negative
+ Scenario: Change password with empty enter password
     Given I have registered as new user without a clubcard
     And I am on the Change your password section
     When I attempt to update password by providing an empty password
-    Then "Please enter your new password" message is displayed
+    And the following error message is displayed:
+    """
+    Please enter your new password
+    Your password does not match.
+    """
     And my password is not updated
 
-  @pending @negative
+  @negative
   Scenario: Change password with empty re-enter password
     Given I have registered as new user without a clubcard
     And I am on the Change your password section
     When I attempt to update password by providing an empty re-enter password
-    Then "Please re-enter your password" message is displayed
+    Then the following error message is displayed:
+    """
+    Please re-enter your password.
+    """
     And my password is not updated

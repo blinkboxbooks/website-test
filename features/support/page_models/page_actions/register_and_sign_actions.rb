@@ -28,6 +28,18 @@ module PageModels
       register_page.fill_in_password(value)
     end
 
+    def enter_current_password(value)
+      change_password_page.fill_in_current_password(value)
+    end
+
+    def re_enter_new_password(value)
+      change_password_page.fill_in_re_enter_new_password(value)
+    end
+
+    def enter_new_password(value)
+      change_password_page.fill_in_enter_new_password(value)
+    end
+
     def enter_password_signin_page(value)
       sign_in_page.sign_in_form.fill_in_password(value)
     end

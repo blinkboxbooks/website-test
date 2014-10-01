@@ -105,6 +105,19 @@ module PageModels
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
     element :confirm_button, 'button[data-test="confirm-button"]'
+
+    def fill_in_current_password(password)
+      self.current_password.set password
+    end
+
+    def fill_in_enter_new_password(password)
+      self.enter_new_password.set password
+    end
+
+    def fill_in_re_enter_new_password(password)
+      self.re_enter_new_password.set password
+    end
+
   end
 
   register_model_caller_method(YourAccountPage)
