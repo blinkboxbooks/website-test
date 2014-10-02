@@ -89,7 +89,7 @@ Given /^I have selected to buy a free book( via search)?$/ do |do_search|
 end
 
 Given /^I have selected to buy a paid book$/ do
-  @book_title = select_book_to_buy('paid')
+  @book_title = select_book_to_buy(:paid)
 end
 
 Given(/^I have selected to buy a (free) book from Grid view$/) do |book_type|
