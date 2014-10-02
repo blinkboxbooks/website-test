@@ -203,3 +203,15 @@ end
 And /^cancel delete device by closing pop\-up$/ do
   close_delete_device_pop_up
 end
+
+And /^I attempt to update password by providing an empty password$/ do
+  current = test_data('passwords', 'change_password')
+  new = test_data('passwords', 'valid_password')
+  supply_new_password(current, '', new)
+end
+
+And /^I attempt to update password by providing an empty re-enter password$/ do
+  current = test_data('passwords', 'change_password')
+  new = test_data('passwords', 'valid_password')
+  supply_new_password(current, new, '')
+end

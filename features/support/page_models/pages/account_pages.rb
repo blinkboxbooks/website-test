@@ -105,6 +105,8 @@ module PageModels
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
     element :confirm_button, 'button[data-test="confirm-button"]'
+    element :error_sign_in_popup, '#error_signin'
+
   end
 
   register_model_caller_method(YourAccountPage)
