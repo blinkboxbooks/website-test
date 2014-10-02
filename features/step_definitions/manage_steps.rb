@@ -215,8 +215,3 @@ And /^I attempt to update password by providing an empty re-enter password$/ do
   new = test_data('passwords', 'valid_password')
   supply_new_password(current, new, '')
 end
-
-Then /^error sign in pop up is displayed$/ do
-  expect(change_password_page.error_sign_in_popup).to be_visible
-end
-

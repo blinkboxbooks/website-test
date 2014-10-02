@@ -45,7 +45,7 @@ Feature: Manage personal details - change password
     Given I have registered as new user without a clubcard
     And I am on the Change your password section
     When I attempt to update password by providing an empty password
-    Then error sign in pop up is displayed
+    Then "Please enter your new password" message is displayed
     And my password is not updated
 
   @negative
