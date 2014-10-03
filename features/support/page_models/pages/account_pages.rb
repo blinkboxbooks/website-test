@@ -4,6 +4,18 @@ module PageModels
     section :account_nav_frame, AccountNavFrame, '#content'
     element :sign_out_button, 'button', :text => 'Sign out'
     element :spinner, '.load_spinner'
+    element :account_message_books_element, '[data-test="account-message-books"]'
+    element :account_message_devices_element, '[data-test="account-message-devices"]'
+
+    def account_message_books
+      wait_for_account_message_books_element
+      /\d+/.match(account_message_books_element.text)[0].to_i
+    end
+
+    def account_message_devices
+      wait_for_account_message_devices_element
+      /\d+/.match(account_message_devices_element.text)[0].to_i
+    end
   end
 
   class OrderAndPaymentHistoryPage < PageModels::YourAccountPage
