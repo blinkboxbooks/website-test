@@ -17,6 +17,7 @@ end
 Then /^(?:the )?([\-&\w\s]*) page is displayed( in a new window)?$/i do |page_name, new_window|
   if new_window
     window = page.driver.browser.window_handles.last
+    assert_page_new_window(page_name, window)
     page.within_window window do
       page.driver.browser.close
     end
