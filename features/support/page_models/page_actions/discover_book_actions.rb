@@ -8,7 +8,7 @@ module PageModels
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      switch_to_list_view if view.to_sym == :list
+      switch_to_list_view if view.to_sym == :list && search_results_page.current_view != :list
     end
 
     def click_on_a_category

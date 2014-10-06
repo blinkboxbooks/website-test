@@ -63,7 +63,7 @@ Feature: User adding sample to Library
   Scenario Outline: Returning user attempting to add book sample of which full book already exists in his library
     Given I have purchased a <book_type> book
     When I am on the Book Details page for the same <book_type> book
-    And I try to add the book as a sample
+    And I try to add the book as a sample again
     And sign in to proceed
     Then book already exists in the library message is displayed on the confirm and pay page
 
