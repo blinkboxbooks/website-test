@@ -16,7 +16,6 @@ ci-smoke-test:        <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_test %> --
 ci-smoke-dev:         <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_dev %> --tags @smoke --tags @production SERVER=DEV
 ci-smoke-qa:          <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_qa %> --tags @smoke SERVER=QA
 ci-smoke-production:  <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_production %> --tags @smoke --tags @production SERVER=PRODUCTION
-ci-smoke-release:
 
 ci-regression-test:   <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_test %> --tags ~@smoke SERVER=TEST
 ci-regression-dev:    <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_dev %> --tags ~@smoke --tags @production SERVER=DEV
