@@ -22,7 +22,7 @@ module Utilities
 
   def return_search_word_for_book_type (book_type)
     random_words = test_list('random_search_keywords')
-    book_type == :free ? 'free' : random_words.sample
+    book_type.to_sym == :free ? 'free' : random_words.sample
   end
 
   def isbn_for_book_type(book_type)

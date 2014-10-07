@@ -31,7 +31,7 @@ And /^page should display categories as list$/ do
 end
 
 And /^I select (list|grid) view$/ do |view|
-  view == 'list' ? switch_to_list_view : switch_to_grid_view
+  switch_to_view(view)
 end
 
 Then /^long titles should be displayed in two lines$/ do

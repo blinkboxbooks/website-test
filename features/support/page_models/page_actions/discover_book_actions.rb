@@ -8,7 +8,7 @@ module PageModels
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      switch_to_list_view if view.to_sym == :list && search_results_page.current_view != :list
+      switch_to_list_view if view.to_sym == :list
     end
 
     def click_on_a_category
@@ -76,9 +76,9 @@ module PageModels
 
     def select_book_to_buy_from(page_name, book_type)
       if page_name =~ /Search results/i
-        search(return_search_word_for_book_type(book_type.to_sym))
+        search(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
-        search(return_search_word_for_book_type(book_type.to_sym))
+        search(return_search_word_for_book_type(book_type))
         book_type.to_sym == :free ? books_section.click_details_free_book : books_section.click_details_random_book
         book_title = book_details_page.title
         book_details_page.buy_now.click
