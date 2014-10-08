@@ -8,7 +8,7 @@ module PageModels
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      switch_to_list_view if view.to_sym == :list
+      switch_to_view(view)
     end
 
     def click_on_a_category
@@ -86,13 +86,13 @@ module PageModels
       elsif page_name =~ /Category/i
         click_navigation_link('categories')
         categories_page.select_category_by_index
-        switch_to_list_view
+        switch_to_view(:list)
       elsif current_page.header.tab(page_name).nil?
         page = page_model(page_name)
         page.load unless page.displayed?
       else
         click_navigation_link(page_name) unless page_model(page_name).displayed?
-        switch_to_list_view
+        switch_to_view(:list)
       end
       book_type.to_sym == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
     end
