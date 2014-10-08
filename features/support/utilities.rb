@@ -89,6 +89,16 @@ module WebUtilities
     page.evaluate_script('window.history.back()')
   end
 
+  def close_last_open_browser_window
+    page.within_window last_open_browser_window do
+      page.driver.browser.close
+    end
+  end
+
+  def last_open_browser_window
+    page.driver.browser.window_handles.last
+  end
+
 end
 
 module BlinkboxWebUtilities
