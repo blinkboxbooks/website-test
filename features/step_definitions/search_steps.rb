@@ -1,6 +1,6 @@
-And(/^I search for term "(.*?)"$/) do |term|
+And(/^I search for term "(.*?)"(:? without changing the current view)?$/) do |term, default_view|
   @search = term
-  search(@search, :grid)
+  default_view ? search(@search, :default_view) : search(@search, :grid)
 end
 
 And(/^I search for term "(.*?)" in grid view$/) do |term|
@@ -14,6 +14,7 @@ end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
   expect(search_results_page.current_view).to eq(expected_view.downcase.to_sym)
+  puts "Do nothing"
 end
 
 And(/^I should see the sort option drop down$/) do
@@ -41,8 +42,11 @@ And(/^the number of books should match on both mode$/) do
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  expect(books_section.books.first).to have_clubcard_logo
-  expect(books_section.books.first).to have_clubcard_points
+  # We should look for the first paid book, because clubcard logo is not displayed for free books
+  first_paid_book = books_section.books.find { |book| !book.free? }
+
+  expect(first_paid_book).to have_clubcard_logo
+  expect(first_paid_book).to have_clubcard_points
 end
 
 Then(/^no result message is displayed$/) do
@@ -51,8 +55,8 @@ Then(/^no result message is displayed$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  expect(search_results_page).to have_no_list_view_button
-  expect(search_results_page).to have_no_grid_view_button
+  expect(search_results_page.list_view_button).not_to be_visible
+  expect(search_results_page.grid_view_button).not_to be_visible
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
