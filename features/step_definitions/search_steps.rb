@@ -1,11 +1,6 @@
-And(/^I search for term "(.*?)"(:? without changing the current view)?$/) do |term, default_view|
+And(/^I search for term "(.*?)"(:? in (grid|list) view)?$/) do |term, view|
   @search = term
-  default_view ? search(@search, :default_view) : search(@search, :grid)
-end
-
-And(/^I search for term "(.*?)" in grid view$/) do |term|
-  @search = term
-  search(@search, :grid)
+  view.nil? ? search(@search, :none) : search(@search, view.to_sym)
 end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|

@@ -8,7 +8,7 @@ module PageModels
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      switch_to_view(view) unless view == :default_view
+      switch_to_view(view)
     end
 
     def click_on_a_category

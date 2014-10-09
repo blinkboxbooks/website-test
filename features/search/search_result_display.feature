@@ -40,5 +40,5 @@ Feature: Search Results page
   Scenario: When user selects List view mode to display search results it should be set as default
     Given I change from Grid mode to List mode
     Then the result should be displayed in List mode
-    And I search for term "da vinci" without changing the current view
+    And I search for term "da vinci"
     Then the result should be displayed in List mode
