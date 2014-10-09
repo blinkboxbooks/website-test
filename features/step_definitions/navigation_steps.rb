@@ -15,7 +15,12 @@ end
 ##############################################################
 
 Then /^(?:the )?([\-&\w\s]*) page is displayed( in a new window)?$/i do |page_name, new_window|
-  new_window ? assert_page_new_window(page_name) : expect_page_displayed(page_name)
+  if new_window
+    assert_page_new_window(page_name)
+    close_last_open_browser_window
+  else
+    expect_page_displayed(page_name)
+  end
 end
 
 ##############################################################

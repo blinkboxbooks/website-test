@@ -20,9 +20,9 @@ module Utilities
     first_part + last_part
   end
 
-  def return_search_word_for_book_type (book_type)
+  def return_search_word_for_book_type(book_type)
     random_words = test_list('random_search_keywords')
-    book_type == :free ? 'free' : random_words.sample
+    book_type.to_sym == :free ? 'free' : random_words.sample
   end
 
   def isbn_for_book_type(book_type)
@@ -89,6 +89,16 @@ module WebUtilities
     page.evaluate_script('window.history.back()')
   end
 
+  def close_last_open_browser_window
+    page.within_window last_open_browser_window do
+      page.driver.browser.close
+    end
+  end
+
+  def last_open_browser_window
+    page.driver.browser.window_handles.last
+  end
+
 end
 
 module BlinkboxWebUtilities
@@ -112,31 +122,6 @@ module BlinkboxWebUtilities
     current_page.header.user_account_logo.click
     current_page.header.account_menu.sign_out_button.click
   end
-
-  def assert_support_page(page_name)
-    assert_browser_count(2)
-    new_window = page.driver.browser.window_handles.last
-    page.within_window new_window do
-      wait_until { page.current_url.include?('support') }
-      expect(current_url).to match(Regexp.new(test_data('support_page_urls', page_name.downcase.gsub(' ', '_'))))
-      page.driver.browser.close
-    end
-    assert_browser_count(1)
-  end
-
-  def assert_page_new_window(page_name)
-    new_window = page.driver.browser.window_handles.last
-    page.within_window new_window do
-      assert_page(page_name)
-      page.driver.browser.close
-    end
-  end
-
-  def assert_browser_count(count)
-    browser_windows = page.driver.browser.window_handles
-    expect(browser_windows.count).to eq(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"
-  end
-
 end
 
 module BrowserstackUtilities

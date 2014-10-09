@@ -21,11 +21,11 @@ And(/^I should see the sort option drop down$/) do
 end
 
 Given(/^I change from Grid mode to List mode$/) do
-  switch_to_list_view
+  switch_to_view(:list)
 end
 
 When(/^I change from List mode to Grid mode$/) do
-  switch_to_grid_view
+  switch_to_view(:grid)
 end
 
 And(/^I take the number books on Grid mode$/) do
