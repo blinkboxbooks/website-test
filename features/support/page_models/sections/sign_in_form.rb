@@ -1,6 +1,5 @@
 module PageModels
   class SignInForm < PageModels::BlinkboxbooksSection
-    include WaitSteps
 
     element :email, 'input#email'
     element :password, 'input#password'
@@ -8,7 +7,7 @@ module PageModels
     element :show_password,'#showPassword'
 
     def submit(email, password)
-      expect {all_there?}.to become_true, "Timeout waiting for sign in form elements to appear"
+      wait_until {all_there?}
       self.email.set email
       self.show_password.set true
       self.password.set password
