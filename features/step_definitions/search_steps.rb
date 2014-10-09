@@ -1,11 +1,6 @@
-And(/^I search for term "(.*?)"$/) do |term|
+And(/^I search for "(.*?)"(?: in (grid|list) view)?$/) do |term, view|
   @search = term
-  search(@search, :grid)
-end
-
-And(/^I search for term "(.*?)" in grid view$/) do |term|
-  @search = term
-  search(@search, :grid)
+  view.nil? ? search(@search, :none) : search(@search, view.to_sym)
 end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
@@ -41,8 +36,10 @@ And(/^the number of books should match on both mode$/) do
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  expect(books_section.books.first).to have_clubcard_logo
-  expect(books_section.books.first).to have_clubcard_points
+  random_paid_book = books_section.random_purchasable_book
+
+  expect(random_paid_book).to have_clubcard_logo
+  expect(random_paid_book).to have_clubcard_points
 end
 
 Then(/^no result message is displayed$/) do
@@ -100,11 +97,6 @@ end
 
 And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |first_part,second_part|
   assert_auto_corrected_word [first_part, second_part ]
-end
-
-When (/^I search for "(.+)"$/) do |word|
-  @search = word
-  search(@search, :grid)
 end
 
 And(/^at least 1 search result is shown$/) do
