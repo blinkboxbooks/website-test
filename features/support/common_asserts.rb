@@ -108,9 +108,9 @@ module AssertWindow
     assert_browser_count(1)
   end
 
-  def assert_page_new_window(page_name, window)
+  def assert_page_new_window(page_name)
     assert_browser_count_greater(1)
-    page.within_window window do
+    page.within_window last_open_browser_window do
       assert_page(page_name)
     end
   end
