@@ -14,7 +14,6 @@ end
 
 And(/^the result (?:is displayed in|should be displayed in) (Grid|List) mode$/) do |expected_view|
   expect(search_results_page.current_view).to eq(expected_view.downcase.to_sym)
-  puts "Do nothing"
 end
 
 And(/^I should see the sort option drop down$/) do
