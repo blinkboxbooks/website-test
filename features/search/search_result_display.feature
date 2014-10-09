@@ -10,7 +10,7 @@ Feature: Search Results page
   Background:
     Given I am on the home page
       # There is an outstanding issue to fix the case sensitivity issue CP-254
-      And I search for term "dan brown" in grid view
+      And I search for "dan brown" in grid view
      Then I should have a result page with at least one book written by "dan brown"
 
   Scenario: The default mode is Grid
@@ -40,5 +40,5 @@ Feature: Search Results page
   Scenario: When user selects List view mode to display search results it should be set as default
     Given I change from Grid mode to List mode
     Then the result should be displayed in List mode
-    And I search for term "da vinci"
+    And I search for "da vinci"
     Then the result should be displayed in List mode

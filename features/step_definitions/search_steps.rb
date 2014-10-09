@@ -1,4 +1,4 @@
-And(/^I search for term "(.*?)"(:? in (grid|list) view)?$/) do |term, view|
+And(/^I search for "(.*?)"(?: in (grid|list) view)?$/) do |term, view|
   @search = term
   view.nil? ? search(@search, :none) : search(@search, view.to_sym)
 end
@@ -36,11 +36,10 @@ And(/^the number of books should match on both mode$/) do
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  # We should look for the first paid book, because clubcard logo is not displayed for free books
-  first_paid_book = books_section.books.find { |book| !book.free? }
+  random_paid_book = books_section.random_purchasable_book
 
-  expect(first_paid_book).to have_clubcard_logo
-  expect(first_paid_book).to have_clubcard_points
+  expect(random_paid_book).to have_clubcard_logo
+  expect(random_paid_book).to have_clubcard_points
 end
 
 Then(/^no result message is displayed$/) do
@@ -49,8 +48,8 @@ Then(/^no result message is displayed$/) do
 end
 
 And(/^the options of switching view mode should not appear$/) do
-  expect(search_results_page.list_view_button).not_to be_visible
-  expect(search_results_page.grid_view_button).not_to be_visible
+  expect(search_results_page).to have_no_list_view_button
+  expect(search_results_page).to have_no_grid_view_button
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
@@ -98,11 +97,6 @@ end
 
 And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |first_part,second_part|
   assert_auto_corrected_word [first_part, second_part ]
-end
-
-When (/^I search for "(.+)"$/) do |word|
-  @search = word
-  search(@search, :grid)
 end
 
 And(/^at least 1 search result is shown$/) do
