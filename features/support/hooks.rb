@@ -9,6 +9,8 @@ Before('~@reset_session') do
 end
 
 After do |scenario|
+  log_js_errors
+
   if page.driver.browser.window_handles.count > 0 && logged_in_session?
     log_out_current_session
   end
