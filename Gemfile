@@ -1,6 +1,5 @@
 source "http://artifactory.blinkbox.local/artifactory/api/gems/bbb-gems/"
 source "http://artifactory.blinkbox.local/artifactory/api/gems/rubygems/"
-ruby '2.0.0'
 
 group :automation_libs do
   gem 'cucumber'
@@ -33,10 +32,5 @@ group :api do
 end
 
 group :reporting do
-  gem 'cuporter'
   gem 'cucumber-blinkbox', '~> 0.3'
-end
-
-group :debug do
-  gem 'debugger'
 end
