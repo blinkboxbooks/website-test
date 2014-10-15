@@ -10,7 +10,6 @@ group :automation_libs do
   gem 'selenium-webdriver', '~> 2.39'
   gem 'selendroid'
   gem 'site_prism'
-  gem 'Platform'
 end
 
 group :misc_libs do
@@ -18,11 +17,8 @@ group :misc_libs do
   gem 'cucumber-helpers'
   gem 'i18n'
   gem 'rake'
-end
-
-group :ci do
-  gem 'parallel_tests'
-  gem 'headless'
+  gem 'Platform'
+  gem 'cucumber-blinkbox', '~> 0.3'
 end
 
 group :api do
@@ -31,7 +27,12 @@ group :api do
   gem 'cucumber-rest'
 end
 
-group :reporting do
-  gem 'cucumber-blinkbox', '~> 0.3'
+group :ci do
+  gem 'parallel_tests'
+  gem 'headless'
+end
+
+group :tools do
   gem 'cuporter'
+  gem 'blinkbox-rubocop'
 end
