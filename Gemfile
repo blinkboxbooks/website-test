@@ -33,4 +33,5 @@ end
 
 group :reporting do
   gem 'cucumber-blinkbox', '~> 0.3'
+  gem 'cuporter'
 end
