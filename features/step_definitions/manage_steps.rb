@@ -215,3 +215,42 @@ And /^I attempt to update password by providing an empty re-enter password$/ do
   new = test_data('passwords', 'valid_password')
   supply_new_password(current, new, '')
 end
+
+When(/^I enter a valid voucher code$/) do
+  enter_valid_voucher_code
+end
+
+And(/^I click on Use this code$/) do
+   click_use_this_code
+end
+
+Then(/^the Registration form should be displayed$/) do
+  expect(redeem_voucher_page.email).to be_visible
+  expect(redeem_voucher_page.first_name).to be_visible
+  expect(redeem_voucher_page.last_name).to be_visible
+  expect(redeem_voucher_page.register_button).to be_visible
+end
+
+When(/^I fill the registration details$/) do
+  @email_address, @first_name, @last_name = enter_personal_details
+  enter_password(test_data('passwords', 'valid_password'))
+  accept_terms_and_conditions(true)
+end
+
+And(/^I click on Sign up$/) do
+  #Implement for
+  #redeem_page.sign_up_button.click
+end
+
+Then(/^I should be registered$/) do
+  #Implement for
+  #see the header for being signed in or check if the second stage is shown
+end
+
+When(/^I confirm the voucher code redemption in stage two$/) do
+  #redeem voucher page. add free credit button.clickl
+end
+
+Then(/^my account should be credited by £(\d+)$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
