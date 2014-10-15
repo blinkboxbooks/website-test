@@ -13,13 +13,14 @@ class Integer
   end
 end
 
-namespace :teamcity do
+namespace :ci do
   namespace :cucumber do 
 
     @run_record = 'rerun.txt'
     @run = 0
     @reruns = 3
     @rerunning_features = ''
+    @default_cuke_profile = 'ci-smoke-vagrant'
 
     def next_run
       @rerunning_features = read_results_of_last_run
@@ -97,17 +98,21 @@ namespace :teamcity do
       end
     end
 
+    #TODO: replace cucumber tasks with a regular task definition and setting ENV['CUCUMBER_OPTS'] inside,
+    #as otherwise rake loads all code within Cucumber::Rake::Task.new {} block and raises exceptions if some variables are not passed in.
     desc 'Run Cucumber task with rerun logic.'
-    Cucumber::Rake::Task.new(:run) do | t |
-      raise "Please specify a cucumber profile!" if ENV['cucumber_profile'].nil?
+    Cucumber::Rake::Task.new(:run) do | t, args |
+      ENV['cucumber_profile'] ||= @default_cuke_profile
+      puts "Using #{ENV['cucumber_profile']} cucumber profile"
       t.cucumber_opts = ["-p #{ENV['cucumber_profile']} -f rerun --out rerun.txt"]
     end
 
     desc 'Rerun Cucumber tests'
     task :rerun, [:last, :current]  do | t, args |
-      raise "Please specify a cucumber profile!" if ENV['cucumber_profile'].nil?
-      task = "cuke-#{@run}"
+      ENV['cucumber_profile'] ||= @default_cuke_profile
+      puts "Using #{ENV['cucumber_profile']} cucumber profile"
 
+      task = "cuke-#{@run}"
       Cucumber::Rake::Task.new(task) do | t |
         t.cucumber_opts = ["-p #{ENV['cucumber_profile']} @#{args[:last]} -f rerun --out #{args[:current]}"]
       end
