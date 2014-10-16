@@ -1,7 +1,7 @@
 source "http://artifactory.blinkbox.local/artifactory/api/gems/bbb-gems/"
 source "http://artifactory.blinkbox.local/artifactory/api/gems/rubygems/"
 
-group :automation_libs do
+group :automation do
   gem 'cucumber'
   gem 'rspec'
   gem 'capybara', '~> 2.4'
@@ -12,7 +12,7 @@ group :automation_libs do
   gem 'site_prism'
 end
 
-group :misc_libs do
+group :support do
   gem 'activesupport'
   gem 'cucumber-helpers'
   gem 'i18n'
@@ -32,7 +32,7 @@ group :ci do
   gem 'headless'
 end
 
-group :tools do
+group :dev_tools do
   gem 'cuporter'
   gem 'blinkbox-rubocop'
 end
