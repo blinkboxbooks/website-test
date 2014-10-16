@@ -17,6 +17,27 @@ module PageModels
      end
     end
 
+    def delete_first_name
+      your_personal_details_page.wait_until_first_name_element_visible
+      until your_personal_details_page.first_name_element.value.empty? do
+        your_personal_details_page.first_name_element.native.send_keys(:backspace)
+      end
+    end
+
+    def delete_last_name
+      your_personal_details_page.wait_until_last_name_element_visible
+      until your_personal_details_page.last_name_element.value.empty? do
+        your_personal_details_page.last_name_element.native.send_keys(:backspace)
+      end
+    end
+
+    def delete_email_address
+      your_personal_details_page.wait_until_email_address_visible
+      until your_personal_details_page.email_address.value.empty? do
+        your_personal_details_page.email_address.native.send_keys(:backspace)
+      end
+    end
+
     def submit_personal_details
       your_personal_details_page.wait_until_update_personal_details_visible
       your_personal_details_page.update_personal_details.click

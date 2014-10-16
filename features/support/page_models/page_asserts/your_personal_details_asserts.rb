@@ -27,6 +27,21 @@ module PageModels
       expect(your_personal_details_page.club_card.value).to eql(clubcard_number.to_s)
     end
 
+    def assert_first_name (first_name = '')
+      your_personal_details_page.wait_until_first_name_element_visible
+      expect(your_personal_details_page.first_name_element.value).to eql(first_name.to_s)
+    end
+
+    def assert_last_name (last_name = '')
+      your_personal_details_page.wait_until_last_name_element_visible
+      expect(your_personal_details_page.last_name_element.value).to eql(last_name.to_s)
+    end
+
+    def assert_email_address_field (emailaddress = '')
+      your_personal_details_page.wait_until_email_address_visible
+      expect(your_personal_details_page.email_address.value).to eql(emailaddress.to_s)
+    end
+
     def assert_name_on_personal_details_page(first_name, last_name)
       expect(your_personal_details_page.first_name).to eq(first_name)
       expect(your_personal_details_page.last_name).to eq(last_name)

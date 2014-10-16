@@ -93,3 +93,29 @@ Feature: Update the Personal details of the user under 'your account'
     | opt_status   | checkbox_status |
     | opted in     | selected        |
     | not opted in | not selected    |
+
+  Scenario: Update personal details with empty first name
+    Given I have signed in
+    And I am on the Personal details tab
+    When I remove first name text
+    And I submit my personal details
+    Then "Please enter your first name" message is displayed
+    And my first name field is empty
+
+  Scenario: Update personal details with empty last name
+    Given I have signed in
+    And I am on the Personal details tab
+    When I remove last name text
+    And I submit my personal details
+    Then "Please enter your last name" message is displayed
+    And my last name field is empty
+
+  Scenario: Update personal details with empty email address
+    Given I have signed in
+    And I am on the Personal details tab
+    When I remove email address
+    And I submit my personal details
+    Then "Please enter your email" message is displayed
+    And my email address field is empty
+
+
