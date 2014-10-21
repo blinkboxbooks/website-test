@@ -46,7 +46,7 @@ Given /^I have registered as new user (without|with) a clubcard/ do |provide_clu
   navigate_to_register_form
   @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
   @current_password, @email_address, @first_name, @last_name = register_new_user(provide_clubcard, @valid_clubcard)
-  #assert_logged_in_session
+  assert_logged_in_session
 end
 
 When /^I edit email address$/ do
