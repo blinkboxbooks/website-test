@@ -139,16 +139,16 @@ When /^I remove clubcard number$/ do
   delete_clubcard
 end
 
-When /^I remove first name text$/ do
-  delete_first_name
+When /^I clear first name text field$/ do
+  clear_text_field(your_personal_details_page.first_name_element)
 end
 
-When /^I remove last name text$/ do
-  delete_last_name
+When /^I clear last name text field$/ do
+  clear_text_field(your_personal_details_page.last_name_element)
 end
 
-When /^I remove email address$/ do
-  delete_email_address
+When /^I clear email address text field$/ do
+  clear_text_field(your_personal_details_page.email_address)
 end
 
 Then /^my clubcard field is empty$/ do
