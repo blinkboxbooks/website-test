@@ -139,6 +139,18 @@ When /^I remove clubcard number$/ do
   delete_clubcard
 end
 
+When /^I clear first name text field$/ do
+  clear_text_field(your_personal_details_page.first_name_element)
+end
+
+When /^I clear last name text field$/ do
+  clear_text_field(your_personal_details_page.last_name_element)
+end
+
+When /^I clear email address text field$/ do
+  clear_text_field(your_personal_details_page.email_address)
+end
+
 Then /^my clubcard field is empty$/ do
   refresh_current_page
   assert_clubcard

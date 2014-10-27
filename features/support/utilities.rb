@@ -60,6 +60,13 @@ module WebUtilities
     reset_session
   end
 
+  def clear_text_field(element)
+    wait_until {element.visible?}
+    until element.value.empty? do
+      element.native.send_keys(:backspace)
+    end
+  end
+
   def reset_session!
     Capybara.current_session.reset_session!
   end
