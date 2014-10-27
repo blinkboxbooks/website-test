@@ -156,18 +156,6 @@ Then /^my clubcard field is empty$/ do
   assert_clubcard
 end
 
-And /^my first name field is empty$/ do
-  assert_first_name
-end
-
-And /^my last name field is empty$/ do
-  assert_last_name
-end
-
-And /^my email address field is empty$/ do
-  assert_email_address_field
-end
-
 Then /^my marketing preferences checkbox is (not selected|selected)$/ do |marketing_status|
   marketing_status.include?('not') ? status = false : status = true
   assert_marketing_preferences(status)
