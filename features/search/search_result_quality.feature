@@ -7,7 +7,7 @@ Feature: Verify that search results match search criteria
   Background: Open Blinkbox books home page
     Given I am on the home page
 
-  @smoke @data-dependent @production
+  @smoke @data-dependent @production @servertesting
   Scenario: Search results displayed
     When I search for "history"
     Then Search Results page is displayed

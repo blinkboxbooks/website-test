@@ -13,7 +13,7 @@ module PageModels
 
     def submit_sign_in_details(email_address, password)
       sign_in_page.wait_for_sign_in_form
-      sign_in_page.wait_until_sign_in_form_visible
+      #sign_in_page.wait_until_sign_in_form_visible
       sign_in_page.sign_in_form.submit(email_address, password)
     end
 

@@ -188,3 +188,12 @@
 
  PRODUCTION:
   <<: *LIVE_DATA
+
+ SERVER_1:
+  <<: *LIVE_DATA
+
+ SERVER_2:
+  <<: *LIVE_DATA
+
+ SERVER_3:
+  <<: *LIVE_DATA
