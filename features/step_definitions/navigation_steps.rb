@@ -97,6 +97,11 @@ end
 
 Given /^there are top five books on the New release page$/ do
   new_releases_page.load
+  # Have to sort by 'Bestselling' to get the correct titles in the grid view
+  bestsellers_page.sort_by('Bestselling')
+  bestsellers_page.wait_for_book_results_sections
+  bestsellers_page.book_results_sections.first.wait_for_books
+
   @new_releases = new_releases_page.new_releases_titles
 end
 

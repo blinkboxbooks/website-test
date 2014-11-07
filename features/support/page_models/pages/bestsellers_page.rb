@@ -11,6 +11,11 @@ module PageModels
     element :non_fiction_tab, '[data-test="bestsellers-container"] a', :text => 'Non-Fiction', :match => :first
     element :fiction_button, '.tabbed a', :text => 'Fiction'
     element :non_fiction_button, '.tabbed a', :text => 'Non-Fiction'
+    section :sort_by_dropdown, SortByDropdown, '.orderby'
+
+    def sort_by(title)
+      sort_by_dropdown.select_item(title)
+    end
 
     def daily_bestsellers_title
       wait_for_daily_bestsellers_title_element
