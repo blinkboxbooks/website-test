@@ -4,7 +4,11 @@ module PageModels
       puts "Searching for books with search word '#{search_word}'"
       current_page.header.wait_until_search_input_visible
       current_page.header.search_input.click
-      current_page.header.search_input.set search_word
+      if Capybara.current_session.driver == Capybara::Selenium::Driver
+        current_page.header.search_input.native.send_keys(search_word)
+      else
+        current_page.header.search_input.set search_word
+      end
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
