@@ -13,7 +13,6 @@ module PageModels
       wait_until_list_visible
       item = list.find { |item| item.text == title }
       unless item.nil?
-        sleep 5
         item.hover
         item.click
       else
