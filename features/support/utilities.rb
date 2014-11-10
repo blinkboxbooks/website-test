@@ -99,12 +99,8 @@ module WebUtilities
     page.driver.browser.window_handles.last
   end
 
-  def log_js_errors
-    entries = page.driver.browser.manage.logs.get('browser')
-    unless entries.empty?
-      puts "JS LOG ENTRIES:"
-      entries.each { |entry| puts "#{entry.level} #{entry.message}" }
-    end
+  def js_errors
+    page.driver.browser.manage.logs.get('browser')
   end
 
 end
