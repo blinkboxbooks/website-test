@@ -9,7 +9,7 @@ module PageModels
     end
 
     def assert_user_greeting_message_not_displayed
-      expect(logged_in_session?).to eq(true)
+      expect(logged_in_session?).to eq(false)
     end
 
     def assert_marketing_preferences(after_status)
