@@ -5,6 +5,11 @@ module PageModels
 
     sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
     element :section_title_element, '[data-test="newreleases-title"]'
+    section :sort_by_dropdown, SortByDropdown, '.orderby'
+
+    def sort_by(title)
+      sort_by_dropdown.select_item(title)
+    end
 
     def section_title
       section_title_element.text
