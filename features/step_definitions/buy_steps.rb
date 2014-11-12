@@ -31,7 +31,10 @@ When /^I click on Confirm order$/ do
 end
 
 Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
-  sign_in unless login_status.include?('not')
+  if login_status.include?('not')
+    sign_in
+    assert_page('Home')
+  end
   select_book_to_buy(book_type.downcase.to_sym)
 end
 
