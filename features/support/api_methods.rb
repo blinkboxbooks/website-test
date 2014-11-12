@@ -73,8 +73,10 @@ module APIMethods
   class User
     include Utilities
 
-    @@auth_uri = 'https://auth.dev.bbbtest2.com/oauth2/token'
-    @@credit_card_uri = 'https://api.dev.bbbtest2.com/service/my/creditcards'
+    def initialize(auth, api)
+      @@auth_uri = "#{auth}/oauth2/token"
+      @@credit_card_uri = "#{api}/service/my/creditcards"
+    end
 
     def create_new_user! (options ={})
       with_client = options[:with_client]
@@ -149,8 +151,8 @@ module APIMethods
   end
 
 
-  def api_helper
-    @api_helper||=APIMethods::User.new
+  def api_helper(auth, api)
+    @api_helper||=APIMethods::User.new(auth, api)
   end
 end
 World(APIMethods)
