@@ -18,6 +18,7 @@ require 'yaml'
 require 'rspec'
 require 'api_methods.rb'
 require 'platform'
+require 'cucumber/blinkbox/environment'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -27,11 +28,28 @@ end
 
 World(Capybara::Angular::DSL)
 World(RSpec::Matchers)
+World(KnowsAboutTheEnvironment)
+
+TEST_CONFIG = ENV.to_hash || {}
+TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
+TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
+if TEST_CONFIG['debug']
+  ARGV.each do |a|
+    puts "Argument: #{a}"
+  end
+  puts "TEST_CONFIG: #{TEST_CONFIG}"
+end
+
+#======== Load environment specific test data ======
+TEST_CONFIG['server'] = ENV['SERVER'] || 'TEST'
+
+extend KnowsAboutTheEnvironment
 
 # ======= Setup Test Config =======
 module KnowsAboutConfig
   path_to_root = File.dirname(__FILE__) + '/../../'
   $LOAD_PATH.unshift File.expand_path(path_to_root)
+  extend KnowsAboutTheEnvironment
 
   def require_and_log(lib_array)
     lib_array = [lib_array] if lib_array.class != Array
@@ -67,9 +85,8 @@ module KnowsAboutConfig
     @_test_data[data.to_s]
   end
 
-  def environments(name)
-    @_environments ||= load_yaml_file('config', 'environments.yml')
-    env = @_environments[name.upcase]
+  def environments(name = 'host')
+    env = @test_env['servers'][name.downcase]
     raise "Environment '#{name}' is not defined in environments.yml" if env.nil?
     env
   end
@@ -77,19 +94,6 @@ end
 include KnowsAboutConfig
 World(KnowsAboutConfig)
 
-
-TEST_CONFIG = ENV.to_hash || {}
-TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
-TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
-if TEST_CONFIG['debug']
-  ARGV.each do |a|
-    puts "Argument: #{a}"
-  end
-  puts "TEST_CONFIG: #{TEST_CONFIG}"
-end
-
-#======== Load environment specific test data ======
-TEST_CONFIG['SERVER'] ||= 'QA'
 initialise_test_data
 
 # ======= load common helpers =======
@@ -132,7 +136,7 @@ browserstack_path = File.expand_path File.join(path_to_root, 'lib', 'browserstac
 ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
 # ======= Setup target environment =======
-Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
+Capybara.app_host = environments
 
 # ======== set up browser driver =======
 # Capybara browser driver settings
