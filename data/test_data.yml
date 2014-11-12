@@ -75,6 +75,7 @@
     email_address_invalid: lazy_image@yahoo.co.uk
     email_with_no_at: A2b.com
     dummy_email: this_email_is_not_registered_with@blinkboxbooks.com
+    used_voucher: dhaval@qa.com
 
   name:
     happypath_user: Happy-path
@@ -98,6 +99,10 @@
     five_digit_password: test1
     not_matching_password: test2345
     change_password: mypassword123
+
+  vouchers:
+    valid_voucher: 1111111122222222
+    already_used: VCCAMPA1REDEEMED
 
   clubcards:
     valid_clubcard_number: 634004024023421292
@@ -146,6 +151,9 @@
     happypath_user: Happy-path
     user_with_devices: bookstester-card
     multiple_storedcards: bookstester-card
+
+  vouchers:
+    already_used: U5DYBWL7RS9AS9G6
 
   passwords:
     valid_password: test1234

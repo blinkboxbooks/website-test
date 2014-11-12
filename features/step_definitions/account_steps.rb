@@ -8,11 +8,7 @@ Given /^I am not signed in$/ do
   delete_access_token_cookie
 end
 
-And /^I am on the redeem page/ do
-  redeem_voucher_page.load
-end
-
-Given /^I have signed in$/ do
+Given /^I (?:am|have) signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
   assert_logged_in_session
