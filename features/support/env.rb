@@ -28,7 +28,6 @@ end
 
 World(Capybara::Angular::DSL)
 World(RSpec::Matchers)
-World(KnowsAboutTheEnvironment)
 
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
@@ -41,7 +40,7 @@ if TEST_CONFIG['debug']
 end
 
 #======== Load environment specific test data ======
-TEST_CONFIG['server'] = ENV['SERVER'] || 'TEST'
+TEST_CONFIG['server'] = TEST_CONFIG['SERVER'] || 'TEST'
 
 extend KnowsAboutTheEnvironment
 
@@ -85,10 +84,10 @@ module KnowsAboutConfig
     @_test_data[data.to_s]
   end
 
-  def environments(name = 'host')
-    env = @test_env['servers'][name.downcase]
-    raise "Environment '#{name}' is not defined in environments.yml" if env.nil?
-    env
+  def server(server_type = 'web')
+    uri = test_env.servers[server_type.to_s.downcase]
+    raise "'#{server_type}' server URI is not defined for environment '#{TEST_CONFIG['server']}' in config/environments.yml" if uri.nil?
+    uri
   end
 end
 include KnowsAboutConfig
@@ -136,7 +135,7 @@ browserstack_path = File.expand_path File.join(path_to_root, 'lib', 'browserstac
 ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
 # ======= Setup target environment =======
-Capybara.app_host = environments
+Capybara.app_host = server('web')
 
 # ======== set up browser driver =======
 # Capybara browser driver settings

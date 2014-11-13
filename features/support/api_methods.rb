@@ -74,8 +74,8 @@ module APIMethods
     include Utilities
 
     def initialize(auth, api)
-      @@auth_uri = "#{auth}/oauth2/token"
-      @@credit_card_uri = "#{api}/service/my/creditcards"
+      @auth_uri = "#{auth}/oauth2/token"
+      @credit_card_uri = "#{api}/service/my/creditcards"
     end
 
     def create_new_user! (options ={})
@@ -101,7 +101,7 @@ module APIMethods
       end
 
       headers = {'Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json'}
-      response = http_client.post(@@auth_uri, body: params, header: headers)
+      response = http_client.post(@auth_uri, body: params, header: headers)
       raise 'Test Error: Failed to register new user' unless response.status == 200
       user_props = MultiJson.load(response.body)
       @access_token = user_props['access_token']
@@ -124,7 +124,7 @@ module APIMethods
       }
       headers = {'Content-Type' => 'application/vnd.blinkboxbooks.data.v1+json', 'Authorization' => "Bearer #{access_token}"}
       body = {'type' => 'urn:blinkboxbooks:schema:creditcard'}.merge(params)
-      response = http_client.post(@@credit_card_uri, body: format_body(body), header: headers)
+      response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
       raise 'Adding credit card failed' unless response.status == 201
       params[:cardholderName]
     end
@@ -151,8 +151,8 @@ module APIMethods
   end
 
 
-  def api_helper(auth, api)
-    @api_helper||=APIMethods::User.new(auth, api)
+  def api_helper()
+    @api_helper||=APIMethods::User.new(server('auth'), server('api'))
   end
 end
 World(APIMethods)
