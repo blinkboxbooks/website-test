@@ -32,6 +32,8 @@ module PageModels
   end
 
   class Header < PageModels::BlinkboxbooksSection
+    include RSpec::Matchers
+
     element :user_account_logo, '#user-menu'
     element :main_menu, '#main-menu'
     element :welcome, '.username'

@@ -1,5 +1,6 @@
 module PageModels
   class SignInForm < PageModels::BlinkboxbooksSection
+    include RSpec::Matchers
 
     element :email, 'input#email'
     element :password, 'input#password'

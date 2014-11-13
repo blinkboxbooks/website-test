@@ -15,18 +15,10 @@ require 'rspec/expectations'
 require 'rspec/collection_matchers'
 require 'benchmark'
 require 'yaml'
-require 'rspec'
 require 'api_methods.rb'
 require 'platform'
 
-RSpec.configure do |config|
-  config.expect_with :rspec do |c|
-    c.syntax = :expect, :should
-  end
-end
-
 World(Capybara::Angular::DSL)
-World(RSpec::Matchers)
 
 # ======= Setup Test Config =======
 module KnowsAboutConfig

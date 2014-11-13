@@ -9,6 +9,7 @@ module WaitSteps
 
   # Ex. expect {logged_in_session?}.to become_true, "User is not logged in as expected"
   matcher :become_true do
+    supports_block_expectations
     match do |block|
       begin
         Timeout.timeout(Capybara.default_wait_time) do
@@ -22,6 +23,7 @@ module WaitSteps
   end
 
   matcher :become_false do
+    supports_block_expectations
     match do |block|
       begin
         Timeout.timeout(Capybara.default_wait_time) do
@@ -36,6 +38,7 @@ module WaitSteps
 
   # Ex. expect { page.current_url }.to become( '/#/something_or_other' )
   matcher :become do |expected|
+    supports_block_expectations
     match do |block|
       begin
         Timeout.timeout(Capybara.default_wait_time) do
