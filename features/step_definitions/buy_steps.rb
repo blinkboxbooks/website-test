@@ -31,7 +31,7 @@ When /^I click on Confirm order$/ do
 end
 
 Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
-  if login_status.include?('not')
+  unless login_status.include?('not')
     sign_in
     assert_page('Home')
   end

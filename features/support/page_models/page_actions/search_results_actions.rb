@@ -2,8 +2,8 @@ module PageModels
   module SearchResultsActions
     def switch_to_grid_view
       unless search_results_page.current_view == :grid
-        search_results_page.wait_for_grid_view_button(25)
-        search_results_page.wait_until_grid_view_button_visible(25)
+        search_results_page.wait_for_grid_view_button
+        search_results_page.wait_until_grid_view_button_visible
         search_results_page.grid_view_button.click
         wait_until { search_results_page.current_view == :grid }
         puts 'Switching to grid view of book results'
@@ -12,8 +12,8 @@ module PageModels
 
     def switch_to_list_view
       unless search_results_page.current_view == :list
-        search_results_page.wait_for_list_view_button(25)
-        search_results_page.wait_until_list_view_button_visible(25)
+        search_results_page.wait_for_list_view_button
+        search_results_page.wait_until_list_view_button_visible
         search_results_page.list_view_button.click
         wait_until { search_results_page.current_view == :list }
         puts 'Switching to list view of book results'
