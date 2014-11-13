@@ -9,6 +9,11 @@ Before('~@reset_session') do
 end
 
 After do |scenario|
+  if TEST_CONFIG['log_js_errors']
+    puts "JS LOG ENTRIES:"
+    js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
+  end
+
   if page.driver.browser.window_handles.count > 0 && logged_in_session?
     log_out_current_session
   end
