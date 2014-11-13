@@ -87,7 +87,7 @@ if TEST_CONFIG['debug']
   end
   puts "TEST_CONFIG: #{TEST_CONFIG}"
 end
-TEST_CONFIG['log_js_errors'] = true
+TEST_CONFIG['log_js_errors'] ||= false
 
 #======== Load environment specific test data ======
 TEST_CONFIG['SERVER'] ||= 'QA'

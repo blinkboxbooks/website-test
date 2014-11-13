@@ -10,8 +10,8 @@ end
 
 After do |scenario|
   if TEST_CONFIG['log_js_errors']
-    log = js_errors.map { |entry| "#{entry.level}: #{entry.message}" }
-    puts "JS LOG ENTRIES:\n#{log}"
+    puts "JS LOG ENTRIES:"
+    js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
   end
 
   if page.driver.browser.window_handles.count > 0 && logged_in_session?
