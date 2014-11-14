@@ -16,7 +16,7 @@ module PageModels
     end
 
     def has_category?(category_id)
-      !!categories_page.category_by_id(category_id)
+      !!category_by_id(category_id)
     end
 
     # TODO: Everything below must be refactored, using the top_categories, all_categories sections!
