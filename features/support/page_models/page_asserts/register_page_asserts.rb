@@ -6,7 +6,7 @@ module PageModels
     end
 
     def assert_promotion_checkbox_ticked(expected_state = true)
-      expect(register_page.newsletter_checkbox).to be expected_state
+      expect(register_page.newsletter_checkbox.checked?).to be expected_state
     end
 
   end

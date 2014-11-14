@@ -45,7 +45,7 @@ module AssertNavigation
   end
 
   def assert_order_complete
-    expect(order_complete_page).to have_order_complete_message
+    expect { order_complete_page.has_order_complete_message? }.to become_true
   end
 
 end
@@ -85,8 +85,9 @@ module AssertSearch
   end
 
   def assert_search_word_in_suggestions(corrected_word)
+    current_page.search_form.wait_until_suggestions_visible
     suggestions = current_page.search_form.suggestions
-    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to be_true, "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
+    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to eq(true), "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
   end
 end
 
