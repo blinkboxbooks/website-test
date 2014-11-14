@@ -32,8 +32,6 @@ module PageModels
   end
 
   class Header < PageModels::BlinkboxbooksSection
-    include RSpec::Matchers
-
     element :user_account_logo, '#user-menu'
     element :main_menu, '#main-menu'
     element :welcome, '.username'
@@ -61,7 +59,7 @@ module PageModels
     def open_account_menu
       wait_until_user_account_logo_visible
       user_account_logo.click
-      expect(account_menu).to be_visible
+      wait_until_account_menu_visible
     end  
 
     def navigate_to_account_option(link_name)
@@ -86,7 +84,7 @@ module PageModels
     def navigate_to_hamburger_menu_option(link_name)
       wait_for_main_menu
       main_menu.click
-      expect(hamburger_menu).to be_visible
+      wait_until_hamburger_menu_visible
       hamburger_menu.find('a', :text => "#{link_name}").click
     end
 

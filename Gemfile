@@ -3,7 +3,6 @@ source "http://artifactory.blinkbox.local/artifactory/api/gems/rubygems/"
 
 group :automation do
   gem 'cucumber'
-  #gem 'rspec'
   gem 'capybara', '~> 2.4'
   gem 'capybara-angular'
   gem 'rspec-collection_matchers'

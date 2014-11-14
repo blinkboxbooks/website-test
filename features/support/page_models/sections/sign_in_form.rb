@@ -1,7 +1,5 @@
 module PageModels
   class SignInForm < PageModels::BlinkboxbooksSection
-    include RSpec::Matchers
-
     element :email, 'input#email'
     element :password, 'input#password'
     element :sign_in_button, 'button', :text => /Sign in/i
@@ -20,8 +18,8 @@ module PageModels
     end
 
     def click_sign_in_button
-      expect(self).to have_sign_in_button
-      self.sign_in_button.click
+      wait_for_sign_in_button
+      sign_in_button.click
     end
   end
 end
