@@ -99,6 +99,11 @@ And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |
   assert_auto_corrected_word [first_part, second_part ]
 end
 
+When /^I search for "(.+)"(?: on the (.+) page)$/ do |word, page|
+  @search = word
+  search(@search, :grid)
+end
+
 And(/^at least 1 search result is shown$/) do
   expect(books_section).to have_books
   expect(books_section.books).to have_at_least(1).item
@@ -163,3 +168,17 @@ And /^I should see search results page for "(.*?)"$/ do |search_word|
   assert_search_results search_word
 end
 
+
+Then(/^number of matching books is (not )?displayed$/) do |negative|
+  if negative && negative.include?('not')
+    expect(search_results_page.number_of_books).not_to be_visible
+  else
+    expect(search_results_page.number_of_books).to be_visible
+    @num_of_books=search_results_page.number_of_books.text.gsub(/[^0-9]/, '').to_i
+  end
+end
+
+
+And(/^the number in the matching books label should be greater than zero$/) do
+  expect(@num_of_books).to be > 0
+end

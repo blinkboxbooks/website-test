@@ -13,6 +13,7 @@ module PageModels
     element :grid_view_button, 'a[data-test="grid-button"]'
     element :no_results_element, '#noResults'
     element :book_cover, '[data-test=book-title-cover]'
+    element :number_of_books, 'div#searchMatch'
 
     def current_view
       if has_list_view_button?
