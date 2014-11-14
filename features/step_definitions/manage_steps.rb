@@ -72,6 +72,7 @@ end
 And /^I can sign in with the new password successfully$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @new_password)
+  assert_page('Home')
   assert_logged_in_session
 end
 
@@ -132,6 +133,7 @@ end
 And /^my password is not updated$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @current_password)
+  assert_page('Home')
   assert_logged_in_session
 end
 

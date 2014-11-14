@@ -106,6 +106,10 @@ module WebUtilities
     page.driver.browser.window_handles.last
   end
 
+  def js_errors
+    page.driver.browser.manage.logs.get('browser')
+  end
+
 end
 
 module BlinkboxWebUtilities
