@@ -13,10 +13,10 @@ module PageModels
     element :grid_view_button, 'a[data-test="grid-button"]'
     element :no_results_element, '#noResults'
     element :book_cover, '[data-test=book-title-cover]'
-    element :number_of_results_element, 'div#searchMatch', :visible => false
+    element :number_of_results_element, 'div#searchMatch'
 
     def number_of_results_found
-      number_of_results_element.text.gsub(/[^0-9]/, '').to_i
+      number_of_results_element.text[/\d{1,}/].to_i
     end
 
     def current_view
