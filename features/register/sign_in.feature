@@ -25,6 +25,9 @@ Feature: Sign into Blinkbox books
 
   @negative @production
   Scenario Outline: Sign in with invalid email or password
+    # Background steps are incompatible with Scenario Outline
+    Given I am not signed in
+    And I am on the Sign in page
     When I try to sign in with <invalid_credentials>
     Then sign in is not successful
     And the following error message is displayed:
