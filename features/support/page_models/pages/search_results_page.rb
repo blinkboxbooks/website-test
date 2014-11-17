@@ -13,7 +13,11 @@ module PageModels
     element :grid_view_button, 'a[data-test="grid-button"]'
     element :no_results_element, '#noResults'
     element :book_cover, '[data-test=book-title-cover]'
-    element :number_of_books, 'div#searchMatch'
+    element :number_of_results_element, 'div#searchMatch', :visible => false
+
+    def number_of_results_found
+      number_of_results_element.text.gsub(/[^0-9]/, '').to_i
+    end
 
     def current_view
       if has_list_view_button?

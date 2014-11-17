@@ -168,17 +168,11 @@ And /^I should see search results page for "(.*?)"$/ do |search_word|
   assert_search_results search_word
 end
 
-
-Then(/^number of matching books is (not )?displayed$/) do |negative|
-  if negative && negative.include?('not')
-    expect(search_results_page.number_of_books).not_to be_visible
-  else
-    expect(search_results_page.number_of_books).to be_visible
-    @num_of_books=search_results_page.number_of_books.text.gsub(/[^0-9]/, '').to_i
-  end
+And /^the number of matching books message is not displayed$/ do
+  expect(search_results_page.number_of_results_element).not_to be_visible
 end
 
-
-And(/^the number in the matching books label should be greater than zero$/) do
-  expect(@num_of_books).to be > 0
+Then /^the number of matching books message should be greater than zero$/ do
+  expect(search_results_page.number_of_results_element).to be_visible
+  expect(search_results_page.number_of_results_found).to be > 0
 end
