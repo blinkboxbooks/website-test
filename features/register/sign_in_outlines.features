@@ -4,10 +4,6 @@ Feature: Sign into Blinkbox books
   I want to sign in
   So that I can access my account, read my library books and buy books
 
-  Background: Navigate to sign in
-    Given I am not signed in
-    And I am on the Sign in page
-
   @negative @production
   Scenario Outline: Sign in with invalid email or password
     Given I am not signed in
