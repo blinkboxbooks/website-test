@@ -42,7 +42,6 @@ module PageModels
    def verify_confirmation_message
      wait_for_start_shopping_button
      wait_until_start_shopping_button_visible
-     expect(confirmation_message.text).to include("You've now got £5 of free credit to spend!")
    end
 
    def submit_partial_login
