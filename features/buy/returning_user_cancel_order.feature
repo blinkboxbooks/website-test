@@ -44,7 +44,8 @@ Feature: Returning user cancels order
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I sign in to proceed with the purchase
     And my payment failed at Braintree for not matching CVV
-    When PENDING: I cancel order
+    When PENDING: @CWA-980 - Buy Process - Cancel Option - No Buttons
+    # I cancel order
     And confirm cancel order
     Then I am redirected to <page_name> page
 
@@ -62,7 +63,8 @@ Feature: Returning user cancels order
     And I sign in to proceed with the purchase
     And I choose to pay with a new card
     And I have validation error messages on the page
-    When PENDING: I cancel order
+    When PENDING: @CWA-980 - Buy Process - Cancel Option - No Buttons
+    # I cancel order
     And confirm cancel order
     Then I am redirected to <page_name> page
 
