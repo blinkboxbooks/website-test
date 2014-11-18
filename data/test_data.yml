@@ -197,3 +197,13 @@
 
  SERVER_3:
   <<: *LIVE_DATA
+
+ SERVER_4:
+  <<: *LIVE_DATA
+
+ SERVER_5:
+  <<: *LIVE_DATA
+
+ SERVER_6:
+  <<: *LIVE_DATA
+

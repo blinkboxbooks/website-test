@@ -118,7 +118,7 @@ Feature: Navigation around the website
     | Authors      |
     | New releases |
 
-  @smoke @production @CWA-1029 @pending
+  @smoke @production @CWA-1029 @unstable
   Scenario Outline: Clicking Support links from the hamburger Menu
     When I select <support_link> link from the hamburger Menu
     Then I am redirected to the "<support_page>" support page in a new window

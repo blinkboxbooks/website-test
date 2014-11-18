@@ -4,7 +4,7 @@ Feature: Redirect to Sign and register page
   I need to be redirect guest users to sign in register page when they try to access secured pages
   So that unauthorised access to secured pages can be prevented.
 
- @ie @safari @servertesting
+ @ie @safari
   Scenario Outline: Sign in register redirect for manage actions under Account menu
     Given I am not signed in
     And I am on the home page

@@ -131,7 +131,7 @@ Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
 # ======== set up browser driver =======
 # Capybara browser driver settings
 Capybara.default_driver = :selenium
-Capybara.default_wait_time = TEST_CONFIG['wait_time'].to_i || 10
+Capybara.default_wait_time = 10
 
 # target browser
 TEST_CONFIG['BROWSER_NAME'] ||= 'chrome'
