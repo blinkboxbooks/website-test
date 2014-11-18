@@ -99,11 +99,6 @@ And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |
   assert_auto_corrected_word [first_part, second_part ]
 end
 
-When /^I search for "(.+)"(?: on the (.+) page)$/ do |word, page|
-  @search = word
-  search(@search, :grid)
-end
-
 And(/^at least 1 search result is shown$/) do
   expect(books_section).to have_books
   expect(books_section.books).to have_at_least(1).item
