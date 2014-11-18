@@ -18,6 +18,7 @@ Given /^I have signed in to change my first name$/ do
   @email_address = test_data('emails', 'change_first_name')
   @password = test_data('passwords', 'valid_password')
   sign_in(@email_address, @password)
+  assert_page('Home')
 end
 
 Given(/^I sign in as a user who has no samples in their account$/) do

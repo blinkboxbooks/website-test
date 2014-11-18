@@ -11,7 +11,6 @@ And /^(.*?) tab is selected$/ do |tab_name|
 end
 
 Given /^I am on the (.*?) tab/ do |tab_name|
-  expect_page_displayed('HomePage')
   current_page.header.navigate_to_account_option(tab_name)
 end
 
@@ -72,6 +71,7 @@ end
 And /^I can sign in with the new password successfully$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @new_password)
+  assert_page('Home')
   assert_logged_in_session
 end
 
@@ -132,6 +132,7 @@ end
 And /^my password is not updated$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @current_password)
+  assert_page('Home')
   assert_logged_in_session
 end
 
