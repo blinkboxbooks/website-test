@@ -119,7 +119,7 @@ When /^I attempt to update email address with already registered email address$/
 end
 
 When /^I attempt to update password by providing incorrect current password$/ do
-  update_password(test_data('passwords', 'invalid_password'), test_data('passwords', 'change_password'), :submit => true)
+  update_password(test_data('passwords', 'invalid_password'), test_data('passwords', 'change_password'), test_data('passwords', 'change_password'), :submit => true)
 end
 
 When /^I attempt to update password by providing not matching passwords$/ do
@@ -127,7 +127,7 @@ When /^I attempt to update password by providing not matching passwords$/ do
 end
 
 When /^I attempt to update password by providing passwords less than 6 characters$/ do
-  update_password(@current_password, test_data('passwords', 'five_digit_password'), :submit => true)
+  update_password(@current_password, test_data('passwords', 'five_digit_password'), test_data('passwords', 'five_digit_password'), :submit => true)
 end
 
 And /^my password is not updated$/ do
