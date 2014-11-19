@@ -45,7 +45,7 @@ module AssertNavigation
   end
 
   def assert_order_complete
-    expect(order_complete_page).to have_order_complete_message
+    expect{order_complete_page.has_order_complete_message?}.to become_true
   end
 
 end

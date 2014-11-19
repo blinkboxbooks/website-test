@@ -13,8 +13,8 @@ module PageModels
 
     def assert_payment_card_saved(card_count, name_on_card, card_type)
       your_account_page.wait_until_spinner_invisible
-      expect(your_payments_page).to have_saved_cards_list(:count => card_count)
-      expect(your_payments_page.saved_cards).to have_credit_card(card_type.downcase, :holder_name => name_on_card.downcase)
+      expect(your_payments_page.saved_cards).to have(card_count).item
+      expect(your_payments_page).to have_credit_card(card_type.downcase, :holder_name => name_on_card.downcase)
     end
   end
 end
