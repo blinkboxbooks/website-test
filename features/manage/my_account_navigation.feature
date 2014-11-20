@@ -4,11 +4,9 @@ Feature: Navigating through my account pages
   I need the ability to view my account page
   So that I can view and update my account details
 
-  Background:
-    Given I am on the home page
-
   @smoke @production
   Scenario Outline: Signed in user accessing account navigation links from Account Menu
+    Given I am on the home page
     Given I have signed in
     When I select <my_account_option> link from drop down menu
     Then <my_account_page> page is displayed
@@ -24,6 +22,7 @@ Feature: Navigating through my account pages
 
   @CWA-1027 @production
   Scenario: Navigate through FAQ links under Order & payment history
+    Given I am on the home page
     Given I have signed in
     When I am on the Order history tab
     Then following FAQ links are displayed:
@@ -36,6 +35,7 @@ Feature: Navigating through my account pages
 
   @production
   Scenario: Navigate through FAQ links under Personal details
+    Given I am on the home page
     Given I have signed in
     When I am on the Personal details tab
     Then following FAQ links are displayed:
@@ -48,6 +48,7 @@ Feature: Navigating through my account pages
 
   @production
   Scenario: Navigate through FAQ links under Your payments
+    Given I am on the home page
     Given I have signed in
     When I am on the Saved cards tab
     Then following FAQ links are displayed:
@@ -60,6 +61,7 @@ Feature: Navigating through my account pages
 
   @production
   Scenario: Navigate through FAQ links under Your devices
+    Given I am on the home page
     Given I have signed in
     When I am on the Devices tab
     Then following FAQ links are displayed:
@@ -72,6 +74,7 @@ Feature: Navigating through my account pages
 
   @CWA-615 @production
   Scenario Outline: User with no associated payment, order or device information check their account information
+    Given I am on the home page
     Given I am returning user with no <user_type>
     And I have signed in
     When I select <account_link> link from drop down menu
@@ -86,6 +89,7 @@ Feature: Navigating through my account pages
     | saved payment cards | Saved cards   | Your payments           | You have no payment cards saved to your account     |
 
   Scenario: FAQ links on Order complete page
+    Given I am on the home page
     Given I have a stored card
     And I have selected to buy a paid book from the Book details page
     And I sign in to proceed with the purchase
@@ -99,6 +103,7 @@ Feature: Navigating through my account pages
    And clicking above FAQ link opens relevant support page in a new window
 
    Scenario: Continue shopping button on Order complete page
+     Given I am on the home page
      Given I have a stored card
      And I have selected to buy a paid book from the Book details page
      And I sign in to proceed with the purchase
@@ -107,6 +112,7 @@ Feature: Navigating through my account pages
      Then I am redirected to Home page
 
     Scenario: Download free app button on Order complete page
+      Given I am on the home page
       Given I have a stored card
       And I have selected to buy a paid book from the Book details page
       And I sign in to proceed with the purchase
@@ -118,6 +124,7 @@ Feature: Navigating through my account pages
 
   @smoke
   Scenario Outline: Personification message on account pages for a user with no books and devices
+    Given I am on the home page
     Given I sign in as a user who has no book or device in their account
     When I am on the <my_account> tab
     Then I see the personification message showing that I have no full ebooks with this account
@@ -133,6 +140,7 @@ Feature: Navigating through my account pages
 
   @smoke
   Scenario Outline: Personification message on account pages for a user with some books and devices
+    Given I am on the home page
     Given I sign in as a user who has books and devices in their account
     When I am on the <my_account> tab
     Then I see the personification message showing that I have some full ebooks with this account
