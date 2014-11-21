@@ -90,9 +90,14 @@ module PageModels
     def has_credit_card?(card_type, *args)
       cards = saved_cards.select { |card| card.type == card_type }
       cards.select! do |card|
-        args.all? { |prop| card.send(prop.to_a.first[0]).downcase == prop.to_a.first[1].downcase }
+        args.first.all? do |prop|
+          k = prop[0]
+          v = prop[1]
+          k = k.downcase if prop[0].kind_of?(String)
+          v = v.downcase if prop[1].kind_of?(String)
+          card.send(k).downcase == v
+        end
       end
-      sleep 5
       !cards.empty?
     end
   end
