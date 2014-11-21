@@ -142,6 +142,7 @@ DEPENDENCIES
   multi_json
   parallel_tests
   rake
+  rspec
   rspec-collection_matchers
   selendroid
   selenium-webdriver (~> 2.39)

@@ -1,4 +1,7 @@
-<% ci_opts = " -r features --color --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending --format progress -o results/progress.log --format junit -o results/junit/ --format Cucumber::Blinkbox::Formatter::Html -o results/features_report.html --format pretty WAIT_FOR_AJAX=true"  %>
+<% ci_formatting = " --color  --format pretty --format junit -o results/junit/ --format Cucumber::Blinkbox::Formatter::Html -o results/features_report.html " %>
+<% ci_tags = " --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending " %>
+<% ci_opts = ci_tags + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
+
 <% grid_hub_ip =          " GRID_HUB_IP=172.17.51.12 " %>
 <% grid_opts_test =     " GRID=true PLATFORM=WINDOWS BROWSER_NAME=chrome " %>
 <% grid_opts_dev =         " GRID=true PLATFORM=WINDOWS BROWSER_NAME=chrome " %>
