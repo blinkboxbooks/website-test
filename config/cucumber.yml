@@ -26,6 +26,8 @@ ci-regression-qa:     <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_qa %> --ta
 
 local_debug_tablet:  <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_tablet_qa %> --tags @smoke SERVER=PRODUCTION
 
+release-server-testing:          <%= ci_opts %> --tags @servertesting
+
 #mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
 #mac-firefox: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
 #mac-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.65 --no-multiline -i -s --format progress

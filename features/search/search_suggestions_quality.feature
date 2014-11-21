@@ -18,6 +18,7 @@ Feature: Suggestions for user search
      And I should see at least 5 suggestions
      And all suggestions should contain search word "Gone"
 
+  @servertesting
   Scenario: Exact match of letters should be first suggestion
     When I type "Dan Brown" into search field
     Then search suggestions should be displayed
