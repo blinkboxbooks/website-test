@@ -163,3 +163,11 @@ And /^I should see search results page for "(.*?)"$/ do |search_word|
   assert_search_results search_word
 end
 
+And /^the number of matching books message is not displayed$/ do
+  expect(search_results_page).not_to have_number_of_results_element
+end
+
+Then /^the number of matching books message should be greater than zero$/ do
+  expect(search_results_page.number_of_results_element).to be_visible
+  expect(search_results_page.number_of_results_found).to be > 0
+end

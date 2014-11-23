@@ -1,8 +1,8 @@
 @searchresults @ie @safari
 Feature: Verify that search results match search criteria
   As a Blinkbox books user
-  I want to see the search results matching my search criteria
-  So that I can find what I am looking for
+  I want to see relevant results for my search
+  So that I can quickly find the book I want
 
   Background: Open Blinkbox books home page
     Given I am on the home page
@@ -18,6 +18,7 @@ Feature: Verify that search results match search criteria
      When I search for "<invalid_search_item>"
      Then no result message is displayed
      And the options of switching view mode should not appear
+     And the number of matching books message is not displayed
 
    Examples:
      | invalid_search_item |
@@ -35,6 +36,11 @@ Feature: Verify that search results match search criteria
     And I change search term in url to "wonder"
     Then page url should have "wonder"
     And search results should be displayed
+
+  @CWA-1795 @smoke
+  Scenario: Number of books displayed in search results page
+    When I search for "Dionysus"
+    Then the number of matching books message should be greater than zero
 
  @manual @CWA-88
   Scenario: Copy and paste search url to another browser session
