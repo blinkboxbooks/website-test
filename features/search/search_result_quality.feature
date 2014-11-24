@@ -31,9 +31,9 @@ Feature: Verify that search results match search criteria
 
   @CWA-88
   Scenario: Editing search url should update search results
-    When I search for "alice"
-    Then page url should have "alice"
-    And search results for "alice" should be displayed
+    When I search for "Alice"
+    Then page url should have "Alice"
+    And search results for "Alice" should be displayed
     When I change search term in url to "wonder"
     Then page url should have "wonder"
     And search results for "wonder" should be displayed
