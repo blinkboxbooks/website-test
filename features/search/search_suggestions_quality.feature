@@ -1,4 +1,4 @@
-@suggestions @cp-275 @ie @safari @smoke
+@suggestions @cp-275 @ie @safari
 Feature: Suggestions for user search
   As a Blinkbox books user
   I want to get suggestions when I start searching for a book or author etc
@@ -46,4 +46,3 @@ Feature: Suggestions for user search
     And last suggestion should contain More results for "Gone girl"
     When I select suggestion which contains More results for "Gone girl"
     Then search results should be displayed
-

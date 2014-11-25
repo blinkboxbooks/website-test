@@ -32,7 +32,7 @@ module PageModels
     end
 
     def searched_term
-      searched_term_element.text.gsub(/[\" ]/, '')
+      searched_term_element.text.gsub('"','').strip
     end
   end
   register_model_caller_method(SearchResultsPage, :search_results_page)
