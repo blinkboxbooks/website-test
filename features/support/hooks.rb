@@ -6,7 +6,6 @@ Before('~@reset_session') do
     log_out_current_session
     current_page.header.user_account_logo.click
   end
-  switch_to_first_window
 end
 
 After do |scenario|
@@ -15,8 +14,15 @@ After do |scenario|
     js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
   end
 
-  if page.driver.browser.window_handles.count > 0 && logged_in_session?
+  if open_windows.count > 0 && logged_in_session?
     log_out_current_session
+  end
+
+  # Close excessive windows
+  if open_windows.count > 1
+    until open_windows.count == 1
+      close_last_open_browser_window
+    end
   end
   
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
