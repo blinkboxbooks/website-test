@@ -18,10 +18,7 @@ After do |scenario|
     log_out_current_session
   end
 
-  # Close excessive windows
-  while open_windows.count > 1
-    close_last_open_browser_window
-  end
+  close_excessive_browser_windows
   
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
     puts "'FAIL FAST' option is ON"

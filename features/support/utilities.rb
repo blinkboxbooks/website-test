@@ -106,6 +106,12 @@ module WebUtilities
     end
   end
 
+  def close_excessive_browser_windows
+    while open_windows.count > 1
+      close_last_open_browser_window
+    end
+  end
+
   def switch_to_first_window
     page.driver.browser.switch_to.window(window.first)
   end
