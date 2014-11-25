@@ -1,4 +1,4 @@
-<% ci_formatting = " --color  --format pretty --format junit -o results/junit/ --format Cucumber::Blinkbox::Formatter::Html -o results/features_report.html " %>
+<% ci_formatting = " --expand  --format pretty --format junit -o results/junit/ --format Cucumber::Blinkbox::Formatter::Html -o results/features_report.html " %>
 <% ci_tags = " --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending " %>
 <% ci_opts = ci_tags + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
 
