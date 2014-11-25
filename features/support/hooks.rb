@@ -14,9 +14,11 @@ After do |scenario|
     js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
   end
 
-  if page.driver.browser.window_handles.count > 0 && logged_in_session?
+  if open_windows.count > 0 && logged_in_session?
     log_out_current_session
   end
+
+  close_excessive_browser_windows
   
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
     puts "'FAIL FAST' option is ON"
