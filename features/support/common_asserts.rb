@@ -53,10 +53,10 @@ end
 module AssertSearch
   def assert_search_results(search_word)
     expect_page_displayed('Search Results')
-    expect(search_results_page).to have_content('You searched for')
-    expect(search_results_page.searched_term).to have_content(search_word)
+    expect(search_results_page).to have_content("You searched for")
+    expect(search_results_page.searched_term).to eq(search_word)
     expect {search_results_page.has_books?}.to become_true, "Books not displayed"
-    expect(search_results_page.books.count).to be >= 1
+    expect(books_section.books_with_title(search_word)).to have_at_least(1).item
   end
 
   def assert_author_name(author_name)
