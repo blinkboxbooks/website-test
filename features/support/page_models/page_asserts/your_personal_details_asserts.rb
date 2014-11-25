@@ -15,10 +15,7 @@ module PageModels
     def assert_marketing_preferences(after_status)
       refresh_current_page
       your_personal_details_page.wait_until_marketing_prefs_visible
-
-      status_now = your_personal_details_page.marketing_prefs.checked?
-
-      expect(status_now).to eq after_status
+      expect { your_personal_details_page.marketing_prefs.checked? == after_status }.to become_true, "Expected marketing preference: #{after_status}, got: #{!after_status}"
     end
 
     def assert_clubcard (clubcard_number = '')
