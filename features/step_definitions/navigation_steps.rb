@@ -207,8 +207,8 @@ end
 And /^clicking above FAQ link opens relevant support page in a new window$/ do
   pending('CWA-1029 - FAQ, Contact us under Support should open in new window') do
     @support_links.hashes.each do |row|
+      click_link(row['support links'])
       begin
-        click_link(row['support links'])
         assert_support_page(row['support links'])
       ensure
         close_last_open_browser_window
