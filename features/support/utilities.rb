@@ -112,10 +112,6 @@ module WebUtilities
     end
   end
 
-  def switch_to_first_window
-    page.driver.browser.switch_to.window(window.first)
-  end
-
   def last_open_browser_window
     open_windows.last
   end
