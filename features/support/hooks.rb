@@ -6,6 +6,7 @@ Before('~@reset_session') do
     log_out_current_session
     current_page.header.user_account_logo.click
   end
+  switch_to_first_window
 end
 
 After do |scenario|
