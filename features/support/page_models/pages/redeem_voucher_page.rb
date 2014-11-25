@@ -55,7 +55,7 @@ module PageModels
      signin_button.click
    end
 
-   def input_personal_details(email_address=@email_address)
+   def input_personal_details(email_address=nil)
      email_address ||= generate_random_email_address
      first_name = generate_random_first_name
      last_name = generate_random_last_name
