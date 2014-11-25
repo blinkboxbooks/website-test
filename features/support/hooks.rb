@@ -19,10 +19,8 @@ After do |scenario|
   end
 
   # Close excessive windows
-  if open_windows.count > 1
-    until open_windows.count == 1
-      close_last_open_browser_window
-    end
+  while open_windows.count > 1
+    close_last_open_browser_window
   end
   
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
