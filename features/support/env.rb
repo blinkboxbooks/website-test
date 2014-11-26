@@ -18,13 +18,26 @@ require 'benchmark'
 require 'yaml'
 require 'api_methods.rb'
 require 'platform'
+require 'cucumber/blinkbox/environment'
 
-World(Capybara::Angular::DSL)
+TEST_CONFIG = ENV.to_hash || {}
+TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
+TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
+if TEST_CONFIG['debug']
+  ARGV.each do |a|
+    puts "Argument: #{a}"
+  end
+  puts "TEST_CONFIG: #{TEST_CONFIG}"
+end
+
+#======== Load environment specific test data ======
+TEST_CONFIG['server'] = TEST_CONFIG['SERVER'] || 'TEST'
 
 # ======= Setup Test Config =======
-module KnowsAboutConfig
+module KnowsAboutTheEnvironment
   path_to_root = File.dirname(__FILE__) + '/../../'
   $LOAD_PATH.unshift File.expand_path(path_to_root)
+  extend KnowsAboutTheEnvironment
 
   def require_and_log(lib_array)
     lib_array = [lib_array] if lib_array.class != Array
@@ -60,30 +73,15 @@ module KnowsAboutConfig
     @_test_data[data.to_s]
   end
 
-  def environments(name)
-    @_environments ||= load_yaml_file('config', 'environments.yml')
-    env = @_environments[name.upcase]
-    raise "Environment '#{name}' is not defined in environments.yml" if env.nil?
-    env
+  def server(server_type = 'web')
+    uri = test_env.servers[server_type.to_s.downcase]
+    raise "'#{server_type}' server URI is not defined for environment '#{TEST_CONFIG['server']}' in config/environments.yml" if uri.nil?
+    uri
   end
 end
-include KnowsAboutConfig
-World(KnowsAboutConfig)
+extend KnowsAboutTheEnvironment
+World(KnowsAboutTheEnvironment)
 
-
-TEST_CONFIG = ENV.to_hash || {}
-TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
-TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
-if TEST_CONFIG['debug']
-  ARGV.each do |a|
-    puts "Argument: #{a}"
-  end
-  puts "TEST_CONFIG: #{TEST_CONFIG}"
-end
-TEST_CONFIG['log_js_errors'] ||= false
-
-#======== Load environment specific test data ======
-TEST_CONFIG['SERVER'] ||= 'QA'
 initialise_test_data
 
 # ======= load common helpers =======
@@ -126,12 +124,13 @@ browserstack_path = File.expand_path File.join(path_to_root, 'lib', 'browserstac
 ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
 # ======= Setup target environment =======
-Capybara.app_host = environments(TEST_CONFIG['SERVER'].upcase)
+Capybara.app_host = server('web')
 
 # ======== set up browser driver =======
 # Capybara browser driver settings
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 10
+World(Capybara::Angular::DSL)
 
 # target browser
 TEST_CONFIG['BROWSER_NAME'] ||= 'chrome'
