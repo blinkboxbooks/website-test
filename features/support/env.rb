@@ -20,14 +20,7 @@ require 'api_methods.rb'
 require 'platform'
 require 'cucumber/blinkbox/environment'
 
-RSpec.configure do |config|
-  config.expect_with :rspec do |c|
-    c.syntax = :expect, :should
-  end
-end
-
 World(Capybara::Angular::DSL)
-World(RSpec::Matchers)
 
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)

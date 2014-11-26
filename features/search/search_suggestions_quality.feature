@@ -1,4 +1,4 @@
-@suggestions @cp-275 @ie @safari @smoke
+@suggestions @cp-275 @ie @safari
 Feature: Suggestions for user search
   As a Blinkbox books user
   I want to get suggestions when I start searching for a book or author etc
@@ -18,6 +18,7 @@ Feature: Suggestions for user search
      And I should see at least 5 suggestions
      And all suggestions should contain search word "Gone"
 
+  @servertesting
   Scenario: Exact match of letters should be first suggestion
     When I type "Dan Brown" into search field
     Then search suggestions should be displayed
@@ -45,4 +46,3 @@ Feature: Suggestions for user search
     And last suggestion should contain More results for "Gone girl"
     When I select suggestion which contains More results for "Gone girl"
     Then search results should be displayed
-

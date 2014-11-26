@@ -83,13 +83,14 @@ module PageModels
     end
 
     def saved_cards
+      wait_until_saved_cards_list_visible
       saved_cards_list
     end
 
     def has_credit_card?(card_type, *args)
       cards = saved_cards.select { |card| card.type == card_type }
       cards.select! do |card|
-        args.all? { |prop| card.send(prop[0]) == prop[1] }
+        args.first.all? { |prop| card.send(prop[0]) == prop[1] }
       end
       !cards.empty?
     end

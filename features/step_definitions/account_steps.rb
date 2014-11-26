@@ -8,7 +8,7 @@ Given /^I am not signed in$/ do
   delete_access_token_cookie
 end
 
-Given /^I have signed in$/ do
+Given /^I (?:am|have) signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
   assert_logged_in_session

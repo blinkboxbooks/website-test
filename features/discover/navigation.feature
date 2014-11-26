@@ -52,13 +52,13 @@ Feature: Navigation around the website
     When I click on the Terms & conditions footer link
     Then Terms and conditions page is displayed in a new window
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to categories page
     When I click on the Categories header tab
     Then Categories page is displayed
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to Bestsellers page
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
@@ -71,7 +71,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
@@ -82,7 +82,7 @@ Feature: Navigation around the website
     And New releases section header is New releases
     And Grid view and List view buttons displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to Free eBooks page
     When I click on the Free eBooks header tab
     Then Free eBooks page is displayed
@@ -94,7 +94,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then I should be on the Authors page
@@ -105,7 +105,7 @@ Feature: Navigation around the website
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
     When I select <shop_link> link from the hamburger Menu
     Then <shop_link> page is displayed

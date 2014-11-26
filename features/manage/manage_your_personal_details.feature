@@ -35,6 +35,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And email address is as submitted
 
+  @unstable
   Scenario: Add clubcard to existing blinkbox books account
     Given I have registered as new user without a clubcard
     And I am on the Personal details tab
@@ -42,7 +43,7 @@ Feature: Update the Personal details of the user under 'your account'
     When I enter new valid clubcard number
     And submit my personal details
     Then "Your personal details have been successfully updated." message is displayed
-    And clubcard added to my account
+    And my clubcard updated
 
   Scenario: Delete clubcard from existing blinkbox books account
     Given I have registered as new user with a clubcard
@@ -52,6 +53,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And my clubcard field is empty
 
+  @unstable
   Scenario: Update clubcard associated with existing blinkbox books account
     Given I have registered as new user with a clubcard
     And I am on the Personal details tab
@@ -60,7 +62,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And my clubcard updated
 
-  @negative
+  @negative @unstable
   Scenario Outline: Update the Clubcard number with an invalid Clubcard
     Given I have registered as new user with a clubcard
     And I am on the Personal details tab

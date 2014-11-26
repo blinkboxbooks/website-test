@@ -1,6 +1,6 @@
 And(/^I search for "(.*?)"(?: in (grid|list) view)?$/) do |term, view|
-  @search = term
-  view.nil? ? search(@search, :none) : search(@search, view.to_sym)
+  @search_word = term
+  view.nil? ? search(@search_word, :none) : search(@search_word, view.to_sym)
 end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
@@ -44,7 +44,7 @@ end
 
 Then(/^no result message is displayed$/) do
   expect(search_results_page).to have_no_results_element
-  expect(search_results_page.no_results_message).to include(@search)
+  expect(search_results_page.no_results_message).to include(@search_word)
 end
 
 And(/^the options of switching view mode should not appear$/) do
@@ -104,8 +104,21 @@ And(/^at least 1 search result is shown$/) do
   expect(books_section.books).to have_at_least(1).item
 end
 
+Then /^the matching books message shows at least 1 book$/ do
+  expect(search_results_page.number_of_results_element).to be_visible
+  expect(search_results_page.number_of_results_found).to be >= 1
+end
+
+And /^the matching books message is not displayed$/ do
+  expect(search_results_page).not_to have_number_of_results_element
+end
+
 Then /^search results should be displayed$/ do
   assert_search_results @search_word
+end
+
+Then /^search results for \"([^"]*)\" should be displayed$/ do |search_word|
+  assert_search_results search_word
 end
 
 Then /^the author name of first book displayed should contain "(.*?)"$/ do |author_name|
@@ -141,7 +154,6 @@ end
 When /^I change search term in url to "(.*?)"$/ do |edit_word|
   @search_word = edit_word
   search_results_page.load(:q => edit_word)
-  puts @search_word
 end
 
 And /^page url should have "(.*?)"$/ do |search_word|
@@ -162,4 +174,3 @@ end
 And /^I should see search results page for "(.*?)"$/ do |search_word|
   assert_search_results search_word
 end
-

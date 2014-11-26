@@ -96,14 +96,24 @@ module WebUtilities
     page.evaluate_script('window.history.back()')
   end
 
+  def open_windows
+    page.driver.browser.window_handles
+  end
+
   def close_last_open_browser_window
     page.within_window last_open_browser_window do
       page.driver.browser.close
     end
   end
 
+  def close_excessive_browser_windows
+    while open_windows.count > 1
+      close_last_open_browser_window
+    end
+  end
+
   def last_open_browser_window
-    page.driver.browser.window_handles.last
+    open_windows.last
   end
 
   def js_errors

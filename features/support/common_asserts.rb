@@ -45,7 +45,7 @@ module AssertNavigation
   end
 
   def assert_order_complete
-    expect(order_complete_page).to have_order_complete_message
+    expect { order_complete_page.has_order_complete_message? }.to become_true
   end
 
 end
@@ -53,10 +53,10 @@ end
 module AssertSearch
   def assert_search_results(search_word)
     expect_page_displayed('Search Results')
-    expect(search_results_page).to have_content('You searched for')
-    expect(search_results_page.searched_term).to have_content(search_word)
+    expect(search_results_page).to have_content("You searched for")
+    expect(search_results_page.searched_term).to eq(search_word)
     expect {search_results_page.has_books?}.to become_true, "Books not displayed"
-    expect(search_results_page.books.count).to be >= 1
+    expect(books_section.books_with_title(search_word)).to have_at_least(1).item
   end
 
   def assert_author_name(author_name)
@@ -85,8 +85,9 @@ module AssertSearch
   end
 
   def assert_search_word_in_suggestions(corrected_word)
+    current_page.search_form.wait_until_suggestions_visible
     suggestions = current_page.search_form.suggestions
-    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to be_true, "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
+    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to eq(true), "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
   end
 end
 
