@@ -50,15 +50,6 @@ module KnowsAboutTheEnvironment
     }
   end
 
-  def load_yaml_file(dir, filename)
-    path = "#{dir}/#{filename}"
-    YAML.load_file(path)
-  end
-
-  def initialise_test_data
-    @_test_data ||= load_yaml_file('data', 'test_data.yml')[TEST_CONFIG['SERVER']]
-  end
-
   def test_data(data_type, param)
     initialise_test_data
     param = param.to_s.gsub(' ', '_').downcase
@@ -78,8 +69,20 @@ module KnowsAboutTheEnvironment
     raise "'#{server_type}' server URI is not defined for environment '#{TEST_CONFIG['server']}' in config/environments.yml" if uri.nil?
     uri
   end
+
+  private
+
+  def load_yaml_file(dir, filename)
+    path = "#{dir}/#{filename}"
+    YAML.load_file(path)
+  end
+
+  def initialise_test_data
+    @_test_data ||= load_yaml_file('data', 'test_data.yml')[TEST_CONFIG['SERVER']]
+  end
 end
 extend KnowsAboutTheEnvironment
+include KnowsAboutTheEnvironment
 World(KnowsAboutTheEnvironment)
 
 initialise_test_data
@@ -211,9 +214,9 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   TEST_CONFIG['BROWSERSTACK_KEY'] ||= "SwqrhidMjGruyCtdCmx8"
 
   # Check BrowserStack availability
-  raise 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
-  raise 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
-  raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'],TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
+  raise 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
+  raise 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
+  raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
 
   if TEST_CONFIG['SERVER'] == "PRODUCTION"
     caps["browserstack.local"] = "false"
@@ -245,7 +248,7 @@ else
 end
 
 # Headless mode
-if TEST_CONFIG['HEADLESS']  =~ /^true|on$/i
+if TEST_CONFIG['HEADLESS'] =~ /^true|on$/i
   puts 'Headless mode.'
 
   require 'headless'
