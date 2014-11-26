@@ -1,5 +1,5 @@
 $: << '.'
-support_dir  = File.join(File.dirname(__FILE__))
+support_dir = File.join(File.dirname(__FILE__))
 path_to_root = support_dir + '/../../'
 $LOAD_PATH.unshift File.expand_path(support_dir)
 
@@ -21,8 +21,8 @@ require 'platform'
 require 'cucumber/blinkbox/environment'
 require 'cucumber/blinkbox/data_dependencies'
 
-TEST_CONFIG              = ENV.to_hash || {}
-TEST_CONFIG['debug']     = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
+TEST_CONFIG = ENV.to_hash || {}
+TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
 TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
 if TEST_CONFIG['debug']
   ARGV.each do |a|
@@ -103,7 +103,7 @@ puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
 
 case Platform::OS
 when :win32
-  separator  = ";"
+  separator = ";"
   current_os = 'win'
 when :unix
   separator = ":"
@@ -119,14 +119,14 @@ end
 chromedriver_path = File.expand_path File.join(path_to_root, 'lib', 'chromedrv', current_os)
 browserstack_path = File.expand_path File.join(path_to_root, 'lib', 'browserstacklocal', current_os)
 
-ENV["PATH"]                = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
+ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
 # ======= Setup target environment =======
-Capybara.app_host          = server('web')
+Capybara.app_host = server('web')
 
 # ======== set up browser driver =======
 # Capybara browser driver settings
-Capybara.default_driver    = :selenium
+Capybara.default_driver = :selenium
 Capybara.default_wait_time = 10
 World(Capybara::Angular::DSL)
 
@@ -161,10 +161,10 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
   case TEST_CONFIG['PLATFORM'].upcase
   when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
     TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
-    caps.platform              = TEST_CONFIG['PLATFORM'].upcase.to_sym
+    caps.platform = TEST_CONFIG['PLATFORM'].upcase.to_sym
   when 'ANDROID'
     TEST_CONFIG['GRID_HUB_IP'] ||= 'localhost'
-    caps.platform              = TEST_CONFIG['PLATFORM'].downcase.to_sym
+    caps.platform = TEST_CONFIG['PLATFORM'].downcase.to_sym
   when 'FIRST_AVAILABLE'
     TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
     #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
@@ -177,17 +177,17 @@ if TEST_CONFIG['GRID'] =~ /^true|on$/i
   grid_url = "http://#{TEST_CONFIG['GRID_HUB_IP']}:4444/wd/hub"
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app,
-                                   :browser              => :remote,
-                                   :url                  => grid_url,
+                                   :browser => :remote,
+                                   :url => grid_url,
                                    :desired_capabilities => caps)
   end
 
 elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   # Default values
-  TEST_CONFIG['BROWSER_NAME']    ||= 'chrome'
+  TEST_CONFIG['BROWSER_NAME'] ||= 'chrome'
   TEST_CONFIG['BROWSER_VERSION'] ||= '30.0'
-  TEST_CONFIG['OS']              ||= 'Windows'
-  TEST_CONFIG['OS_VERSION']      ||= '7'
+  TEST_CONFIG['OS'] ||= 'Windows'
+  TEST_CONFIG['OS_VERSION'] ||= '7'
 
   # TODO: Logger
   puts "-- BrowserStack settings --"
@@ -196,17 +196,17 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   puts "OS: #{TEST_CONFIG['OS']}"
   puts "OS version: #{TEST_CONFIG['OS_VERSION']}"
 
-  caps["browser"]                      = TEST_CONFIG['BROWSER_NAME']
-  caps["browser_version"]              = TEST_CONFIG['BROWSER_VERSION']
-  caps["os"]                           = TEST_CONFIG['OS']
-  caps["os_version"]                   = TEST_CONFIG['OS_VERSION']
-  caps["browserstack.debug"]           = "true"
-  caps["name"]                         = TEST_CONFIG['BROWSERSTACK_SESSION_TITLE'].nil? ? "Untitled BrowserStack session" : TEST_CONFIG['BROWSERSTACK_SESSION_TITLE']
-  caps["project"]                      = TEST_CONFIG['BROWSERSTACK_PROJECT'].nil? ? "on_demand" : TEST_CONFIG['BROWSERSTACK_PROJECT']
-  caps["build"]                        = TEST_CONFIG['BROWSERSTACK_BUILD'] unless TEST_CONFIG['BROWSERSTACK_BUILD'].nil?
-  caps["browserstack.debug"]           = "false"
+  caps["browser"] = TEST_CONFIG['BROWSER_NAME']
+  caps["browser_version"] = TEST_CONFIG['BROWSER_VERSION']
+  caps["os"] = TEST_CONFIG['OS']
+  caps["os_version"] = TEST_CONFIG['OS_VERSION']
+  caps["browserstack.debug"] = "true"
+  caps["name"] = TEST_CONFIG['BROWSERSTACK_SESSION_TITLE'].nil? ? "Untitled BrowserStack session" : TEST_CONFIG['BROWSERSTACK_SESSION_TITLE']
+  caps["project"] = TEST_CONFIG['BROWSERSTACK_PROJECT'].nil? ? "on_demand" : TEST_CONFIG['BROWSERSTACK_PROJECT']
+  caps["build"] = TEST_CONFIG['BROWSERSTACK_BUILD'] unless TEST_CONFIG['BROWSERSTACK_BUILD'].nil?
+  caps["browserstack.debug"] = "false"
   TEST_CONFIG['BROWSERSTACK_USERNAME'] ||= "gabormajor1"
-  TEST_CONFIG['BROWSERSTACK_KEY']      ||= "SwqrhidMjGruyCtdCmx8"
+  TEST_CONFIG['BROWSERSTACK_KEY'] ||= "SwqrhidMjGruyCtdCmx8"
 
   # Check BrowserStack availability
   fail 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
@@ -218,7 +218,7 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   else
     caps["browserstack.local"] = "true"
     # Running tunneling binary as background process
-    $browser_stack_tunnel      = BrowserstackUtilities::BrowserstackTunnel.new(TEST_CONFIG['BROWSERSTACK_KEY'], environments(TEST_CONFIG['SERVER']))
+    $browser_stack_tunnel = BrowserstackUtilities::BrowserstackTunnel.new(TEST_CONFIG['BROWSERSTACK_KEY'], environments(TEST_CONFIG['SERVER']))
     $browser_stack_tunnel.start
   end
 
@@ -227,8 +227,8 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   # register the remote driver
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app,
-                                   :browser              => :remote,
-                                   :url                  => grid_url,
+                                   :browser => :remote,
+                                   :url => grid_url,
                                    :desired_capabilities => caps)
   end
 
@@ -236,7 +236,7 @@ else
   # register local browser driver
   Capybara.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app,
-                                   :browser              => browser_name,
+                                   :browser => browser_name,
                                    :desired_capabilities => caps)
   end
 
