@@ -20,8 +20,6 @@ require 'api_methods.rb'
 require 'platform'
 require 'cucumber/blinkbox/environment'
 
-World(Capybara::Angular::DSL)
-
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
 TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
@@ -35,10 +33,8 @@ end
 #======== Load environment specific test data ======
 TEST_CONFIG['server'] = TEST_CONFIG['SERVER'] || 'TEST'
 
-extend KnowsAboutTheEnvironment
-
 # ======= Setup Test Config =======
-module KnowsAboutConfig
+module KnowsAboutTheEnvironment
   path_to_root = File.dirname(__FILE__) + '/../../'
   $LOAD_PATH.unshift File.expand_path(path_to_root)
   extend KnowsAboutTheEnvironment
@@ -83,8 +79,8 @@ module KnowsAboutConfig
     uri
   end
 end
-include KnowsAboutConfig
-World(KnowsAboutConfig)
+extend KnowsAboutTheEnvironment
+World(KnowsAboutTheEnvironment)
 
 initialise_test_data
 
@@ -134,6 +130,7 @@ Capybara.app_host = server('web')
 # Capybara browser driver settings
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 10
+World(Capybara::Angular::DSL)
 
 # target browser
 TEST_CONFIG['BROWSER_NAME'] ||= 'chrome'
