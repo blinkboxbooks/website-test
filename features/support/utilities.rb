@@ -2,44 +2,42 @@
 
 module Utilities
   def generate_random_email_address
-    first_part = 'cucumber_test'
-    last_part = '@mobcastdev.com'
+    first_part  = 'cucumber_test'
+    last_part   = '@mobcastdev.com'
     middle_part = rand(1..9999).to_s + (0...10).map { ('a'..'z').to_a[rand(26)] }.join
-    first_part+middle_part+last_part
+    first_part + middle_part + last_part
   end
 
   def generate_random_first_name
     first_part = 'firstname-autotest-'
-    last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
+    last_part  = (0...10).map { ('a'..'z').to_a[rand(26)] }.join
     first_part + last_part
   end
 
   def generate_random_last_name
     first_part = 'lastname-autotest-'
-    last_part=(0...10).map { ('a'..'z').to_a[rand(26)] }.join
+    last_part  = (0...10).map { ('a'..'z').to_a[rand(26)] }.join
     first_part + last_part
   end
 
   def return_search_word_for_book_type(book_type)
-    random_words = test_list('random_search_keywords')
-    book_type.to_sym == :free ? 'free' : random_words.sample
+    book_type.to_sym == :free ? 'free' : test_data_sample('random_search_keywords')
   end
 
   def isbn_for_book_type(book_type)
     test_data('library_isbns', book_type.to_s)
   rescue => e
-    raise "Cannot return isbn for unknown book type: #{book_type.to_s}\n \nTest Data Error: #{e.message}"
+    raise "Cannot return isbn for unknown book type: #{book_type}\n \nTest Data Error: #{e.message}"
   end
 end
 
 module WebUtilities
-
   def cookie_manager
     case Capybara.current_session.driver
-      when Capybara::Selenium::Driver
-        cookie_manager = page.driver.browser.manage
-      else
-        raise "no cookie-setter implemented for driver #{Capybara.current_session.driver.class.name}"
+    when Capybara::Selenium::Driver
+      cookie_manager = page.driver.browser.manage
+    else
+      fail "no cookie-setter implemented for driver #{Capybara.current_session.driver.class.name}"
     end
     cookie_manager
   end
@@ -61,7 +59,7 @@ module WebUtilities
   end
 
   def clear_text_field(element)
-    wait_until {element.visible?}
+    wait_until { element.visible? }
     until element.value.empty? do
       element.native.send_keys(:backspace)
     end
@@ -119,7 +117,6 @@ module WebUtilities
   def js_errors
     page.driver.browser.manage.logs.get('browser')
   end
-
 end
 
 module BlinkboxWebUtilities
@@ -146,7 +143,6 @@ module BlinkboxWebUtilities
 end
 
 module BrowserstackUtilities
-
   require 'childprocess'
   require 'uri'
   require 'timeout'
@@ -155,17 +151,17 @@ module BrowserstackUtilities
     attr_accessor :binary, :process, :log, :log_filename, :host, :port, :access_key
 
     def initialize(access_key, uri, ssl = true)
-      bin = 'BrowserStackLocal'
+      bin     = 'BrowserStackLocal'
       @binary = bin
 
       @log_filename = "results/browserstack-tunnel-#{Time.now.to_i}.log"
-      @log = File.open(@log_filename, "w")
-      @process = nil
+      @log          = File.open(@log_filename, "w")
+      @process      = nil
 
-      uri += ':443' unless uri =~ /:\d+/
-      @server_uri = URI(uri)
+      uri           += ':443' unless uri =~ /:\d+/
+      @server_uri   = URI(uri)
 
-      @ssl = ssl
+      @ssl        = ssl
       @access_key = access_key
     end
 
@@ -176,7 +172,7 @@ module BrowserstackUtilities
       wait_until do
         if is_exiting
           stop
-          raise "Something went wrong during startup of BrowserStack binary... Please check logfile: #{@log_filename}"
+          fail "Something went wrong during startup of BrowserStack binary... Please check logfile: #{@log_filename}"
         end
         is_started
       end
@@ -198,27 +194,27 @@ module BrowserstackUtilities
         @process.stop
       end
     rescue Errno::ECHILD
-      # already dead
+      puts 'already dead'
     ensure
       @process = nil
     end
 
     def process
       @process ||= (
-        puts "Starting BrowserStack proxy for #{server_info}"
-        cp = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, server_info_for_process)
-        cp.detach = true # Start in the background
-        cp.io.stdout = cp.io.stderr = @log
-        cp
+      puts "Starting BrowserStack proxy for #{server_info}"
+      cp           = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, server_info_for_process)
+      cp.detach    = true # Start in the background
+      cp.io.stdout = cp.io.stderr = @log
+      cp
       )
     end
 
     def server_info_for_process
-      "#{@server_uri.host.to_s},#{@server_uri.port.to_s},#{@ssl ? 1 : 0}"
-    end 
+      "#{@server_uri.host},#{@server_uri.port},#{@ssl ? 1 : 0}"
+    end
 
     def server_info
-      "#{@server_uri.host.to_s}:#{@server_uri.port.to_s}"
+      "#{@server_uri.host}:#{@server_uri.port}"
     end
 
     def is_started
@@ -234,12 +230,11 @@ module BrowserstackUtilities
     def wait_until
       require 'timeout'
       Timeout.timeout(30) do
-        sleep(0.1) until value = yield
+        sleep(0.1) until value == yield
         value
       end
     end
   end
-
 end
 
 World(Utilities)
