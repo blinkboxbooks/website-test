@@ -43,6 +43,10 @@ module KnowsAboutConfig
     raise "Environment '#{name}' is not defined in environments.yml" if env.nil?
     env
   end
+
+  def on?(name)
+    !!(name.to_s =~ /^on|true$/i)
+  end
 end
 include KnowsAboutConfig
 World(KnowsAboutConfig)
