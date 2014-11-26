@@ -9,7 +9,7 @@ module KnowsAboutConfig
     lib_array.each { |file|
       unless $".include?(file.to_s)
         puts("Loading #{file}") if TEST_CONFIG['debug']
-        require file.to_s
+        require_rel(lib_array)
       end
     }
   end

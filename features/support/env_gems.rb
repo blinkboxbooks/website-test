@@ -13,5 +13,6 @@ require 'benchmark'
 require 'yaml'
 require 'api_methods.rb'
 require 'platform'
+require 'require_all'
 
 World(Capybara::Angular::DSL)
