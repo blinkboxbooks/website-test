@@ -36,19 +36,16 @@ module AssertNavigation
   end
 
   def assert_book_details
-    pending "Latest CPR (v0.2.3) needs to be rolled out, which includes id=\"cpr-iframe\" (capybara can't locate iframe elements by other than ID!)" do
-      expect(book_details_page).to be_all_there
-    end
+    expect{book_details_page.all_there?}.to become_true
   end
 
   def assert_book_reader
-    pending("Latest CPR (v0.2.3) needs to be rolled out") do
-      expect(book_details_page).to have_reader
-    end
+    book_details_page.wait_for_reader
+    expect(book_details_page.reader).to have_next_page_button
   end
 
   def assert_order_complete
-    expect(order_complete_page).to have_order_complete_message
+    expect { order_complete_page.has_order_complete_message? }.to become_true
   end
 
 end
@@ -56,10 +53,10 @@ end
 module AssertSearch
   def assert_search_results(search_word)
     expect_page_displayed('Search Results')
-    expect(search_results_page).to have_content('You searched for')
-    expect(search_results_page.searched_term).to have_content(search_word)
-    expect(search_results_page).to have_books
-    expect(search_results_page.books.count).to be >= 1
+    expect(search_results_page).to have_content("You searched for")
+    expect(search_results_page.searched_term).to eq(search_word)
+    expect {search_results_page.has_books?}.to become_true, "Books not displayed"
+    expect(books_section.books_with_title(search_word)).to have_at_least(1).item
   end
 
   def assert_author_name(author_name)
@@ -88,8 +85,9 @@ module AssertSearch
   end
 
   def assert_search_word_in_suggestions(corrected_word)
+    current_page.search_form.wait_until_suggestions_visible
     suggestions = current_page.search_form.suggestions
-    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to be_true, "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
+    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to eq(true), "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
   end
 end
 
@@ -99,6 +97,37 @@ module AssertLogin
   end
 end
 
+module AssertWindow
+  def assert_support_page(page_name)
+    assert_browser_count(2)
+    new_window = page.driver.browser.window_handles.last
+    page.within_window new_window do
+      wait_until { page.current_url.include?('support') }
+      expect(current_url).to match(Regexp.new(test_data('support_page_urls', page_name.downcase.gsub(' ', '_'))))
+      page.driver.browser.close
+    end
+    assert_browser_count(1)
+  end
+
+  def assert_page_new_window(page_name)
+    assert_browser_count_greater(1)
+    page.within_window last_open_browser_window do
+      assert_page(page_name)
+    end
+  end
+
+  def assert_browser_count(count)
+    browser_windows = page.driver.browser.window_handles
+    expect(browser_windows.count).to eq(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"
+  end
+
+  def assert_browser_count_greater(count)
+    browser_windows = page.driver.browser.window_handles
+    expect(browser_windows.count).to be > count, "expected more than #{count} browser windows to be opened, got #{browser_windows.count}"
+  end
+end
+
 World(AssertNavigation)
 World(AssertSearch)
 World(AssertLogin)
+World(AssertWindow)

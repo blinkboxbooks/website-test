@@ -4,6 +4,18 @@ module PageModels
     section :account_nav_frame, AccountNavFrame, '#content'
     element :sign_out_button, 'button', :text => 'Sign out'
     element :spinner, '.load_spinner'
+    element :account_message_books_element, '[data-test="account-message-books"]'
+    element :account_message_devices_element, '[data-test="account-message-devices"]'
+
+    def account_message_books
+      wait_for_account_message_books_element
+      /\d+/.match(account_message_books_element.text)[0].to_i
+    end
+
+    def account_message_devices
+      wait_for_account_message_devices_element
+      /\d+/.match(account_message_devices_element.text)[0].to_i
+    end
   end
 
   class OrderAndPaymentHistoryPage < PageModels::YourAccountPage
@@ -13,12 +25,20 @@ module PageModels
     element :book_list, '.expandable'
   end
 
+  class SamplesPage < PageModels::YourAccountPage
+    set_url '/#!/account/samples'
+    set_url_matcher /account\/samples/
+    sections :samples_section, SampleResults, 'expandable itemsets'
+    section :highlights_section, BookResults, '#books_news'
+    sections :sample_list, SampleResults, '.order_books'
+  end
+
   class YourPersonalDetailsPage < PageModels::YourAccountPage
     set_url '/#!/account/personal-details'
     set_url_matcher /account\/personal-details/
     element :email_address, '#email'
-    element :first_name, '#first_name'
-    element :last_name, '#last_name'
+    element :first_name_element, '#first_name'
+    element :last_name_element, '#last_name'
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
     element :marketing_prefs_label, 'label.pseudo_label[for="newsletter"]'
@@ -32,6 +52,16 @@ module PageModels
 
     def confirm_changes
       confirm_button.click
+    end
+
+    def first_name
+      wait_for_first_name_element
+      first_name_element.value
+    end
+
+    def last_name
+      wait_for_last_name_element
+      last_name_element.value
     end
 
   end
@@ -53,13 +83,14 @@ module PageModels
     end
 
     def saved_cards
+      wait_until_saved_cards_list_visible
       saved_cards_list
     end
 
     def has_credit_card?(card_type, *args)
       cards = saved_cards.select { |card| card.type == card_type }
       cards.select! do |card|
-        args.all? { |prop| card.send(prop[0]) == prop[1] }
+        args.first.all? { |prop| card.send(prop[0]) == prop[1] }
       end
       !cards.empty?
     end
@@ -87,10 +118,13 @@ module PageModels
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
     element :confirm_button, 'button[data-test="confirm-button"]'
+    element :error_sign_in_popup, '#error_signin'
+
   end
 
   register_model_caller_method(YourAccountPage)
   register_model_caller_method(OrderAndPaymentHistoryPage)
+  register_model_caller_method(SamplesPage)
   register_model_caller_method(YourPersonalDetailsPage)
   register_model_caller_method(YourPaymentsPage)
   register_model_caller_method(YourDevicesPage)

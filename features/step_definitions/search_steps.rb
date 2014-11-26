@@ -1,11 +1,6 @@
-And(/^I search for term "(.*?)"$/) do |term|
-  @search = term
-  search(@search, :grid)
-end
-
-And(/^I search for term "(.*?)" in grid view$/) do |term|
-  @search = term
-  search(@search, :grid)
+And(/^I search for "(.*?)"(?: in (grid|list) view)?$/) do |term, view|
+  @search_word = term
+  view.nil? ? search(@search_word, :none) : search(@search_word, view.to_sym)
 end
 
 Then(/^I should have a result page with at least one book written by "(.*?)"$/) do |author_name|
@@ -21,11 +16,11 @@ And(/^I should see the sort option drop down$/) do
 end
 
 Given(/^I change from Grid mode to List mode$/) do
-  switch_to_list_view
+  switch_to_view(:list)
 end
 
 When(/^I change from List mode to Grid mode$/) do
-  switch_to_grid_view
+  switch_to_view(:grid)
 end
 
 And(/^I take the number books on Grid mode$/) do
@@ -41,13 +36,15 @@ And(/^the number of books should match on both mode$/) do
 end
 
 And(/^the Tesco clubcard logo should be visible$/) do
-  expect(books_section.books.first).to have_clubcard_logo
-  expect(books_section.books.first).to have_clubcard_points
+  random_paid_book = books_section.random_purchasable_book
+
+  expect(random_paid_book).to have_clubcard_logo
+  expect(random_paid_book).to have_clubcard_points
 end
 
-Then(/^I should get a message$/) do
+Then(/^no result message is displayed$/) do
   expect(search_results_page).to have_no_results_element
-  expect(search_results_page.no_results_message).to include(@search)
+  expect(search_results_page.no_results_message).to include(@search_word)
 end
 
 And(/^the options of switching view mode should not appear$/) do
@@ -56,6 +53,7 @@ And(/^the options of switching view mode should not appear$/) do
 end
 
 When(/^I type "(.*?)" into search field$/) do |search_word|
+  @search_word = search_word
   current_page.search_form.set_keyword search_word
 end
 
@@ -83,17 +81,22 @@ And /^first suggestions should contain complete word "(.+)"$/ do |search_word|
   expect(current_page.search_form.suggestions.first.text).to include(search_word)
 end
 
+And /^last suggestion should contain (.*?)$/ do |search_word|
+  expect(current_page.search_form).to have_suggestions
+  expect(current_page.search_form.suggestions).to have_at_least(1).item
+  expect(current_page.search_form.suggestions.last.text).to include(search_word)
+end
+
+When /^I select suggestion which contains (.*?)$/ do |text|
+  current_page.search_form.select_suggestion(text)
+end
+
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
  assert_auto_corrected_word [corrected_word]
 end
+
 And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |first_part,second_part|
   assert_auto_corrected_word [first_part, second_part ]
-end
-
-
-When (/^I search for "(.*?)"$/) do |word|
-  @search_word = word
-  search(@search_word)
 end
 
 And(/^at least 1 search result is shown$/) do
@@ -101,8 +104,21 @@ And(/^at least 1 search result is shown$/) do
   expect(books_section.books).to have_at_least(1).item
 end
 
+Then /^the matching books message shows at least 1 book$/ do
+  expect(search_results_page.number_of_results_element).to be_visible
+  expect(search_results_page.number_of_results_found).to be >= 1
+end
+
+And /^the matching books message is not displayed$/ do
+  expect(search_results_page).not_to have_number_of_results_element
+end
+
 Then /^search results should be displayed$/ do
   assert_search_results @search_word
+end
+
+Then /^search results for \"([^"]*)\" should be displayed$/ do |search_word|
+  assert_search_results search_word
 end
 
 Then /^the author name of first book displayed should contain "(.*?)"$/ do |author_name|
@@ -138,7 +154,6 @@ end
 When /^I change search term in url to "(.*?)"$/ do |edit_word|
   @search_word = edit_word
   search_results_page.load(:q => edit_word)
-  puts @search_word
 end
 
 And /^page url should have "(.*?)"$/ do |search_word|
@@ -159,4 +174,3 @@ end
 And /^I should see search results page for "(.*?)"$/ do |search_word|
   assert_search_results search_word
 end
-

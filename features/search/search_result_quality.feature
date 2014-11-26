@@ -1,35 +1,42 @@
 @searchresults @ie @safari
 Feature: Verify that search results match search criteria
   As a Blinkbox books user
-  I want to see the search results matching my search criteria
-  So that I can find what I am looking for
+  I want to see relevant results for my search
+  So that I can quickly find the book I want
 
   Background: Open Blinkbox books home page
     Given I am on the home page
 
-  @smoke @data-dependent @production
+  @CWA-866
+  Scenario Outline: Search for a word that does not return any results
+    When I search for "<invalid_search_item>"
+    Then no result message is displayed
+    And the options of switching view mode should not appear
+    And the matching books message is not displayed
+
+  Examples:
+    | invalid_search_item |
+    | blahblahblahblah    |
+    | $%^$%&^%*^&         |
+
+  @smoke @data-dependent @production @servertesting
   Scenario: Search results displayed
-    When I search for "spring"
+    When I search for "history"
     Then Search Results page is displayed
     And at least 1 search result is shown
-
-  @CWA-866
-  Scenario: Search for a word that does not return any results
-    Given I search for term "blahblahblahblah"
-    Then I should get a message
-    And the options of switching view mode should not appear
+    And the matching books message shows at least 1 book
 
   @CWA-866 @pending
   Scenario: Suggested word for misspelled search words
 
   @CWA-88
   Scenario: Editing search url should update search results
-    When I search for "alice"
-    Then page url should have "alice"
-    And search results should be displayed
-    And I change search term in url to "wonder"
+    When I search for "Alice"
+    Then page url should have "Alice"
+    And search results for "Alice" should be displayed
+    When I change search term in url to "wonder"
     Then page url should have "wonder"
-    And search results should be displayed
+    And search results for "wonder" should be displayed
 
  @manual @CWA-88
   Scenario: Copy and paste search url to another browser session
@@ -58,4 +65,3 @@ Feature: Verify that search results match search criteria
     Then only one matching search result should be displayed
     And book name should be "Jack Maggs"
     And author name should be "Peter Carey"
-

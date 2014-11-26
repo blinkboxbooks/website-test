@@ -12,5 +12,15 @@ module PageModels
     def set_keyword(keyword)
       keyword_element.set keyword
     end
+
+    def suggestion(text)
+      suggestions.find {| li | li.text == text}
+    end
+
+    def select_suggestion(text)
+      result = suggestion(text)
+      raise "Unable to find suggestion by text '#{text}'" if result.nil?
+      result.find('a').click
+    end
   end
 end

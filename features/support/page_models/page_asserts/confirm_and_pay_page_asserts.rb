@@ -23,7 +23,7 @@ module PageModels
     end
 
     def assert_book_exists_in_library_message(type)
-      expect(confirm_and_pay_page).to have_already_purchased_message
+      expect{confirm_and_pay_page.already_purchased_message.visible?}.to become_true
       assert_message_displayed("You already have this #{type} in your library")
     end
 
@@ -37,8 +37,7 @@ module PageModels
       expect(confirm_and_pay_page).to have_account_credit_payment
       case method
         when :credit
-          expect(confirm_and_pay_page).to have_no_card_payment
-          expect(confirm_and_pay_page).to have_no_card_payment
+          expect(confirm_and_pay_page.card_payment).not_to be_visible
           expect(confirm_and_pay_page).to have_no_pay_with_new_card
         when :partial
           expect(confirm_and_pay_page).to have_account_credit_payment

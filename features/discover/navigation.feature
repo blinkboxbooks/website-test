@@ -38,17 +38,27 @@ Feature: Navigation around the website
     Then the link should point to the blinkbox music home page
 
   @smoke @production
-  Scenario: Navigate to Terms and Conditions page
-    When I click on the Terms & conditions footer link
-    Then Terms and conditions page is displayed
+  Scenario: Navigating to the blinkbox books blogs from the footer
+    Given the blinkbox books blog link is present in the footer
+    Then the link should point to the blinkbox books blog
 
   @smoke @production
+  Scenario: Navigating to the blinkbox careers site from the footer
+    Given the blinkbox careers link is present in the footer
+    Then the link should point to the blinkbox careers page
+
+  @smoke @production
+  Scenario: Navigate to Terms and Conditions page
+    When I click on the Terms & conditions footer link
+    Then Terms and conditions page is displayed in a new window
+
+  @smoke @production @servertesting
   Scenario: Navigate to categories page
     When I click on the Categories header tab
     Then Categories page is displayed
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to Bestsellers page
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
@@ -61,7 +71,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
@@ -72,7 +82,7 @@ Feature: Navigation around the website
     And New releases section header is New releases
     And Grid view and List view buttons displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to Free eBooks page
     When I click on the Free eBooks header tab
     Then Free eBooks page is displayed
@@ -84,7 +94,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then I should be on the Authors page
@@ -95,7 +105,7 @@ Feature: Navigation around the website
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
-  @smoke @production
+  @smoke @production @servertesting
   Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
     When I select <shop_link> link from the hamburger Menu
     Then <shop_link> page is displayed
@@ -108,7 +118,7 @@ Feature: Navigation around the website
     | Authors      |
     | New releases |
 
-  @smoke @production @CWA-1029
+  @smoke @production @CWA-1029 @unstable
   Scenario Outline: Clicking Support links from the hamburger Menu
     When I select <support_link> link from the hamburger Menu
     Then I am redirected to the "<support_page>" support page in a new window
@@ -173,11 +183,10 @@ Feature: Navigation around the website
     | Free eBooks  |
     | Authors      |
 
-  @CWA-71 @wip
-  Scenario: Promotable category-All time best selling books
+  Scenario: Promotable category - Daily bestsellers
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
-    And I should see Promotions section header as Bestsellers Top 100 this month
+    And I should see Promotions section header as Daily bestsellers
     And I should see 5 books being displayed
 
   @production
@@ -207,41 +216,24 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
-  Scenario Outline: Click Top authors links from footer
-    When I click on the <author_name> author link from footer
-    Then selected <author_name> author page displayed
+  Scenario: Top authors links from footer is dynamically generated
+    Given there are top five authors on the Authors page
+    Then the same Top authors are displayed in the footer
 
-  Examples:
-    | author_name       |
-    | James Patterson   |
-    | David Walliams    |
-    | John Green        |
-    | Kate Atkinson     |
-    | Suzanne Collins   |
-    | Jodi Picoult      |
-    | Jacqueline Wilson |
-    | Lee Child         |
-    | Graeme Simsion    |
-    | Santa Montefiore  |
+  Scenario: Top categories links from footer is dynamically generated
+    Given there are top five categories on the Categories page
+    Then the same Top categories are displayed in the footer
 
-  @unstable
-  Scenario Outline: Click Top categories links from footer
-    # Have to liaison with developers to make the titles uniform across pages (& <-> and)
-    When I click on the <category_name> category link from footer
-    Then selected <category_name> category page displayed
+  Scenario: New releases links from footer is dynamically generated
+    Given there are top five books on the New release page
+    Then the same New releases are displayed in the footer
 
-  Examples:
-    | category_name           |
-    | Biography & Memoir      |
-    | Children's Fiction      |
-    | Crime & Mystery         |
-    | Fiction & Literature    |
-    | Food & Drink            |
-    | Health & Wellbeing      |
-    | Humour                  |
-    | Music, Stage and Screen |
-    | Romance                 |
-    | Thriller & Suspense     |
+  Scenario: Redesigned footer is displayed
+    When I scroll down to the footer
+    Then the new Discover image should be displayed
+    Then the new Register image should be displayed
+    Then the new Download image should be displayed
+    Then the new Read image should be displayed
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display

@@ -57,28 +57,41 @@
   <<: *COMMON
   emails:
     happypath_user: happy_path_signin@mobcastdev.com
-    multiple_storedcards: saved_cards@mobcastdev.com
+    multiple_storedcards: multiple_stored_cards@mobcastdev.com
     no_expired_cards: no_expired_cards@mobcastdev.com
     one_default_expired_card: one_default_expired_card@mobcastdev.com
     multiple_cards_default_expired: default_expired_card@mobcastdev.com
     multiple_cards_non_default_expired: nondefault_expired_card@mobcastdev.com
-    user_with_devices: with_devices@mobcastdev.com
+    user_with_devices: user_with_devices@mobcastdev.com
     books_in_library: books_in_library@mobcastdev.com
+    books_in_library_and_devices: books_in_library_and_devices@blinkbox.com
     empty_library_no_devices: empty_library_no_devices@mobcastdev.com
     opted_in_marketing: opted_in_marketing@mobcastdev.com
     opted_out_marketing: opted_out_marketing@mobcastdev.com
     fifty_account_credit: user_with_50_credit@mobcastdev.com
     ten_account_credit: user_with_10_credit@mobcastdev.com
     five_account_credit: user_with_5_credit@mobcastdev.com
-    change_first_name: 100ccv2@gmail.com
+    change_first_name: change_first_name@mobcastdev.com
     email_address_invalid: lazy_image@yahoo.co.uk
     email_with_no_at: A2b.com
     dummy_email: this_email_is_not_registered_with@blinkboxbooks.com
+    used_voucher: dhaval@qa.com
 
   name:
     happypath_user: Happy-path
-    user_with_devices: bookstester-card
-    multiple_storedcards: bookstester-card
+    multiple_storedcards: Saved-cards
+    no_expired_cards: No-expired-cards
+    one_default_expired_card: One-default-expired-card
+    multiple_cards_default_expired: Multiple-cards-default-expired
+    multiple_cards_non_default_expired: Multiple-cards-non-default-expired
+    user_with_devices: User-with-devices
+    books_in_library: Books-in-library
+    empty_library_no_devices: Empty-library-no-devices
+    opted_in_marketing: Opted-in-marketing
+    opted_out_marketing: Opted-out-marketing
+    fifty_account_credit: Fifty-account-credit
+    ten_account_credit: Ten-account-credit
+    five_account_credit: Five-account-credit
 
   passwords:
     valid_password: test1234
@@ -86,6 +99,10 @@
     five_digit_password: test1
     not_matching_password: test2345
     change_password: mypassword123
+
+  vouchers:
+    valid_voucher: 1111111122222222
+    already_used: VCCAMPA1REDEEMED
 
   clubcards:
     valid_clubcard_number: 634004024023421292
@@ -115,6 +132,7 @@
     no_expired_cards: books_tester04@blinkbox.com
     user_with_devices: books_tester04@blinkbox.com
     books_in_library: books_tester04@blinkbox.com
+    books_in_library_and_devices: books_tester06@blinkbox.com
     empty_library_no_devices: fe.books.tester01@gmail.com
     opted_in_marketing: fe.books.tester01@gmail.com
     opted_out_marketing: fe.books.tester02@gmail.com
@@ -133,6 +151,9 @@
     happypath_user: Happy-path
     user_with_devices: bookstester-card
     multiple_storedcards: bookstester-card
+
+  vouchers:
+    already_used: U5DYBWL7RS9AS9G6
 
   passwords:
     valid_password: test1234
@@ -175,3 +196,22 @@
 
  PRODUCTION:
   <<: *LIVE_DATA
+
+ SERVER_1:
+  <<: *LIVE_DATA
+
+ SERVER_2:
+  <<: *LIVE_DATA
+
+ SERVER_3:
+  <<: *LIVE_DATA
+
+ SERVER_4:
+  <<: *LIVE_DATA
+
+ SERVER_5:
+  <<: *LIVE_DATA
+
+ SERVER_6:
+  <<: *LIVE_DATA
+

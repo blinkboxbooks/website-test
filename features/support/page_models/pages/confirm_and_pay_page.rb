@@ -23,7 +23,7 @@ module PageModels
     element :account_credit_payment, '#credit-on-account'
     element :account_credit_amount_element, '#credit-on-account .credit-amount'
     element :amount_left_to_pay, 'div.left-to-pay-amount'
-    element :card_payment, '#confirm-pay-view'
+    element :card_payment, '#confirm-pay-view', :visible => false
     element :card_icon_visa, 'span[title="Visa"]'
     element :card_icon_mastercard, 'span[title="Mastercard"]'
     element :title_element, '#inner-register-navigation span', :visible => true

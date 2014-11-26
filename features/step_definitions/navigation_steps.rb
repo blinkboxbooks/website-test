@@ -14,8 +14,13 @@ end
 # testing main navigation
 ##############################################################
 
-Then /^(?:the )?([\-&\w\s]*) page is displayed$/i do |page_name|
-  expect_page_displayed(page_name)
+Then /^(?:the )?([\-&\w\s]*) page is displayed( in a new window)?$/i do |page_name, new_window|
+  if new_window
+    assert_page_new_window(page_name)
+    close_last_open_browser_window
+  else
+    expect_page_displayed(page_name)
+  end
 end
 
 ##############################################################
@@ -28,7 +33,7 @@ Given /^the blinkbox books help link is present in the footer$/ do
 end
 
 Then /^the link should point to the blinkbox books help home page$/ do
-  expect(@help_link[:href]).to include('support.blinkboxbooks.com')
+  expect(@help_link[:href]).to include('http://tiny.cc/s00amix')
   expect(@help_link[:target]).to eq('_blank')
   expect(@help_link.text).to eq('Help')
 end
@@ -49,10 +54,32 @@ Given /^the blinkbox music link is present in the footer$/ do
   @music_link = current_page.footer.links.blinkbox_music
 end
 
+Given /^the blinkbox books blog link is present in the footer$/ do
+  expect(current_page.footer.links).to have_blinkbox_blogs
+  @blog_link = current_page.footer.links.blinkbox_blogs
+end
+
+Given /^the blinkbox careers link is present in the footer$/ do
+  expect(current_page.footer.links).to have_blinkbox_careers
+  @careers_link = current_page.footer.links.blinkbox_careers
+end
+
 Then /^the link should point to the blinkbox music home page$/ do
   expect(@music_link[:href]).to include('www.blinkboxmusic.com')
   expect(@music_link[:target]).to eq('_blank')
   expect(@music_link.text).to eq('blinkbox music')
+end
+
+Then /^the link should point to the blinkbox books blog$/ do
+  expect(@blog_link[:href]).to include('https://blog.blinkboxbooks.com/')
+  expect(@blog_link[:target]).to eq('_blank')
+  expect(@blog_link.text).to eq('blinkbox Books blog')
+end
+
+Then /^the link should point to the blinkbox careers page$/ do
+  expect(@careers_link[:href]).to include('http://careers.blinkbox.com/')
+  expect(@careers_link[:target]).to eq('_blank')
+  expect(@careers_link.text).to eq('Careers')
 end
 
 And /^I click on the (.+) footer link$/ do |link_name|
@@ -61,6 +88,24 @@ end
 
 When /^I click on the (.*) header tab$/i do |page_name|
   click_navigation_link(page_name)
+end
+
+Given /^there are top five authors on the Authors page$/ do
+  authors_page.load
+  @featured_authors = authors_page.featured_authors_names
+end
+
+Given /^there are top five books on the New release page$/ do
+  new_releases_page.load
+  # Have to sort by 'Bestselling' to get the correct titles in the grid view
+  new_releases_page.sort_by('Bestselling')
+  books_section.wait_for_books
+  @new_releases = new_releases_page.new_releases_titles
+end
+
+Given /^there are top five categories on the Categories page$/ do
+  categories_page.load
+  @top_categories = categories_page.top_categories_titles
 end
 
 And /^I press browser back$/ do
@@ -160,9 +205,15 @@ Then /^following FAQ links are displayed(?: on confirmation page)?:$/ do |table|
 end
 
 And /^clicking above FAQ link opens relevant support page in a new window$/ do
-  @support_links.hashes.each do |row|
-    click_link(row['support links'])
-    assert_support_page(row['support links'])
+  pending('CWA-1029 - FAQ, Contact us under Support should open in new window') do
+    @support_links.hashes.each do |row|
+      click_link(row['support links'])
+      begin
+        assert_support_page(row['support links'])
+      ensure
+        close_last_open_browser_window
+      end
+    end
   end
 end
 

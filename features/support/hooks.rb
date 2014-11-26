@@ -9,9 +9,16 @@ Before('~@reset_session') do
 end
 
 After do |scenario|
-  if page.driver.browser.window_handles.count > 0 && logged_in_session?
+  if TEST_CONFIG['log_js_errors']
+    puts "JS LOG ENTRIES:"
+    js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
+  end
+
+  if open_windows.count > 0 && logged_in_session?
     log_out_current_session
   end
+
+  close_excessive_browser_windows
   
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
     puts "'FAIL FAST' option is ON"

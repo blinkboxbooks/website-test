@@ -10,9 +10,15 @@ And /^(.*?) tab is selected$/ do |tab_name|
   expect_account_tab_selected(tab_name)
 end
 
-
 Given /^I am on the (.*?) tab/ do |tab_name|
-  click_link_from_my_account_dropdown(tab_name)
+  current_page.header.navigate_to_account_option(tab_name)
+end
+
+
+And /^the Books from the Highlight section are shown/ do
+  expect(samples_page).to have_highlights_section
+  samples_page.highlights_section.wait_for_books
+  expect(samples_page.highlights_section.books).to have_at_least(1).item
 end
 
 When /^I edit the first name and last name$/ do
@@ -39,7 +45,7 @@ Given /^I have registered as new user (without|with) a clubcard/ do |provide_clu
   navigate_to_register_form
   @valid_clubcard = test_data('clubcards', 'valid_clubcard_register')
   @current_password, @email_address, @first_name, @last_name = register_new_user(provide_clubcard, @valid_clubcard)
-  assert_user_greeting_message_displayed(@first_name)
+  assert_logged_in_session
 end
 
 When /^I edit email address$/ do
@@ -65,6 +71,7 @@ end
 And /^I can sign in with the new password successfully$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @new_password)
+  assert_page('Home')
   assert_logged_in_session
 end
 
@@ -77,7 +84,9 @@ Then /^there are no cards in my account$/ do
 end
 
 When /^I set a different card as my default card$/ do
-  @default_card = set_card_default
+  pending "CWA-1784: Send boolean to credit card update service" do
+    @default_card = set_card_default
+  end
 end
 
 And /^the selected card is displayed as my default card$/ do
@@ -109,7 +118,9 @@ When /^I attempt to update email address with already registered email address$/
 end
 
 When /^I attempt to update password by providing incorrect current password$/ do
-  update_password(test_data('passwords', 'invalid_password'), test_data('passwords', 'change_password'), :submit => true)
+  current = test_data('passwords', 'invalid_password')
+  new =  test_data('passwords', 'change_password')
+  update_password(current, new, new, :submit => true)
 end
 
 When /^I attempt to update password by providing not matching passwords$/ do
@@ -117,17 +128,31 @@ When /^I attempt to update password by providing not matching passwords$/ do
 end
 
 When /^I attempt to update password by providing passwords less than 6 characters$/ do
-  update_password(@current_password, test_data('passwords', 'five_digit_password'), :submit => true)
+  new = test_data('passwords', 'five_digit_password')
+  update_password(@current_password, new, new, :submit => true)
 end
 
 And /^my password is not updated$/ do
   sign_out_and_start_new_session
   sign_in(@email_address, @current_password)
+  assert_page('Home')
   assert_logged_in_session
 end
 
 When /^I remove clubcard number$/ do
   delete_clubcard
+end
+
+When /^I clear first name text field$/ do
+  clear_text_field(your_personal_details_page.first_name_element)
+end
+
+When /^I clear last name text field$/ do
+  clear_text_field(your_personal_details_page.last_name_element)
+end
+
+When /^I clear email address text field$/ do
+  clear_text_field(your_personal_details_page.email_address)
 end
 
 Then /^my clubcard field is empty$/ do
@@ -193,4 +218,16 @@ end
 
 And /^cancel delete device by closing pop\-up$/ do
   close_delete_device_pop_up
+end
+
+And /^I attempt to update password by providing an empty password$/ do
+  current = test_data('passwords', 'change_password')
+  new = test_data('passwords', 'valid_password')
+  supply_new_password(current, '', new)
+end
+
+And /^I attempt to update password by providing an empty re-enter password$/ do
+  current = test_data('passwords', 'change_password')
+  new = test_data('passwords', 'valid_password')
+  supply_new_password(current, new, '')
 end

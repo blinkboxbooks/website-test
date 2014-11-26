@@ -1,4 +1,4 @@
-@suggestions @cp-275 @ie @safari @smoke
+@suggestions @cp-275 @ie @safari
 Feature: Suggestions for user search
   As a Blinkbox books user
   I want to get suggestions when I start searching for a book or author etc
@@ -18,14 +18,11 @@ Feature: Suggestions for user search
      And I should see at least 5 suggestions
      And all suggestions should contain search word "Gone"
 
+  @servertesting
   Scenario: Exact match of letters should be first suggestion
     When I type "Dan Brown" into search field
     Then search suggestions should be displayed
     And first suggestions should contain complete word "Dan Brown"
-
-  Scenario: Typing invalid sequence of letters does not return suggestions
-    When I type "#$£%^" into search field
-    Then search suggestions should not be displayed
 
   # Application does not display suggestions at all
   @pending
@@ -43,3 +40,9 @@ Feature: Suggestions for user search
     When I type "childrn's tresure" into search field
     Then in auto completion correct values "children's" and "treasure" are displayed
 
+  Scenario: Select "More results for XX" from suggestion drop down menu
+    When I type "Gone girl" into search field
+    Then search suggestions should be displayed
+    And last suggestion should contain More results for "Gone girl"
+    When I select suggestion which contains More results for "Gone girl"
+    Then search results should be displayed

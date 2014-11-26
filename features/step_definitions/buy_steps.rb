@@ -10,7 +10,7 @@ And /^I submit the payment details$/ do
   click_confirm_and_pay
 end
 
-When /^I pay with my default saved card$/ do
+When /^I pay with my saved default card$/ do
   pay_with_saved_card
 end
 
@@ -31,7 +31,10 @@ When /^I click on Confirm order$/ do
 end
 
 Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|logged) in user$/i do |book_type, login_status|
-  sign_in unless login_status.include?('not')
+  unless login_status.include?('not')
+    sign_in
+    assert_page('Home')
+  end
   select_book_to_buy(book_type.downcase.to_sym)
 end
 
@@ -50,8 +53,12 @@ Then /^(?:my payment|adding sample) is successful$/ do
   assert_order_complete
 end
 
-When /^I select Read offline on the book details page|I try to add the book as a sample(?: again)?$/ do
+When /^I select Read offline on the book details page$/ do
   click_read_offline
+end
+
+When /^I try to add the book as a sample again$/ do
+  step('I select Read offline on the book details page')
 end
 
 When /^I select the above book to buy$/ do
@@ -70,7 +77,7 @@ And /^confirm cancel (order|registration)$/ do |confirm_action|
   confirm_action.include?('registration') ? confirm_cancel_registration : confirm_cancel_order
 end
 
-Given /^I have selected to buy a (paid|free) book from the (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/i do |book_type, page_name|
+Given /^I have selected to buy a (paid|free) book from(?: the)? (Bestsellers|New releases|Free eBooks|Home|Category|Search results|Book details) page$/i do |book_type, page_name|
   @book_title = select_book_to_buy_from(page_name, book_type)
 end
 
@@ -79,8 +86,17 @@ Given /^I am on the Confirm and pay page trying to buy a (paid|free) book$/i do 
   sign_in_from_redirected_page
 end
 
-Given /^I have selected to buy a (paid|free) book$/ do |book_type|
-  @book_title = select_book_to_buy(book_type.to_sym)
+Given /^I have selected to buy a free book( via search)?$/ do |do_search|
+  if do_search
+    @book_title = select_book_to_buy(book_type.to_sym)
+  else
+    free_ebooks_page.load
+    books_section.click_buy_now_free_book
+  end
+end
+
+Given /^I have selected to buy a paid book$/ do
+  @book_title = select_book_to_buy(:paid)
 end
 
 Given(/^I have selected to buy a (free) book from Grid view$/) do |book_type|
@@ -101,7 +117,7 @@ When /^I select above (paid|free) book to buy$/ do |book_type|
   book_type.include?('free') ? select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'free_book')) : select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'pay_for_book'))
 end
 
-And /^(book|sample) already exists in the library message (?:is )?displayed (?:in |on the )?confirm and pay page$/ do |type|
+And /^(book|sample) already exists in the library message is displayed on the confirm and pay page$/ do |type|
   assert_book_exists_in_library_message(type)
 end
 
@@ -223,7 +239,6 @@ end
 And /^amount left to pay is displayed$/ do
    assert_amount_left_to_pay(@account_credit, @book_price)
 end
-
 
 And /^my payment method is partial payment$/ do
   assert_payment_method(:partial)

@@ -4,6 +4,7 @@ module PageModels
     element :sign_in_button, 'a[data-test="menu-sign-in-button"]'
     element :menu_register_link, '[data-test="menu-register-link"]'
     element :order_history, 'a[data-test="order-history"]'
+    element :samples, 'a[data-test="samples"]'
     element :personal_details, 'a[data-test="personal-details"]'
     element :saved_cards, 'a[data-test="saved-cards"]'
     element :devices, 'a[data-test="devices"]'
@@ -58,7 +59,7 @@ module PageModels
     def open_account_menu
       wait_until_user_account_logo_visible
       user_account_logo.click
-      expect(account_menu).to be_visible
+      wait_until_account_menu_visible
     end  
 
     def navigate_to_account_option(link_name)
@@ -83,7 +84,7 @@ module PageModels
     def navigate_to_hamburger_menu_option(link_name)
       wait_for_main_menu
       main_menu.click
-      expect(hamburger_menu).to be_visible
+      wait_until_hamburger_menu_visible
       hamburger_menu.find('a', :text => "#{link_name}").click
     end
 
@@ -97,7 +98,7 @@ module PageModels
     end
 
     def user_name_displayed
-      welcome_text_element.text.gsub('Hi,', '').strip
+      welcome_text_element.text.gsub('Hi, ', '').strip
     end
 
     def user_name

@@ -8,13 +8,13 @@ Feature: Register page-personal details form validation
     Given I am on the home page
 
   Scenario: Register with empty email address
-    Given I am on Register page
+    Given I am on the Register page
     When I fill the registration form without the email address field
     And I submit the registration form
     Then "Please enter your email address" message is displayed
 
   Scenario Outline: Register with malformed email address
-    Given I am on Register page
+    Given I am on the Register page
     When I fill the registration form with <malformed email address> as email address
     And I submit the registration form
     Then "Please enter your email address" message is displayed
@@ -39,20 +39,20 @@ Feature: Register page-personal details form validation
     |Abc..123@example.com         |
 
   Scenario: Register with empty first name
-    Given I am on Register page
+    Given I am on the Register page
     When I fill the registration form without the first name field
     And I submit the registration form
     Then "Please enter your first name" message is displayed
 
 
   Scenario: Register with empty last name
-    Given I am on Register page
+    Given I am on the Register page
     When I fill the registration form without the last name field
     And I submit the registration form
     Then "Please enter your last name" message is displayed
 
   Scenario Outline: Register with an invalid Clubcard number
-    Given I am on Register page
+    Given I am on the Register page
     When I fill the registration form with <invalid> clubcard number
     And I submit the registration form
     Then "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
@@ -65,7 +65,7 @@ Feature: Register page-personal details form validation
     |abcdefghijklmop     | Letters in Clubcard number field   |
 
   Scenario: Register with empty password field
-    Given I am on Register page
+    Given I am on the Register page
     When I fill the registration form without the password field
     And I submit the registration form
     Then "Please enter your password" message is displayed

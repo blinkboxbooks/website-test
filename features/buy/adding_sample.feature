@@ -6,9 +6,9 @@ Feature: User adding sample to Library
 
   @CWA-971
   Scenario Outline: First time user cancels adding sample
-#   Given PENDING: CWA-971 First time user cancelling adding sample to library not redirected to the correct page
+    Given PENDING: Searching with ISBN as a keyword does not give results on https://www.test.bbbtest1.com
     Given I have identified a <book_type> book on the search results page to read sample offline
-    And I am on Register page
+    And I am on the Register page
     When I cancel registration
     Then (Pending) I am redirected to Book details page
 
@@ -63,7 +63,7 @@ Feature: User adding sample to Library
   Scenario Outline: Returning user attempting to add book sample of which full book already exists in his library
     Given I have purchased a <book_type> book
     When I am on the Book Details page for the same <book_type> book
-    And I try to add the book as a sample
+    And I try to add the book as a sample again
     And sign in to proceed
     Then book already exists in the library message is displayed on the confirm and pay page
 

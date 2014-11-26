@@ -3,17 +3,18 @@ module PageModels
     def search(search_word, view = :list)
       puts "Searching for books with search word '#{search_word}'"
       current_page.header.wait_until_search_input_visible
+      current_page.header.search_input.click
       current_page.header.search_input.set search_word
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
       search_results_page.wait_for_books
-      switch_to_list_view if view.to_sym == :list
+      switch_to_view(view)
     end
 
     def click_on_a_category
       @category_name = categories_page.select_category_by_index
       expect_page_displayed('Category')
-      category_page.wait_until_book_results_sections_visible(10)
+      categories_page.wait_until_book_results_sections_visible(20)
       @category_name
     end
 
@@ -78,22 +79,22 @@ module PageModels
         search(return_search_word_for_book_type(book_type))
       elsif page_name =~ /Book details/i
         search(return_search_word_for_book_type(book_type))
-        book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
+        book_type.to_sym == :free ? books_section.click_details_free_book : books_section.click_details_random_book
         book_title = book_details_page.title
         book_details_page.buy_now.click
         return book_title
       elsif page_name =~ /Category/i
         click_navigation_link('categories')
         categories_page.select_category_by_index
-        switch_to_list_view
+        switch_to_view(:list)
       elsif current_page.header.tab(page_name).nil?
         page = page_model(page_name)
         page.load unless page.displayed?
       else
         click_navigation_link(page_name) unless page_model(page_name).displayed?
-        switch_to_list_view
+        switch_to_view(:list)
       end
-      book_type == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
+      book_type.to_sym == :free ? books_section.click_buy_now_free_book : books_section.click_buy_now_random_book
     end
 
     def select_book_from_grid_view(book_type)

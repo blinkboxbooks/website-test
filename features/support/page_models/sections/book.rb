@@ -19,7 +19,10 @@ module PageModels
 
     def free?
       wait_for_price_element
-      price_element.text.downcase.eql?('Free'.downcase)
+      has_price_element? && price_element.text.downcase.eql?('free')
+    rescue e
+      puts "Warning: Book '#{self.isbn}' doesn't have price or text 'free' displayed (possibly a caching issue).\n \n#{e.message}"
+      false
     end
 
     def purchasable?
@@ -37,7 +40,7 @@ module PageModels
         book_price = 0
         puts "Book '#{title}' has no price information displayed!"
       end
-      book_price.gsub(/£/, '').to_f
+      book_price.to_s.gsub(/£/, '').to_f
     end
 
     def isbn

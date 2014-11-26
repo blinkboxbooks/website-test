@@ -12,6 +12,7 @@ module PageModels
     end
 
     def submit_sign_in_details(email_address, password)
+      sign_in_page.wait_for_sign_in_form
       sign_in_page.sign_in_form.submit(email_address, password)
     end
 
@@ -26,6 +27,18 @@ module PageModels
 
     def enter_password(value)
       register_page.fill_in_password(value)
+    end
+
+    def supply_new_password(current_password, new_password, reenter_new_password)
+      form = change_password_page
+      form.current_password.set(current_password)
+      form.enter_new_password.set(new_password)
+      form.re_enter_new_password.set(reenter_new_password)
+      form.confirm_button.click
+    end
+
+    def enter_password_signin_page(value)
+      sign_in_page.sign_in_form.fill_in_password(value)
     end
 
     def update_password(current_password, new_password, re_enter_password = new_password, args = {:submit => false})

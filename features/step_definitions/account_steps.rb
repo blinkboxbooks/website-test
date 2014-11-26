@@ -8,7 +8,7 @@ Given /^I am not signed in$/ do
   delete_access_token_cookie
 end
 
-Given /^I have signed in$/ do
+Given /^I (?:am|have) signed in$/ do
   sign_in(@email_address)
   assert_page('Home')
   assert_logged_in_session
@@ -18,6 +18,20 @@ Given /^I have signed in to change my first name$/ do
   @email_address = test_data('emails', 'change_first_name')
   @password = test_data('passwords', 'valid_password')
   sign_in(@email_address, @password)
+  assert_page('Home')
+end
+
+Given(/^I sign in as a user who has no samples in their account$/) do
+  sign_in_page.load
+  email = test_data('emails', 'empty_library_no_devices')
+  password = test_data('passwords', 'valid_password')
+  enter_sign_in_details(email, password)
+  click_sign_in_button
+end
+
+Given /^I sign in as a user who has( no)? books? (?:and|or) devices? in their account$/ do |no_books|
+  no_books ? @email_address = test_data('emails', 'empty_library_no_devices')  : @email_address = test_data('emails', 'books_in_library_and_devices')
+  step('I have signed in')
 end
 
 When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to proceed with adding sample)?$/ do
@@ -32,8 +46,7 @@ When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
 end
 
-
-Given /^I am on Register page$/ do
+Given /^I am on the Register page$/ do
   register_page.load
 end
 
@@ -268,4 +281,54 @@ end
 
 Then /^the page title should be "(.+)"$/ do |title|
   expect(confirm_and_pay_page.title.downcase).to eq(title.downcase)
+end
+
+Then /^I see the personification message showing that I have (some|no) full ebooks? with this account$/ do |books|
+  if books == 'no'
+    expect(your_account_page.account_message_books).to eq(0)
+  else
+    expect(your_account_page.account_message_books).to be > 0
+  end
+end
+
+Then /^I see the personification message showing that I have (some|no) devices? associated with this account$/ do |devices|
+  if devices == 'no'
+    expect(your_account_page.account_message_devices).to eq(0)
+  else
+    expect(your_account_page.account_message_devices).to be > 0
+  end
+end
+
+Then /^the promotion checkbox should be ticked by default$/ do
+  assert_promotion_checkbox_ticked
+end
+
+And /^I tick the checkbox show password while typing$/ do
+  register_page.show_password.set true
+end
+
+And /^I tick the checkbox show password while typing on the Sign in page/ do
+  sign_in_page.sign_in_form.show_password.set true
+end
+
+When /^I enter a password$/ do
+  enter_password_signin_page(test_data('passwords', 'valid_password'))
+end
+
+Then /^the passwords should( not)? be visible$/ do |password_status|
+  if password_status
+    expect(register_page.password[:type]).to eq('password')
+    expect(register_page.password_repeat[:type]).to eq('password')
+  else
+    expect(register_page.password[:type]).to eq('text')
+    expect(register_page.password_repeat[:type]).to eq('text')
+  end
+end
+
+Then /^the password should( not)? be visible on the Sign in page$/ do |password_status|
+  if password_status
+    expect(sign_in_page.sign_in_form.password[:type]).to eq('password')
+  else
+    expect(sign_in_page.sign_in_form.password[:type]).to eq('text')
+  end
 end
