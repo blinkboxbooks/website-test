@@ -32,7 +32,7 @@ Feature: Voucher code redemption
     | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers. | too short               |
     | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers.  | more than 16 characters |
 
-  @smoke @production
+  @smoke
   Scenario Outline: Verify back-end error to retry the voucher again  #happy path cannot be automated as re-using the vouchers is not possible
     When I submit an invalid voucher code <invalid>
     Then "<error_message>" message is displayed
