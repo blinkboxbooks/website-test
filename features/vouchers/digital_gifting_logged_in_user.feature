@@ -8,55 +8,47 @@ Feature: Voucher code redemption
     Given I am signed in
     And I am on the Voucher Redemption page
 
+  @smoke @manual
+  Scenario Outline: Existing user redeems a valid voucher code
+    When I submit a valid voucher code "<code>"
+    And I confirm the voucher redemption
+    Then the redemption confirmation message is displayed
 
-  #Negative Scenarios
-  #------------------
+  Examples:
+    | code | Description            |
+    |      | <a_valid_voucher_code> |
+    #Please input a valid voucher code below before running the scenario
+    #TODO: to make this scenario fully automated, we can make an API call to voucher generator service to get a new voucher code on a test environment
 
-  @smoke @production
+  @negative @production
   Scenario: Verify client validation for not allowing special characters
-    When I submit a voucher code '123D!@£'
+    When I submit a voucher code "'123D!@£'"
     Then "That code isn't quite right - it should be a combo of 16 letters and numbers." message is displayed
 
-  @smoke @production
+  @negative @production
   Scenario: Verify client validation on typing special characters
     When I start to enter a voucher code with special characters
     Then "Just letters and numbers please, e.g. A9K2" message is displayed
 
-  @smoke @production
+  @negative @production
   Scenario Outline: Verify client validation for the length of character entered
-    When I submit an invalid voucher code <invalid>
+    When I submit an invalid voucher code "<invalid_code>"
     Then "<error_message>" message is displayed
 
   Examples:
-    | invalid           | error_message                                                             | Description             |
+    | invalid_code      | error_message                                                             | Description             |
     | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers. | too short               |
     | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers.  | more than 16 characters |
 
-  @smoke
+  @negative
   Scenario Outline: Verify back-end error to retry the voucher again  #happy path cannot be automated as re-using the vouchers is not possible
-    When I submit an invalid voucher code <invalid>
+    When I submit an invalid voucher code "<invalid_code>"
     Then "<error_message>" message is displayed
 
   Examples:
-    | invalid          | error_message                                           | description of the backend state |
+    | invalid_code          | error_message                                           | description of the backend state |
     | CPBGFWUSDSFPG7HP | is past its use by date. Sorry, it's no longer valid.   | already used                     |
     | 1234567890abcdef | doesn't exist! Keep an eye out for typos and try again. | does not exist in the campaign   |
-
-
-
-  #Manual Scenarios
-  #-----------------
-
-  @smoke @manual
-  Scenario Outline: Existing user redeems a valid voucher code
-    When I submit a valid voucher code<code>
-    And I confirm the voucher redemption
-    Then the redemption confirmation message is displayed
-
-  #Please input a valid voucher code below before running the scenario
-  Examples:
-    | code | Description                     |
-    |      | Valid voucher without the space |
 
 
   #Manual Critical elevation scenarios
