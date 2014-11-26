@@ -2,21 +2,21 @@
 
 module Utilities
   def generate_random_email_address
-    first_part  = 'cucumber_test'
-    last_part   = '@mobcastdev.com'
+    first_part = 'cucumber_test'
+    last_part = '@mobcastdev.com'
     middle_part = rand(1..9999).to_s + (0...10).map { ('a'..'z').to_a[rand(26)] }.join
     first_part + middle_part + last_part
   end
 
   def generate_random_first_name
     first_part = 'firstname-autotest-'
-    last_part  = (0...10).map { ('a'..'z').to_a[rand(26)] }.join
+    last_part = (0...10).map { ('a'..'z').to_a[rand(26)] }.join
     first_part + last_part
   end
 
   def generate_random_last_name
     first_part = 'lastname-autotest-'
-    last_part  = (0...10).map { ('a'..'z').to_a[rand(26)] }.join
+    last_part = (0...10).map { ('a'..'z').to_a[rand(26)] }.join
     first_part + last_part
   end
 
@@ -151,17 +151,17 @@ module BrowserstackUtilities
     attr_accessor :binary, :process, :log, :log_filename, :host, :port, :access_key
 
     def initialize(access_key, uri, ssl = true)
-      bin     = 'BrowserStackLocal'
+      bin = 'BrowserStackLocal'
       @binary = bin
 
       @log_filename = "results/browserstack-tunnel-#{Time.now.to_i}.log"
-      @log          = File.open(@log_filename, "w")
-      @process      = nil
+      @log = File.open(@log_filename, "w")
+      @process = nil
 
-      uri           += ':443' unless uri =~ /:\d+/
-      @server_uri   = URI(uri)
+      uri += ':443' unless uri =~ /:\d+/
+      @server_uri = URI(uri)
 
-      @ssl        = ssl
+      @ssl = ssl
       @access_key = access_key
     end
 
@@ -202,8 +202,8 @@ module BrowserstackUtilities
     def process
       @process ||= (
       puts "Starting BrowserStack proxy for #{server_info}"
-      cp           = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, server_info_for_process)
-      cp.detach    = true # Start in the background
+      cp = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, server_info_for_process)
+      cp.detach = true # Start in the background
       cp.io.stdout = cp.io.stderr = @log
       cp
       )
