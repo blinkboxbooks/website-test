@@ -5,28 +5,27 @@ module Cucumber
   module Blinkbox
     module Formatter
       class Html
+        require 'base64'
 
         def save_screenshot_with_filename_based_on(filename_base)
           #figure out path to the report HtmlFile (@io will contain filepath - see Cucumber::Formatter::Html)
           #we will put "screenshots" folder in the same location.
           screen_dir = File.join(File.dirname(@io.path), 'screenshots')
           Dir::mkdir(screen_dir) unless File.directory?(screen_dir)
-          screenshot_filename = "FAILED_#{filename_base.to_s.gsub(' ', '_').gsub(/[^0-9A-Za-z_]/, '')}.png"
-          screenshot = File.join(screen_dir, screenshot_filename)
-          #scheenshot's src attribute should be relative location of report HTML
-          screenshot_src = File.join('screenshots', screenshot_filename)
+          file = File.join(screen_dir, "FAILED_#{filename_base.to_s.gsub(' ', '_').gsub(/[^0-9A-Za-z_]/, '')}.png")
           begin
             driver = Capybara.page.driver
             if driver.respond_to?(:save_screenshot)
-              driver.save_screenshot(screenshot)
+              driver.save_screenshot(file)
             elsif driver.respond_to?(:browser) && driver.browser.respond_to?(:save_screenshot)
-              driver.browser.save_screenshot(screenshot)
+              driver.browser.save_screenshot(file)
             else
-              driver.render(screenshot)
+              driver.render(file)
             end
-            embed screenshot_src, 'image/png', 'CLICK TO VIEW/HIDE SCREENSHOT'
+            image = Base64.encode64(open(file).to_a.join)
+            embed image, 'image/png', 'CLICK TO VIEW/HIDE SCREENSHOT'
           rescue Exception => e
-            puts 'THE SCREENSHOT TAKING FAILED, YOUR PAGE IS TOO DAMN BIG'
+            puts 'TAKING SCREENSHOT FAILED'
             puts e.message
             puts e.backtrace
           end
