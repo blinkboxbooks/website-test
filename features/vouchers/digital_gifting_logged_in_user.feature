@@ -1,4 +1,3 @@
-@unstable
 Feature: Voucher code redemption
 
   As an existing user

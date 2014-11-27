@@ -38,35 +38,20 @@ module PageModels
      use_this_code_button.click
    end
 
-   def verify_confirmation_message
-     wait_for_start_shopping_button
-     wait_until_start_shopping_button_visible
-   end
-
-   def submit_partial_login
-     signin_email.set(test_data('emails', 'used_voucher'))
+   def submit_sign_in(email, password)
+     signin_email.set(email)
+     signin_password.set(password)
      signin_button.click
    end
 
-   def submit_sign_in
-     signin_email.set(test_data('emails', 'used_voucher'))
-     signin_password.set(test_data('passwords', 'valid_password'))
-     signin_button.click
-   end
-
-   def input_personal_details(email_address=nil)
-     email_address ||= generate_random_email_address
-     first_name = generate_random_first_name
-     last_name = generate_random_last_name
-     fill_in_personal_details(first_name, last_name, email_address)
-     return email_address, first_name, last_name
-   end
-
-
-   def fill_in_personal_details(first_name, last_name, email_address)
+   def submit_registration_details(first_name, last_name, email_address, password)
      self.first_name.set first_name
      self.last_name.set last_name
      self.email.set email_address
+     self.password.set password
+     self.password_repeat.set password
+     self.terms_and_conditions.set true
+     self.register_button.click
    end
 
  end
