@@ -1,5 +1,5 @@
 # ======= Setup Test Config =======
-module KnowsAboutConfig
+module KnowsAboutTheEnvironment
   path_to_root = File.dirname(__FILE__) + '/../../'
   $LOAD_PATH.unshift File.expand_path(path_to_root)
 
@@ -12,15 +12,6 @@ module KnowsAboutConfig
         require_rel(lib_array)
       end
     }
-  end
-
-  def load_yaml_file(dir, filename)
-    path = "#{dir}/#{filename}"
-    YAML.load_file(path)
-  end
-
-  def initialise_test_data
-    @_test_data ||= load_yaml_file('data', 'test_data.yml')[TEST_CONFIG['SERVER']]
   end
 
   def test_data(data_type, param)
@@ -47,10 +38,21 @@ module KnowsAboutConfig
   def on?(name)
     !!(name.to_s =~ /^on|true$/i)
   end
-end
-include KnowsAboutConfig
-World(KnowsAboutConfig)
 
+  private
+
+  def load_yaml_file(dir, filename)
+    path = "#{dir}/#{filename}"
+    YAML.load_file(path)
+  end
+
+  def initialise_test_data
+    @_test_data ||= load_yaml_file('data', 'test_data.yml')[TEST_CONFIG['SERVER']]
+  end
+end
+extend KnowsAboutTheEnvironment
+include KnowsAboutTheEnvironment
+World(KnowsAboutTheEnvironment)
 
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
