@@ -49,7 +49,7 @@ Feature: Voucher code redemption
     And I sign in with an exiting account
     Then "is past its use by date. Sorry, it's no longer valid." message is displayed
 
-  @negative @smoke @production
+  @negative @production
   Scenario: New user trying to add voucher code but gets an error during the registration process
     Given I submit an already used voucher code
     Then the Registration form should be displayed
@@ -59,7 +59,7 @@ Feature: Voucher code redemption
     Then the registration is not successful
     And "Your password is too short" message is displayed
 
-  @negative @smoke @production
+  @negative @production
   Scenario: Returning user adding the voucher code but gets an error during the sign in process
     Given I submit an already used voucher code
     And if I already have an account
