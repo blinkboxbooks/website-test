@@ -22,7 +22,7 @@ Feature: Voucher code redemption
 
   @negative @production
   Scenario: Verify client validation for not allowing special characters
-    When I submit a voucher code "'123D!@£'"
+    When I submit a voucher code "123D!@£"
     Then "That code isn't quite right - it should be a combo of 16 letters and numbers." message is displayed
 
   @negative @production
