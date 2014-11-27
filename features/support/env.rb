@@ -19,6 +19,7 @@ require 'yaml'
 require 'api_methods.rb'
 require 'platform'
 require 'cucumber/blinkbox/environment'
+require 'cucumber/blinkbox/data_dependencies'
 
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
@@ -31,63 +32,57 @@ if TEST_CONFIG['debug']
 end
 
 #======== Load environment specific test data ======
-TEST_CONFIG['server'] = TEST_CONFIG['SERVER'] || 'TEST'
+TEST_CONFIG['server'] = TEST_CONFIG['SERVER'].to_s.downcase || 'test'
 
 # ======= Setup Test Config =======
 module KnowsAboutTheEnvironment
-  path_to_root = File.dirname(__FILE__) + '/../../'
-  $LOAD_PATH.unshift File.expand_path(path_to_root)
-  extend KnowsAboutTheEnvironment
-
-  def require_and_log(lib_array)
-    lib_array = [lib_array] if lib_array.class != Array
-    lib_array.sort!
-    lib_array.each { |file|
-      unless $".include?(file.to_s)
-        puts("Loading #{file}") if TEST_CONFIG['debug']
-        require file.to_s
-      end
-    }
-  end
-
   def test_data(data_type, param)
-    initialise_test_data
-    param = param.to_s.gsub(' ', '_').downcase
-    raise "Unable to find data_type [#{data_type}] in the test data" if @_test_data[data_type.to_s].nil?
-    raise "Unable to find parameter [#{param}] in the test data set of [#{data_type}]" if @_test_data[data_type.to_s][param].nil?
-    @_test_data[data_type.to_s][param]
+    data = test_data_sample(data_type)
+    data = data[param.to_s.gsub(' ', '_').downcase]
+    fail "Unable to find variable [#{param}] in the test data set of [#{data_type}]" if data.nil?
+    data
   end
 
-  def test_list(data)
+  def test_data_sample(param)
     initialise_test_data
-    raise "Unable to find data_type [#{data}] in the test data" if @_test_data[data.to_s].nil?
-    @_test_data[data.to_s]
+    data = @_test_data[param.to_s.gsub(' ', '_').downcase]
+    fail "Unable to find variable [#{param}] in the test data" if data.nil?
+    if data.respond_to?(:sample)
+      data.sample
+    else
+      data
+    end
   end
 
   def server(server_type = 'web')
     uri = test_env.servers[server_type.to_s.downcase]
-    raise "'#{server_type}' server URI is not defined for environment '#{TEST_CONFIG['server']}' in config/environments.yml" if uri.nil?
+    fail "'#{server_type}' server URI is not defined for environment '#{TEST_CONFIG['server']}' in config/environments.yml" if uri.nil?
     uri
   end
 
   private
 
-  def load_yaml_file(dir, filename)
-    path = "#{dir}/#{filename}"
-    YAML.load_file(path)
-  end
-
   def initialise_test_data
-    @_test_data ||= load_yaml_file('data', 'test_data.yml')[TEST_CONFIG['SERVER']]
+    @_test_data ||= @data_dependencies[test_env.data.to_s.upcase]
+    fail "Test data '#{test_env.data}' for environment '#{TEST_CONFIG['server']}' is not defined in config/data.yml" if @_test_data.nil?
+    @_test_data
   end
 end
 extend KnowsAboutTheEnvironment
 include KnowsAboutTheEnvironment
 World(KnowsAboutTheEnvironment)
 
-initialise_test_data
-
 # ======= load common helpers =======
+def require_and_log(lib_array)
+  lib_array = [lib_array] if lib_array.class != Array
+  lib_array.sort!
+  lib_array.each do |file|
+    unless $".include?(file.to_s)
+      puts("Loading #{file}") if TEST_CONFIG['debug']
+      require file.to_s
+    end
+  end
+end
 
 puts 'Loading custom cucumber formatters...'
 require_and_log Dir[File.join(support_dir, 'formatter', '*.rb')]
@@ -107,18 +102,18 @@ require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
 puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
 
 case Platform::OS
-  when :win32
-    separator = ";"
-    current_os = 'win'
-  when :unix
-    separator = ":"
-    if Platform::IMPL == :macosx
-      current_os = 'mac'
-    else
-      current_os = 'unix'
-    end
+when :win32
+  separator = ";"
+  current_os = 'win'
+when :unix
+  separator = ":"
+  if Platform::IMPL == :macosx
+    current_os = 'mac'
   else
-    raise "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
+    current_os = 'unix'
+  end
+else
+  fail "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
 end
 
 chromedriver_path = File.expand_path File.join(path_to_root, 'lib', 'chromedrv', current_os)
@@ -142,14 +137,14 @@ if TEST_CONFIG['GRID'] =~ /browserstack/i
   caps = Selenium::WebDriver::Remote::Capabilities.new
 else
   caps = case TEST_CONFIG['BROWSER_NAME'].downcase
-           when 'firefox', 'safari', 'ie', 'chrome', 'android'
-             browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
-             Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
+         when 'firefox', 'safari', 'ie', 'chrome', 'android'
+           browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
+           Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
            #TODO: investigate and introduce a reliable headless driver for blinkboxbooks webstie testing
            #when 'htmlunit', 'webkit', 'poltergeist' #headless mode
            #  Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
-           else
-             raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
+         else
+           fail "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
          end
 
   caps.version = TEST_CONFIG['BROWSER_VERSION']
@@ -157,25 +152,25 @@ end
 
 # Overriding the default native events settings for Selenium.
 # This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
-caps.native_events=false
+caps.native_events = false
 
 # grid setup
 if TEST_CONFIG['GRID'] =~ /^true|on$/i
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'FIRST_AVAILABLE'
   case TEST_CONFIG['PLATFORM'].upcase
-    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
-      TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
-      caps.platform = TEST_CONFIG['PLATFORM'].upcase.to_sym
-    when 'ANDROID'
-      TEST_CONFIG['GRID_HUB_IP'] ||= 'localhost'
-      caps.platform = TEST_CONFIG['PLATFORM'].downcase.to_sym
-    when 'FIRST_AVAILABLE'
-      TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
+  when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
+    TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
+    caps.platform = TEST_CONFIG['PLATFORM'].upcase.to_sym
+  when 'ANDROID'
+    TEST_CONFIG['GRID_HUB_IP'] ||= 'localhost'
+    caps.platform = TEST_CONFIG['PLATFORM'].downcase.to_sym
+  when 'FIRST_AVAILABLE'
+    TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
     #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
     #which matches other specified capabilities. NB nodes are ordered by the order of registration with the hub.
-    else
-      raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
+  else
+    fail "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
   end
 
   # register the remote driver
@@ -214,9 +209,9 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   TEST_CONFIG['BROWSERSTACK_KEY'] ||= "SwqrhidMjGruyCtdCmx8"
 
   # Check BrowserStack availability
-  raise 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
-  raise 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
-  raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
+  fail 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
+  fail 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
+  fail 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
 
   if TEST_CONFIG['SERVER'] == "PRODUCTION"
     caps["browserstack.local"] = "false"
