@@ -15,8 +15,8 @@ Feature: Voucher code redemption
     Then the redemption confirmation message is displayed
 
   Examples:
-    | code | Description            |
-    |      | <a_valid_voucher_code> |
+    | code                   |
+    | <a_valid_voucher_code> |
     #Please input a valid voucher code below before running the scenario
     #TODO: to make this scenario fully automated, we can make an API call to voucher generator service to get a new voucher code on a test environment
 
@@ -36,9 +36,9 @@ Feature: Voucher code redemption
     Then "<error_message>" message is displayed
 
   Examples:
-    | invalid_code      | error_message                                                             | Description             |
-    | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers. | too short               |
-    | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers.  | more than 16 characters |
+    | invalid_code      | error_message                                                             |
+    | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers. |
+    | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers.  |
 
   @negative
   Scenario Outline: Verify back-end error to retry the voucher again  #happy path cannot be automated as re-using the vouchers is not possible
@@ -46,9 +46,9 @@ Feature: Voucher code redemption
     Then "<error_message>" message is displayed
 
   Examples:
-    | invalid_code          | error_message                                           | description of the backend state |
-    | CPBGFWUSDSFPG7HP | is past its use by date. Sorry, it's no longer valid.   | already used                     |
-    | 1234567890abcdef | doesn't exist! Keep an eye out for typos and try again. | does not exist in the campaign   |
+    | invalid_code     | error_message                                           |
+    | CPBGFWUSDSFPG7HP | is past its use by date. Sorry, it's no longer valid.   |
+    | 1234567890abcdef | doesn't exist! Keep an eye out for typos and try again. |
 
 
   #Manual Critical elevation scenarios
