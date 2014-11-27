@@ -35,9 +35,9 @@ And /^I select (list|grid) view$/ do |view|
 end
 
 Then /^long titles should be displayed in two lines$/ do
-
+  pending
 end
 
 Then /^long titles should be truncated to fit within image$/ do
-
+  pending
 end
