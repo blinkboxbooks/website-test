@@ -14,8 +14,10 @@ After do |scenario|
     js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
   end
 
-  if open_windows.count > 0 && logged_in_session?
-    log_out_current_session
+  if open_windows.count > 0
+    #navigate to a home page, if current page has no menu in the header to do the user sign out
+    home_page.load unless current_page.header.has_account_menu?
+    log_out_current_session if logged_in_session?
   end
 
   close_excessive_browser_windows
