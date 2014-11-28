@@ -109,10 +109,8 @@ Then /^I should be signed out successfully$/ do
 end
 
 Given /^I have multiple stored cards$/ do
-  pending('CP-2063 - Changing the Default card returns 400')do
   @email_address = test_data('emails', 'multiple_storedcards')
   @first_name = test_data('name', 'multiple_storedcards')
-  end
 end
 
 Given /^I register(?: to proceed with the purchase| to proceed with adding sample)?$/ do
