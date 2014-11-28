@@ -10,7 +10,6 @@ module PageModels
    #redemption stage 2
    element :add_free_credit_button, '[data-test="redeem-voucher-button"]'
 
-
    #signin form
    element :signin_email, '[data-test="email-address"]'
    element :signin_password, '[data-test="password"]'

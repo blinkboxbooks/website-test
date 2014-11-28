@@ -71,6 +71,8 @@ end
 extend KnowsAboutTheEnvironment
 include KnowsAboutTheEnvironment
 World(KnowsAboutTheEnvironment)
+extend KnowsAboutDataDependencies
+initialise_test_data # initialise test data in order to fail fast, if config is incorrect or data is missing
 
 # ======= load common helpers =======
 def require_and_log(lib_array)

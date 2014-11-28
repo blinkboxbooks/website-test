@@ -1,3 +1,4 @@
+@unstable
 Feature: Voucher code redemption
 
   As a new or an existing logged out user of blinkbox books
@@ -7,6 +8,11 @@ Feature: Voucher code redemption
   Background:
     Given I am not signed in
     And I am on the Voucher Redemption page
+
+  @smoke @production
+  Scenario: Voucher Redemption page
+    When I am on the Voucher Redemption page
+    Then Voucher Redemption form should be displayed
 
   @smoke @manual
   Scenario: New user adding the voucher during the registration flow
