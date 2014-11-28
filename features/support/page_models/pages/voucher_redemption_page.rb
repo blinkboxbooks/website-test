@@ -62,7 +62,7 @@ module PageModels
     #redemption stage 1
     element :voucher_code, '[data-test="voucher-code-text-box"]'
     element :use_this_code_button, '[data-test="check-voucher-code-button"]'
-    element :validation_error_element, '.errors' #'[data-test="front-end-validation-error"]'
+    element :validation_error_element, '.errors'
 
     #redemption stage 2
     element :add_free_credit_button, '[data-test="redeem-voucher-button"]'
