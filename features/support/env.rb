@@ -16,10 +16,9 @@ require 'rspec/expectations'
 require 'rspec/collection_matchers'
 require 'benchmark'
 require 'yaml'
-require 'api_methods.rb'
-require 'platform'
 require 'cucumber/blinkbox/environment'
 require 'cucumber/blinkbox/data_dependencies'
+require 'platform'
 
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
@@ -45,7 +44,7 @@ module KnowsAboutTheEnvironment
 
   def test_data_sample(param)
     initialise_test_data
-    data = @_test_data[param.to_s.gsub(' ', '_').downcase]
+    data = @@_test_data[param.to_s.gsub(' ', '_').downcase]
     fail "Unable to find variable [#{param}] in the test data" if data.nil?
     if data.respond_to?(:sample)
       data.sample
@@ -63,9 +62,11 @@ module KnowsAboutTheEnvironment
   private
 
   def initialise_test_data
-    @_test_data ||= @data_dependencies[test_env.data.to_s.upcase]
-    fail "Test data '#{test_env.data}' for environment '#{TEST_CONFIG['server']}' is not defined in config/data.yml" if @_test_data.nil?
-    @_test_data
+    @@_test_data ||= @data_dependencies[test_env.data.to_s.upcase]
+    if @@_test_data.nil?
+      fail "Test data '#{test_env.data}' for environment '#{TEST_CONFIG['server']}' is not defined in config/data.yml"
+    end
+    @@_test_data
   end
 end
 extend KnowsAboutTheEnvironment
