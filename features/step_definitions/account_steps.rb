@@ -90,6 +90,11 @@ Then /^I am successfully signed in$/ do
   assert_user_greeting_message_displayed(@first_name)
 end
 
+Then /^I should be signed in now$/ do
+  home_page.load unless current_page.header.has_account_menu?
+  assert_logged_in_session
+end
+
 And /^I am redirected to (.*?) page$/ do |page_name|
   expect_page_displayed(page_name)
 end
