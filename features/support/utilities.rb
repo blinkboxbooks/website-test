@@ -27,8 +27,8 @@ module Utilities
   def isbn_for_book_type(book_type)
     test_data('library_isbns', book_type.to_s)
   rescue => e
-    raise "Cannot return isbn for unknown book type: #{book_type}\n \nTest Data Error: #{e.message}"
-  end
+    raise "Cannot return isbn for unknown book type: #{book_type}\n \nTest Data Error: #{e.message}\n#{e.backtrace}"
+   end
 end
 
 module WebUtilities
