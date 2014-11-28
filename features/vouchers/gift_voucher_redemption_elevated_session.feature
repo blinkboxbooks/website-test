@@ -1,8 +1,8 @@
 @manual
 Feature: Critical elevation for voucher redemption
 
-  Being a logged in user
-  I have to re-verify my identity if my session is not longer critically elevated
+  As a logged in user not being in a critically elevated session
+  I have to re-verify my identity
   In order to get a gift credit to my account
 
   Background:

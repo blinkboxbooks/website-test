@@ -1,8 +1,8 @@
 Feature: Registration / sign in during gift voucher redemption
 
-  Being a guest user
-  I have to register or sign in while I am redeeming a voucher
-  In order to get a gift credit to my account with ease
+  As a guest user trying to redeem a voucher
+  I have to register or sign in
+  In order to get a gift credit to my account
 
   Background:
     Given I am not signed in
