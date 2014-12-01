@@ -26,8 +26,9 @@ require_and_log 'page_models/pages/blinkboxbooks_page.rb'
 require_and_log 'page_models/pages/*.rb'
 
 # ======== Load environment specific test data ======
-TEST_CONFIG['SERVER'] ||= 'QA'
-initialise_test_data
+TEST_CONFIG['server'] = TEST_CONFIG['SERVER'].to_s.downcase || 'test'
+extend KnowsAboutDataDependencies
+initialise_test_data # initialise test data in order to fail fast, if config is incorrect or data is missing
 
 # ======= Setup PATH env. variable =======
 puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"

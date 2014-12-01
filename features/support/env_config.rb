@@ -1,7 +1,11 @@
 # ======= Parse Test Config =======
+def on?(name)
+  !!(name.to_s =~ /^on|true$/i)
+end
+
 TEST_CONFIG = ENV.to_hash || {}
-TEST_CONFIG['debug'] = !!on?(TEST_CONFIG['DEBUG'])
-TEST_CONFIG['fail_fast'] = !!on?(TEST_CONFIG['FAIL_FAST'])
+TEST_CONFIG['debug'] = on?(TEST_CONFIG['DEBUG'])
+TEST_CONFIG['fail_fast'] = on?(TEST_CONFIG['FAIL_FAST'])
 if TEST_CONFIG['debug']
   ARGV.each do |a|
     puts "Argument: #{a}"
@@ -61,10 +65,6 @@ def require_and_log(lib_array)
       require_rel(lib_array)
     end
   }
-end
-
-def on?(name)
-  !!(name.to_s =~ /^on|true$/i)
 end
 
 #======== RSpec ======
