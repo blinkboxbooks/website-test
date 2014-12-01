@@ -10,6 +10,7 @@ group :automation do
   gem 'selenium-webdriver', '~> 2.39'
   gem 'selendroid'
   gem 'site_prism'
+  gem 'require_all'
 end
 
 group :support do
