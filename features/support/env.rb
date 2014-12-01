@@ -8,26 +8,6 @@ puts 'Loading gems and config...'
 require 'env_gems'
 require 'env_config'
 
-# ======= load common helpers =======
-puts 'Loading custom cucumber formatters...'
-require_and_log 'formatter/*.rb'
-
-puts 'Loading support files...'
-require_and_log 'core_ruby_overrides.rb'
-require_and_log '*.rb'
-
-puts 'Loading page models...'
-require_and_log 'page_models/*.rb'
-require_and_log 'page_models/sections/blinkboxbooks_section.rb'
-require_and_log 'page_models/sections/*.rb'
-require_and_log 'page_models/pages/blinkboxbooks_page.rb'
-require_and_log 'page_models/pages/*.rb'
-
-# ======== Load environment specific test data ======
-TEST_CONFIG['server'] = TEST_CONFIG['SERVER'].to_s.downcase || 'test'
-extend KnowsAboutDataDependencies
-initialise_test_data # initialise test data in order to fail fast, if config is incorrect or data is missing
-
 # ======= Setup PATH env. variable =======
 puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
 
@@ -85,7 +65,7 @@ end
 caps.native_events = false
 
 # grid setup
-if on?(TEST_CONFIG['GRID'])
+if config_flag_on?(TEST_CONFIG['GRID'])
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'FIRST_AVAILABLE'
   case TEST_CONFIG['PLATFORM'].upcase
@@ -170,4 +150,14 @@ else
                                    :desired_capabilities => caps)
   end
 
+end
+
+#======== Headless Mode ======
+if config_flag_on?(TEST_CONFIG['HEADLESS'])
+  puts 'Headless mode.'
+
+  require 'headless'
+
+  headless = Headless.new
+  headless.start
 end
