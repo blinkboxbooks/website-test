@@ -86,7 +86,7 @@ end
 caps.native_events = false
 
 # grid setup
-if TEST_CONFIG['GRID'] =~ /^true|on$/i
+if on?(TEST_CONFIG['GRID'])
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'FIRST_AVAILABLE'
   case TEST_CONFIG['PLATFORM'].upcase

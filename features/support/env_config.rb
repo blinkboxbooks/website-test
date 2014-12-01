@@ -1,7 +1,7 @@
 # ======= Parse Test Config =======
 TEST_CONFIG = ENV.to_hash || {}
-TEST_CONFIG['debug'] = !!(TEST_CONFIG['DEBUG'] =~ /^on|true$/i)
-TEST_CONFIG['fail_fast'] = !!(TEST_CONFIG['FAIL_FAST'] =~ /^on|true$/i)
+TEST_CONFIG['debug'] = !!on?(TEST_CONFIG['DEBUG'])
+TEST_CONFIG['fail_fast'] = !!on?(TEST_CONFIG['FAIL_FAST'])
 if TEST_CONFIG['debug']
   ARGV.each do |a|
     puts "Argument: #{a}"
