@@ -33,18 +33,18 @@ initialise_test_data
 puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
 
 case Platform::OS
-  when :win32
-    separator = ";"
-    current_os = 'win'
-  when :unix
-    separator = ":"
-    if Platform::IMPL == :macosx
-      current_os = 'mac'
-    else
-      current_os = 'unix'
-    end
+when :win32
+  separator = ";"
+  current_os = 'win'
+when :unix
+  separator = ":"
+  if Platform::IMPL == :macosx
+    current_os = 'mac'
   else
-    raise "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
+    current_os = 'unix'
+  end
+else
+  fail "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
 end
 
 chromedriver_path = File.expand_path File.join(path_to_root, 'lib', 'chromedrv', current_os)
@@ -75,7 +75,7 @@ else
            #when 'htmlunit', 'webkit', 'poltergeist' #headless mode
            #  Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
            else
-             raise "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
+             fail "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
          end
 
   caps.version = TEST_CONFIG['BROWSER_VERSION']
@@ -83,10 +83,10 @@ end
 
 # Overriding the default native events settings for Selenium.
 # This is to make mouse over action working. Without this setting mouse over actions (to activate my account drop down, etc) are not working.
-caps.native_events=false
+caps.native_events = false
 
 # grid setup
-if on?(TEST_CONFIG['GRID'])
+if TEST_CONFIG['GRID'] =~ /^true|on$/i
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'FIRST_AVAILABLE'
   case TEST_CONFIG['PLATFORM'].upcase
@@ -101,7 +101,7 @@ if on?(TEST_CONFIG['GRID'])
     #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
     #which matches other specified capabilities. NB nodes are ordered by the order of registration with the hub.
     else
-      raise "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
+      fail "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
   end
 
   # register the remote driver
@@ -140,9 +140,9 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   TEST_CONFIG['BROWSERSTACK_KEY'] ||= "SwqrhidMjGruyCtdCmx8"
 
   # Check BrowserStack availability
-  raise 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
-  raise 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
-  raise 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
+  fail 'No more parallel sessions available!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).session_available?
+  fail 'The specified project does not exists in BrowserStack!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).project_exists?(TEST_CONFIG['BROWSERSTACK_PROJECT'])
+  fail 'Not supported BrowserStack capabilities!' unless APIMethods::Browserstack.new(TEST_CONFIG['BROWSERSTACK_USERNAME'], TEST_CONFIG['BROWSERSTACK_KEY']).valid_capabilities?(TEST_CONFIG['BROWSER_NAME'], TEST_CONFIG['BROWSER_VERSION'], TEST_CONFIG['OS'], TEST_CONFIG['OS_VERSION'])
 
   if TEST_CONFIG['SERVER'] == "PRODUCTION"
     caps["browserstack.local"] = "false"

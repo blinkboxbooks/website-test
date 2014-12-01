@@ -3,30 +3,31 @@
 <% ci_opts = ci_tags + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
 
 <% grid_hub_ip =          " GRID_HUB_IP=172.17.51.12 " %>
-<% grid_opts_test =     " GRID=true PLATFORM=WINDOWS BROWSER_NAME=chrome " %>
-<% grid_opts_dev =         " GRID=true PLATFORM=WINDOWS BROWSER_NAME=chrome " %>
-<% grid_opts_qa =         " GRID=true PLATFORM=VISTA BROWSER_NAME=chrome " %>
-<% grid_opts_production = " GRID=true PLATFORM=XP BROWSER_NAME=chrome " %>
-<% grid_opts_tablet_qa =  "GRID=true PLATFORM=ANDROID BROWSER_NAME=android" %>
+<% grid_opts_test =       grid_hub_ip + " GRID=true PLATFORM=WINDOWS BROWSER_NAME=chrome " %>
+<% grid_opts_dev =        grid_hub_ip + " GRID=true PLATFORM=WINDOWS BROWSER_NAME=chrome " %>
+<% grid_opts_qa =         grid_hub_ip + " GRID=true PLATFORM=VISTA BROWSER_NAME=chrome " %>
+<% grid_opts_production = grid_hub_ip + " GRID=true PLATFORM=XP BROWSER_NAME=chrome " %>
+<% grid_opts_tablet_qa =  grid_hub_ip + " GRID=true PLATFORM=ANDROID BROWSER_NAME=android " %>
 
 default:              -p local_debug
 local_debug:          -r features --tags ~@wip GRID=false SERVER=TEST DEBUG=true
 
 ci-no-grid:           <%= ci_opts %>
-ci-smoke-local:       <%= ci_opts %> --tags @smoke SERVER=LOCALHOST FAIL_FAST=true
+ci-smoke-local:       <%= ci_opts %> --tags @smoke SERVER=LOCALHOST FAIL_FAST=false
 ci-smoke-vagrant:     <%= ci_opts %> --tags @smoke --tags @production SERVER=LOCALHOST BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=false
-ci-smoke-test:        <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_test %> --tags @smoke SERVER=TEST FAIL_FAST=false
-ci-smoke-dev:         <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_dev %> --tags @smoke --tags @production SERVER=DEV
-ci-smoke-qa:          <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_qa %> --tags @smoke SERVER=QA
-ci-smoke-production:  <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_production %> --tags @smoke --tags @production SERVER=PRODUCTION
+ci-smoke-test:        <%= ci_opts %> --tags @smoke SERVER=TEST FAIL_FAST=false
+ci-smoke-dev:         <%= ci_opts %> --tags @smoke --tags @production SERVER=DEV
+ci-smoke-qa:          <%= ci_opts %> --tags @smoke SERVER=QA
+ci-smoke-production:  <%= ci_opts %> --tags @smoke --tags @production SERVER=PRODUCTION
 
-ci-regression-test:   <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_test %> --tags ~@smoke SERVER=TEST
-ci-regression-dev:    <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_dev %> --tags ~@smoke --tags @production SERVER=DEV
-ci-regression-qa:     <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_qa %> --tags ~@smoke SERVER=QA
+ci-regression-test:   <%= ci_opts %> --tags ~@smoke SERVER=TEST
+ci-regression-dev:    <%= ci_opts %> --tags ~@smoke --tags @production SERVER=DEV
+ci-regression-qa:     <%= ci_opts %> --tags ~@smoke SERVER=QA
 
-local_debug_tablet:  <%= ci_opts %> <%= grid_hub_ip %> <%= grid_opts_tablet_qa %> --tags @smoke SERVER=PRODUCTION
+local_debug_tablet:  <%= ci_opts %> --tags @smoke SERVER=PRODUCTION
 
 release-server-testing:          <%= ci_opts %> --tags @servertesting
+
 
 #mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
 #mac-firefox: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=FIREFOX BROWSER_VERSION=21.0 --no-multiline -i -s --format progress
@@ -49,6 +50,6 @@ release-server-testing:          <%= ci_opts %> --tags @servertesting
 #win-vista-chrome: -r feature --tags ~@wip GRID=TRUE PLATFORM=XP BROWSER_NAME=CHROME BROWSER_VERSION=26.0.1410.64 --no-multiline -i -s --format progress
 
 # COMMAND LINE OPTIONS
-# SERVER: LOCALHOST, TEST, QA, STAGING, PRODUCTION
+# SERVER: LOCALHOST, TEST, DEV, PRODUCTION
 # DEVICE: MOBILE, TABLET-PORTRAIT, TABLET-LANDSCAPE, DESKTOP
 

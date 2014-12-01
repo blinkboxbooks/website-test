@@ -14,5 +14,7 @@ require 'yaml'
 require 'api_methods.rb'
 require 'platform'
 require 'require_all'
+require 'cucumber/blinkbox/data_dependencies'
+require 'cucumber/blinkbox/environment'
 
 World(Capybara::Angular::DSL)
