@@ -16,4 +16,5 @@ require 'cucumber/blinkbox/data_dependencies'
 require 'platform'
 require 'require_all'
 
+#TODO: this is related to browser config
 World(Capybara::Angular::DSL)

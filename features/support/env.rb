@@ -1,9 +1,7 @@
 # ======== Set Load Paths ======
 support_dir = File.join(File.dirname(__FILE__))
 path_to_root = support_dir + '/../../'
-$: << '.'
-$: << support_dir
-$: << path_to_root
+$LOAD_PATH << support_dir
 
 # ======== Load gems and config ======
 puts 'Loading gems and config...'
