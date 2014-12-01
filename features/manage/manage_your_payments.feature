@@ -27,13 +27,13 @@ Feature: Update the Payment details of the user under 'your account'
      And select Keep on Delete card? pop-up
      Then my saved card is not deleted
      
-  @smoke  @data_dependent @ie @safari @production
+  @data_dependent @ie @safari @production @CP-2063
   Scenario: Change default card
     Given I have multiple stored cards
     And I have signed in
     And I am on the Saved cards tab
     When I set a different card as my default card
-    Then "Credit card set as default successfully" message is displayed
+    Then Credit card set as default successfully message is displayed
     And the selected card is displayed as my default card
 
   Scenario: First time user checking Payment details after buying a book and saving payment details

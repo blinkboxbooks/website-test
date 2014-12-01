@@ -25,7 +25,7 @@ When /^I edit the first name and last name$/ do
   @first_name, @last_name = edit_personal_details
 end
 
-And /^(?:I submit|submit) my personal details$$/ do
+And /^(?:I submit|submit) my personal details$/ do
   submit_personal_details
 end
 
@@ -84,8 +84,12 @@ Then /^there are no cards in my account$/ do
 end
 
 When /^I set a different card as my default card$/ do
-  pending "CWA-1784: Send boolean to credit card update service" do
     @default_card = set_card_default
+end
+
+Then /^Credit card set as default successfully message is displayed$/ do
+  pending('CP-2063 - Changing the Default card returns 400')do
+    assert_message_displayed("Credit card set as default successfully")
   end
 end
 
