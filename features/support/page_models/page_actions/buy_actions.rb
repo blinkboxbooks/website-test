@@ -101,6 +101,7 @@ module PageModels
     end
 
     def enter_card_details(card_details)
+      confirm_and_pay_page.wait_for_card_details_form
       confirm_and_pay_page.card_number.set card_details[:card_number]
       confirm_and_pay_page.cvv.set card_details[:cvv]
       confirm_and_pay_page.expiry_month.select card_details[:expiry_month]

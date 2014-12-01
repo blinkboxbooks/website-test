@@ -111,17 +111,6 @@ Feature: Navigating through my account pages
      When I click the "Continue shopping" button on order complete page
      Then I am redirected to Home page
 
-    Scenario: Download free app button on Order complete page
-      Given I am on the home page
-      Given I have a stored card
-      And I have selected to buy a paid book from the Book details page
-      And I sign in to proceed with the purchase
-      When I complete purchase by paying with saved card
-      Then the "Download the free app" button is displayed on the order complete page
-      Given PENDING: @CWA-1311, FAQ Links on order confirmation page pointing to old url (zendesk)
-      When I click the "Download the free app" button on order complete page
-      Then the "Download the free app" support page opens up in a new window
-
   @smoke
   Scenario Outline: Personification message on account pages for a user with no books and devices
     Given I am on the home page

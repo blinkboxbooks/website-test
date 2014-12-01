@@ -37,6 +37,14 @@ module PageModels
       account_credit_amount_element.text.gsub(/£/, '').to_f
     end
 
+    def wait_for_card_details_form
+      wait_for_card_number
+      wait_for_cvv
+      wait_for_expiry_month
+      wait_for_expiry_year
+      wait_for_name_on_card
+    end
+
   end
 
   register_model_caller_method(ConfirmAndPayPage)
