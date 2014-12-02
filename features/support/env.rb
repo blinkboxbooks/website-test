@@ -24,11 +24,20 @@ end
 # initialise test data in order to fail fast, if config is incorrect or data is missing
 initialise_test_data
 
-# ======= load common helpers =======
+# ======= load common helpers in a particular order =======
+# custom method to log required local helper libraries
+module RequireAllExtensions
+  def require_rel_and_log(*args)
+    # Handle passing an array as an argument
+    args.flatten!
+    args.each { |file| puts "Loading #{file}" } if TEST_CONFIG['debug']
+    require_rel(args)
+  end
+end
+include RequireAllExtensions
+
 require_rel_and_log 'formatter/*.rb'
-
 require_rel_and_log 'utils/*.rb'
-
 require_rel_and_log 'page_models/*.rb'
 require_rel_and_log 'page_models/sections/blinkboxbooks_section.rb'
 require_rel_and_log 'page_models/sections/*.rb'
