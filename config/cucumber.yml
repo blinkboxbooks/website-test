@@ -1,6 +1,8 @@
-<% ci_formatting = " --format pretty --format junit -o results/junit/ --format Cucumber::Blinkbox::Formatter::Html -o results/features_report.html " %>
-<% ci_tags = " --tags ~@on_demand --tags ~@wip --tags ~@unstable --tags ~@manual --tags ~@pending " %>
-<% ci_opts = ci_tags + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
+<% ci_formatting =    " --format pretty --format junit -o results/junit/ --format Cucumber::Blinkbox::Formatter::Html -o results/features_report.html " %>
+<% ci_tags =          " --tags ~@unstable --tags ~@on_demand --tags ~@wip --tags ~@manual --tags ~@pending " %>
+<% ci_tags_unstable = " --tags  @unstable --tags ~@on_demand --tags ~@wip --tags ~@manual --tags ~@pending " %>
+<% ci_opts =          ci_tags          + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
+<% ci_opts_unstable = ci_tags_unstable + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
 
 <% grid_hub_ip =          " GRID_HUB_IP=172.17.51.12 " %>
 <% grid_opts_test =       grid_hub_ip + " GRID=true PLATFORM=WINDOWS BROWSER_NAME=chrome " %>
@@ -12,19 +14,22 @@
 default:              -p local_debug
 local_debug:          -r features --tags ~@wip GRID=false SERVER=TEST DEBUG=true
 
-ci-no-grid:               <%= ci_opts %>
+ci-no-grid:                        <%= ci_opts %>
 
-ci-local-smoke:           <%= ci_opts %> SERVER=LOCALHOST --tags @smoke FAIL_FAST=false
-ci-vagrant-smoke:         <%= ci_opts %> SERVER=LOCALHOST --tags @smoke --tags @production BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=false
+ci-local-smoke:                    <%= ci_opts %> SERVER=LOCALHOST --tags @smoke FAIL_FAST=false
+ci-vagrant-smoke:                  <%= ci_opts %> SERVER=LOCALHOST --tags @smoke --tags @production BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=false
 
-ci-test-smoke:            <%= ci_opts %> SERVER=TEST --tags  @smoke FAIL_FAST=false
-ci-test-regression:       <%= ci_opts %> SERVER=TEST --tags ~@smoke
+ci-test-smoke:                     <%= ci_opts %>          SERVER=TEST --tags  @smoke FAIL_FAST=false
+ci-test-regression:                <%= ci_opts %>          SERVER=TEST --tags ~@smoke
+ci-test-regression-unstable:       <%= ci_opts_unstable %> SERVER=TEST --tags ~@smoke
 
-ci-dev-smoke:             <%= ci_opts %> SERVER=DEV --tags  @smoke --tags @production
-ci-dev-regression:        <%= ci_opts %> SERVER=DEV --tags ~@smoke --tags @production
+ci-dev-smoke:                      <%= ci_opts %>          SERVER=DEV --tags  @smoke --tags @production
+ci-dev-regression:                 <%= ci_opts %>          SERVER=DEV --tags ~@smoke --tags @production
+ci-dev-regression-unstable:        <%= ci_opts_unstable %> SERVER=DEV --tags ~@smoke --tags @production
 
-ci-production-smoke:      <%= ci_opts %> SERVER=PRODUCTION --tags  @smoke --tags @production
-ci-production-regression: <%= ci_opts %> SERVER=PRODUCTION --tags ~@smoke --tags @production
+ci-production-smoke:               <%= ci_opts %>          SERVER=PRODUCTION --tags  @smoke --tags @production
+ci-production-regression:          <%= ci_opts %>          SERVER=PRODUCTION --tags ~@smoke --tags @production
+ci-production-regression-unstable: <%= ci_opts_unstable %> SERVER=PRODUCTION --tags ~@smoke --tags @production
 
 release-server-testing:   <%= ci_opts %> --tags @servertesting
 
