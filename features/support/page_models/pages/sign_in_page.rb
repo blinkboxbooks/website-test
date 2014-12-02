@@ -9,6 +9,10 @@ module PageModels
     element :forgotten_password_link, '[data-test="send-me-a-reset-link"]'
     element :remember_me, '#remember_me'
     element :error, '#error_signin'
+
+    def navigation_timeout
+      20
+    end
   end
 
   register_model_caller_method(SignInPage)
