@@ -88,7 +88,6 @@ else
              if TEST_CONFIG['performance_logging']
                caps_perflog = Selenium::WebDriver::Remote::Capabilities.chrome(
                    "LOGGING_PREFS" => {"LogType" => [ "PERFORMANCE" ]}
-
                )
              end
              Selenium::WebDriver::Remote::Capabilities.send(browser_name)
