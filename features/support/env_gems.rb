@@ -16,14 +16,14 @@ require 'cucumber/blinkbox/data_dependencies'
 require 'platform'
 require 'require_all'
 
-# ======= Require helper libraries =======
-def require_rel_and_log(lib_array)
-  lib_array = [lib_array] if lib_array.class != Array
-  lib_array.sort!
-  lib_array.each { |file|
-    unless $".include?(file.to_s)
-      puts("Loading #{file}") if TEST_CONFIG['debug']
-      require_rel(lib_array)
-    end
-  }
+# ======= Custom method to log required local helper libraries =======
+module RequireAllExtensions
+  def require_rel_and_log(*args)
+    # Handle passing an array as an argument
+    args.flatten!
+    args.each { |file| puts "Loading #{file}" } if TEST_CONFIG['debug']
+    require_rel(args)
+  end
 end
+
+include RequireAllExtensions

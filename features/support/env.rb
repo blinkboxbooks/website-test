@@ -1,19 +1,16 @@
 # ======== Set Load Paths ======
-support_dir = File.join(File.dirname(__FILE__))
+support_dir = File.dirname(__FILE__)
 path_to_root = support_dir + '/../../'
-$LOAD_PATH << support_dir
-
-# ======== Load gems ======
-puts 'Loading gems and config...'
-require 'env_gems'
+$LOAD_PATH.unshift File.expand_path(support_dir)
 
 # ======= Setup Test Config =======
 TEST_CONFIG = ENV.to_hash || {}
 TEST_CONFIG['server'] = TEST_CONFIG['SERVER'].to_s.downcase || 'test'
 
+# ======== Load gems and config ======
+puts 'Loading gems and config...'
+require 'env_gems'
 require 'env_config'
-
-initialise_test_data # initialise test data in order to fail fast, if config is incorrect or data is missing
 
 TEST_CONFIG['debug'] = config_flag_on?(TEST_CONFIG['DEBUG'])
 TEST_CONFIG['fail_fast'] = config_flag_on?(TEST_CONFIG['FAIL_FAST'])
@@ -23,15 +20,15 @@ if TEST_CONFIG['debug']
   puts "TEST_CONFIG: #{TEST_CONFIG}"
 end
 
+# ======== Load environment specific test data ======
+# initialise test data in order to fail fast, if config is incorrect or data is missing
+initialise_test_data
+
 # ======= load common helpers =======
-puts 'Loading custom cucumber formatters...'
 require_rel_and_log 'formatter/*.rb'
 
-puts 'Loading support files...'
-require_rel_and_log 'core_ruby_overrides.rb'
-require_rel_and_log '*.rb'
+require_rel_and_log 'utils/*.rb'
 
-puts 'Loading page models...'
 require_rel_and_log 'page_models/*.rb'
 require_rel_and_log 'page_models/sections/blinkboxbooks_section.rb'
 require_rel_and_log 'page_models/sections/*.rb'

@@ -1,7 +1,7 @@
 module APIMethods
   require 'httpclient'
   require 'multi_json'
-  require 'utilities.rb'
+  require_rel 'utilities.rb'
 
   class Browserstack
     attr_accessor :username

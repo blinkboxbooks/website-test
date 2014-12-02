@@ -42,5 +42,4 @@ extend KnowsAboutTheEnvironment
 include KnowsAboutTheEnvironment
 World(KnowsAboutTheEnvironment)
 
-# ======== Load environment specific test data ======
 extend KnowsAboutDataDependencies
