@@ -11,10 +11,7 @@ require 'rspec/expectations'
 require 'rspec/collection_matchers'
 require 'benchmark'
 require 'yaml'
-require 'api_methods.rb'
+require 'cucumber/blinkbox/environment'
+require 'cucumber/blinkbox/data_dependencies'
 require 'platform'
 require 'require_all'
-require 'cucumber/blinkbox/data_dependencies'
-require 'cucumber/blinkbox/environment'
-
-World(Capybara::Angular::DSL)

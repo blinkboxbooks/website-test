@@ -76,7 +76,7 @@ end
 World(ToleranceForSeleniumSyncIssues)
 World(MakeTestsRobust)
 
-if on?(TEST_CONFIG["WAIT_FOR_AJAX"])
+if config_flag_on?(TEST_CONFIG["WAIT_FOR_AJAX"])
   puts 'Waiting for AJAX to complete.'
 
   AfterStep do | scenario |
