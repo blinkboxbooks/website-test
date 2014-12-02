@@ -103,7 +103,7 @@ module PageModels
     def enter_card_details(card_details)
       # Interim patch
       click_pay_with_new_card if confirm_and_pay_page.has_pay_with_new_card?
-      confirm_and_pay_page.wait_for_card_details_form
+      confirm_and_pay_page.wait_for_card_number
       confirm_and_pay_page.card_number.set card_details[:card_number]
       confirm_and_pay_page.cvv.set card_details[:cvv]
       confirm_and_pay_page.expiry_month.select card_details[:expiry_month]

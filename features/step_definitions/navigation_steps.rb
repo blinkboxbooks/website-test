@@ -229,15 +229,15 @@ Then /^I should see reset error message$/  do
   expect(reset_password_page).to have_reset_message_error
 end
 
-Then /^the "Download the free app" button is displayed on the order complete page$/ do
-  expect(order_complete_page.download_the_free_app_button).to be_visible
+Then /^the "Read your book now" button is displayed on the order complete page$/ do
+  expect(order_complete_page.read_your_book_now_button).to be_visible
 end
 
-Then /click the "(Continue shopping|Download the free app)" button on order complete page$/ do |button_name|
+Then /click the "(Continue shopping|Read your book now)" button on order complete page$/ do |button_name|
   click_button_on_order_complete(button_name + '_button')
 end
 
-Then /^the "Download the free app" support page opens up in a new window$/ do
+Then /^the "How do I download the blinkbox books app" support page opens up in a new window$/ do
   assert_support_page(@support_links.hashes['Download the free app'])
 end
 

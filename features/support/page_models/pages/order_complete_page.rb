@@ -4,7 +4,7 @@ module PageModels
     set_url '/#!/order-complete{?book}{&cpa}'
 
     element :continue_shopping_button,     'a', :text => /Continue shopping/i
-    element :download_the_free_app_button, 'a', :text => /Download the free app/i
+    element :read_your_book_now_button, 'button', :text => /Read your book now/i
     element :order_complete_message, '#order-complete'
   end
 
