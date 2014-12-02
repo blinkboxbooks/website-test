@@ -15,10 +15,11 @@ end
 group :support do
   gem 'activesupport'
   gem 'cucumber-helpers'
+  gem 'cucumber-blinkbox', '~> 0.3'
   gem 'i18n'
   gem 'rake'
   gem 'Platform'
-  gem 'cucumber-blinkbox', '~> 0.3'
+  gem 'require_all'
 end
 
 group :api do
