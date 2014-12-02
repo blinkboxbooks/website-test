@@ -12,21 +12,21 @@
 default:              -p local_debug
 local_debug:          -r features --tags ~@wip GRID=false SERVER=TEST DEBUG=true
 
-ci-no-grid:           <%= ci_opts %>
-ci-smoke-local:       <%= ci_opts %> --tags @smoke SERVER=LOCALHOST FAIL_FAST=false
-ci-smoke-vagrant:     <%= ci_opts %> --tags @smoke --tags @production SERVER=LOCALHOST BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=false
-ci-smoke-test:        <%= ci_opts %> --tags @smoke SERVER=TEST FAIL_FAST=false
-ci-smoke-dev:         <%= ci_opts %> --tags @smoke --tags @production SERVER=DEV
-ci-smoke-qa:          <%= ci_opts %> --tags @smoke SERVER=QA
-ci-smoke-production:  <%= ci_opts %> --tags @smoke --tags @production SERVER=PRODUCTION
+ci-no-grid:               <%= ci_opts %>
 
-ci-regression-test:   <%= ci_opts %> --tags ~@smoke SERVER=TEST
-ci-regression-dev:    <%= ci_opts %> --tags ~@smoke --tags @production SERVER=DEV
-ci-regression-qa:     <%= ci_opts %> --tags ~@smoke SERVER=QA
+ci-local-smoke:           <%= ci_opts %> SERVER=LOCALHOST --tags @smoke FAIL_FAST=false
+ci-vagrant-smoke:         <%= ci_opts %> SERVER=LOCALHOST --tags @smoke --tags @production BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=false
 
-local_debug_tablet:  <%= ci_opts %> --tags @smoke SERVER=PRODUCTION
+ci-test-smoke:            <%= ci_opts %> SERVER=TEST --tags  @smoke FAIL_FAST=false
+ci-test-regression:       <%= ci_opts %> SERVER=TEST --tags ~@smoke
 
-release-server-testing:          <%= ci_opts %> --tags @servertesting
+ci-dev-smoke:             <%= ci_opts %> SERVER=DEV --tags  @smoke --tags @production
+ci-dev-regression:        <%= ci_opts %> SERVER=DEV --tags ~@smoke --tags @production
+
+ci-production-smoke:      <%= ci_opts %> SERVER=PRODUCTION --tags  @smoke --tags @production
+ci-production-regression: <%= ci_opts %> SERVER=PRODUCTION --tags ~@smoke --tags @production
+
+release-server-testing:   <%= ci_opts %> --tags @servertesting
 
 
 #mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
@@ -52,4 +52,3 @@ release-server-testing:          <%= ci_opts %> --tags @servertesting
 # COMMAND LINE OPTIONS
 # SERVER: LOCALHOST, TEST, DEV, PRODUCTION
 # DEVICE: MOBILE, TABLET-PORTRAIT, TABLET-LANDSCAPE, DESKTOP
-
