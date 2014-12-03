@@ -82,17 +82,20 @@ TEST_CONFIG['BROWSER_NAME'] = 'ie' if TEST_CONFIG['BROWSER_NAME'].downcase == 'i
 if TEST_CONFIG['GRID'] =~ /browserstack/i
   caps = Selenium::WebDriver::Remote::Capabilities.new
 else
-  caps = case TEST_CONFIG['BROWSER_NAME'].downcase
-           when 'firefox', 'safari', 'ie', 'chrome', 'android'
-             browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
-             Selenium::WebDriver::Remote::Capabilities.send(TEST_CONFIG['BROWSER_NAME'].downcase.to_sym)
-           #TODO: investigate and introduce a reliable headless driver for blinkboxbooks webstie testing
-           #when 'htmlunit', 'webkit', 'poltergeist' #headless mode
-           #  Selenium::WebDriver::Remote::Capabilities.htmlunit(:javascript_enabled => true)
+  browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
+  caps = case browser_name
+           when :chrome
+             if TEST_CONFIG['performance_logging']
+               caps_perflog = Selenium::WebDriver::Remote::Capabilities.chrome(
+                   "LOGGING_PREFS" => {"LogType" => [ "PERFORMANCE" ]}
+               )
+             end
+             Selenium::WebDriver::Remote::Capabilities.send(browser_name)
+           when :firefox, :safari, :ie, :android
+             Selenium::WebDriver::Remote::Capabilities.send(browser_name)
            else
              fail "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
          end
-
   caps.version = TEST_CONFIG['BROWSER_VERSION']
 end
 
