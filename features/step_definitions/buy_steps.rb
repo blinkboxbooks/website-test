@@ -191,14 +191,12 @@ end
 When /^I complete purchase with new card by selecting (to save|not to save) Payment details$/ do |save_payment|
   save_payment.include?('not') ? save_payment = false : save_payment = true
   @name_on_card, @card_type, @card_count = successful_new_payment(save_payment)
-  @card_count += 1
 end
 
 And /^I have a stored card$/ do
   @email_address, @password = api_helper.create_new_user!
   @name_on_card = api_helper.add_credit_card
   @card_type = 'VISA'
-  @card_count = 1
 end
 
 And /^submit the payment details with cvv (\d+) for (.*?) card$/ do |cvv, card_type|
