@@ -6,7 +6,7 @@ Feature: Reset password with blinkbox books
   Background: Navigate to sign in
     Given I am not signed in
 
-  @production
+  
   Scenario: Click send me a reset link
     Given I am on the Sign in page
     When I try to sign in with wrong password
@@ -14,13 +14,13 @@ Feature: Reset password with blinkbox books
     When I click on Send me a reset link
     Then reset password page is displayed
 
-  @production
+  
   Scenario: Forgotten password link
     Given I am on the Sign in page
     When I click on Forgotten your password? link
     Then reset password page is displayed
 
-  @production @CP-314
+   @CP-314
   Scenario: Password reset with valid email
     Given I am on the reset password page
     When I enter email address registered with blinkbox books
@@ -28,7 +28,7 @@ Feature: Reset password with blinkbox books
     Then reset password response page is displayed
     And reset email confirmation message is displayed
 
-  @production @CP-314
+   @CP-314
   Scenario: Password reset with invalid email - app should not expose registered email addresses
     Given I am on the reset password page
     When I enter email address not registered with blinkbox books
@@ -36,7 +36,7 @@ Feature: Reset password with blinkbox books
     Then reset password response page is displayed
     And reset email confirmation message is displayed
 
-  @negative @production
+  @negative 
   Scenario Outline: Enter invalid email address on reset my password screen
     Given I am on the reset password page
     When I enter email address of invalid format: <invalid_email>
@@ -58,7 +58,7 @@ Feature: Reset password with blinkbox books
     | £$%#_@special.chars            |
     | special_chars@_£$%#_domain.com |
 
-  @negative @production
+  @negative 
   Scenario: Leave blank email address on reset my password screen
     Given I am on the reset password page
     When I enter blank email address

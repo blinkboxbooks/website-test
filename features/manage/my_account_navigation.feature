@@ -4,7 +4,6 @@ Feature: Navigating through my account pages
   I need the ability to view my account page
   So that I can view and update my account details
 
-  @smoke @production
   Scenario Outline: Signed in user accessing account navigation links from Account Menu
     Given I am on the home page
     Given I have signed in
@@ -20,7 +19,7 @@ Feature: Navigating through my account pages
     | Saved cards       | Your payments           |
     | Devices           | Your devices            |
 
-  @CWA-1027 @production
+  @CWA-1027 
   Scenario: Navigate through FAQ links under Order & payment history
     Given I am on the home page
     Given I have signed in
@@ -33,7 +32,7 @@ Feature: Navigating through my account pages
       | How do I read books in the app?          |
     And clicking above FAQ link opens relevant support page in a new window
 
-  @production
+  
   Scenario: Navigate through FAQ links under Personal details
     Given I am on the home page
     Given I have signed in
@@ -46,7 +45,7 @@ Feature: Navigating through my account pages
       | Can I delete my blinkbox books account? |
     And clicking above FAQ link opens relevant support page in a new window
 
-  @production
+  
   Scenario: Navigate through FAQ links under Your payments
     Given I am on the home page
     Given I have signed in
@@ -59,7 +58,7 @@ Feature: Navigating through my account pages
       | Do you accept gift cards?          |
     And clicking above FAQ link opens relevant support page in a new window
 
-  @production
+  
   Scenario: Navigate through FAQ links under Your devices
     Given I am on the home page
     Given I have signed in
@@ -72,7 +71,7 @@ Feature: Navigating through my account pages
       | Problems installing the app              |
     And clicking above FAQ link opens relevant support page in a new window
 
-  @CWA-615 @production
+  @CWA-615 
   Scenario Outline: User with no associated payment, order or device information check their account information
     Given I am on the home page
     Given I am returning user with no <user_type>
@@ -122,7 +121,7 @@ Feature: Navigating through my account pages
     When I click the "Read your book now" button on order complete page
     Then the "How do I download the blinkbox books app" support page opens up in a new window
 
-  @smoke
+  
   Scenario Outline: Personification message on account pages for a user with no books and devices
     Given I am on the home page
     Given I sign in as a user who has no book or device in their account
@@ -138,7 +137,6 @@ Feature: Navigating through my account pages
     | Saved Cards      |
     | Devices          |
 
-  @smoke
   Scenario Outline: Personification message on account pages for a user with some books and devices
     Given I am on the home page
     Given I sign in as a user who has books and devices in their account

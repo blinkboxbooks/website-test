@@ -4,7 +4,7 @@ Feature: Sign into Blinkbox books
   I want to sign in
   So that I can access my account, read my library books and buy books
 
-  @negative @production
+  @negative 
   Scenario Outline: Sign in with invalid email or password
     Given I am not signed in
     And I am on the Sign in page
@@ -22,7 +22,7 @@ Feature: Sign into Blinkbox books
     | not registered email address |
     | wrong password               |
 
-  @negative @production
+  @negative 
   Scenario Outline: Sign in with email address of invalid format
     Given I am not signed in
     And I am on the Sign in page
@@ -48,7 +48,7 @@ Feature: Sign into Blinkbox books
     | £$%#@special.chars             |
     | special_chars@_£$%#_domain.com |
 
-  @negative @production
+  @negative 
   Scenario Outline: Sign in with empty email or password field
     Given I am not signed in
     And I am on the Sign in page

@@ -1,4 +1,4 @@
-@ie @safari @production
+@ie @safari 
 Feature: Checking home page contents
   As a Blinkbox books user
   I want view relevant content for books home page
@@ -18,7 +18,7 @@ Feature: Checking home page contents
     When number of banners is between 1 and 4
     Then homepage hero banner is displayed
     And banner has background images
-    And homepage hero banner has navigation buttons
+    And homepage hero banner has navigation buttons@
 
   Scenario Outline: Books under Home page promotable categories
     When I am viewing in Desktop mode

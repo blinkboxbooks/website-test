@@ -24,7 +24,6 @@ Feature: User adding sample to Library
     And I register to proceed with adding sample
     Then adding sample is successful
 
- @smoke
  Examples: Adding a paid for book
     | book_type |
     | paid      |

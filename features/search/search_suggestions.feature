@@ -4,7 +4,6 @@ Feature: Checking for the Search suggestions on the home page.
   I want view the Search suggestions as I type in the Search text box
   So that it's easy for me to choose from the suggestions.
 
-
   Scenario: entering search string
     Given text is entered in the search field
     When the user enters at least 1 character in the search field

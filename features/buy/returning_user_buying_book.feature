@@ -7,13 +7,13 @@ Feature: Returning buying book from blinkbox books
   Background:
     Given I have a stored card
 
-  @smoke
+  
   Scenario: Returning logged in user buying book with saved payment card
     Given I am buying a paid book as a logged in user
     When I pay with my saved default card
     Then my payment is successful
 
-  @smoke
+  
   Scenario: Returning user not logged in buying book with saved payment card
     Given I am buying a paid book as a not logged in user
     When I sign in to proceed
