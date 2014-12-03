@@ -139,7 +139,6 @@ module PageModels
       click_pay_with_new_card if confirm_and_pay_page.has_pay_with_new_card?
 
       card_count = confirm_and_pay_page.number_of_saved_cards
-      card_count += 1 if save_payment
 
       card_details = set_valid_card_details(card_type)
       name_on_card = card_details[:name_on_card]
@@ -149,6 +148,7 @@ module PageModels
       confirm_and_pay_page.confirm_and_pay.click
       expect_page_displayed('order complete')
       assert_order_complete
+      card_count += 1 if save_payment
       return name_on_card, card_type, card_count
     end
 
