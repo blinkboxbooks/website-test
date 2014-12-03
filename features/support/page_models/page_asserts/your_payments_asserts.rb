@@ -8,7 +8,8 @@ module PageModels
 
     def assert_book_order_and_payment_history(book_title)
       your_account_page.wait_until_spinner_invisible
-      expect(order_and_payment_history_page.book_list.text).to match(/#{book_title}/i)
+      order_and_payment_history_page.wait_for_book_list
+      expect(order_and_payment_history_page.book_list.text).to match(/#{Regexp.escape(book_title)}/i)
     end
 
     def assert_payment_card_saved(card_count, name_on_card, card_type)
