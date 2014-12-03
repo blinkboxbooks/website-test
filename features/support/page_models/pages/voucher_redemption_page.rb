@@ -78,6 +78,7 @@ module PageModels
     element :start_shopping_button, '.final-stage'
 
     def submit_code(code)
+      wait_for_voucher_code
       voucher_code.set code
       use_this_code_button.click
     end
