@@ -14,8 +14,7 @@ module PageModels
 
     def assert_payment_card_saved(card_count, name_on_card, card_type)
       your_account_page.wait_until_spinner_invisible
-      # TODO: www.test environment braintree user id pointer issue fix - revert to 'have(card_count).items' once resolved :
-      expect(your_payments_page.saved_cards).to have_at_least(card_count).items
+      expect(your_payments_page.saved_cards).to have(card_count).items
       expect(your_payments_page).to have_credit_card(card_type.downcase, :holder_name => name_on_card.upcase)
     end
   end

@@ -144,7 +144,7 @@ module PageModels
       confirm_and_pay_page.confirm_and_pay.click
       expect_page_displayed('order complete')
       assert_order_complete
-      return name_on_card, card_type
+      return name_on_card, card_type, confirm_and_pay_page.number_of_saved_cards
     end
 
     def submit_payment_details_with_empty_cc_form
