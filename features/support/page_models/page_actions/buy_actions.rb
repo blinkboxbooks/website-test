@@ -50,6 +50,7 @@ module PageModels
       confirm_and_pay_page.wait_for_details_view
       expect(page).to have_text(:visible, 'Your saved card details')
       card_count = confirm_and_pay_page.number_of_saved_cards
+      expect(card_count).to be >= 1
       click_confirm_and_pay
       return card_count
     end
