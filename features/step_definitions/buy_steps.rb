@@ -180,7 +180,7 @@ Then /^I can see this book in my Order & Payment history$/ do
 end
 
 When /^I complete purchase by paying with saved card$/ do
-  pay_with_saved_card
+  @card_count = pay_with_saved_card
 end
 
 Then /^I can see the payment card saved in my Payment details$/ do
@@ -214,7 +214,7 @@ end
 
 Then /^my saved Payment details are not updated$/ do
   click_link_from_my_account_dropdown('Saved cards')
-  assert_payment_card_saved(@card_count,@name_on_card, @card_type)
+  assert_payment_card_saved(@card_count, 'Jamie Jones', 'Visa')
 end
 
 Then /^Confirm and pay page displays my account credit as £(\d+)$/ do |account_credit|
