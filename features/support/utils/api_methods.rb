@@ -73,10 +73,9 @@ module APIMethods
   class User
     include Utilities
 
-    def initialize(auth, api, cardholder_name)
+    def initialize(auth, api)
       @auth_uri = "#{auth}/oauth2/token"
       @credit_card_uri = "#{api}/service/my/creditcards"
-      @cardholder_name = cardholder_name
     end
 
     def create_new_user! (options ={})
@@ -109,7 +108,7 @@ module APIMethods
       return @email_address, @password, @device_name
     end
 
-    def add_credit_card(access_token = @access_token, cardholder_name = @cardholder_name)
+    def add_credit_card(access_token = @access_token)
       params = {
           default: true,
           # 4111 1111 1111 1111
@@ -120,7 +119,7 @@ module APIMethods
           expirationMonth: '$bt4|javascript_1_3_9$n2q6jmFvVafmdNfSfSU9MF3yPCqhwBBY82zuqs6XyX6aTfRa0oNfzZqUvT9anec50xxfDV0JaleHKPhMI7GMHGwCRlb+L2453iJLpEwOoDniQZPugup4kwGQ8nC8WWsCUsIM1nerCIhdXqM/z39YokLSTSTxdLr+3PNVsO4IpPimlMykHNNd1RDM4WFBnUD5BF4/wf3DdEsoiRtqqdQ/kodMghnoAXIdSEEAPksFU7D6qwzlIrmsH/5Q+JJthMHj/R9zUKnKgMwVju8eauxfPPSA3LiaJNectc/AiIljKy9KEoX8PHLVaLo3/iJN9Mi8E/qyFHhcXy+37rArQSt3LQ==$1jLFMrOV5mBs/n2EYMO9bHlDqd39z6vpzaAIBmvG7VU=$eWKOliParBgfOevW57CLi1Ygqca3n82MnrlgUlDIBRA=',
           # 2023
           expirationYear: '$bt4|javascript_1_3_9$x+84iiS/jkyEGFzM2rNlMefyeCsOYZAq5ZNR2r4sjEd9UqTlxQCLd+KOx9OetxNm8535vhNWpEX/p1xinRyt4kZ/nPyJZLBKY4jOMQIFijlJnJlf0gdOK47Za3scoU9T6+rzGSRzcyk5Y5Mmy1+P3srqhcAmrtXO66xGZV7qVgm1iL4wROyErTHOuED+Vsf3wsf2m3Bw4iwvUL25Deh76HCkvVXEYuMZXyyjjfjE7MoDlYAlVrTy153oN4Ftl5XGMmYW1fpjVI+qaqynl4YHsAdZS/WKxuyAMHpRFB4iqxKZKnVUYLBtlpwJzs+AgZdhhdcrvxPE7g1jZfDrMC457g==$OlcKDixSrSU2bh0fdPYHvIaFyIZU8YBZVAH1b1kz72A=$oPAHMTI5eBEYMXFlNVmdxTGkUM8ocs38gGroUM5GXSg=',
-          cardholderName: cardholder_name,
+          cardholderName: 'jamie jones',
           billingAddress: {line1: '123 my street', line2: '', locality: 'mytown', postcode: 'wc1x8aq'}
       }
       headers = {'Content-Type' => 'application/vnd.blinkboxbooks.data.v1+json', 'Authorization' => "Bearer #{access_token}"}
@@ -153,7 +152,7 @@ module APIMethods
 
 
   def api_helper()
-    @api_helper||=APIMethods::User.new(server('auth'), server('api'), test_data('payment', 'name_on_card'))
+    @api_helper||=APIMethods::User.new(server('auth'), server('api'))
   end
 end
 World(APIMethods)
