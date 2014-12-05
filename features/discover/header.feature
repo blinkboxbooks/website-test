@@ -16,7 +16,7 @@ Feature: Global Header
   @smoke @production
   Scenario Outline:
     When I click on the <tab_name> header tab
-    Then I should be on the <tab_name> page
+    Then <tab_name> page is displayed
 
   Examples:
     | tab_name     |

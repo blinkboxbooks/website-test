@@ -129,6 +129,6 @@ Feature: Navigation around the website
   @on_demand
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
-    Then I should be on the Authors page
+    Then Authors page is displayed
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed

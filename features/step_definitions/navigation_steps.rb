@@ -118,10 +118,6 @@ And /^main header tabs should not be selected$/ do
   end
 end
 
-Then /^I should be on the Authors page$/ do
-  assert_authors_page_displayed
-end
-
 And /^(.*?) section header is (.*?)$/ do |section_name, text|
   assert_section_header(section_name, text)
 end
