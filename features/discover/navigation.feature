@@ -98,7 +98,6 @@ Feature: Navigation around the website
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
-  @sanity
   Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
     When I select <shop_link> link from the hamburger Menu
     Then <shop_link> page is displayed
