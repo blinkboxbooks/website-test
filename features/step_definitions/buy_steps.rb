@@ -212,7 +212,7 @@ end
 
 Then /^my saved Payment details are not updated$/ do
   click_link_from_my_account_dropdown('Saved cards')
-  assert_payment_card_saved(@card_count, test_data('payment', 'name_on_card'), 'Visa')
+  assert_payment_card_saved(@card_count, @name_on_card, @card_type)
 end
 
 Then /^Confirm and pay page displays my account credit as £(\d+)$/ do |account_credit|
