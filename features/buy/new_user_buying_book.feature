@@ -12,7 +12,8 @@ Feature: New user buying book from blinkbox books
     And I choose to save the payment details
     And I submit the payment details
     Then my payment is successful
-  
+
+  @smoke
   Examples: VISA
     | card_type |
     | VISA      |

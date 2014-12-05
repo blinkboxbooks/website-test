@@ -15,48 +15,43 @@ Feature: Navigation around the website
     When I click on the About Blinkbox Books footer link
     Then About Blinkbox Books page is displayed
 
-   @wip 
-  Scenario: Clicking on the Sitemap link
-    When I click on the Sitemap link
-    Then Sitemap page is displayed
-
-   
+  @sanity
   Scenario: Navigating to the help site from the footer
     Given the blinkbox books help link is present in the footer
     Then the link should point to the blinkbox books help home page
 
-   
+  @sanity
   Scenario: Navigating to the blinkbox movies site from the footer
     Given the blinkbox movies link is present in the footer
     Then the link should point to the blinkbox movies home page
 
-   
+  @sanity
   Scenario: Navigating to the blinkbox music site from the footer
     Given the blinkbox music link is present in the footer
     Then the link should point to the blinkbox music home page
 
-   
+  @sanity
   Scenario: Navigating to the blinkbox books blogs from the footer
     Given the blinkbox books blog link is present in the footer
     Then the link should point to the blinkbox books blog
 
-   
+  @sanity
   Scenario: Navigating to the blinkbox careers site from the footer
     Given the blinkbox careers link is present in the footer
     Then the link should point to the blinkbox careers page
 
-   
+  @sanity
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions footer link
     Then Terms and conditions page is displayed in a new window
 
-    
+  @sanity
   Scenario: Navigate to categories page
     When I click on the Categories header tab
     Then Categories page is displayed
     And main footer is displayed
 
-    
+  @sanity
   Scenario: Navigate to Bestsellers page
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
@@ -69,7 +64,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-    
+  @sanity
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
@@ -80,7 +75,7 @@ Feature: Navigation around the website
     And New releases section header is New releases
     And Grid view and List view buttons displayed
 
-    
+  @sanity
   Scenario: Navigate to Free eBooks page
     When I click on the Free eBooks header tab
     Then Free eBooks page is displayed
@@ -92,6 +87,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
+  @sanity
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then I should be on the Authors page
@@ -102,6 +98,7 @@ Feature: Navigation around the website
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
+  @sanity
   Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
     When I select <shop_link> link from the hamburger Menu
     Then <shop_link> page is displayed
@@ -114,7 +111,7 @@ Feature: Navigation around the website
     | Authors      |
     | New releases |
 
-    @CWA-1029 @unstable
+  @CWA-1029 @unstable
   Scenario Outline: Clicking Support links from the hamburger Menu
     When I select <support_link> link from the hamburger Menu
     Then I am redirected to the "<support_page>" support page in a new window

@@ -12,6 +12,7 @@ Feature: Suggestions for user search
     When I type "spring" into search field
     Then search suggestions should be displayed
 
+  @sanity
   Scenario: Typing valid sequence of letters returns relevant suggestions
     When I type "Gone" into search field
     Then search suggestions should be displayed

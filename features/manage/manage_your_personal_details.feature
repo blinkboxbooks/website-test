@@ -17,7 +17,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And the first name and last name are as submitted
 
-   @CWA-1014 @unstable
+  @sanity
   Scenario: Successfully update Your marketing preferences
     Given I have signed in
     And I am on the Personal details tab

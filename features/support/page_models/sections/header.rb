@@ -79,6 +79,7 @@ module PageModels
     def click_log_out
       open_account_menu
       account_menu.sign_out_button.click
+      account_menu.wait_until_sign_in_button_visible
     end
 
     def navigate_to_hamburger_menu_option(link_name)
