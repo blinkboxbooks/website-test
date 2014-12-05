@@ -169,10 +169,6 @@ And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
   submit_payment_details_with_cvv(cvv)
 end
 
-When /^I complete purchase by selecting to save the card details$/ do |save_payment|
-  @name_on_card, @card_type, @card_count = successful_new_payment(true)
-end
-
 Then /^I can see this book in my Order & Payment history$/ do
   click_link_from_my_account_dropdown('Order history')
   assert_book_order_and_payment_history(@book_title)
