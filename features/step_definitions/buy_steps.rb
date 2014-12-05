@@ -169,9 +169,8 @@ And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
   submit_payment_details_with_cvv(cvv)
 end
 
-When /^I complete purchase by selecting (to save|not to save) the card details$/ do |save_payment|
-  save_payment.include?('not') ? save_payment = false : save_payment = true
-  @name_on_card, @card_type, @card_count = successful_new_payment(save_payment)
+When /^I complete purchase by selecting to save the card details$/ do |save_payment|
+  @name_on_card, @card_type, @card_count = successful_new_payment(true)
 end
 
 Then /^I can see this book in my Order & Payment history$/ do
@@ -189,8 +188,11 @@ Then /^I can see the payment card saved in my Payment details$/ do
 end
 
 When /^I complete purchase with new card by selecting (to save|not to save) Payment details$/ do |save_payment|
-  save_payment.include?('not') ? save_payment = false : save_payment = true
-  @name_on_card, @card_type, @card_count = successful_new_payment(save_payment)
+  if save_payment.include?('not')
+    not_saved_name, not_saved_card_type, @card_count = successful_new_payment(save_payment: false)
+  else
+    @name_on_card, @card_type, @card_count = successful_new_payment(save_payment: true)
+  end
 end
 
 And /^I have a stored card$/ do
