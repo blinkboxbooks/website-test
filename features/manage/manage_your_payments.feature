@@ -39,13 +39,13 @@ Feature: Update the Payment details of the user under 'your account'
   Scenario: First time user checking Payment details after buying a book and saving payment details
     Given I have selected to buy a paid book from the Book details page
     And I register to proceed with the purchase
-    When I complete purchase by selecting to save the card details
+    When I complete purchase with new card by selecting to save Payment details
     Then I can see the payment card saved in my Payment details
 
   Scenario: First time user checking Payment details after buying a book and not saving payment details
     Given I have selected to buy a paid book from the Book details page
     And I register to proceed with the purchase
-    When I complete purchase by selecting not to save the card details
+    When I complete purchase with new card by selecting not to save Payment details
     Then I have no saved payment cards in my account
 
   Scenario: Returning user checking Payment details after buying a book with saved payments

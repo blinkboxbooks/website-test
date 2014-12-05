@@ -10,7 +10,7 @@ Feature: Manage Order and Payment history under My account section.
   Scenario: First time user checking Order history, Payment details after buying a book and saving payment details
     Given I have selected to buy a paid book from the Book details page
     And I register to proceed with the purchase
-    When I complete purchase by selecting to save the card details
+    When I complete purchase with new card by selecting to save Payment details
     Then I can see this book in my Order & Payment history
 
   Scenario: Returning user checking Order history, Payment details after buying a book with saved payments
