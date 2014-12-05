@@ -7,21 +7,14 @@ Feature: Checking home page contents
   Background: Opens Blinkbox books home page
     Given I am on the home page
 
-  @CWA-44
-  Scenario: Main footer contents
-    When I am viewing in Desktop mode
-    Then main footer is displayed
-
   @CWA-33
   Scenario: Homepage hero banner display
-    And I am viewing in Desktop mode
     When number of banners is between 1 and 4
     Then homepage hero banner is displayed
     And banner has background images
     And homepage hero banner has navigation buttons
 
   Scenario Outline: Books under Home page promotable categories
-    When I am viewing in Desktop mode
     Then <category_name> promotable category has 8 books
     And all the books displayed
 
@@ -32,14 +25,12 @@ Feature: Checking home page contents
 
   @manual @CWA-33
   Scenario: Homepage hero banner manual navigation
-    And I am viewing in Desktop mode
     When homepage hero banner is displayed
     And user clicks on navigation button
     Then next banner image should be displayed
 
   @manual @CWA-33
   Scenario: Homepage hero banner image layout
-    And I am viewing in Desktop mode
     When homepage hero banner is displayed
     And banner has background images
     Then each banner image has title and subtitle
@@ -47,14 +38,12 @@ Feature: Checking home page contents
 
   @manual @CWA-33
   Scenario: Click on banner image
-    And I am viewing in Desktop mode
     When homepage hero banner is displayed
     And user clicks on banner image
     Then user is redirected to the banner content in the current window
 
   @manual @CWA-33
   Scenario: Click on Find out more button on banner image
-    And I am viewing in Desktop mode
     When homepage hero banner is displayed
     And user clicks on 'Find out more' button
     Then user is redirected to the banner content in the current window

@@ -8,133 +8,6 @@ Feature: Navigation around the website
     Given I am on the home page
 
   @smoke @production
-  Scenario: Clicking on the website logo
-    When I click on the website logo
-    Then Home page is displayed
-
-  @smoke @production
-  Scenario: Clicking on the About Blinkbox Books
-    When I click on the About Blinkbox Books footer link
-    Then About Blinkbox Books page is displayed
-
-  @smoke @wip @production
-  Scenario: Clicking on the Sitemap link
-    When I click on the Sitemap link
-    Then Sitemap page is displayed
-
-  @smoke @production
-  Scenario: Navigating to the help site from the footer
-    Given the blinkbox books help link is present in the footer
-    Then the link should point to the blinkbox books help home page
-
-  @smoke @production
-  Scenario: Navigating to the blinkbox movies site from the footer
-    Given the blinkbox movies link is present in the footer
-    Then the link should point to the blinkbox movies home page
-
-  @smoke @production
-  Scenario: Navigating to the blinkbox music site from the footer
-    Given the blinkbox music link is present in the footer
-    Then the link should point to the blinkbox music home page
-
-  @smoke @production
-  Scenario: Navigating to the blinkbox books blogs from the footer
-    Given the blinkbox books blog link is present in the footer
-    Then the link should point to the blinkbox books blog
-
-  @smoke @production
-  Scenario: Navigating to the blinkbox careers site from the footer
-    Given the blinkbox careers link is present in the footer
-    Then the link should point to the blinkbox careers page
-
-  @smoke @production
-  Scenario: Navigate to Terms and Conditions page
-    When I click on the Terms & conditions footer link
-    Then Terms and conditions page is displayed in a new window
-
-  @smoke @production @servertesting
-  Scenario: Navigate to categories page
-    When I click on the Categories header tab
-    Then Categories page is displayed
-    And main footer is displayed
-
-  @smoke @production @servertesting
-  Scenario: Navigate to Bestsellers page
-    When I click on the Bestsellers header tab
-    Then Bestsellers page is displayed
-
-  Scenario: Navigate to Bestsellers page
-    When I click on the Bestsellers header tab
-    Then Bestsellers page is displayed
-    And Bestsellers section header is Bestsellers Top 100 this month
-    And I should see 'Fiction' and 'Non-Fiction' tabs
-    And Grid view and List view buttons displayed
-    And main footer is displayed
-
-  @smoke @production @servertesting
-  Scenario: Navigate to New releases page
-    When I click on the New releases header tab
-    Then New releases page is displayed
-
-  Scenario: Navigate to New releases page
-    When I click on the New releases header tab
-    Then New releases page is displayed
-    And New releases section header is New releases
-    And Grid view and List view buttons displayed
-
-  @smoke @production @servertesting
-  Scenario: Navigate to Free eBooks page
-    When I click on the Free eBooks header tab
-    Then Free eBooks page is displayed
-
-  Scenario: Navigate to Free eBooks page
-    When I click on the Free eBooks header tab
-    Then Free eBooks page is displayed
-    And Free eBooks section header is Free eBooks
-    And Grid view and List view buttons displayed
-    And main footer is displayed
-
-  @smoke @production @servertesting
-  Scenario: Navigate to Authors page
-    When I click on the Authors header tab
-    Then I should be on the Authors page
-
-  Scenario: Navigate to Authors page
-    When I click on the Authors header tab
-    Then I should be on the Authors page
-    And Bestselling authors section header is Top 100 bestselling authors this month
-    And main footer is displayed
-
-  @smoke @production @servertesting
-  Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
-    When I select <shop_link> link from the hamburger Menu
-    Then <shop_link> page is displayed
-
-  Examples:
-    | shop_link    |
-    | Categories   |
-    | Bestsellers  |
-    | Free eBooks  |
-    | Authors      |
-    | New releases |
-
-  @smoke @production @CWA-1029 @unstable
-  Scenario Outline: Clicking Support links from the hamburger Menu
-    When I select <support_link> link from the hamburger Menu
-    Then I am redirected to the "<support_page>" support page in a new window
-
-  Examples:
-    | support_link | support_page  |
-    | FAQs         | View all FAQs |
-    | Contact us   | Contact us    |
-
-  @production
-  Scenario: Navigate to home page from the hamburger Menu
-    Given I am on Categories page
-    When I select Featured link from the hamburger Menu
-    Then Home page is displayed
-
-  @smoke @production
   Scenario: Navigate to book details page
     When I select a book to view book details
     Then details page of the corresponding book is displayed
@@ -216,25 +89,6 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in list view
 
-  Scenario: Top authors links from footer is dynamically generated
-    Given there are top five authors on the Authors page
-    Then the same Top authors are displayed in the footer
-
-  Scenario: Top categories links from footer is dynamically generated
-    Given there are top five categories on the Categories page
-    Then the same Top categories are displayed in the footer
-
-  Scenario: New releases links from footer is dynamically generated
-    Given there are top five books on the New release page
-    Then the same New releases are displayed in the footer
-
-  Scenario: Redesigned footer is displayed
-    When I scroll down to the footer
-    Then the new Discover image should be displayed
-    Then the new Register image should be displayed
-    Then the new Download image should be displayed
-    Then the new Read image should be displayed
-
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
     When I click on the Bestsellers header tab
@@ -248,3 +102,33 @@ Feature: Navigation around the website
     Then Bestsellers page is displayed
     And  I select grid view
     Then long titles should be truncated to fit within image
+
+  @on_demand
+  Scenario: Navigate to Bestsellers page
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
+    And Bestsellers section header is Bestsellers Top 100 this month
+    And I should see 'Fiction' and 'Non-Fiction' tabs
+    And Grid view and List view buttons displayed
+
+  @on_demand
+  Scenario: Navigate to New releases page
+    When I click on the New releases header tab
+    Then New releases page is displayed
+    And New releases section header is New releases
+    And Grid view and List view buttons displayed
+
+  @on_demand
+  Scenario: Navigate to Free eBooks page
+    When I click on the Free eBooks header tab
+    Then Free eBooks page is displayed
+    And Free eBooks section header is Free eBooks
+    And Grid view and List view buttons displayed
+    And main footer is displayed
+
+  @on_demand
+  Scenario: Navigate to Authors page
+    When I click on the Authors header tab
+    Then I should be on the Authors page
+    And Bestselling authors section header is Top 100 bestselling authors this month
+    And main footer is displayed

@@ -41,6 +41,7 @@ Feature:  Checking Categories page content
       And page should display category image
       And category name should be "Humour"
 
+   @on_demand
    Scenario: Invalid category is not displayed
      When 123445 is invalid category id
      Then page should not display the category
