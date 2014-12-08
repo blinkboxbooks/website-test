@@ -121,6 +121,9 @@ end
 Given /^I register(?: to proceed with the purchase| to proceed with adding sample)?$/ do
   click_register_button
   register_new_user
+  # Interim patch
+  wait_until { confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number? } # Waiting until the form or pay with new card button appears
+  click_pay_with_new_card if confirm_and_pay_page.has_pay_with_new_card?
 end
 
 Given /^my default stored card has( not)? expired$/ do |not_expired|
