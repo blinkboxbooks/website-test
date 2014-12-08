@@ -8,7 +8,7 @@ Feature: Update the Personal details of the user under 'your account'
   Background:
     Given I am on the home page
 
-  @CWA-213 @production
+  @sanity @production
   Scenario: Successfully update Your personal information
     Given I have signed in to change my first name
     And I am on the Personal details tab
@@ -17,7 +17,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And the first name and last name are as submitted
 
-  @sanity @production
+  @production
   Scenario: Successfully update Your marketing preferences
     Given I have signed in
     And I am on the Personal details tab
