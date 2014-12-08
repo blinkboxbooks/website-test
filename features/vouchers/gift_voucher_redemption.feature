@@ -1,5 +1,4 @@
 Feature: Gift voucher redemption
-
   As an existing user
   I want to redeem a voucher
   In order to get a gift credit to my account
@@ -7,14 +6,8 @@ Feature: Gift voucher redemption
   Background:
     Given I am signed in
     And I am on the Voucher Redemption page
-
-  @smoke @production
-  Scenario: Voucher Redemption page
-    When I am on the Voucher Redemption page
     Then Voucher Redemption form should be displayed
 
-  #Please input a valid voucher code below before running the scenario
-  #TODO: to make this scenario fully automated, we can make an API call to voucher generator service to generate a new voucher code on a test environment
   @smoke @pending
   Scenario: User redeems a valid voucher code
     When I submit a valid voucher code "<a_valid_voucher_code>"
@@ -22,25 +15,29 @@ Feature: Gift voucher redemption
     Then the redemption confirmation message is displayed
 
   @negative @smoke
-  Scenario Outline: Invalid or expired voucher code is rejected by the server
-    When I submit an invalid voucher code "<invalid_code>"
-    Then "<error_message>" error message is displayed
+  Scenario: Invalid or expired voucher code is rejected by the server
+    When I submit an invalid voucher code "CPBGFWUSDSFPG7HP"
+    Then "is past its use by date. Sorry, it's no longer valid." error message is displayed
 
-  Examples:
-    | invalid_code     | error_message                                           |
-    | CPBGFWUSDSFPG7HP | is past its use by date. Sorry, it's no longer valid.   |
-    | 1234567890abcdef | doesn't exist! Keep an eye out for typos and try again. |
+  @negative @smoke
+  Scenario: Invalid or expired voucher code is rejected by the server
+    When I submit an invalid voucher code "1234567890abcdef"
+    Then "doesn't exist! Keep an eye out for typos and try again." error message is displayed
 
   @negative @production
-  Scenario Outline: Voucher code validation on the client side
-    When I submit an invalid voucher code "<invalid_code>"
-    Then "<error_message>" error message is displayed
+  Scenario: Voucher code validation on the client side
+    When I submit an invalid voucher code "123D!@£"
+    Then "That code isn't quite right - it should be a combo of 16 letters and numbers" error message is displayed
 
-  Examples:
-    | invalid_code      | error_message                                                                |
-    | 123D!@£           | That code isn't quite right - it should be a combo of 16 letters and numbers |
-    | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers     |
-    | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers      |
+  @negative @production
+  Scenario: Voucher code validation on the client side
+    When I submit an invalid voucher code "12D4567890"
+    Then "That code's a bit short – it should be a combo of 16 letters and numbers" error message is displayed
+
+  @negative @production
+  Scenario: Voucher code validation on the client side
+    When I submit an invalid voucher code "11DB1111111111111"
+    Then "That code's a bit long – it should be a combo of 16 letters and numbers" error message is displayed
 
   @negative @production
   Scenario: Non-allowed characters in the voucher code are highlighted by the client side validation straight away
