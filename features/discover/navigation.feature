@@ -7,12 +7,12 @@ Feature: Navigation around the website
   Background:
     Given I am on the home page
 
-  @production
+  @sanity @production
   Scenario: Clicking on the website logo
     When I click on the website logo
     Then Home page is displayed
 
-  @production
+  @sanity @production
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books footer link
     Then About Blinkbox Books page is displayed
@@ -141,7 +141,7 @@ Feature: Navigation around the website
     When I click on a category
     Then Category page is displayed for the selected category
 
-  @production
+  @production @sanity
   Scenario: Read a sample
     Given I am on the Book Details page of a paid book
     And  the book reader is displayed
