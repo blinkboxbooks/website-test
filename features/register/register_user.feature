@@ -86,7 +86,7 @@ Feature: Register a new Blinkbox books user
     When I click on link to sign in with already registered email
     Then Sign in page is displayed
 
-  @smoke
+  
   Scenario: Verify promotion check box is ticked by default
     Given I am on the Register page
     Then the promotion checkbox should be ticked by default

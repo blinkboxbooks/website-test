@@ -7,58 +7,53 @@ Feature: Navigation around the website
   Background:
     Given I am on the home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Clicking on the website logo
     When I click on the website logo
     Then Home page is displayed
 
-  @smoke @production
+  @sanity @production
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books footer link
     Then About Blinkbox Books page is displayed
 
-  @smoke @wip @production
-  Scenario: Clicking on the Sitemap link
-    When I click on the Sitemap link
-    Then Sitemap page is displayed
-
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the help site from the footer
     Given the blinkbox books help link is present in the footer
     Then the link should point to the blinkbox books help home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox movies site from the footer
     Given the blinkbox movies link is present in the footer
     Then the link should point to the blinkbox movies home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox music site from the footer
     Given the blinkbox music link is present in the footer
     Then the link should point to the blinkbox music home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox books blogs from the footer
     Given the blinkbox books blog link is present in the footer
     Then the link should point to the blinkbox books blog
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox careers site from the footer
     Given the blinkbox careers link is present in the footer
     Then the link should point to the blinkbox careers page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions footer link
     Then Terms and conditions page is displayed in a new window
 
-  @smoke @production @servertesting
+  @sanity @production
   Scenario: Navigate to categories page
     When I click on the Categories header tab
     Then Categories page is displayed
     And main footer is displayed
 
-  @smoke @production @servertesting
+  @sanity @production
   Scenario: Navigate to Bestsellers page
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
@@ -71,7 +66,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production @servertesting
+  @sanity @production
   Scenario: Navigate to New releases page
     When I click on the New releases header tab
     Then New releases page is displayed
@@ -82,7 +77,7 @@ Feature: Navigation around the website
     And New releases section header is New releases
     And Grid view and List view buttons displayed
 
-  @smoke @production @servertesting
+  @sanity @production
   Scenario: Navigate to Free eBooks page
     When I click on the Free eBooks header tab
     Then Free eBooks page is displayed
@@ -94,7 +89,7 @@ Feature: Navigation around the website
     And Grid view and List view buttons displayed
     And main footer is displayed
 
-  @smoke @production @servertesting
+  @sanity @production
   Scenario: Navigate to Authors page
     When I click on the Authors header tab
     Then I should be on the Authors page
@@ -105,7 +100,7 @@ Feature: Navigation around the website
     And Bestselling authors section header is Top 100 bestselling authors this month
     And main footer is displayed
 
-  @smoke @production @servertesting
+  @production
   Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
     When I select <shop_link> link from the hamburger Menu
     Then <shop_link> page is displayed
@@ -118,7 +113,7 @@ Feature: Navigation around the website
     | Authors      |
     | New releases |
 
-  @smoke @production @CWA-1029 @unstable
+  @CWA-1029 @unstable @production
   Scenario Outline: Clicking Support links from the hamburger Menu
     When I select <support_link> link from the hamburger Menu
     Then I am redirected to the "<support_page>" support page in a new window
@@ -134,19 +129,19 @@ Feature: Navigation around the website
     When I select Featured link from the hamburger Menu
     Then Home page is displayed
 
-  @smoke @production
+  @production
   Scenario: Navigate to book details page
     When I select a book to view book details
     Then details page of the corresponding book is displayed
     And details of above book are displayed
 
-  @smoke @production
+  @production
   Scenario: Navigate to a Category page
     Given I am on Categories page
     When I click on a category
     Then Category page is displayed for the selected category
 
-  @smoke @production
+  @production @sanity
   Scenario: Read a sample
     Given I am on the Book Details page of a paid book
     And  the book reader is displayed
@@ -242,7 +237,7 @@ Feature: Navigation around the website
     And  I select list view
     Then long titles should be displayed in two lines
 
-  @CWA-34  @manual
+  @CWA-34 @manual
   Scenario:Book Component-Grid view Title display
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed

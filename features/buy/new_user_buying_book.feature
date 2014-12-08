@@ -32,7 +32,6 @@ Feature: New user buying book from blinkbox books
     And I submit the payment details
     Then my payment is successful
 
-  @smoke
   Examples: VISA
     | card_type |
     | VISA      |
@@ -42,7 +41,6 @@ Feature: New user buying book from blinkbox books
     | Mastercard |
     | VISA Debit |
 
-  @smoke
   Scenario: First time user buying a free book
     Given I have selected to buy a free book
     When I register to proceed with the purchase

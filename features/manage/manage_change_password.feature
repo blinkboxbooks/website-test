@@ -7,7 +7,6 @@ Feature: Manage personal details - change password
   Background:
     Given I am on the home page
 
-  @smoke
   Scenario: Successfully change password
     Given I have registered as new user without a clubcard
     And I am on the Change your password section

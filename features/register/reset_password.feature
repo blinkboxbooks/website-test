@@ -20,7 +20,7 @@ Feature: Reset password with blinkbox books
     When I click on Forgotten your password? link
     Then reset password page is displayed
 
-  @production @CP-314
+  @CP-314 @production
   Scenario: Password reset with valid email
     Given I am on the reset password page
     When I enter email address registered with blinkbox books
@@ -28,7 +28,7 @@ Feature: Reset password with blinkbox books
     Then reset password response page is displayed
     And reset email confirmation message is displayed
 
-  @production @CP-314
+  @CP-314 @production
   Scenario: Password reset with invalid email - app should not expose registered email addresses
     Given I am on the reset password page
     When I enter email address not registered with blinkbox books

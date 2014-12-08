@@ -8,7 +8,7 @@ Feature: Update the Personal details of the user under 'your account'
   Background:
     Given I am on the home page
 
-  @CWA-213 @smoke @production
+  @sanity @production
   Scenario: Successfully update Your personal information
     Given I have signed in to change my first name
     And I am on the Personal details tab
@@ -17,7 +17,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And the first name and last name are as submitted
 
-  @smoke @CWA-1014 @production @unstable
+  @production
   Scenario: Successfully update Your marketing preferences
     Given I have signed in
     And I am on the Personal details tab
@@ -26,7 +26,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And marketing preferences are as submitted
 
-  @smoke
+  
   Scenario: Successfully update Email address
     Given I have registered as new user without a clubcard
     And I am on the Personal details tab
