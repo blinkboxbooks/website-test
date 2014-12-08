@@ -1,4 +1,4 @@
-@suggestions @cp-275 @ie @safari
+@suggestions @cp-275 @ie @safari @production @data-dependent
 Feature: Suggestions for user search
   As a Blinkbox books user
   I want to get suggestions when I start searching for a book or author etc
@@ -7,7 +7,6 @@ Feature: Suggestions for user search
   Background: Opens Blinkbox books home page
     Given I am on the home page
 
-  @data-dependent @production
   Scenario: Search suggestions displayed
     When I type "spring" into search field
     Then search suggestions should be displayed
