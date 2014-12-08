@@ -139,6 +139,8 @@ module APIMethods
 
     def http_client
       @http = HTTPClient.new
+      @http.ssl_config.ssl_version = :SSLv23 # Patch for "Broken pipe - SSL_connect" errors
+      @http
     end
 
     def format_body(body)
