@@ -7,7 +7,7 @@ Feature: Register a new Blinkbox books user
   Background:
     Given I am a guest user
 
-  
+  @smoke
   Scenario: Happy path-register user
     Given I am on the Register page
     When I enter valid personal details
@@ -17,7 +17,6 @@ Feature: Register a new Blinkbox books user
     Then Registration success page is displayed
     And welcome message is shown
 
-  @smoke
   Scenario: Happy path register user with a valid club card number
     Given I am on the Register page
     When I enter personal details with valid clubcard number
