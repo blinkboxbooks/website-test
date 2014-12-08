@@ -102,33 +102,3 @@ Feature: Navigation around the website
     Then Bestsellers page is displayed
     And  I select grid view
     Then long titles should be truncated to fit within image
-
-  @on_demand
-  Scenario: Navigate to Bestsellers page
-    When I click on the Bestsellers header tab
-    Then Bestsellers page is displayed
-    And Bestsellers section header is Bestsellers Top 100 this month
-    And I should see 'Fiction' and 'Non-Fiction' tabs
-    And Grid view and List view buttons displayed
-
-  @on_demand
-  Scenario: Navigate to New releases page
-    When I click on the New releases header tab
-    Then New releases page is displayed
-    And New releases section header is New releases
-    And Grid view and List view buttons displayed
-
-  @on_demand
-  Scenario: Navigate to Free eBooks page
-    When I click on the Free eBooks header tab
-    Then Free eBooks page is displayed
-    And Free eBooks section header is Free eBooks
-    And Grid view and List view buttons displayed
-    And main footer is displayed
-
-  @on_demand
-  Scenario: Navigate to Authors page
-    When I click on the Authors header tab
-    Then Authors page is displayed
-    And Bestselling authors section header is Top 100 bestselling authors this month
-    And main footer is displayed
