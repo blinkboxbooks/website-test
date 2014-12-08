@@ -7,7 +7,6 @@ Feature: Register a new Blinkbox books user
   Background:
     Given I am a guest user
 
-  @smoke
   Scenario: Happy path-register user
     Given I am on the Register page
     When I enter valid personal details
