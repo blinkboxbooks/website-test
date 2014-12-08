@@ -8,6 +8,8 @@ Feature: Gift voucher redemption
     And I am on the Voucher Redemption page
     Then Voucher Redemption form should be displayed
 
+  #Please input a valid voucher code below before running the scenario
+  #TODO: to make this scenario fully automated, we can make an API call to voucher generator service to generate a new voucher code on a test environment
   @smoke @pending
   Scenario: User redeems a valid voucher code
     When I submit a valid voucher code "<a_valid_voucher_code>"
