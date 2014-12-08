@@ -129,19 +129,19 @@ Feature: Navigation around the website
     When I select Featured link from the hamburger Menu
     Then Home page is displayed
 
-  @production
+  @sanity @production
   Scenario: Navigate to book details page
     When I select a book to view book details
     Then details page of the corresponding book is displayed
     And details of above book are displayed
 
-  @production
+  @sanity @production
   Scenario: Navigate to a Category page
     Given I am on Categories page
     When I click on a category
     Then Category page is displayed for the selected category
 
-  @production @sanity
+  @sanity @production
   Scenario: Read a sample
     Given I am on the Book Details page of a paid book
     And  the book reader is displayed

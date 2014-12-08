@@ -45,7 +45,7 @@ Feature: New user buying book from blinkbox books
     | card_type  |
     | Mastercard |
     | VISA Debit |
-    
+
   Scenario: Guest user buys a free book
     Given I have selected to buy a free book
     When I register to proceed with the purchase
