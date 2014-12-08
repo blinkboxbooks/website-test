@@ -49,7 +49,10 @@ module PageModels
     def pay_with_saved_card
       confirm_and_pay_page.wait_for_details_view
       expect(page).to have_text(:visible, 'Your saved card details')
+      card_count = confirm_and_pay_page.number_of_saved_cards
+      expect(card_count).to be >= 1
       click_confirm_and_pay
+      return card_count
     end
 
     def click_pay_with_new_card
@@ -101,8 +104,6 @@ module PageModels
     end
 
     def enter_card_details(card_details)
-      # Interim patch
-      click_pay_with_new_card if confirm_and_pay_page.has_pay_with_new_card?
       confirm_and_pay_page.wait_for_card_number
       confirm_and_pay_page.card_number.set card_details[:card_number]
       confirm_and_pay_page.cvv.set card_details[:cvv]
@@ -136,6 +137,12 @@ module PageModels
     end
 
     def successful_new_payment(save_payment, card_type = 'VISA')
+      # Interim patch
+      wait_until { confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number? } # Waiting until the form or pay with new card button appears
+      click_pay_with_new_card if confirm_and_pay_page.has_pay_with_new_card?
+
+      card_count = confirm_and_pay_page.number_of_saved_cards
+
       card_details = set_valid_card_details(card_type)
       name_on_card = card_details[:name_on_card]
       enter_card_details(card_details)
@@ -144,7 +151,8 @@ module PageModels
       confirm_and_pay_page.confirm_and_pay.click
       expect_page_displayed('order complete')
       assert_order_complete
-      return name_on_card, card_type
+      card_count += 1 if save_payment
+      return name_on_card, card_type, card_count
     end
 
     def submit_payment_details_with_empty_cc_form

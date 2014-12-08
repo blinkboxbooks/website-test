@@ -22,6 +22,8 @@ ci-vagrant-smoke:                  <%= ci_opts %> SERVER=LOCALHOST --tags @smoke
 ci-test-smoke:                     <%= ci_opts %>          SERVER=TEST --tags  @smoke FAIL_FAST=false
 ci-test-sanity:                    <%= ci_opts %>          SERVER=TEST --tags  @sanity FAIL_FAST=false
 ci-test-smoke-sanity:              <%= ci_opts %>          SERVER=TEST --tags  @smoke,@sanity FAIL_FAST=false
+
+ci-test-smoke-unstable:            <%= ci_opts_unstable %> SERVER=TEST --tags  @smoke
 ci-test-regression:                <%= ci_opts %>          SERVER=TEST --tags ~@smoke
 ci-test-regression-unstable:       <%= ci_opts_unstable %> SERVER=TEST --tags ~@smoke
 
