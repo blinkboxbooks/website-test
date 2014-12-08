@@ -8,13 +8,14 @@ Feature: Sign into Blinkbox books
     Given I am not signed in
     And I am on the Sign in page
 
-  @sanity
+  @sanity @production
   Scenario: Happy path user sign in
     When I enter valid sign in details
     And I click sign in button
     Then I am successfully signed in
     And I am redirected to Home page
 
+  @production
   Scenario: Sign in by selecting Keep me signed in
     When I enter valid sign in details
     And select Keep me signed in

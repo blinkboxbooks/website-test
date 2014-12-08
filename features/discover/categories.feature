@@ -34,7 +34,7 @@ Feature:  Checking Categories page content
      When I am viewing in Mobile Landscape mode
      And page should display categories as list
 
-   @unstable @data-dependent 
+   @unstable @data-dependent @production
    Scenario: Valid category displayed
      When 18 is valid category id
      Then page should display the category

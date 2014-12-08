@@ -8,7 +8,7 @@ Feature: Gift voucher redemption
     Given I am signed in
     And I am on the Voucher Redemption page
 
-   
+  @production
   Scenario: Voucher Redemption page
     When I am on the Voucher Redemption page
     Then Voucher Redemption form should be displayed
@@ -31,7 +31,7 @@ Feature: Gift voucher redemption
     | CPBGFWUSDSFPG7HP | is past its use by date. Sorry, it's no longer valid.   |
     | 1234567890abcdef | doesn't exist! Keep an eye out for typos and try again. |
 
-  @negative 
+  @negative @production
   Scenario Outline: Voucher code validation on the client side
     When I submit an invalid voucher code "<invalid_code>"
     Then "<error_message>" error message is displayed
@@ -42,7 +42,7 @@ Feature: Gift voucher redemption
     | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers     |
     | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers      |
 
-  @negative 
+  @negative @production
   Scenario: Non-allowed characters in the voucher code are highlighted by the client side validation straight away
     When I start to enter a voucher code with special characters
     Then "Just letters and numbers please, e.g. A9K2" error message is displayed

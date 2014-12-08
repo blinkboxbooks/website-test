@@ -8,7 +8,7 @@ Feature: Update the Personal details of the user under 'your account'
   Background:
     Given I am on the home page
 
-  @CWA-213  
+  @CWA-213 @production
   Scenario: Successfully update Your personal information
     Given I have signed in to change my first name
     And I am on the Personal details tab
@@ -17,7 +17,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "Your personal details have been successfully updated." message is displayed
     And the first name and last name are as submitted
 
-  @sanity
+  @sanity @production
   Scenario: Successfully update Your marketing preferences
     Given I have signed in
     And I am on the Personal details tab
@@ -75,7 +75,7 @@ Feature: Update the Personal details of the user under 'your account'
     | 123456789012345678 |
     | 634004025023057563 |
 
-  @negative 
+  @negative @production
   Scenario: Update email address using already registered email address
     Given I am returning user
     And I have signed in
@@ -84,7 +84,7 @@ Feature: Update the Personal details of the user under 'your account'
     Then "This email address is already registered to another Blinkbox books account" message is displayed
     And my email is not updated
 
-  
+  @production
   Scenario Outline: Check marketing preferences status for returning user
     Given I have <opt_status> for blinkbox books marketing
     And I have signed in

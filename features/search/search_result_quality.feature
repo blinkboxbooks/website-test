@@ -19,7 +19,7 @@ Feature: Verify that search results match search criteria
     | blahblahblahblah    |
     | $%^$%&^%*^&         |
 
-  @data-dependent @smoke @sanity
+  @data-dependent @smoke @sanity @production
   Scenario: Search results displayed
     When I search for "history"
     Then Search Results page is displayed
