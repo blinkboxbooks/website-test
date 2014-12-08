@@ -8,7 +8,7 @@
     Given I am on the home page
     And I have signed in
 
-  @smoke @sanity @production
+  @smoke @production
   Scenario: Sign out from home page
     When I select sign out from the drop down menu
     Then I should be signed out successfully
