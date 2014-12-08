@@ -202,7 +202,7 @@ Feature: Navigation around the website
     And I click on Non-Fiction tab
     Then I should see Non-Fiction books in grid view
 
-  @CWA-71 
+  @CWA-71 @production
   Scenario: Bestsellers page - List view not changing between tabs
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
