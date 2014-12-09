@@ -1,4 +1,4 @@
-  @sing_in @sign_out @ie @safari @production @data_dependent
+  @sign_in @sign_out @ie @safari @production @data_dependent
   Feature: Sign out from blinkbox books
   As a signed in user
   I want to sign out from blinkbox books
