@@ -53,8 +53,8 @@ module WaitSteps
 
   #made it up myself, blame @aliaksandr
   def wait_until(timeout=Capybara.default_wait_time)
-    require 'timeout'
-    Timeout.timeout(timeout) do
+    require 'terminator'
+    Terminator.terminate(timeout) do
       sleep(0.1) until value = yield
       value
     end
