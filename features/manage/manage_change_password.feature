@@ -9,7 +9,7 @@ Feature: Manage personal details - change password
     And I have registered as new user without a clubcard
     And I am on the Change your password section
 
-  @smoke
+  @sanity
   Scenario: Successfully change password
     When I change password
     And I confirm changes

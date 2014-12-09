@@ -3,7 +3,6 @@ Feature: Password strength indicator
 
 IN ORDER TO know my password is safe AS A registering user I WANT TO see a password strength indicator
 
-
   Background:
     Given I am on the home page
 

@@ -14,7 +14,7 @@ module PageModels
     def click_on_a_category
       @category_name = categories_page.select_random_category
       expect_page_displayed('Category')
-      categories_page.wait_until_book_results_sections_visible(20)
+      books_section.wait_until_books_visible
       @category_name
     end
 
