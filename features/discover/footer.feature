@@ -7,37 +7,37 @@ Feature: Global Footer
   Background:
     Given I am on the home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books footer link
     Then About Blinkbox Books page is displayed
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the help site from the footer
     Given the blinkbox books help link is present in the footer
     Then the link should point to the blinkbox books help home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox movies site from the footer
     Given the blinkbox movies link is present in the footer
     Then the link should point to the blinkbox movies home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox music site from the footer
     Given the blinkbox music link is present in the footer
     Then the link should point to the blinkbox music home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox books blogs from the footer
     Given the blinkbox books blog link is present in the footer
     Then the link should point to the blinkbox books blog
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigating to the blinkbox careers site from the footer
     Given the blinkbox careers link is present in the footer
     Then the link should point to the blinkbox careers page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigate to Terms and Conditions page
     When I click on the Terms & conditions footer link
     Then Terms and conditions page is displayed in a new window

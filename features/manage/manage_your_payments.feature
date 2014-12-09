@@ -7,8 +7,7 @@ Feature: Update the Payment details of the user under 'your account'
   Background:
     Given I am on the home page
 
-  @ie @safari
-  @smoke @unstable
+  @ie @safari @unstable
   Scenario: Delete a stored card
     Given I have a stored card
     And I have signed in
@@ -27,7 +26,7 @@ Feature: Update the Payment details of the user under 'your account'
      And select Keep on Delete card? pop-up
      Then my saved card is not deleted
      
-  @data_dependent @ie @safari @production @CP-2063
+  @data_dependent @ie @safari @CP-2063 @production
   Scenario: Change default card
     Given I have multiple stored cards
     And I have signed in

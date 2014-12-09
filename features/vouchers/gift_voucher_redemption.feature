@@ -8,20 +8,20 @@ Feature: Gift voucher redemption
     Given I am signed in
     And I am on the Voucher Redemption page
 
-  @smoke @production
+  @production @sanity
   Scenario: Voucher Redemption page
     When I am on the Voucher Redemption page
     Then Voucher Redemption form should be displayed
 
   #Please input a valid voucher code below before running the scenario
   #TODO: to make this scenario fully automated, we can make an API call to voucher generator service to generate a new voucher code on a test environment
-  @smoke @pending
+   @pending @sanity
   Scenario: User redeems a valid voucher code
     When I submit a valid voucher code "<a_valid_voucher_code>"
     And I confirm the voucher redemption
     Then the redemption confirmation message is displayed
 
-  @negative @smoke
+  @negative 
   Scenario Outline: Invalid or expired voucher code is rejected by the server
     When I submit an invalid voucher code "<invalid_code>"
     Then "<error_message>" error message is displayed

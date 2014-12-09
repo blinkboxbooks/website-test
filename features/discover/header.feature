@@ -7,13 +7,13 @@ Feature: Global Header
   Background:
     Given I am on the home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Clicking on the website logo
     When I click on the Bestsellers header tab
     And I click on the website logo
     Then Home page is displayed
 
-  @smoke @production
+  @sanity @production
   Scenario Outline:
     When I click on the <tab_name> header tab
     Then <tab_name> page is displayed
@@ -26,7 +26,7 @@ Feature: Global Header
     | Bestsellers  |
     | Categories   |
 
-  @smoke @production @servertesting
+  @production
   Scenario Outline: Navigating through site by clicking Shop links from the hamburger Menu
     When I select <shop_link> link from the hamburger Menu
     Then <shop_link> page is displayed
@@ -39,7 +39,7 @@ Feature: Global Header
     | Authors      |
     | New releases |
 
-  @smoke @production @CWA-1029 @unstable
+  @CWA-1029 @unstable @production
   Scenario Outline: Clicking Support links from the hamburger Menu
     When I select <support_link> link from the hamburger Menu
     Then I am redirected to the "<support_page>" support page in a new window
@@ -49,7 +49,7 @@ Feature: Global Header
     | FAQs         | View all FAQs |
     | Contact us   | Contact us    |
 
-  @production
+  @sanity @production
   Scenario: Navigate to home page from the hamburger Menu
     Given I am on Categories page
     When I select Featured link from the hamburger Menu

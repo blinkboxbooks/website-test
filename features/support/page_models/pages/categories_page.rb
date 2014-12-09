@@ -3,9 +3,6 @@ module PageModels
     set_url '/#!/categories'
     set_url_matcher /categories/
 
-    element :all_categories_list, '[data-test="all-categories-list"]'
-    elements :categories, 'div.category div.cover a img'
-    elements :category_titles, 'div.category div.title'
     sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
 
     sections :top_categories, CategoryBox, '[data-test="recommended-category-container"] li'
@@ -19,28 +16,13 @@ module PageModels
       !!category_by_id(category_id)
     end
 
-    # TODO: Everything below must be refactored, using the top_categories, all_categories sections!
-
-    def category_by_index(index)
-      raise "Cannot find category with index #{index}" if categories[index].nil?
-      categories[index]
-    end
-
-    def title_for_category(index)
-      category_titles[index].text
-    end
-
-    def select_category_by_index(index = random_category_index)
-      wait_until_categories_visible(10)
-      category_title = title_for_category index
+    def select_random_category
+      wait_until_all_categories_visible(10)
+      category = all_categories.sample
+      category_title = category.title
       puts "Selecting category #{category_title}"
-      category_by_index(index).click
+      category.click
       category_title
-    end
-
-    def random_category_index
-      wait_until_all_categories_list_visible(10)
-      rand(0...categories.count)
     end
 
     def top_categories_titles

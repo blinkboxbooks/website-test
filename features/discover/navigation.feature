@@ -7,19 +7,19 @@ Feature: Navigation around the website
   Background:
     Given I am on the home page
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigate to book details page
     When I select a book to view book details
     Then details page of the corresponding book is displayed
     And details of above book are displayed
 
-  @smoke @production
+  @sanity @production
   Scenario: Navigate to a Category page
     Given I am on Categories page
     When I click on a category
     Then Category page is displayed for the selected category
 
-  @smoke @production
+  @sanity @production
   Scenario: Read a sample
     Given I am on the Book Details page of a paid book
     And  the book reader is displayed
@@ -90,14 +90,14 @@ Feature: Navigation around the website
     Then I should see Non-Fiction books in list view
 
   @CWA-34 @manual
-  Scenario:Book Component-List view Title display
+  Scenario: Book Component-List view Title display
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And  I select list view
     Then long titles should be displayed in two lines
 
   @CWA-34  @manual
-  Scenario:Book Component-Grid view Title display
+  Scenario: Book Component-Grid view Title display
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
     And  I select grid view
