@@ -5,7 +5,7 @@ Feature: New user buying book from blinkbox books
   So that I can read it
 
   @smoke
-  Scenario: Guest user buys a book and saves payment details
+  Scenario: Guest user buys a book and saves payment details (search, register, buy)
     Given I have selected to buy a paid book
     When I register to proceed with the purchase
     And I enter valid VISA card details
