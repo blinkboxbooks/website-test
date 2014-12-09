@@ -4,7 +4,17 @@ Feature: New user buying book from blinkbox books
   I want to the ability to complete register and buy book in one flow
   So that I can read it
 
-  Scenario Outline: First time user buying book and saving payment details
+  @smoke
+  Scenario: Guest user buys a book and saves payment details
+    Given I have selected to buy a paid book
+    When I register to proceed with the purchase
+    And I enter valid VISA card details
+    And I enter valid Billing address
+    And I choose to save the payment details
+    And I submit the payment details
+    Then my payment is successful
+
+  Scenario Outline: Guest user buys a book and saves payment details
     Given I have selected to buy a paid book
     When I register to proceed with the purchase
     And I enter valid <card_type> card details
@@ -13,17 +23,12 @@ Feature: New user buying book from blinkbox books
     And I submit the payment details
     Then my payment is successful
 
-  @smoke
-  Examples: VISA
-    | card_type |
-    | VISA      |
-
   Examples: Other card types
     | card_type  |
     | Mastercard |
     | VISA Debit |
 
-  Scenario Outline: First time user buying book and not saving payment details
+  Scenario Outline: Guest user buys a book but does not save payment details
     Given I have selected to buy a paid book
     When I register to proceed with the purchase
     And I enter valid <card_type> card details
@@ -41,8 +46,7 @@ Feature: New user buying book from blinkbox books
     | Mastercard |
     | VISA Debit |
 
-  @sanity
-  Scenario: First time user buying a free book
+  Scenario: Guest user buys a free book
     Given I have selected to buy a free book
     When I register to proceed with the purchase
     And I click on Confirm order

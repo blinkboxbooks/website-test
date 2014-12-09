@@ -4,7 +4,7 @@ Feature: Navigating through my account pages
   I need the ability to view my account page
   So that I can view and update my account details
 
-  @production
+  @sanity @production
   Scenario Outline: Signed in user accessing account navigation links from Account Menu
     Given I am on the home page
     Given I have signed in
