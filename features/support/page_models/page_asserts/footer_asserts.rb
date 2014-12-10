@@ -17,7 +17,7 @@ Then /^the same New releases are displayed in the footer$/ do
 end
 
 Then /the new (Help & Support|How it Works|Tesco Clubcard|Redeem Code) footer section should be displayed/ do |step|
-  expect(current_page.footer.step_by_title(step)).not_to be_nil
+  expect(current_page.footer.step_by_title(step)).to be_nil
 end
 
 Then /I scroll down to the footer/ do

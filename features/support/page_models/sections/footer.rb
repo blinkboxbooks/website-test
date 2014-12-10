@@ -1,10 +1,11 @@
 module PageModels
   class FooterLinks < PageModels::BlinkboxbooksSection
     element :about_blinkbox_books, "a[data-test='footer-about-link']"
-    element :help, "a[data-test='footer-help-link']"
+    element :help, "a[data-test='footer-contact-us-link']"
     element :terms_and_conditions, "a[data-test='footer-t-and-c-link']"
     element :blinkbox_movies, "a[data-test='footer-movies-link']"
     element :blinkbox_music, "a[data-test='footer-music-link']"
+    element :privacy_and_cookies_policy, "a[data-test='footer-privacy-link']"
     element :blinkbox_blogs, "a[data-test='footer-blog-link']"
     element :blinkbox_careers, "a[data-test='footer-careers-link']"
   end
@@ -23,7 +24,7 @@ module PageModels
     elements :top_authors, 'div#footer_authors1 ul.lists li a'
     elements :top_categories, 'div#footer_categories ul.lists li a'
     elements :new_releases, 'div#footer_releases ul.lists li a[bo-text]'
-    section :links, FooterLinks, 'div#bottom_footer'
+    section :links, FooterLinks, '[data-test="bottom-footer-container"]'
     sections :steps, FooterSteps, '.steps a'
 
     def version_info
