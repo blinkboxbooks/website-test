@@ -16,10 +16,8 @@ Then /^the same New releases are displayed in the footer$/ do
   end
 end
 
-Then /the new (Discover|Register|Download|Read) image should be displayed/ do |step|
-  step = current_page.footer.step_by_title(step)
-  expect(step).to have_image
-  expect(step.image).to be_visible
+Then /the new (Help & Support|How it Works|Tesco Clubcard|Redeem Code) footer section should be displayed/ do |step|
+  expect(current_page.footer.step_by_title(step)).not_to be_nil
 end
 
 Then /I scroll down to the footer/ do

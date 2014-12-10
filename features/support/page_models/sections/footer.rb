@@ -10,8 +10,7 @@ module PageModels
   end
 
   class FooterSteps < PageModels::BlinkboxbooksSection
-    element :title_element, 'h2'
-    element :image, 'img'
+    element :title_element, 'h4'
 
     def title
       wait_for_title_element
@@ -25,7 +24,7 @@ module PageModels
     elements :top_categories, 'div#footer_categories ul.lists li a'
     elements :new_releases, 'div#footer_releases ul.lists li a[bo-text]'
     section :links, FooterLinks, 'div#bottom_footer'
-    sections :steps, FooterSteps, 'ul#steps li'
+    sections :steps, FooterSteps, '.steps a'
 
     def version_info
       version_div.text(:all)

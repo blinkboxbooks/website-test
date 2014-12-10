@@ -225,10 +225,10 @@ Feature: Navigation around the website
 
   Scenario: Redesigned footer is displayed
     When I scroll down to the footer
-    Then the new Discover image should be displayed
-    Then the new Register image should be displayed
-    Then the new Download image should be displayed
-    Then the new Read image should be displayed
+    Then the new Help & Support footer section should be displayed
+    Then the new How it Works footer section should be displayed
+    Then the new Tesco Clubcard footer section should be displayed
+    Then the new Redeem Code footer section should be displayed
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
