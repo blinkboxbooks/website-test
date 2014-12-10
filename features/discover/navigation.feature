@@ -48,6 +48,11 @@ Feature: Navigation around the website
     Then Terms and conditions page is displayed in a new window
 
   @sanity @production
+  Scenario: Navigate to Privacy & Cookies Policy page
+    When I click on the Privacy & Cookies Policy footer link
+    Then Terms and conditions page is displayed in a new window
+
+  @sanity @production
   Scenario: Navigate to categories page
     When I click on the Categories header tab
     Then Categories page is displayed
@@ -225,10 +230,10 @@ Feature: Navigation around the website
 
   Scenario: Redesigned footer is displayed
     When I scroll down to the footer
-    Then the new Discover image should be displayed
-    Then the new Register image should be displayed
-    Then the new Download image should be displayed
-    Then the new Read image should be displayed
+    Then the Help & Support footer visual should be displayed
+    Then the How it Works footer visual should be displayed
+    Then the Tesco Clubcard footer visual should be displayed
+    Then the Redeem Code footer visual should be displayed
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
