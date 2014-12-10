@@ -1,7 +1,3 @@
-Given /^I am on the home page/ do
-  home_page.load unless home_page.displayed?
-end
-
 ##############################################################
 # testing header
 ##############################################################
@@ -13,6 +9,12 @@ end
 ##############################################################
 # testing main navigation
 ##############################################################
+
+Given /^I am on (?:the )?([\-&\w\s]*) page$/i do |page_name|
+  page = page_model(page_name)
+  page.load unless page.displayed?
+  expect_page_displayed(page_name)
+end
 
 Then /^(?:the )?([\-&\w\s]*) page is displayed( in a new window)?$/i do |page_name, new_window|
   if new_window
@@ -152,11 +154,6 @@ And /^details of above book are displayed$/ do
   assert_book_details
 end
 
-Given /^I am on Categories page$/ do
-  categories_page.load
-  expect_page_displayed('Categories')
-end
-
 Given /^I am on the Book Details page (?:of a|for the same)? (paid|free) book$/ do |book_type|
   @sample ? type = "sample_for_#{book_type}_book" : type = book_type
   book_details_page.visit_for(type.downcase.to_sym)
@@ -211,10 +208,6 @@ And /^clicking above FAQ link opens relevant support page in a new window$/ do
       end
     end
   end
-end
-
-Given /^I am on the reset password page$/  do
-  reset_password_page.load
 end
 
 And /^I click on send reset link button$/  do

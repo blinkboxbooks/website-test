@@ -1,5 +1,9 @@
 Then /^main footer is displayed$/ do
-  assert_footer_displayed
+  expect(current_page).to have_footer
+end
+
+Then /^main header is displayed$/ do
+  expect(current_page).to have_header
 end
 
 When /^number of banners is between (\d+) and (\d+)$/ do |min_banners, max_banners|

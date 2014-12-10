@@ -38,16 +38,8 @@ When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to 
   sign_in_from_redirected_page
 end
 
-Given /^I am on the Sign in page$/ do
-  sign_in_page.load
-end
-
 When /^I (?:click|have selected) register (?:button|option)$/ do
   click_register_button
-end
-
-Given /^I am on the Register page$/ do
-  register_page.load
 end
 
 When /^I enter valid personal details$/ do

@@ -55,8 +55,10 @@ module PageModels
       return card_count
     end
 
-    def click_pay_with_new_card
-      confirm_and_pay_page.pay_with_new_card.click
+    def choose_to_pay_with_a_new_card
+      # Waiting until the form or pay with new card button appears
+      wait_until { confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number? }
+      confirm_and_pay_page.pay_with_new_card.click if confirm_and_pay_page.has_pay_with_new_card?
     end
 
     def pay_with_new_card(card_type)
@@ -137,9 +139,7 @@ module PageModels
     end
 
     def successful_new_payment(save_payment, card_type = 'VISA')
-      # Interim patch
-      wait_until { confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number? } # Waiting until the form or pay with new card button appears
-      click_pay_with_new_card if confirm_and_pay_page.has_pay_with_new_card?
+      choose_to_pay_with_a_new_card
 
       card_count = confirm_and_pay_page.number_of_saved_cards
 

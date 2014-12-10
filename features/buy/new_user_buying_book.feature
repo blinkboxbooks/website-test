@@ -8,8 +8,7 @@ Feature: New user buying book from blinkbox books
   Scenario: Guest user buys a book and saves payment details (search, register, buy)
     Given I have selected to buy a paid book
     When I register to proceed with the purchase
-    And I enter valid VISA card details
-    And I enter valid Billing address
+    And I pay with a new VISA card
     And I choose to save the payment details
     And I submit the payment details
     Then my payment is successful
@@ -17,8 +16,7 @@ Feature: New user buying book from blinkbox books
   Scenario Outline: Guest user buys a book and saves payment details
     Given I have selected to buy a paid book
     When I register to proceed with the purchase
-    And I enter valid <card_type> card details
-    And I enter valid Billing address
+    And I pay with a new <card_type> card
     And I choose to save the payment details
     And I submit the payment details
     Then my payment is successful
@@ -31,8 +29,7 @@ Feature: New user buying book from blinkbox books
   Scenario Outline: Guest user buys a book but does not save payment details
     Given I have selected to buy a paid book
     When I register to proceed with the purchase
-    And I enter valid <card_type> card details
-    And I enter valid Billing address
+    And I pay with a new <card_type> card
     And I choose not to save the payment details
     And I submit the payment details
     Then my payment is successful

@@ -11,6 +11,7 @@ Feature:  Checking Categories page content
 
   @unstable @ui
   Scenario: Display Categories in Desktop Mode
+    When I am viewing in Desktop mode
     And page should display 5 categories in a row
 
   @unstable @ui

@@ -58,7 +58,7 @@ namespace :ci do
       rm_rf @run_record if File.exists?(@run_record)
 
       begin
-        Rake::Task['teamcity:cucumber:run'].invoke
+        Rake::Task['ci:cucumber:run'].invoke
       rescue SystemExit
         if File.exist?(@run_record)
           puts "*********************************"
@@ -72,13 +72,13 @@ namespace :ci do
             puts 'Rerun ' + @run.to_s + ' of ' + @reruns.to_s
 
             if @run > 1
-              Rake::Task['teamcity:cucumber:rerun'].reenable
+              Rake::Task['ci:cucumber:rerun'].reenable
             end
 
             if tests_passed_according_to_record?
               puts "Tests passed according to the record in #{run_record}"
             else
-              Rake::Task['teamcity:cucumber:rerun'].invoke(last_run_record, @run_record)
+              Rake::Task['ci:cucumber:rerun'].invoke(last_run_record, @run_record)
             end
           rescue SystemExit
             puts 'Tests failed again.'

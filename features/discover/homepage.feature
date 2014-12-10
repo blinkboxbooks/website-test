@@ -15,6 +15,7 @@ Feature: Checking home page contents
     And homepage hero banner has navigation buttons
 
   Scenario Outline: Books under Home page promotable categories
+    When I am viewing in Desktop mode
     Then <category_name> promotable category has 8 books
     And all the books displayed
 
