@@ -139,6 +139,8 @@ module APIMethods
 
     def http_client
       @http = HTTPClient.new
+      @http.ssl_config.options |= OpenSSL::SSL::OP_NO_SSLv3
+      @http
     end
 
     def format_body(body)

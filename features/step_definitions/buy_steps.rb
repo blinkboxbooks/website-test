@@ -1,4 +1,4 @@
-When /^I enter valid (.*?) card details$/ do |card_type|
+When /^I enter valid (.*) card details$/ do |card_type|
   enter_card_details(set_valid_card_details(card_type))
 end
 

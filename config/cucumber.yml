@@ -17,22 +17,29 @@ local_debug:          -r features --tags ~@wip GRID=false SERVER=TEST DEBUG=true
 ci-no-grid:                        <%= ci_opts %>
 
 ci-local-smoke:                    <%= ci_opts %> SERVER=LOCALHOST --tags @smoke FAIL_FAST=false
-ci-vagrant-smoke:                  <%= ci_opts %> SERVER=LOCALHOST --tags @smoke --tags @production BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=false
+ci-vagrant-smoke:                  <%= ci_opts %> SERVER=LOCALHOST --tags @smoke --tags @production BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=true
 
 ci-test-smoke:                     <%= ci_opts %>          SERVER=TEST --tags  @smoke FAIL_FAST=false
+ci-test-sanity:                    <%= ci_opts %>          SERVER=TEST --tags  @sanity FAIL_FAST=false
+ci-test-regression:                <%= ci_opts %>          SERVER=TEST --tags ~@smoke --tags ~@sanity
 ci-test-smoke-unstable:            <%= ci_opts_unstable %> SERVER=TEST --tags  @smoke
-ci-test-regression:                <%= ci_opts %>          SERVER=TEST --tags ~@smoke
-ci-test-regression-unstable:       <%= ci_opts_unstable %> SERVER=TEST --tags ~@smoke
+ci-test-sanity-unstable:           <%= ci_opts_unstable %> SERVER=TEST --tags  @sanity
+ci-test-regression-unstable:       <%= ci_opts_unstable %> SERVER=TEST --tags ~@smoke --tags ~@sanity
 
-ci-dev-smoke:                      <%= ci_opts %>          SERVER=DEV --tags  @smoke --tags @production
-ci-dev-regression:                 <%= ci_opts %>          SERVER=DEV --tags ~@smoke --tags @production
-ci-dev-regression-unstable:        <%= ci_opts_unstable %> SERVER=DEV --tags ~@smoke --tags @production
+ci-dev-smoke:                      <%= ci_opts %>          SERVER=DEV --tags  @smoke                 --tags @production
+ci-dev-sanity:                     <%= ci_opts %>          SERVER=DEV --tags  @sanity                --tags @production
+ci-dev-regression:                 <%= ci_opts %>          SERVER=DEV --tags ~@smoke --tags ~@sanity --tags @production
+ci-dev-regression-unstable:        <%= ci_opts_unstable %> SERVER=DEV --tags ~@smoke --tags ~@sanity --tags @production
 
-ci-production-smoke:               <%= ci_opts %>          SERVER=PRODUCTION --tags  @smoke --tags @production
-ci-production-regression:          <%= ci_opts %>          SERVER=PRODUCTION --tags ~@smoke --tags @production
-ci-production-regression-unstable: <%= ci_opts_unstable %> SERVER=PRODUCTION --tags ~@smoke --tags @production
+ci-qa-smoke:                      <%= ci_opts %>          SERVER=QA --tags  @smoke
+ci-qa-sanity:                     <%= ci_opts %>          SERVER=QA --tags  @sanity
+ci-qa-regression:                 <%= ci_opts %>          SERVER=QA --tags ~@smoke --tags ~@sanity
+ci-qa-regression-unstable:        <%= ci_opts_unstable %> SERVER=QA --tags ~@smoke --tags ~@sanity
 
-release-server-testing:   <%= ci_opts %> --tags @servertesting
+ci-production-smoke:               <%= ci_opts %>          SERVER=PRODUCTION --tags  @smoke                 --tags @production
+ci-production-sanity:              <%= ci_opts %>          SERVER=PRODUCTION --tags  @sanity                --tags @production
+ci-production-regression:          <%= ci_opts %>          SERVER=PRODUCTION --tags ~@smoke --tags ~@sanity --tags @production
+ci-production-regression-unstable: <%= ci_opts_unstable %> SERVER=PRODUCTION --tags ~@smoke --tags ~@sanity --tags @production
 
 
 #mac-safari: -r features --tags ~@wip GRID=TRUE PLATFORM=MAC BROWSER_NAME=SAFARI BROWSER_VERSION=6.0.4 --no-multiline -i -s --format progress
