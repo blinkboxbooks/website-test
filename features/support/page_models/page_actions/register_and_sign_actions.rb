@@ -68,7 +68,6 @@ module PageModels
     def submit_registration_details
       register_page.register_button.click
       puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
-      wait_until { registration_success_page.displayed? || register_page.has_errors_section? || confirm_and_pay_page.displayed? }
     end
 
     def register_new_user(provide_clubcard = 'without', clubcard_number = '')
