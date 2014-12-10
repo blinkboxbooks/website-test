@@ -16,8 +16,8 @@ Then /^the same New releases are displayed in the footer$/ do
   end
 end
 
-Then /the (Help & Support|How it Works|Tesco Clubcard|Redeem Code) footer segment should be displayed/i do |footer_segment|
-  expect(current_page.footer.segment_by_title(footer_segment)).not_to be_nil
+Then /the (Help & Support|How it Works|Tesco Clubcard|Redeem Code) footer visual should be displayed/i do |footer_visual|
+  expect(current_page.footer.visual_by_title(footer_visual)).not_to be_nil
 end
 
 Then /I scroll down to the footer/ do
