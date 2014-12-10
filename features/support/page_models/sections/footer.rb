@@ -10,7 +10,7 @@ module PageModels
     element :blinkbox_careers, "a[data-test='footer-careers-link']"
   end
 
-  class FooterSteps < PageModels::BlinkboxbooksSection
+  class FooterSegment < PageModels::BlinkboxbooksSection
     element :title_element, 'h4'
 
     def title
@@ -25,7 +25,7 @@ module PageModels
     elements :top_categories, 'div#footer_categories ul.lists li a'
     elements :new_releases, 'div#footer_releases ul.lists li a[bo-text]'
     section :links, FooterLinks, '[data-test="bottom-footer-container"]'
-    sections :steps, FooterSteps, '.steps a'
+    sections :segments, FooterSegment, '.steps a'
 
     def version_info
       version_div.text(:all)
@@ -39,8 +39,8 @@ module PageModels
       top_categories.find { |i| i.text == name }
     end
 
-    def step_by_title(title)
-      steps.find { |i| i.title == title }
+    def segment_by_title(title)
+      segments.find { |i| i.title == title }
     end
 
     def navigate_by_link(link_name)
