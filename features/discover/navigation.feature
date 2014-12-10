@@ -230,10 +230,10 @@ Feature: Navigation around the website
 
   Scenario: Redesigned footer is displayed
     When I scroll down to the footer
-    Then the new Help & Support footer section should be displayed
-    Then the new How it Works footer section should be displayed
-    Then the new Tesco Clubcard footer section should be displayed
-    Then the new Redeem Code footer section should be displayed
+    Then the Help & Support footer section should be displayed
+    Then the How it Works footer section should be displayed
+    Then the Tesco Clubcard footer section should be displayed
+    Then the Redeem Code footer section should be displayed
 
   @CWA-34 @manual
   Scenario:Book Component-List view Title display
