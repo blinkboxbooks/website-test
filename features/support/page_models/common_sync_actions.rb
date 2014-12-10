@@ -1,5 +1,5 @@
 #from https://gist.github.com/jnicklas/4129937, https://gist.github.com/jnicklas/d8da686061f0a59ffdf7
-require 'timeout'
+require 'terminator'
 require 'rspec/expectations'
 
 module WaitSteps
@@ -53,7 +53,6 @@ module WaitSteps
 
   #made it up myself, blame @aliaksandr
   def wait_until(timeout = Capybara.default_wait_time)
-    require 'terminator'
     Terminator.terminate(timeout) do
       sleep(0.1) until value = yield
       value
