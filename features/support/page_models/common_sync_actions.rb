@@ -12,11 +12,11 @@ module WaitSteps
     supports_block_expectations
     match do |block|
       begin
-        Timeout.timeout(Capybara.default_wait_time) do
+        Terminator.terminate(Capybara.default_wait_time) do
           sleep(0.1) until value = block.call
           value
         end
-      rescue TimeoutError
+      rescue Terminator::Error
         false
       end
     end
@@ -26,11 +26,11 @@ module WaitSteps
     supports_block_expectations
     match do |block|
       begin
-        Timeout.timeout(Capybara.default_wait_time) do
+        Terminator.terminate(Capybara.default_wait_time) do
           sleep(0.1) until value = !block.call
           value
         end
-      rescue TimeoutError
+      rescue Terminator::Error
         false
       end
     end
@@ -41,20 +41,20 @@ module WaitSteps
     supports_block_expectations
     match do |block|
       begin
-        Timeout.timeout(Capybara.default_wait_time) do
+        Terminator.terminate(Capybara.default_wait_time) do
           sleep(0.1) until value = (block.call == expected)
           value
         end
-      rescue TimeoutError
+      rescue Terminator::Error
         false
       end
     end
   end
 
   #made it up myself, blame @aliaksandr
-  def wait_until(timeout=Capybara.default_wait_time)
-    require 'timeout'
-    Timeout.timeout(timeout) do
+  def wait_until(timeout = Capybara.default_wait_time)
+    require 'terminator'
+    Terminator.terminate(timeout) do
       sleep(0.1) until value = yield
       value
     end

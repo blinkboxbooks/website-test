@@ -20,6 +20,7 @@ group :support do
   gem 'rake'
   gem 'Platform'
   gem 'require_all'
+  gem 'terminator'
 end
 
 group :api do
