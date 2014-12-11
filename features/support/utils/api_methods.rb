@@ -125,7 +125,7 @@ module APIMethods
       headers = {'Content-Type' => 'application/vnd.blinkboxbooks.data.v1+json', 'Authorization' => "Bearer #{access_token}"}
       body = {'type' => 'urn:blinkboxbooks:schema:creditcard'}.merge(params)
       response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
-      raise 'Adding credit card failed' unless response.status == 201
+      raise "Adding credit card failed with response:\n#{response.inspect}"# unless response.status == 201
       params[:cardholderName]
     end
 
