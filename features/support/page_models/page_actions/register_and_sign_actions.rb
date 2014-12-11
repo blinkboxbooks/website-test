@@ -123,8 +123,8 @@ module PageModels
     end
 
     def sign_out_and_start_new_session
-      your_account_page.sign_out_button.click
-      home_page.load
+      log_out_current_session
+      home_page.load unless home_page.displayed?
     end
 
     def sign_in_from_redirected_page
