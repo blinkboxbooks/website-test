@@ -29,6 +29,7 @@ module PageModels
     element :title_element, '#inner-register-navigation span', :visible => true
     element :already_purchased_message, '#already-purchased'
     elements :saved_cards, '#saved-cards .extra div'
+    element :free_book_message, '.confirm-pay-freebook'
 
     def title
       title_element.text

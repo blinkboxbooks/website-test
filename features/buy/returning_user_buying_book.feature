@@ -7,13 +7,12 @@ Feature: Returning buying book from blinkbox books
   Background:
     Given I have a stored card
 
-  @smoke
   Scenario: Returning logged in user buying book with saved payment card
     Given I am buying a paid book as a logged in user
     When I pay with my saved default card
     Then my payment is successful
 
-  @smoke
+  @sanity
   Scenario: Returning user not logged in buying book with saved payment card
     Given I am buying a paid book as a not logged in user
     When I sign in to proceed
@@ -29,9 +28,9 @@ Feature: Returning buying book from blinkbox books
     Then my payment is successful
 
   Examples: Card types
-    | card_type        |
-    | Mastercard       |
-    | VISA Debit       |
+    | card_type  |
+    | Mastercard |
+    | VISA Debit |
 
   Scenario Outline: Returning user not logged in, buying book with one off new payment card
     Given I am buying a paid book as a not logged in user
@@ -57,14 +56,15 @@ Feature: Returning buying book from blinkbox books
     When I click on Confirm order
     Then my payment is successful
 
+  @sanity @production
   Scenario: Returning user buying a free book from grid view
     Given I have selected to buy a free book from Grid view
     And I sign in to proceed with the purchase
     When I click on Confirm order
     Then my payment is successful
 
-   @CWA-1000
-   Scenario: Returning user adding a book sample to library first and then buying the book.
+  @CWA-1000
+  Scenario: Returning user adding a book sample to library first and then buying the book.
     Given PENDING: CWA-1000 ?????
     Given I have identified a paid book on the book details page to read sample offline
     When I select Read offline on the book details page

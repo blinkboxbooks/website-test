@@ -8,7 +8,7 @@ Feature: Registration / sign in during gift voucher redemption
     Given I am not signed in
     And I am on the Voucher Redemption page
 
-  @smoke @pending
+   @pending
   Scenario: User registers a new account during voucher redemption
     When I submit a valid voucher code <code>
     Then the Registration form should be displayed
@@ -17,7 +17,7 @@ Feature: Registration / sign in during gift voucher redemption
     When I confirm the voucher code redemption in stage two
     Then my account should be credited by £5
 
-  @smoke @pending
+   @pending
   Scenario: User signs in during voucher redemption
     When I enter a valid voucher code
     And I click on Use this code

@@ -8,7 +8,7 @@ module PageModels
       Capybara.default_wait_time
     end
 
-    section :footer, Footer, 'div#footer'
+    section :footer, Footer, '[data-test="footer-container"]'
     section :header, Header, 'header#outer-header'
     section :search_form, SearchForm, 'div#searchbox-input'
 

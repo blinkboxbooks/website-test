@@ -1,4 +1,4 @@
-When /^I enter valid (.*?) card details$/ do |card_type|
+When /^I enter valid (.*) card details$/ do |card_type|
   enter_card_details(set_valid_card_details(card_type))
 end
 
@@ -15,7 +15,7 @@ When /^I pay with my saved default card$/ do
 end
 
 When /^I choose to pay with a new card$/ do
-  click_pay_with_new_card
+  choose_to_pay_with_a_new_card
 end
 
 And /^I have identified a (free|paid) book on the (book details|search results) page to read sample offline$/ do |book_type, page|
@@ -39,7 +39,7 @@ Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|log
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
-  click_pay_with_new_card
+  choose_to_pay_with_a_new_card
   enter_card_details(set_valid_card_details(card_type))
   enter_billing_details
 end
@@ -169,18 +169,13 @@ And(/^submit the payment details with a malformed cvv (.*?)$/) do |cvv|
   submit_payment_details_with_cvv(cvv)
 end
 
-When /^I complete purchase by selecting (to save|not to save) the card details$/ do |save_payment|
-  save_payment.include?('not') ? save_payment = false : save_payment = true
-  @name_on_card, @card_type, @card_count = successful_new_payment(save_payment)
-end
-
 Then /^I can see this book in my Order & Payment history$/ do
   click_link_from_my_account_dropdown('Order history')
   assert_book_order_and_payment_history(@book_title)
 end
 
 When /^I complete purchase by paying with saved card$/ do
-  pay_with_saved_card
+  @card_count = pay_with_saved_card
 end
 
 Then /^I can see the payment card saved in my Payment details$/ do
@@ -189,8 +184,11 @@ Then /^I can see the payment card saved in my Payment details$/ do
 end
 
 When /^I complete purchase with new card by selecting (to save|not to save) Payment details$/ do |save_payment|
-  save_payment.include?('not') ? save_payment = false : save_payment = true
-  @name_on_card, @card_type, @card_count = successful_new_payment(save_payment)
+  if save_payment.include?('not')
+    not_saved_name, not_saved_card_type, @card_count = successful_new_payment(save_payment: false)
+  else
+    @name_on_card, @card_type, @card_count = successful_new_payment(save_payment: true)
+  end
 end
 
 And /^I have a stored card$/ do
@@ -214,7 +212,7 @@ end
 
 Then /^my saved Payment details are not updated$/ do
   click_link_from_my_account_dropdown('Saved cards')
-  assert_payment_card_saved(@card_count,@name_on_card, @card_type)
+  assert_payment_card_saved(@card_count, @name_on_card, @card_type)
 end
 
 Then /^Confirm and pay page displays my account credit as £(\d+)$/ do |account_credit|

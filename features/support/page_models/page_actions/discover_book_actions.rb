@@ -12,9 +12,9 @@ module PageModels
     end
 
     def click_on_a_category
-      @category_name = categories_page.select_category_by_index
+      @category_name = categories_page.select_random_category
       expect_page_displayed('Category')
-      categories_page.wait_until_book_results_sections_visible(20)
+      books_section.wait_until_books_visible
       @category_name
     end
 
@@ -85,7 +85,7 @@ module PageModels
         return book_title
       elsif page_name =~ /Category/i
         click_navigation_link('categories')
-        categories_page.select_category_by_index
+        categories_page.select_random_category
         switch_to_view(:list)
       elsif current_page.header.tab(page_name).nil?
         page = page_model(page_name)

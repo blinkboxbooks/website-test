@@ -1,4 +1,4 @@
-@register @ie @safari @CWA-143
+@sign_in @ie @safari @CWA-143 @production @data_dependent
 Feature: Sign into Blinkbox books
   As a registered user of Blinkbox books
   I want to sign in
@@ -8,14 +8,12 @@ Feature: Sign into Blinkbox books
     Given I am not signed in
     And I am on the Sign in page
 
-  @smoke @production
   Scenario: Happy path user sign in
     When I enter valid sign in details
     And I click sign in button
     Then I am successfully signed in
     And I am redirected to Home page
 
-  @production
   Scenario: Sign in by selecting Keep me signed in
     When I enter valid sign in details
     And select Keep me signed in

@@ -1,6 +1,6 @@
 module PageModels
   class CategoryBox < PageModels::BlinkboxbooksSection
-    element :cover_image, 'div.cover img'
+    element :cover, 'div.cover a'
     element :title_element, 'div.title'
     element :category_div, 'div[data-category="category"]'
 
@@ -14,6 +14,10 @@ module PageModels
 
     def id
       category_div['data-test'][/\d+/]
+    end
+
+    def click
+      cover.click
     end
   end
 end
