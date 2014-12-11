@@ -16,7 +16,8 @@ local_debug:          -r features --tags ~@wip GRID=false SERVER=TEST DEBUG=true
 
 ci-no-grid:                        <%= ci_opts %>
 
-ci-local-smoke:                    <%= ci_opts %> SERVER=LOCALHOST --tags @smoke FAIL_FAST=false
+ci-local-smoke:                    <%= ci_opts %> SERVER=LOCALHOST --tags @smoke         FAIL_FAST=false
+ci-local-sanity:                   <%= ci_opts %> SERVER=LOCALHOST --tags @sanity,@smoke FAIL_FAST=false
 ci-vagrant-smoke:                  <%= ci_opts %> SERVER=LOCALHOST --tags @smoke --tags @production BROWSER_NAME=firefox HEADLESS=true FAIL_FAST=true
 
 ci-test-smoke:                     <%= ci_opts %>          SERVER=TEST --tags  @smoke FAIL_FAST=false
