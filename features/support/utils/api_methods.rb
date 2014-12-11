@@ -102,7 +102,7 @@ module APIMethods
 
       headers = {'Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json'}
       response = http_client.post(@auth_uri, body: params, header: headers)
-      raise 'Test Error: Failed to register new user' unless response.status == 200
+      raise "Test Error: Failed to register new user with response:\n#{response.inspect}" unless response.status <= 201
       user_props = MultiJson.load(response.body)
       @access_token = user_props['access_token']
       return @email_address, @password, @device_name
@@ -125,7 +125,7 @@ module APIMethods
       headers = {'Content-Type' => 'application/vnd.blinkboxbooks.data.v1+json', 'Authorization' => "Bearer #{access_token}"}
       body = {'type' => 'urn:blinkboxbooks:schema:creditcard'}.merge(params)
       response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
-      raise 'Adding credit card failed' unless response.status == 201
+      raise "Adding credit card failed with response:\n#{response.inspect}" unless response.status <= 201
       params[:cardholderName]
     end
 
