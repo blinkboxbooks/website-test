@@ -248,3 +248,13 @@ Feature: Navigation around the website
     Then Bestsellers page is displayed
     And  I select grid view
     Then long titles should be truncated to fit within image
+
+  Scenario Outline: Click on new release, free ebooks and authors tabs and verify pagination is shown
+    When I click on the <page> header tab
+    Then pagination is displayed
+
+  Examples:
+    | page         |
+    | New releases |
+    | Free eBooks  |
+    | Authors      |
