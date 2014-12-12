@@ -63,7 +63,7 @@ Feature:  Checking Categories page content
       When 1234 belongs to recommendable category
       Then it should have different styling
 
-    @manaul
+    @manual
     Scenario: Verify pagination is displayed on category
       Given I select category
       Then pagination is displayed
