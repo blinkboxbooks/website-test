@@ -123,7 +123,7 @@ module PageModels
     end
 
     def set_valid_card_details(card_type)
-      card_type = card_type.gsub(' ', '').downcase
+      card_type = card_type.delete(' ').downcase
       payment_details = {
           :card_number => test_data('payment', card_type),
           :expiry_month => test_data('payment', 'expiry_month'),
