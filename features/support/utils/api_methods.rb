@@ -18,9 +18,9 @@ module APIMethods
 
     def valid_capabilities?(browser, browser_version, os, os_version)
       !browser_list.select { |b| b['browser'] =~ /#{browser}/i &&
-                                 b['browser_version'] =~ /#{browser_version}/i &&
-                                 b['os'] =~ /#{os}/i &&
-                                 b['os_version'] =~ /#{os_version}/i }.empty?
+          b['browser_version'] =~ /#{browser_version}/i &&
+          b['os'] =~ /#{os}/i &&
+          b['os_version'] =~ /#{os_version}/i }.empty?
     end
 
     def session_available?
@@ -43,27 +43,27 @@ module APIMethods
     private
 
     def browser_list
-      headers = { 'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
-                   'Content-Type' => 'application/x-www-form-urlencoded',
-                         'Accept' => 'application/json' }
+      headers = {'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
+                 'Content-Type' => 'application/x-www-form-urlencoded',
+                 'Accept' => 'application/json'}
       response = http_client.get(@browsers_uri, body: {}, header: headers)
       raise 'Test Error: Failed to get browsers list from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
 
     def plan_status
-      headers = { 'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
-                   'Content-Type' => 'application/x-www-form-urlencoded',
-                         'Accept' => 'application/json' }
+      headers = {'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
+                 'Content-Type' => 'application/x-www-form-urlencoded',
+                 'Accept' => 'application/json'}
       response = http_client.get(@plan_uri, body: {}, header: headers)
       raise 'Test Error: Failed to get number of free sessions from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
 
     def project_list
-      headers = { 'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
-                   'Content-Type' => 'application/x-www-form-urlencoded',
-                         'Accept' => 'application/json' }
+      headers = {'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
+                 'Content-Type' => 'application/x-www-form-urlencoded',
+                 'Accept' => 'application/json'}
       response = http_client.get(@projects_uri, body: {}, header: headers)
       raise 'Test Error: Failed to get list of projects from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
@@ -94,14 +94,21 @@ module APIMethods
       if with_client
         @device_name = 'Web Site Test Client'
         params.merge!({
-        client_name: @device_name,
-        client_brand: 'Tesco',
-        client_model: 'Hudl',
-        client_os: 'Android'})
+                          client_name: @device_name,
+                          client_brand: 'Tesco',
+                          client_model: 'Hudl',
+                          client_os: 'Android'})
       end
 
       headers = {'Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json'}
-      response = http_client.post(@auth_uri, body: params, header: headers)
+
+      #a tmp patch to re-try in case of SSL Broken_pipe failure
+      begin
+        response = http_client.post(@auth_uri, body: params, header: headers)
+      rescue Errno::EPIP
+        response = http_client.post(@auth_uri, body: params, header: headers)
+      end
+
       raise "Test Error: Failed to register new user with response:\n#{response.inspect}" unless response.status <= 201
       user_props = MultiJson.load(response.body)
       @access_token = user_props['access_token']
@@ -124,7 +131,14 @@ module APIMethods
       }
       headers = {'Content-Type' => 'application/vnd.blinkboxbooks.data.v1+json', 'Authorization' => "Bearer #{access_token}"}
       body = {'type' => 'urn:blinkboxbooks:schema:creditcard'}.merge(params)
-      response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
+
+      #a tmp patch to re-try in case of SSL Broken_pipe failure
+      begin
+        response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
+      rescue Errno::EPIP
+        response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
+      end
+
       raise "Adding credit card failed with response:\n#{response.inspect}" unless response.status <= 201
       params[:cardholderName]
     end
@@ -138,7 +152,7 @@ module APIMethods
     end
 
     def http_client
-      @http = HTTPClient.new
+      @http ||= HTTPClient.new
       @http.ssl_config.options |= OpenSSL::SSL::OP_NO_SSLv3
       @http
     end
