@@ -34,7 +34,7 @@ Given /^I sign in as a user who has( no)? books? (?:and|or) devices? in their ac
   step('I have signed in')
 end
 
-When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to proceed with adding sample)?$/ do
+When /^(?:I sign in|sign in|signed in)(?: to proceed with (?:the purchase|adding sample)?)?$/ do
   sign_in_from_redirected_page
 end
 
