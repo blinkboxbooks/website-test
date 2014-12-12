@@ -7,7 +7,7 @@ module PageModels
       current_page.header.search_input.set search_word
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
-      search_results_page.wait_for_books
+      search_results_page.wait_for_book_results_sections
       switch_to_view(view)
     end
 
