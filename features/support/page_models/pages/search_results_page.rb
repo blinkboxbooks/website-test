@@ -4,7 +4,6 @@ module PageModels
     set_url_matcher /search\?q=/
 
     element :searched_term_element, '.searched_term'
-    elements :books, "div.itemsets div[book=\"book\"]"
     sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
     element :corrected_search_word_link, 'span#did_you_mean.ng-binding span.ng-scope a.ng-binding'
     element :order_by, '.orderby .item'

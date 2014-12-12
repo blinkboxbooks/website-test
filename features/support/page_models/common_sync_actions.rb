@@ -52,11 +52,15 @@ module WaitSteps
   end
 
   #made it up myself, blame @aliaksandr
-  def wait_until(timeout = Capybara.default_wait_time)
+  def wait_until(description = :default, timeout = Capybara.default_wait_time, &block)
+    description = block.source_location.flatten if description == :default
+    puts "Waiting until #{description} ..."
     Terminator.terminate(timeout) do
       sleep(0.1) until value = yield
       value
     end
+  rescue Terminator::Error
+    raise Terminator::Error, "Time out after #{timeout}s of waiting until #{description}"
   end
 end
 
