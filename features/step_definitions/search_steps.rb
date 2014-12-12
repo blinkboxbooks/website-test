@@ -68,7 +68,7 @@ Then /^search suggestions should not be displayed$/ do
 end
 
 And /^I should see at least (\d+) suggestions$/ do |number_of_suggestions|
-  assert_number_of_suggestions  number_of_suggestions.to_i
+  assert_number_of_suggestions number_of_suggestions.to_i
 end
 
 And /^all suggestions should contain search word "(.*?)"$/ do |search_word|
@@ -92,11 +92,11 @@ When /^I select suggestion which contains (.*?)$/ do |text|
 end
 
 And /^in auto completion correct value "(.*?)" is displayed$/ do |corrected_word|
- assert_auto_corrected_word [corrected_word]
+  assert_auto_corrected_word [corrected_word]
 end
 
-And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |first_part,second_part|
-  assert_auto_corrected_word [first_part, second_part ]
+And /^in auto completion correct values "(.*?)" and "(.*?)" are displayed$/ do |first_part, second_part|
+  assert_auto_corrected_word [first_part, second_part]
 end
 
 And(/^at least 1 search result is shown$/) do
@@ -127,7 +127,7 @@ Then /^the author name of first book displayed should contain "(.*?)"$/ do |auth
 end
 
 Then /^the title of first book displayed should contain "(.*?)"$/ do |book_title|
-   assert_title book_title
+  assert_title book_title
 end
 
 Then /^only one matching search result should be displayed$/ do
@@ -136,11 +136,11 @@ Then /^only one matching search result should be displayed$/ do
 end
 
 Then /^book name should be "(.*?)"$/ do |book_title|
-     assert_title book_title
+  assert_title book_title
 end
 
 Then /^author name should be "(.*?)"$/ do |author_name|
-      assert_author_name author_name
+  assert_author_name author_name
 end
 
 Then /^"(.*?)" should be visible in search bar$/ do |search_word|
@@ -167,10 +167,17 @@ And /^copy paste url into another browser session$/ do
 end
 
 When /^I search for following words$/ do |table|
-   table.hashes.each do |search_word|
-     search(search_word['words'])
-   end
+  table.hashes.each do |search_word|
+    search(search_word['words'])
+  end
 end
+
 And /^I should see search results page for "(.*?)"$/ do |search_word|
   assert_search_results search_word
+end
+
+And /^I should see search results page for "(.*?)" - pending CWA-2074$/ do |search_word|
+  pending "CWA-2074 [Regression] Browser Back button does not navigate away from Search results page" do
+    assert_search_results search_word
+  end
 end

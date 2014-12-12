@@ -152,14 +152,14 @@ Feature: Navigation around the website
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
 
-  @production
+  @production @CWA-2074
   Scenario: Clicking browser back should load previous search results pages if any
     When I search for following words
       | words     |
       | da vinci  |
       | dan brown |
     And I press browser back
-    And I should see search results page for "da vinci"
+    And I should see search results page for "da vinci" - pending CWA-2074
 
   @CWA-70 @production
   Scenario: Main header tabs are not selected in search results
