@@ -15,7 +15,7 @@ Feature: Returning buying book from blinkbox books
   @sanity
   Scenario: Existing user buys a book with saved payment card and signs in during the puchase flow
     Given I am buying a paid book as a not logged in user
-    When I sign in to proceed
+    When I sign in to proceed with the purchase
     Then the page title should be "confirm & pay"
     When I pay with my saved default card
     Then my payment is successful
@@ -34,7 +34,7 @@ Feature: Returning buying book from blinkbox books
 
   Scenario Outline: Existing user buys a book with one off new payment card and signs in during the purchase flow
     Given I am buying a paid book as a not logged in user
-    And I sign in to proceed
+    And I sign in to proceed with the purchase
     When I pay with a new <card_type> card
     And I choose not to save the new payment details
     And I submit the payment details
