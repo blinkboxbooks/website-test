@@ -38,7 +38,7 @@ ci-qa-regression:                 <%= ci_opts %>          SERVER=QA --tags ~@smo
 ci-qa-regression-unstable:        <%= ci_opts_unstable %> SERVER=QA --tags ~@smoke --tags ~@sanity
 
 ci-production-smoke:               <%= ci_opts %>          SERVER=PRODUCTION --tags  @smoke                 --tags @production
-ci-production-sanity:              <%= ci_opts %>          SERVER=PRODUCTION --tags  @sanity                --tags @production
+ci-production-sanity:              <%= ci_opts %>          SERVER=PRODUCTION --tags  @sanity,@smoke         --tags @production
 ci-production-regression:          <%= ci_opts %>          SERVER=PRODUCTION --tags ~@smoke --tags ~@sanity --tags @production
 ci-production-regression-unstable: <%= ci_opts_unstable %> SERVER=PRODUCTION --tags ~@smoke --tags ~@sanity --tags @production
 
