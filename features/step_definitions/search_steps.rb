@@ -67,7 +67,7 @@ Then /^search suggestions should not be displayed$/ do
   expect(current_page.search_form).to have_no_suggestions
 end
 
-And /^I should see at least (\d+) suggestions$/ do |number_of_suggestions|
+And /^I should see at least (\d+) suggestions$/i do |number_of_suggestions|
   assert_number_of_suggestions number_of_suggestions.to_i
 end
 
