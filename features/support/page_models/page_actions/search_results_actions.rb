@@ -21,6 +21,7 @@ module PageModels
     end
 
     def switch_to_view(view)
+      books_section.wait_for_books
       if view.to_sym == :list
         switch_to_list_view
       elsif view.to_sym == :grid
