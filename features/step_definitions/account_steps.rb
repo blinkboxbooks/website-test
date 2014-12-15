@@ -192,7 +192,7 @@ When /^I try to sign in with wrong password$/ do
   submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
 end
 
-When /^I try to sign in with email address of invalid format(?:\: (.*))?$/ do |invalid_email_address|
+When /^I try to sign in with email address of invalid format(?:: (.*))?$/ do |invalid_email_address|
   invalid_email_address ||= test_data('emails', 'email_with_no_at')
   submit_sign_in_details(invalid_email_address, test_data('passwords', 'valid_password'))
 end
@@ -261,7 +261,7 @@ When /^I enter email address (not )?registered with blinkbox books$/ do |not_reg
   end
 end
 
-When(/^I enter email address of invalid format(?:\: (.*))?$/) do  |invalid_email_address|
+When(/^I enter email address of invalid format(?:: (.*))?$/) do  |invalid_email_address|
   invalid_email_address ||= test_data('emails', 'email_with_no_at')
   reset_password_page.email_address.set invalid_email_address
 end

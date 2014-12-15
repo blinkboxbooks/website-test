@@ -117,7 +117,7 @@ Then /^search results should be displayed$/ do
   assert_search_results @search_word
 end
 
-Then /^search results for \"([^"]*)\" should be displayed$/ do |search_word|
+Then /^search results for "([^"]*)" should be displayed$/ do |search_word|
   assert_search_results search_word
 end
 

@@ -15,7 +15,7 @@ module PageModels
     element :number_of_results_element, 'div#searchMatch'
 
     def number_of_results_found
-      number_of_results_element.text[/\d{1,}/].to_i
+      number_of_results_element.text[/\d+/].to_i
     end
 
     def current_view
