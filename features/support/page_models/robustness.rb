@@ -62,7 +62,7 @@ module ToleranceForSeleniumSyncIssues
         raise e unless RETRY_ERRORS.include?(e.class.name)
         raise e if (Time.now - start_time) >= seconds
         sleep(0.05)
-        raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if Time.now == start_time
+        raise Capybara::FrozenInTime, 'time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead' if Time.now == start_time
         retry
       end
     else
@@ -76,7 +76,7 @@ end
 World(ToleranceForSeleniumSyncIssues)
 World(MakeTestsRobust)
 
-if config_flag_on?(TEST_CONFIG["WAIT_FOR_AJAX"])
+if config_flag_on?(TEST_CONFIG['WAIT_FOR_AJAX'])
   puts 'Waiting for AJAX to complete.'
 
   AfterStep do | scenario |

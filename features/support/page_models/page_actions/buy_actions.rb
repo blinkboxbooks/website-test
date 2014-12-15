@@ -55,7 +55,7 @@ module PageModels
     end
 
     def choose_to_pay_with_a_new_card
-      wait_until "new payment card form is loaded or pay with new card button is shown" do
+      wait_until 'new payment card form is loaded or pay with new card button is shown' do
         confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number?
       end
       confirm_and_pay_page.pay_with_new_card.click if confirm_and_pay_page.has_pay_with_new_card?

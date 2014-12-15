@@ -122,7 +122,7 @@ module BrowserstackUtilities
       @binary = bin
 
       @log_filename = "results/browserstack-tunnel-#{Time.now.to_i}.log"
-      @log = File.open(@log_filename, "w")
+      @log = File.open(@log_filename, 'w')
       @process = nil
 
       uri += ':443' unless uri =~ /:\d+/
@@ -133,7 +133,7 @@ module BrowserstackUtilities
     end
 
     def start
-      puts("Starting BrowserStack Tunnel...")
+      puts('Starting BrowserStack Tunnel...')
       process.start
       # Wait until the tunnel is established
       wait_until do
@@ -147,7 +147,7 @@ module BrowserstackUtilities
     end
 
     def stop
-      puts "Stopping..."
+      puts 'Stopping...'
       stop_process if @process
       @log.close if @log
     end

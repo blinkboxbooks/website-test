@@ -177,7 +177,7 @@ And /^I should see search results page for "(.*?)"$/ do |search_word|
 end
 
 And /^I should see search results page for "(.*?)" - pending CWA-2074$/ do |search_word|
-  pending "CWA-2074 [Regression] Browser Back button does not navigate away from Search results page" do
+  pending 'CWA-2074 [Regression] Browser Back button does not navigate away from Search results page' do
     assert_search_results search_word
   end
 end
