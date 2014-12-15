@@ -36,13 +36,13 @@ module PageModels
     def click_confirm_and_pay
       confirm_and_pay_page.wait_for_confirm_and_pay
       confirm_and_pay_page.confirm_and_pay.click
-      expect { page_model('Order Complete').displayed? }.to become_true, 'Timeout on confirm and pay page'
+      expect { order_complete_page.displayed? }.to become_true, 'Timeout while waiting for the Order Complete page'
     end
 
     def click_confirm_order
       confirm_and_pay_page.wait_for_confirm_order
       confirm_and_pay_page.confirm_order.click
-      expect { page_model('Order Complete').displayed? }.to become_true, 'Timeout on confirm and pay page'
+      expect { order_complete_page.displayed? }.to become_true, 'Timeout while waiting for the Order Complete page'
     end
 
     def pay_with_saved_card
