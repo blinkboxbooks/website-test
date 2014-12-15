@@ -99,12 +99,6 @@ And /^I am redirected to (.*?) page$/ do |page_name|
   expect_page_displayed(page_name)
 end
 
-And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
-  pending('CWA-971 - Not the right page after cancelling the order') do
-    expect_page_displayed(page_name)
-  end
-end
-
 And /^I click Sign out button$/ do
   sign_out_from_account_page
 end
