@@ -124,14 +124,13 @@ module PageModels
 
     def set_valid_card_details(card_type)
       card_type = card_type.delete(' ').downcase
-      payment_details = {
-          :card_number => test_data('payment', card_type),
-          :expiry_month => test_data('payment', 'expiry_month'),
-          :expiry_year => test_data('payment', 'expiry_year'),
-          :name_on_card => generate_random_first_name,
-          :cvv => test_data('payment', 'cvv')
+      {
+        :card_number => test_data('payment', card_type),
+        :expiry_month => test_data('payment', 'expiry_month'),
+        :expiry_year => test_data('payment', 'expiry_year'),
+        :name_on_card => generate_random_first_name,
+        :cvv => test_data('payment', 'cvv')
       }
-      payment_details
     end
 
     def successful_new_payment(save_payment, card_type = 'VISA')
