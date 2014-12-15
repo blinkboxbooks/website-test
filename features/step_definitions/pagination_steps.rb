@@ -1,13 +1,13 @@
 When /^I click on next button on pagination$/ do
-  pagination.click_on_next_button
+  search_results_page.pagination.click_on_next_button
 end
 
 When /^I click on previous button on pagination$/ do
-  pagination.click_on_previous_button
+  search_results_page.pagination.click_on_previous_button
 end
 
 When /^I click on page number "(\d+)"$/ do |page_number|
-  pagination.click_on_pagination_number(page_number)
+  search_results_page.pagination.click_on_pagination_number(page_number)
 end
 
 Then /^page number url should have "(\d+)"$/ do |page_number|
@@ -15,15 +15,15 @@ Then /^page number url should have "(\d+)"$/ do |page_number|
 end
 
 Then /^pagination should be displayed in (?:grid|list)?/ do
-  expect(pagination).to have_pagination_numbers
+  expect(search_results_page.pagination).to have_pagination_numbers
 end
 
 Then /^pagination is displayed$/ do
-  (pagination).wait_until_pagination_numbers_visible
-  expect(pagination).to have_pagination_numbers
+  (search_results_page.pagination).wait_until_pagination_numbers_visible
+  expect(search_results_page.pagination).to have_pagination_numbers
 end
 
 Then /^then the selected page number should be "(\d+)"$/ do |page_number|
-  expect(pagination.selected_page_number.text(page_number)).to eq(page_number)
+  expect(search_results_page.pagination.selected_page_number.text(page_number)).to eq(page_number)
 
 end

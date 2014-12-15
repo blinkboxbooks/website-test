@@ -13,6 +13,7 @@ module PageModels
     element :no_results_element, '#noResults'
     element :book_cover, '[data-test=book-title-cover]'
     element :number_of_results_element, 'div#searchMatch'
+    section :pagination, Pagination, '#content'
 
     def number_of_results_found
       number_of_results_element.text[/\d{1,}/].to_i

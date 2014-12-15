@@ -1,8 +1,5 @@
 module PageModels
-  class Pagination < PageModels::BlinkboxbooksPage
-    set_url '/{page}?page={page_number}'
-    set_url_matcher /\?page=\d+/
-
+  class Pagination < PageModels::BlinkboxbooksSection
 
     elements :pagination_numbers, '[data-test^="pagination"] li'
     element :previous_button, '[data-test="pagination-previous"]'
@@ -29,21 +26,6 @@ module PageModels
       pagination_numbers.find { |page| page[:class].include?('active') }
     end
 
-    def load(page_name, page_number)
-      if page_name == 'search result'
-        super({:page => 'search', :page_number => page_number})
-      elsif page_name == 'free books'
-        super({:page => 'free-books', :page_number => page_number})
-      elsif page_name == 'new releases'
-        super({:page => 'new-releases', :page_number => page_number})
-      elsif page_name == 'authors'
-        super({:page => 'authors', :page_number => page_number})
-      elsif page_name == 'category'
-        super({:page => 'category/fiction-literature', :page_number => page_number})
-      end
-    end
-
   end
-  register_model_caller_method(Pagination, :pagination)
 end
 
