@@ -153,7 +153,7 @@ module APIMethods
   end
 
 
-  def api_helper()
+  def api_helper
     @api_helper||=APIMethods::User.new(server('auth'), server('api'))
   end
 end
