@@ -10,7 +10,7 @@ end
 
 After do |scenario|
   if TEST_CONFIG['js_log']
-    puts "JS LOG ENTRIES:"
+    puts 'JS LOG ENTRIES:'
     js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
   end
 
