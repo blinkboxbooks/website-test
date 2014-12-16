@@ -10,7 +10,7 @@ Feature: User adding sample to Library
     Given I have identified a <book_type> book on the search results page to read sample offline
     And I am on the Register page
     When I cancel registration
-    Then (Pending) I am redirected to Book details page
+    Then I am redirected to Book details page
 
   Examples:
     | book_type |
