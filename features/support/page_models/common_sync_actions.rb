@@ -13,8 +13,8 @@ module WaitSteps
     match do |block|
       begin
         Terminator.terminate(Capybara.default_wait_time) do
-          sleep(0.1) until value = block.call
-          value
+          sleep(0.1) until block.call
+          true
         end
       rescue Terminator::Error
         false
@@ -27,8 +27,8 @@ module WaitSteps
     match do |block|
       begin
         Terminator.terminate(Capybara.default_wait_time) do
-          sleep(0.1) until value = !block.call
-          value
+          sleep(0.1) until !block.call
+          true
         end
       rescue Terminator::Error
         false
@@ -42,8 +42,8 @@ module WaitSteps
     match do |block|
       begin
         Terminator.terminate(Capybara.default_wait_time) do
-          sleep(0.1) until value = (block.call == expected)
-          value
+          sleep(0.1) until (block.call == expected)
+          true
         end
       rescue Terminator::Error
         false
@@ -52,11 +52,15 @@ module WaitSteps
   end
 
   #made it up myself, blame @aliaksandr
-  def wait_until(timeout = Capybara.default_wait_time)
+  def wait_until(description = :default, timeout = Capybara.default_wait_time, &block)
+    description = block.source_location.flatten if description == :default
+    puts "Waiting until #{description} ..."
     Terminator.terminate(timeout) do
-      sleep(0.1) until value = yield
-      value
+      sleep(0.1) until yield
+      true
     end
+  rescue Terminator::Error
+    raise Terminator::Error, "Time out after #{timeout}s of waiting until #{description}"
   end
 end
 

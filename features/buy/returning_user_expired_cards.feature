@@ -6,7 +6,7 @@ Feature: Returning user with expired cards buying book
   Scenario: User with one saved card that is expired buying book
     Given my default stored card has expired
     When I have selected to buy a paid book from the Book details page
-    And I sign in to proceed
+    And I sign in to proceed with the purchase
     Then Confirm and pay page is displayed
     And Confirm and pay button should be disabled
 
@@ -14,7 +14,7 @@ Feature: Returning user with expired cards buying book
     Given I have multiple saved cards
     And my default stored card has not expired
     When I have selected to buy a paid book from the Book details page
-    And I sign in to proceed
+    And I sign in to proceed with the purchase
     Then Confirm and pay page is displayed
     And Confirm and pay button should be enabled
 
@@ -22,6 +22,6 @@ Feature: Returning user with expired cards buying book
     Given I have multiple saved cards
     And my default stored card has expired
     When I have selected to buy a paid book from the Book details page
-    And I sign in to proceed
+    And I sign in to proceed with the purchase
     Then Confirm and pay page is displayed
     And Confirm and pay button should be disabled

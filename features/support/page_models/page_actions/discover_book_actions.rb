@@ -7,7 +7,7 @@ module PageModels
       current_page.header.search_input.set search_word
       current_page.header.wait_until_search_button_visible
       current_page.header.search_button.click
-      search_results_page.wait_for_books
+      search_results_page.wait_for_book_results_sections
       switch_to_view(view)
     end
 
@@ -113,13 +113,6 @@ module PageModels
       elsif condition.eql?('less')
         select_random_book_cheaper_than(price)
       end
-    end
-
-    def select_book_by_isbn_to_buy(isbn)
-      search(isbn)
-      books_section.books[0].click_view_details
-      book_details_page.wait_for_buy_now
-      book_details_page.buy_now.click
     end
 
     def select_book_by_isbn_to_read(isbn)

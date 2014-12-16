@@ -23,6 +23,7 @@ Feature: Navigation around the website
     And  the book reader is displayed
     And I am able to read the sample of corresponding book
 
+  @production @CWA-2074
   Scenario: Clicking browser back should load previous search results pages if any
     Given I am on the home page
     When I search for following words
@@ -30,7 +31,7 @@ Feature: Navigation around the website
       | da vinci  |
       | dan brown |
     And I press browser back
-    And I should see search results page for "da vinci"
+    And I should see search results page for "da vinci" - pending CWA-2074
 
   Scenario: Search word should not visible upon user navigating to another page
     Given I am on the home page

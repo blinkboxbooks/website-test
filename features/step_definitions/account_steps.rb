@@ -34,7 +34,7 @@ Given /^I sign in as a user who has( no)? books? (?:and|or) devices? in their ac
   step('I have signed in')
 end
 
-When /^(?:I sign in|sign in|signed in)(?: to proceed(?: with the purchase)?| to proceed with adding sample)?$/ do
+When /^(?:I sign in|sign in|signed in)(?: to proceed with (?:the purchase|adding sample)?)?$/ do
   sign_in_from_redirected_page
 end
 
@@ -89,12 +89,6 @@ end
 
 And /^I am redirected to (.*?) page$/ do |page_name|
   expect_page_displayed(page_name)
-end
-
-And /^\(Pending\) I am redirected to (.*?) page$/ do |page_name|
-  pending('CWA-971 - Not the right page after cancelling the order') do
-    expect_page_displayed(page_name)
-  end
 end
 
 And /^I click Sign out button$/ do
@@ -184,7 +178,7 @@ When /^I try to sign in with wrong password$/ do
   submit_sign_in_details(test_data('emails', 'happypath_user'), test_data('passwords', 'not_matching_password'))
 end
 
-When /^I try to sign in with email address of invalid format(?:\: (.*))?$/ do |invalid_email_address|
+When /^I try to sign in with email address of invalid format(?:: (.*))?$/ do |invalid_email_address|
   invalid_email_address ||= test_data('emails', 'email_with_no_at')
   submit_sign_in_details(invalid_email_address, test_data('passwords', 'valid_password'))
 end
@@ -253,7 +247,7 @@ When /^I enter email address (not )?registered with blinkbox books$/ do |not_reg
   end
 end
 
-When(/^I enter email address of invalid format(?:\: (.*))?$/) do  |invalid_email_address|
+When(/^I enter email address of invalid format(?:: (.*))?$/) do  |invalid_email_address|
   invalid_email_address ||= test_data('emails', 'email_with_no_at')
   reset_password_page.email_address.set invalid_email_address
 end
