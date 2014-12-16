@@ -45,7 +45,6 @@ Feature: Navigation around the website
     And I should see Promotions section header as Daily bestsellers
     And I should see 5 books being displayed
 
-<<<<<<< HEAD
   @production
   Scenario: Bestsellers page - Switching views
     When I click on the Bestsellers header tab
