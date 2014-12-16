@@ -5,7 +5,6 @@ Feature: Manage personal details - change password
   So I can keep my account up to date
 
   Background:
-    Given I am on the home page
     And I have registered as new user without a clubcard
     And I am on the Change your password section
 

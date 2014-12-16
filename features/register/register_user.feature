@@ -9,7 +9,6 @@ Feature: Register a new Blinkbox books user
 
   Scenario: Happy path-register user
     Given I am on the Register page
-    Then the promotion checkbox should be ticked by default
     When I enter valid personal details
     And I choose a valid password
     And I accept terms and conditions
@@ -91,3 +90,10 @@ Feature: Register a new Blinkbox books user
     Given I am on the Register page
     When I choose a valid password
     Then the passwords should not be visible
+
+  Scenario: Click sign in with already registered email link
+    Given I am on the Register page
+    And I have attempted to register with already registered email address
+    And link to sign in with already registered email address is displayed
+    When I click on link to sign in with already registered email
+    Then Sign in page is displayed

@@ -1,6 +1,6 @@
 <% ci_formatting =    " --format pretty --format junit -o results/junit/ --format Cucumber::Blinkbox::Formatter::Html -o results/features_report.html " %>
-<% ci_tags =          " --tags ~@unstable --tags ~@on_demand --tags ~@wip --tags ~@manual --tags ~@pending --tags ~@to_remove " %>
-<% ci_tags_unstable = " --tags  @unstable --tags ~@on_demand --tags ~@wip --tags ~@manual --tags ~@pending --tags ~@to_remove" %>
+<% ci_tags =          " --tags ~@unstable --tags ~@on_demand --tags ~@wip --tags ~@manual --tags ~@pending " %>
+<% ci_tags_unstable = " --tags  @unstable --tags ~@on_demand --tags ~@wip --tags ~@manual --tags ~@pending " %>
 <% ci_opts =          ci_tags          + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
 <% ci_opts_unstable = ci_tags_unstable + ci_formatting + " -r features WAIT_FOR_AJAX=true " %>
 
