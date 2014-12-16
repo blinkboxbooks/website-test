@@ -54,7 +54,7 @@ Feature: Gift voucher redemption
     | a different |
 
   @negative @production
-  Scenario Outline: Voucher code validation on the client side
+  Scenario Outline: Client side validation of the voucher code length
     When I submit an invalid voucher code "<invalid_code>"
     Then "<error_message>" error message is displayed
 
