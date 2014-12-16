@@ -32,6 +32,8 @@ Feature: Register a new Blinkbox books user
     Then registration is not successful
     And "This email address is already registered with blinkbox books" message is displayed
     And link to sign in with already registered email address is displayed
+    When I click on link to sign in with already registered email
+    Then Sign in page is displayed
 
   @negative
   Scenario: Submit registration details without accepting blinkbox books terms and conditions
@@ -78,18 +80,6 @@ Feature: Register a new Blinkbox books user
     Then registration is not successful
     And "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
 
-  Scenario: Click sign in with already registered email link
-    Given I am on the Register page
-    And I have attempted to register with already registered email address
-    And link to sign in with already registered email address is displayed
-    When I click on link to sign in with already registered email
-    Then Sign in page is displayed
-
-  
-  Scenario: Verify promotion check box is ticked by default
-    Given I am on the Register page
-    Then the promotion checkbox should be ticked by default
-
   Scenario: Tick to show password after entering passwords
     Given I am on the Register page
     When I choose a valid password
@@ -100,3 +90,10 @@ Feature: Register a new Blinkbox books user
     Given I am on the Register page
     When I choose a valid password
     Then the passwords should not be visible
+
+  Scenario: Click sign in with already registered email link
+    Given I am on the Register page
+    And I have attempted to register with already registered email address
+    And link to sign in with already registered email address is displayed
+    When I click on link to sign in with already registered email
+    Then Sign in page is displayed
