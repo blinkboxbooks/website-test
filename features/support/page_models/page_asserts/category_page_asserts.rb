@@ -24,10 +24,6 @@ module PageModels
       expect(category.cover_image).to be_visible
     end
 
-    def assert_category_not_displayed(category_id)
-      expect(categories_page).to_not have_category(category_id)
-    end
-
     def assert_categories_list
       expect(categories_page).to have_top_categories
       categories_page.top_categories.each { |category_box| expect(category_box).to have_no_cover_image }
