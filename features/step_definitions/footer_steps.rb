@@ -20,6 +20,6 @@ Then /the (Help & Support|How it Works|Tesco Clubcard|Redeem Code) footer visual
   expect(current_page.footer.visual_by_title(footer_visual)).not_to be_nil
 end
 
-Then /I scroll down to the footer/ do
+Then /I look at the footer/ do
   # Do nothing on purpose. This step is just to improve clarity.
 end

@@ -1,9 +1,5 @@
 module PageModels
   module HomePageAsserts
-    def assert_footer_displayed
-      expect(current_page).to have_footer
-    end
-
     def assert_homepage_banner_displayed
       expect(home_page.banner).to be_visible
     end
