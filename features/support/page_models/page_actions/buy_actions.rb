@@ -55,7 +55,7 @@ module PageModels
     end
 
     def choose_to_pay_with_a_new_card
-      wait_until "new payment card form is loaded or pay with new card button is shown" do
+      wait_until 'new payment card form is loaded or pay with new card button is shown' do
         confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number?
       end
       confirm_and_pay_page.pay_with_new_card.click if confirm_and_pay_page.has_pay_with_new_card?
@@ -124,14 +124,13 @@ module PageModels
 
     def set_valid_card_details(card_type)
       card_type = card_type.delete(' ').downcase
-      payment_details = {
-          :card_number => test_data('payment', card_type),
-          :expiry_month => test_data('payment', 'expiry_month'),
-          :expiry_year => test_data('payment', 'expiry_year'),
-          :name_on_card => generate_random_first_name,
-          :cvv => test_data('payment', 'cvv')
+      {
+        :card_number => test_data('payment', card_type),
+        :expiry_month => test_data('payment', 'expiry_month'),
+        :expiry_year => test_data('payment', 'expiry_year'),
+        :name_on_card => generate_random_first_name,
+        :cvv => test_data('payment', 'cvv')
       }
-      payment_details
     end
 
     def successful_new_payment(save_payment, card_type = 'VISA')

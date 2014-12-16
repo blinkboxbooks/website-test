@@ -113,10 +113,6 @@ And /^I have validation error messages on the page$/ do
   submit_empty_new_payments_form
 end
 
-When /^I select above (paid|free) book to buy$/ do |book_type|
-  book_type.include?('free') ? select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'free_book')) : select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'pay_for_book'))
-end
-
 And /^(book|sample) already exists in the library message is displayed on the confirm and pay page$/ do |type|
   assert_book_exists_in_library_message(type)
 end

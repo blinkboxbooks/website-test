@@ -67,7 +67,7 @@ Then /^search suggestions should not be displayed$/ do
   expect(current_page.search_form).to have_no_suggestions
 end
 
-And /^I should see at least (\d+) suggestions$/ do |number_of_suggestions|
+And /^I should see at least (\d+) suggestions$/i do |number_of_suggestions|
   assert_number_of_suggestions number_of_suggestions.to_i
 end
 
@@ -117,7 +117,7 @@ Then /^search results should be displayed$/ do
   assert_search_results @search_word
 end
 
-Then /^search results for \"([^"]*)\" should be displayed$/ do |search_word|
+Then /^search results for "([^"]*)" should be displayed$/ do |search_word|
   assert_search_results search_word
 end
 
@@ -177,7 +177,7 @@ And /^I should see search results page for "(.*?)"$/ do |search_word|
 end
 
 And /^I should see search results page for "(.*?)" - pending CWA-2074$/ do |search_word|
-  pending "CWA-2074 [Regression] Browser Back button does not navigate away from Search results page" do
+  pending 'CWA-2074 [Regression] Browser Back button does not navigate away from Search results page' do
     assert_search_results search_word
   end
 end
