@@ -43,6 +43,8 @@ module PageModels
           expect(confirm_and_pay_page).to have_account_credit_payment
           expect(confirm_and_pay_page).to have_card_payment
           expect(confirm_and_pay_page).to have_pay_with_new_card
+        else
+          fail("Payment method '#{method.to_s}' unsupported!")
       end
     end
 

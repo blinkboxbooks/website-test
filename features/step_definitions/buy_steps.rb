@@ -1,4 +1,4 @@
-When /^I enter valid (.*?) card details$/ do |card_type|
+When /^I enter valid (.*) card details$/ do |card_type|
   enter_card_details(set_valid_card_details(card_type))
 end
 
@@ -15,7 +15,7 @@ When /^I pay with my saved default card$/ do
 end
 
 When /^I choose to pay with a new card$/ do
-  click_pay_with_new_card
+  choose_to_pay_with_a_new_card
 end
 
 And /^I have identified a (free|paid) book on the (book details|search results) page to read sample offline$/ do |book_type, page|
@@ -39,7 +39,7 @@ Given /^I (?:am buying|click Buy now on) a (paid|free) book as a (not logged|log
 end
 
 When /^I pay with a new (.*?) card$/ do |card_type|
-  click_pay_with_new_card
+  choose_to_pay_with_a_new_card
   enter_card_details(set_valid_card_details(card_type))
   enter_billing_details
 end
@@ -111,10 +111,6 @@ end
 
 And /^I have validation error messages on the page$/ do
   submit_empty_new_payments_form
-end
-
-When /^I select above (paid|free) book to buy$/ do |book_type|
-  book_type.include?('free') ? select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'free_book')) : select_book_by_isbn_to_buy(book_type.to_sym, test_data('library_isbns', 'pay_for_book'))
 end
 
 And /^(book|sample) already exists in the library message is displayed on the confirm and pay page$/ do |type|

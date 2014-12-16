@@ -1,5 +1,5 @@
 #from https://gist.github.com/jnicklas/4129937, https://gist.github.com/jnicklas/d8da686061f0a59ffdf7
-require 'timeout'
+require 'terminator'
 require 'rspec/expectations'
 
 module WaitSteps
@@ -12,11 +12,11 @@ module WaitSteps
     supports_block_expectations
     match do |block|
       begin
-        Timeout.timeout(Capybara.default_wait_time) do
-          sleep(0.1) until value = block.call
-          value
+        Terminator.terminate(Capybara.default_wait_time) do
+          sleep(0.1) until block.call
+          true
         end
-      rescue TimeoutError
+      rescue Terminator::Error
         false
       end
     end
@@ -26,11 +26,11 @@ module WaitSteps
     supports_block_expectations
     match do |block|
       begin
-        Timeout.timeout(Capybara.default_wait_time) do
-          sleep(0.1) until value = !block.call
-          value
+        Terminator.terminate(Capybara.default_wait_time) do
+          sleep(0.1) until !block.call
+          true
         end
-      rescue TimeoutError
+      rescue Terminator::Error
         false
       end
     end
@@ -41,23 +41,26 @@ module WaitSteps
     supports_block_expectations
     match do |block|
       begin
-        Timeout.timeout(Capybara.default_wait_time) do
-          sleep(0.1) until value = (block.call == expected)
-          value
+        Terminator.terminate(Capybara.default_wait_time) do
+          sleep(0.1) until (block.call == expected)
+          true
         end
-      rescue TimeoutError
+      rescue Terminator::Error
         false
       end
     end
   end
 
   #made it up myself, blame @aliaksandr
-  def wait_until(timeout=Capybara.default_wait_time)
-    require 'timeout'
-    Timeout.timeout(timeout) do
-      sleep(0.1) until value = yield
-      value
+  def wait_until(description = :default, timeout = Capybara.default_wait_time, &block)
+    description = block.source_location.flatten if description == :default
+    puts "Waiting until #{description} ..."
+    Terminator.terminate(timeout) do
+      sleep(0.1) until yield
+      true
     end
+  rescue Terminator::Error
+    raise Terminator::Error, "Time out after #{timeout}s of waiting until #{description}"
   end
 end
 

@@ -10,7 +10,7 @@ Feature: User adding sample to Library
     Given I have identified a <book_type> book on the search results page to read sample offline
     And I am on the Register page
     When I cancel registration
-    Then (Pending) I am redirected to Book details page
+    Then I am redirected to Book details page
 
   Examples:
     | book_type |
@@ -50,7 +50,7 @@ Feature: User adding sample to Library
     Given I have a <book_type> book as a sample in my library
     When I am on the Book Details page for the same <book_type> book
     And I try to add the book as a sample again
-    And I sign in to proceed
+    And I sign in to proceed with adding sample
     Then sample already exists in the library message is displayed on the confirm and pay page
 
   Examples:
@@ -63,7 +63,7 @@ Feature: User adding sample to Library
     Given I have purchased a <book_type> book
     When I am on the Book Details page for the same <book_type> book
     And I try to add the book as a sample again
-    And sign in to proceed
+    And sign in to proceed with adding sample
     Then book already exists in the library message is displayed on the confirm and pay page
 
   Examples:

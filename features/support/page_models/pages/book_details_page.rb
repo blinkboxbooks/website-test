@@ -6,9 +6,9 @@ module PageModels
 
   class BookDetailsPage < PageModels::BlinkboxbooksPage
     set_url_matcher /book/
-    set_url "/#!/book/{isbn}/{title}"
+    set_url '/#!/book/{isbn}/{title}'
 
-    element :read_offline, ".read-offline"
+    element :read_offline, '.read-offline'
     element :buy_now, 'button[data-test="book-buy-button"]'
     section :reader, Reader, '.right-column'
     iframe :reader_frame, ReaderFrame, '#cpr-iframe'

@@ -1,6 +1,5 @@
 module PageModels
   module BuyActions
-
     def enter_address_line_one(line_one)
       confirm_and_pay_page.address_line_one.set line_one
     end
@@ -17,7 +16,7 @@ module PageModels
       confirm_and_pay_page.postcode.set post_code
     end
 
-    def enter_billing_details(details=nil)
+    def enter_billing_details(details = nil)
       details ||= billing_details
       enter_address_line_one(details[:address_line_one])
       enter_address_line_two(details[:address_line_two])
@@ -37,13 +36,13 @@ module PageModels
     def click_confirm_and_pay
       confirm_and_pay_page.wait_for_confirm_and_pay
       confirm_and_pay_page.confirm_and_pay.click
-      expect{page_model('Order Complete').displayed?}.to become_true, 'Timeout on confirm and pay page'
+      expect { order_complete_page.displayed? }.to become_true, 'Timeout while waiting for the Order Complete page'
     end
 
     def click_confirm_order
       confirm_and_pay_page.wait_for_confirm_order
       confirm_and_pay_page.confirm_order.click
-      expect{page_model('Order Complete').displayed?}.to become_true, 'Timeout on confirm and pay page'
+      expect { order_complete_page.displayed? }.to become_true, 'Timeout while waiting for the Order Complete page'
     end
 
     def pay_with_saved_card
@@ -52,11 +51,14 @@ module PageModels
       card_count = confirm_and_pay_page.number_of_saved_cards
       expect(card_count).to be >= 1
       click_confirm_and_pay
-      return card_count
+      card_count
     end
 
-    def click_pay_with_new_card
-      confirm_and_pay_page.pay_with_new_card.click
+    def choose_to_pay_with_a_new_card
+      wait_until 'new payment card form is loaded or pay with new card button is shown' do
+        confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number?
+      end
+      confirm_and_pay_page.pay_with_new_card.click if confirm_and_pay_page.has_pay_with_new_card?
     end
 
     def pay_with_new_card(card_type)
@@ -65,15 +67,11 @@ module PageModels
     end
 
     def choose_to_save_card_details
-      unless confirm_and_pay_page.save_card.checked?
-        confirm_and_pay_page.save_card.click
-      end
+      confirm_and_pay_page.save_card.click unless confirm_and_pay_page.save_card.checked?
     end
 
     def choose_not_to_save_card_details
-      if confirm_and_pay_page.save_card.checked?
-        confirm_and_pay_page.save_card.click
-      end
+      confirm_and_pay_page.save_card.click if confirm_and_pay_page.save_card.checked?
     end
 
     def click_read_offline
@@ -94,7 +92,7 @@ module PageModels
       confirm_and_pay_page.confirm_cancel_button.click
     end
 
-    def submit_new_payment_with_not_matching_cvv (cvv_number = '200')
+    def submit_new_payment_with_not_matching_cvv(cvv_number = '200')
       card_details = set_valid_card_details('VISA')
       card_details[:cvv] = cvv_number
       enter_card_details(card_details)
@@ -125,21 +123,18 @@ module PageModels
     end
 
     def set_valid_card_details(card_type)
-      card_type=card_type.gsub(' ', '').downcase
-      payment_details = {
-          :card_number => test_data('payment', card_type),
-          :expiry_month => test_data('payment', 'expiry_month'),
-          :expiry_year => test_data('payment', 'expiry_year'),
-          :name_on_card => generate_random_first_name,
-          :cvv => test_data('payment', 'cvv')
+      card_type = card_type.delete(' ').downcase
+      {
+        :card_number => test_data('payment', card_type),
+        :expiry_month => test_data('payment', 'expiry_month'),
+        :expiry_year => test_data('payment', 'expiry_year'),
+        :name_on_card => generate_random_first_name,
+        :cvv => test_data('payment', 'cvv')
       }
-      return payment_details
     end
 
     def successful_new_payment(save_payment, card_type = 'VISA')
-      # Interim patch
-      wait_until { confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number? } # Waiting until the form or pay with new card button appears
-      click_pay_with_new_card if confirm_and_pay_page.has_pay_with_new_card?
+      choose_to_pay_with_a_new_card
 
       card_count = confirm_and_pay_page.number_of_saved_cards
 
@@ -183,10 +178,6 @@ module PageModels
       enter_billing_details
       confirm_and_pay_page.confirm_and_pay.click
     end
-
   end
 end
 World(PageModels::BuyActions)
-
-
-
