@@ -141,6 +141,10 @@ module APIMethods
 
     def http_client
       @http ||= HTTPClient.new
+      # @http.ssl_config.ssl_version = :SSLv23
+      # @http.ssl_config.clear_cert_store
+      # @http.ssl_config.add_trust_ca("/etc/ssl/certs")
+      # @http.ssl_config.add_trust_ca("cert.pem")
       @http.ssl_config.options |= OpenSSL::SSL::OP_NO_SSLv3
       @http
     end
