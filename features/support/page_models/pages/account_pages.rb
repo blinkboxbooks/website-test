@@ -42,7 +42,7 @@ module PageModels
     element :club_card, '#clubcard'
     element :marketing_prefs, '#newsletter'
     element :marketing_prefs_label, 'label.pseudo_label[for="newsletter"]'
-    element :update_personal_details, "button", :text => "UPDATE PERSONAL DETAILS"
+    element :update_personal_details, 'button', :text => 'UPDATE PERSONAL DETAILS'
     element :change_password_link, 'a.arrowedlink'
     element :confirm_button, 'button[data-test="confirm-button"]'
 
@@ -67,7 +67,7 @@ module PageModels
   end
 
   class YourPaymentsPage < PageModels::YourAccountPage
-    set_url "/#!/account/your-payments"
+    set_url '/#!/account/your-payments'
     set_url_matcher /account\/your-payments/
     sections :saved_cards_list, CardRecord, '.payment_list li'
     element :saved_cards_container, '.payment_list'
@@ -111,7 +111,7 @@ module PageModels
   end
 
   class ChangePasswordPage < PageModels::YourAccountPage
-    set_url "/#!/account/change-password"
+    set_url '/#!/account/change-password'
     set_url_matcher /account\/change-password/
     element :current_password, '#currentPassword'
     element :enter_new_password, '#password'

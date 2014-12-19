@@ -89,7 +89,7 @@ end
 
 Then /^Credit card set as default successfully message is displayed$/ do
   pending('CP-2063 - Changing the Default card returns 400')do
-    assert_message_displayed("Credit card set as default successfully")
+    assert_message_displayed('Credit card set as default successfully')
   end
 end
 
@@ -170,7 +170,7 @@ Then /^my marketing preferences checkbox is (not selected|selected)$/ do |market
 end
 
 And /^I have a device associated with my blinkbox books account$/ do
-  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: "device")
+  @email_address, @password, @device_name = api_helper.create_new_user!(with_client: 'device')
   @device_count = 1
 end
 

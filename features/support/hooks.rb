@@ -9,8 +9,8 @@ Before('~@reset_session') do
 end
 
 After do |scenario|
-  if TEST_CONFIG['log_js_errors']
-    puts "JS LOG ENTRIES:"
+  if TEST_CONFIG['js_log']
+    puts 'JS LOG ENTRIES:'
     js_errors.each { |entry| puts "#{entry.level}: #{entry.message}" }
   end
 
@@ -21,7 +21,7 @@ After do |scenario|
   end
 
   close_excessive_browser_windows
-  
+
   if TEST_CONFIG && TEST_CONFIG['fail_fast']
     puts "'FAIL FAST' option is ON"
     # Tell Cucumber to quit after this scenario is done - if it failed

@@ -7,7 +7,7 @@ module PageModels
 
     def assert_authors_page_displayed
       authors_page.wait_until_featured_authors_visible
-      expect_page_displayed("Authors")
+      expect_page_displayed('Authors')
     end
   end
 end
