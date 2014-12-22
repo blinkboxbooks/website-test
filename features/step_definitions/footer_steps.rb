@@ -20,6 +20,28 @@ Then /the (Help & Support|How it Works|Tesco Clubcard|Redeem Code) footer visual
   expect(current_page.footer.visual_by_title(footer_visual)).not_to be_nil
 end
 
-Then /I look at the footer/ do
+When /I look at the footer/ do
   # Do nothing on purpose. This step is just to improve clarity.
+end
+
+Then /^the footer copyright text should be displayed$/i do
+  expect(current_page.footer).to have_copyright_label
+  expect(current_page.footer.copyright_text).to include('blinkbox books')
+  expect(current_page.footer.copyright_text).to include('All Rights Reserved')
+end
+
+Then /^pending CWA-2092: the footer copyright text should be displayed$/i do
+  expect(current_page.footer).to have_copyright_label
+  pending('CWA-2092: Copyright text is missing on the Pay&Confirm page') do
+    expect(current_page.footer.copyright_text).to include('blinkbox books')
+    expect(current_page.footer.copyright_text).to include('All Rights Reserved')
+  end
+end
+
+Then /^footer visuals should not be displayed$/i do
+  expect(current_page.footer).not_to have_visuals
+end
+
+Then /^footer links should not be displayed$/i do
+  expect(current_page.footer).not_to have_links
 end

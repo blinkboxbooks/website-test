@@ -20,15 +20,22 @@ module PageModels
   end
 
   class Footer < PageModels::BlinkboxbooksSection
-    element :version_div, 'div.versionInfo', visible: false
+    sections :visuals, FooterVisual, '.steps a'
+
     elements :top_authors, 'div#footer_authors1 ul.lists li a'
     elements :top_categories, 'div#footer_categories ul.lists li a'
     elements :new_releases, 'div#footer_releases ul.lists li a[bo-text]'
+
     section :links, FooterLinks, '[data-test="bottom-footer-container"]'
-    sections :visuals, FooterVisual, '.steps a'
+    element :copyright_label, '[data-test="footer-copyright-text"]'
+    element :version_div, 'div.versionInfo', visible: false
 
     def version_info
       version_div.text(:all)
+    end
+
+    def copyright_text
+      copyright_label.text
     end
 
     def author_by_name(name)
