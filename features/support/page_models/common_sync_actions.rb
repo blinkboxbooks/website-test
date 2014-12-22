@@ -54,7 +54,7 @@ module WaitSteps
   #made it up myself, blame @aliaksandr
   def wait_until(description = :default, timeout = Capybara.default_wait_time, &block)
     description = block.source_location.flatten if description == :default
-    puts "Waiting until #{description} ..."
+    puts "Waiting until #{description}..."
     Terminator.terminate(timeout) do
       sleep(0.1) until yield
       true

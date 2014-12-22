@@ -8,6 +8,23 @@ Feature: Global Footer
     Given I am on the home page
 
   @sanity
+  Scenario: Footer is displayed
+    When I look at the footer
+    Then main footer is displayed
+    And the Help & Support footer visual should be displayed
+    And the How it Works footer visual should be displayed
+    And the Tesco Clubcard footer visual should be displayed
+    And the Redeem Code footer visual should be displayed
+    And the footer copyright text should be displayed
+
+  @CWA-2092
+  Scenario: Footer with copyright text is displayed on the Confirm payment page
+    Given I am on the Confirm and pay page trying to buy a paid book
+    Then pending CWA-2092: the footer copyright text should be displayed
+    But footer visuals should not be displayed
+    And footer links should not be displayed
+
+  @sanity
   Scenario: Clicking on the About Blinkbox Books
     When I click on the About Blinkbox Books footer link
     Then About Blinkbox Books page is displayed
@@ -58,11 +75,3 @@ Feature: Global Footer
   Scenario: New releases links from footer is dynamically generated
     Given there are top five books on the New release page
     Then the same New releases are displayed in the footer
-
-  Scenario: Footer is displayed
-    When I look at the footer
-    Then main footer is displayed
-    And the Help & Support footer visual should be displayed
-    And the How it Works footer visual should be displayed
-    And the Tesco Clubcard footer visual should be displayed
-    And the Redeem Code footer visual should be displayed
