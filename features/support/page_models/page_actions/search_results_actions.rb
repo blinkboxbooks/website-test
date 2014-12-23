@@ -22,6 +22,7 @@ module PageModels
 
     def switch_to_view(view)
       books_section.wait_for_books
+      fail 'No search results returned' if search_results_page.has_no_results_element?
       if view.to_sym == :list
         switch_to_list_view
       elsif view.to_sym == :grid
