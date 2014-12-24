@@ -55,6 +55,7 @@ module PageModels
     end
 
     def choose_to_pay_with_a_new_card
+      assert_page('Confirm and pay')
       confirm_and_pay_page.pay_with_new_card.click if confirm_and_pay_page.has_pay_with_new_card?
     end
 

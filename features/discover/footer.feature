@@ -20,7 +20,7 @@ Feature: Global Footer
   @CWA-2092
   Scenario: Footer with copyright text is displayed on the Confirm payment page
     Given I am on the Confirm and pay page trying to buy a paid book
-    Then pending CWA-2092: the footer copyright text should be displayed
+    Then the footer copyright text should be displayed
     But footer visuals should not be displayed
     And footer links should not be displayed
 
