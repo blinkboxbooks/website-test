@@ -84,10 +84,6 @@ end
 Given /^I am on the Confirm and pay page trying to buy a (paid|free) book$/i do |book_type|
   @book_title = select_book_to_buy_on('Book details', book_type)
   sign_in_from_redirected_page
-
-  wait_until 'new payment card form is loaded or pay with new card button is shown' do
-    confirm_and_pay_page.has_pay_with_new_card? || confirm_and_pay_page.has_card_number?
-  end
   assert_page("Confirm and pay")
 end
 

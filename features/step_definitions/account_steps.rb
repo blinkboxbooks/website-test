@@ -104,9 +104,10 @@ Given /^I have multiple stored cards$/ do
   @first_name = test_data('name', 'multiple_storedcards')
 end
 
-Given /^I register(?: to proceed with the purchase| to proceed with adding sample)?$/ do
+Given /^I register (?:to proceed with the purchase|to proceed with adding sample)$/ do
   click_register_button
   register_new_user
+  assert_page("Confirm and pay")
 end
 
 Given /^my default stored card has( not)? expired$/ do |not_expired|
