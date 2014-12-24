@@ -4,13 +4,33 @@ module PageModels
     include Utilities
     include WaitSteps
 
-    def navigation_timeout
-      Capybara.default_wait_time
+    def self.set_navigation_timeout navigation_timeout
+      @navigation_timeout = navigation_timeout
     end
 
-    section :footer, Footer, '[data-test="footer-container"]'
-    section :header, Header, 'header#outer-header'
-    section :search_form, SearchForm, 'div#searchbox-input'
+    def self.navigation_timeout
+      @navigation_timeout ||= Capybara.default_wait_time
+    end
+
+    def navigation_timeout
+      self.class.navigation_timeout
+    end
+
+    def self.set_load_checker(&block)
+      @load_checker = block
+    end
+
+    def self.load_checker
+      @load_checker ||= Proc.new {true}
+    end
+
+    def load_checker
+      self.class.load_checker
+    end
+
+    def displayed?(seconds = navigation_timeout)
+      super(seconds) && load_checker.call(self)
+    end
 
     def wait_until_displayed(timeout = navigation_timeout)
       r0 = Time.now
@@ -29,6 +49,10 @@ module PageModels
       ensure
         puts "Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
     end
+
+    section :footer, Footer, '[data-test="footer-container"]'
+    section :header, Header, 'header#outer-header'
+    section :search_form, SearchForm, 'div#searchbox-input'
   end
 
   def current_page
