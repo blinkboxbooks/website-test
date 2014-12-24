@@ -30,14 +30,6 @@ Then /^the footer copyright text should be displayed$/i do
   expect(current_page.footer.copyright_text).to include('All Rights Reserved')
 end
 
-Then /^pending CWA-2092: the footer copyright text should be displayed$/i do
-  expect(current_page.footer).to have_copyright_label
-  pending('CWA-2092: Copyright text is missing on the Pay&Confirm page') do
-    expect(current_page.footer.copyright_text).to include('blinkbox books')
-    expect(current_page.footer.copyright_text).to include('All Rights Reserved')
-  end
-end
-
 Then /^footer visuals should not be displayed$/i do
   expect(current_page.footer).not_to have_visuals
 end
