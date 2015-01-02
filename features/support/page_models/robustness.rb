@@ -22,7 +22,7 @@ module MakeTestsRobust
   end
 
   def timeout!
-    raise TimeoutError.new("Timeout waiting for AJAX execution - waited #{Capybara.default_wait_time.to_s}")
+    raise TimeoutError, "Timeout waiting for AJAX execution - waited #{Capybara.default_wait_time}"
   end
 
   def ajax_done?
@@ -50,7 +50,7 @@ module ToleranceForSeleniumSyncIssues
   ]
 
   # This is similiar but not entirely the same as Capybara::Node::Base#wait_until or Capybara::Session#wait_until
-  def patiently(seconds=Capybara.default_wait_time, &block)
+  def patiently(seconds = Capybara.default_wait_time, &block)
     old_wait_time = Capybara.default_wait_time
     # dont make nested wait_untils use up all the alloted time
     Capybara.default_wait_time = 0 # for we are a jealous gem
@@ -58,7 +58,7 @@ module ToleranceForSeleniumSyncIssues
       start_time = Time.now
       begin
         block.call
-      rescue Exception => e
+      rescue => e
         raise e unless RETRY_ERRORS.include?(e.class.name)
         raise e if (Time.now - start_time) >= seconds
         sleep(0.05)

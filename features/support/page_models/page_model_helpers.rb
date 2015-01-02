@@ -13,7 +13,7 @@ module PageModelHelpers
   # def home_page
   #    @_home_page ||= HomePage.new
   # end
-  def register_model_caller_method(class_name, caller_method=nil)
+  def register_model_caller_method(class_name, caller_method = nil)
     caller_method ||= page_class_name_to_caller_method(class_name)
     class_eval %Q{def #{caller_method}
                     @_#{caller_method} ||= #{class_name}.new
