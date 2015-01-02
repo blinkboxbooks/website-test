@@ -6,7 +6,7 @@ module PageModels
     section :highlights_category, BookResults, '#books_news'
     section :spotlight_on_category, BookResults, '#editors_picks'
 
-    sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
+    sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
     section :banner, Banner, '[id="slider"]'
   end
 

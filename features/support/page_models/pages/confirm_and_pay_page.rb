@@ -1,6 +1,6 @@
 module PageModels
   class ConfirmAndPayPage < PageModels::BlinkboxbooksPage
-    set_url_matcher /confirm/
+    set_url_matcher(/confirm/)
     set_url '/#!/confirm{?book}'
     set_load_checker { |page| page.has_pay_with_new_card? || page.has_card_number? || page.has_free_book_message? }
 
@@ -43,7 +43,6 @@ module PageModels
     def number_of_saved_cards
       has_saved_cards? ? saved_cards.count : 0
     end
-
   end
 
   register_model_caller_method(ConfirmAndPayPage)

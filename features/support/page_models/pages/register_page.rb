@@ -1,7 +1,7 @@
 module PageModels
   class RegisterPage < PageModels::BlinkboxbooksPage
     set_url '/#!/register'
-    set_url_matcher /register/
+    set_url_matcher(/register/)
 
     element :first_name, '#first_name'
     element :last_name, '#last_name'

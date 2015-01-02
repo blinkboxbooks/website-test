@@ -10,7 +10,7 @@ module PageModels
 
   class AuthorsPage < PageModels::BlinkboxbooksPage
     set_url '/#!/authors'
-    set_url_matcher /authors/
+    set_url_matcher(/authors/)
     element :section_title_element, 'h2[data-test="authors-container-title"]'
     sections :featured_authors, FeaturedAuthor, '#featured_authors ul.authors li'
 

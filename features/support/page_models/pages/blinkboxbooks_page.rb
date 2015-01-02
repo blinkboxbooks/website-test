@@ -4,7 +4,7 @@ module PageModels
     include Utilities
     include WaitSteps
 
-    def self.set_navigation_timeout navigation_timeout
+    def self.set_navigation_timeout(navigation_timeout)
       @navigation_timeout = navigation_timeout
     end
 
@@ -21,7 +21,7 @@ module PageModels
     end
 
     def self.load_checker
-      @load_checker ||= Proc.new {true}
+      @load_checker ||= proc { true }
     end
 
     def load_checker
@@ -34,20 +34,24 @@ module PageModels
 
     def wait_until_displayed(timeout = navigation_timeout)
       r0 = Time.now
+      begin
         SitePrism::Waiter.wait_until_true(timeout) { displayed? }
       rescue SitePrism::TimeoutException
         raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page to be displayed'
       ensure
         puts "Load time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
+      end
     end
 
     def wait_until_not_displayed(timeout = navigation_timeout)
       r0 = Time.now
-        SitePrism::Waiter.wait_until_true(timeout) { not displayed? }
+      begin
+        SitePrism::Waiter.wait_until_true(timeout) { !displayed? }
       rescue SitePrism::TimeoutException
         raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page not to be displayed'
       ensure
         puts "Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
+      end
     end
 
     section :footer, Footer, '[data-test="footer-container"]'

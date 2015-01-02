@@ -5,7 +5,7 @@ module PageModels
   register_model_caller_method(ReaderFrame)
 
   class BookDetailsPage < PageModels::BlinkboxbooksPage
-    set_url_matcher /book/
+    set_url_matcher(/book/)
     set_url '/#!/book/{isbn}/{title}'
 
     element :read_offline, '.read-offline'
@@ -31,7 +31,7 @@ module PageModels
     end
 
     def reader_page_text
-      reader_frame { |frame| return page.text }
+      reader_frame { page.text }
     end
   end
   register_model_caller_method(BookDetailsPage)

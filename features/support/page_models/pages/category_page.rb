@@ -1,9 +1,9 @@
 module PageModels
   class CategoryPage < PageModels::BlinkboxbooksPage
     set_url '/#!/category/{name}'
-    set_url_matcher /category/
+    set_url_matcher(/category/)
 
-    sections :book_results_sections, BookResults,'[data-test="search-results-list"]'
+    sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
     element :category_name, '[data-test="category-title"]'
 
     def show?(category_name)
