@@ -26,10 +26,10 @@ module PageModels
 
     def billing_details
       {
-          :address_line_one => test_data('payment', 'address_lineone'),
-          :address_line_two => test_data('payment', 'address_linetwo'),
-          :town_or_city => test_data('payment', 'town_or_city'),
-          :postcode => test_data('payment', 'postcode')
+        :address_line_one => test_data('payment', 'address_lineone'),
+        :address_line_two => test_data('payment', 'address_linetwo'),
+        :town_or_city => test_data('payment', 'town_or_city'),
+        :postcode => test_data('payment', 'postcode')
       }
     end
 

@@ -16,14 +16,14 @@ module ManageAccount
   def set_card_default
     your_payments_page.wait_for_saved_cards_list
     saved_cards_list = your_payments_page.saved_cards
-    unless saved_cards_list.empty?
-      saved_cards_list.each { |card|
+    if !saved_cards_list.empty?
+      saved_cards_list.each do |card|
         unless card.is_default?
           card.check_default_radio
           @default_card = card.title + card.holder_name
           break
         end
-      }
+      end
     else
       raise 'Saved cards list on Your Payments page is empty!'
     end
@@ -48,7 +48,6 @@ module ManageAccount
       raise "Unsupported browser viewing mode: #{viewing_mode}"
     end
   end
-
 end
 
 module CommonActions

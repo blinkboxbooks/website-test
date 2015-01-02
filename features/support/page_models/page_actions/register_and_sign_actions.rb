@@ -16,7 +16,7 @@ module PageModels
       sign_in_page.sign_in_form.submit(email_address, password)
     end
 
-    def enter_personal_details(email_address=@email_address)
+    def enter_personal_details(email_address = @email_address)
       expect_page_displayed('Register')
       email_address ||= generate_random_email_address
       first_name = generate_random_first_name
@@ -41,7 +41,7 @@ module PageModels
       sign_in_page.sign_in_form.fill_in_password(value)
     end
 
-    def update_password(current_password, new_password, re_enter_password = new_password, args = {:submit => false})
+    def update_password(current_password, new_password, re_enter_password = new_password, args = { :submit => false })
       change_password_page.current_password.set current_password
       change_password_page.enter_new_password.set new_password
       change_password_page.re_enter_new_password.set re_enter_password
@@ -88,7 +88,7 @@ module PageModels
       submit_registration_details
     end
 
-    def sign_in(email_address=@email_address, password=@password)
+    def sign_in(email_address = @email_address, password = @password)
       if email_address.nil?
         email_address = test_data('emails', 'user_with_devices')
         @first_name = test_data('name', 'user_with_devices')
@@ -143,6 +143,5 @@ module PageModels
     end
   end
 end
+
 World(PageModels::RegisterAndSigninActions)
-
-
