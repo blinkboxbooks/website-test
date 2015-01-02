@@ -11,7 +11,7 @@ module Cucumber
           #figure out path to the report HtmlFile (@io will contain filepath - see Cucumber::Formatter::Html)
           #we will put "screenshots" folder in the same location.
           screen_dir = File.join(File.dirname(@io.path), 'screenshots')
-          Dir::mkdir(screen_dir) unless File.directory?(screen_dir)
+          Dir.mkdir(screen_dir) unless File.directory?(screen_dir)
           file = File.join(screen_dir, "FAILED_#{filename_base.to_s.gsub(' ', '_').gsub(/[^0-9A-Za-z_]/, '')}.png")
           begin
             driver = Capybara.page.driver
@@ -24,7 +24,7 @@ module Cucumber
             end
             image = Base64.encode64(open(file).to_a.join)
             embed image, 'image/png', 'CLICK TO VIEW/HIDE SCREENSHOT'
-          rescue Exception => e
+          rescue => e
             puts 'TAKING SCREENSHOT FAILED'
             puts e.message
             puts e.backtrace
@@ -33,9 +33,8 @@ module Cucumber
 
         def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
           super(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
-          if status == :failed
-            save_screenshot_with_filename_based_on(step_match.step_definition)
-          end
+
+          save_screenshot_with_filename_based_on(step_match.step_definition) if status == :failed
         end
 
         def after_table_row(table_row)
@@ -57,9 +56,7 @@ module Cucumber
               set_scenario_color_failed
             end
           end
-          if @outline_row
-            @outline_row += 1
-          end
+          @outline_row += 1 if @outline_row
           @step_number += 1
           move_progress
         end
