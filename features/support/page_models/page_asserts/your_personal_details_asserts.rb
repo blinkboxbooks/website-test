@@ -18,7 +18,7 @@ module PageModels
       expect { your_personal_details_page.marketing_prefs.checked? == after_status }.to become_true, "Expected marketing preference: #{after_status}, got: #{!after_status}"
     end
 
-    def assert_clubcard (clubcard_number = '')
+    def assert_clubcard(clubcard_number = '')
       refresh_current_page
       your_personal_details_page.wait_until_club_card_visible
       expect(your_personal_details_page.club_card.value).to eql(clubcard_number.to_s)
@@ -42,7 +42,7 @@ module PageModels
       refresh_current_page if refresh
       expect(your_personal_details_page.email_address.value).to eq(email_address)
     end
-
   end
 end
+
 World(PageModels::YourPersonalDetailsAsserts)

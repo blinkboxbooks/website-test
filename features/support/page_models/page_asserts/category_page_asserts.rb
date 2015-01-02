@@ -30,4 +30,5 @@ module PageModels
     end
   end
 end
+
 World(PageModels::CategoryPageAsserts)
