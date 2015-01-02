@@ -2,7 +2,7 @@ module PageModelHelpers
   include WebUtilities
 
   def class_name_to_caller_method(class_name)
-    class_name.to_s.gsub(/.*::([^:]*)/, '\1').camel_case_to_underscore_case
+    class_name.to_s.gsub(/.*::([^:]*)/, '\1').underscore
   end
 
   def page_class_name_to_caller_method(class_name)
