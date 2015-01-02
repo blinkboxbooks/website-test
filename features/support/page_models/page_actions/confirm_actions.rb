@@ -2,7 +2,7 @@ module PageModels
   module ConfirmPageActions
     def submit_incomplete_payment_details(card_field)
       card_details = set_valid_card_details('VISA')
-      symbol = card_field.downcase.gsub(' ', '_').to_sym
+      symbol = card_field.titlecase_to_underscore_case.to_sym
 
       raise "unsupported card field '#{symbol}'" if card_details[symbol].nil?
 
@@ -28,7 +28,7 @@ module PageModels
     end
 
     def submit_incomplete_billing_details(missing_field)
-      symbol = missing_field.downcase.gsub(' ', '_').to_sym
+      symbol = missing_field.titlecase_to_underscore_case.to_sym
       fields = billing_details
 
       raise "Unsupported address field '#{symbol}'" if fields[symbol].nil?
@@ -40,7 +40,7 @@ module PageModels
     end
 
     def submit_incorrect_numeric_billing_details(missing_field)
-      symbol = missing_field.downcase.gsub(' ', '_').to_sym
+      symbol = missing_field.titlecase_to_underscore_case.to_sym
       fields = billing_details
 
       raise "Unsupported address field '#{symbol}'" if fields[symbol].nil?
