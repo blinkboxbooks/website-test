@@ -1,6 +1,5 @@
 module PageModels
   class BookResults < PageModels::BlinkboxbooksSection
-
     sections :books, Book, "div[book=\"book\"]"
 
     def invisible_books
@@ -66,6 +65,5 @@ module PageModels
       book.click_view_details
       title
     end
-
   end
 end

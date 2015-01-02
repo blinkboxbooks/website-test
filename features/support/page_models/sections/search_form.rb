@@ -14,7 +14,7 @@ module PageModels
     end
 
     def suggestion(text)
-      suggestions.find {| li | li.text == text}
+      suggestions.find { |li| li.text == text }
     end
 
     def select_suggestion(text)
