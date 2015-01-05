@@ -65,3 +65,44 @@ Feature: Verify that search results match search criteria
     Then only one matching search result should be displayed
     And book name should be "Jack Maggs"
     And author name should be "Peter Carey"
+
+  Scenario: Click on next button on search result page
+    Given I search for "Gone girl"
+    Then Search Results page is displayed
+    When I click on next button on pagination
+    Then then the selected page number should be "2"
+
+  Scenario: Click on previous button on search result page
+    Given I search for "gone girl"
+    Then Search Results page is displayed
+    When I click on page number "5"
+    And I click on previous button on pagination
+    Then then the selected page number should be "4"
+
+  Scenario: Click on page number and verify URL
+    Given I search for "gone girl"
+    Then Search Results page is displayed
+    When I click on page number "7"
+    Then page number url should have "7"
+
+  @manual
+  Scenario Outline: Enter invalid page number in the url
+    Given I search for "gone girl"
+    Then Search Results page is displayed
+    When I edit the page url to <a_non_existing_one>
+    Then it redirects back to <correct_page_number>
+
+  Examples:
+    | a_non_existing_one | correct_page_number |
+    | 500000             | 178                 |
+    | -1                 | 1                   |
+    | 0.0                | 1                   |
+
+    Scenario: Verify the pagination appears correctly for Grid and List view
+      Given I search for "gone girl"
+      Then Search Results page is displayed
+      And pagination should be displayed in grid view
+      Then I change from Grid mode to List mode
+      And pagination should be displayed in list view
+
+

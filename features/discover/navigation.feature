@@ -45,6 +45,78 @@ Feature: Navigation around the website
     And I should see Promotions section header as Daily bestsellers
     And I should see 5 books being displayed
 
+  @production
+  Scenario: Bestsellers page - Switching views
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
+    And I select grid view
+    Then I should see Fiction books in grid view
+    And I select list view
+    Then I should see Fiction books in list view
+
+  @CWA-71 @production
+  Scenario: Bestsellers page - Grid view not changing between tabs
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
+    And I select grid view
+    Then I should see Fiction books in grid view
+    And I click on Non-Fiction tab
+    Then I should see Non-Fiction books in grid view
+
+  @CWA-71 @production
+  Scenario: Bestsellers page - List view not changing between tabs
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
+    And I select list view
+    Then I should see Fiction books in list view
+    And I click on Non-Fiction tab
+    Then I should see Non-Fiction books in list view
+
+  Scenario: Top authors links from footer is dynamically generated
+    Given there are top five authors on the Authors page
+    Then the same Top authors are displayed in the footer
+
+  Scenario: Top categories links from footer is dynamically generated
+    Given there are top five categories on the Categories page
+    Then the same Top categories are displayed in the footer
+
+  Scenario: New releases links from footer is dynamically generated
+    Given there are top five books on the New release page
+    Then the same New releases are displayed in the footer
+
+  Scenario: Redesigned footer is displayed
+    When I scroll down to the footer
+    Then the Help & Support footer visual should be displayed
+    Then the How it Works footer visual should be displayed
+    Then the Tesco Clubcard footer visual should be displayed
+    Then the Redeem Code footer visual should be displayed
+
+  @CWA-34 @manual
+  Scenario:Book Component-List view Title display
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
+    And I select list view
+    Then long titles should be displayed in two lines
+
+  @CWA-34 @manual
+  Scenario:Book Component-Grid view Title display
+    When I click on the Bestsellers header tab
+    Then Bestsellers page is displayed
+    And I select grid view
+    Then long titles should be truncated to fit within image
+
+  @unstable
+  Scenario Outline: Click on new release, free ebooks and authors tabs and verify pagination is shown
+    When I click on the <page> header tab
+    Then pagination is displayed
+
+  Examples:
+    | page         |
+    | Authors      |
+    | Free eBooks  |
+    | New releases |
+
+
   Scenario Outline: Bestsellers page - View not changing between tabs
     Given I am on the Bestsellers page
     When I select <view> view
@@ -56,3 +128,4 @@ Feature: Navigation around the website
       | view |
       | grid |
       | list |
+
