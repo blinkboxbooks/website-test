@@ -95,26 +95,27 @@ Feature: Navigation around the website
   Scenario:Book Component-List view Title display
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
-    And  I select list view
+    And I select list view
     Then long titles should be displayed in two lines
 
   @CWA-34 @manual
   Scenario:Book Component-Grid view Title display
     When I click on the Bestsellers header tab
     Then Bestsellers page is displayed
-    And  I select grid view
+    And I select grid view
     Then long titles should be truncated to fit within image
 
-  @manual
+  @unstable
   Scenario Outline: Click on new release, free ebooks and authors tabs and verify pagination is shown
     When I click on the <page> header tab
     Then pagination is displayed
 
   Examples:
     | page         |
-    | New releases |
-    | Free eBooks  |
     | Authors      |
+    | Free eBooks  |
+    | New releases |
+
 
   Scenario Outline: Bestsellers page - View not changing between tabs
     Given I am on the Bestsellers page
