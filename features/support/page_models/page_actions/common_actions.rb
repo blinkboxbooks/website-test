@@ -10,7 +10,7 @@ module ManageAccount
     puts "Changing last name from '#{your_personal_details_page.first_name}' to '#{last_name}'"
     your_personal_details_page.first_name_element.set first_name
     your_personal_details_page.last_name_element.set last_name
-    return first_name, last_name
+    [first_name, last_name]
   end
 
   def set_card_default

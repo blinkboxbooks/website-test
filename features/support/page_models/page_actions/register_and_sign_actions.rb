@@ -22,7 +22,7 @@ module PageModels
       first_name = generate_random_first_name
       last_name = generate_random_last_name
       register_page.fill_in_personal_details(first_name, last_name, email_address)
-      return email_address, first_name, last_name
+      [email_address, first_name, last_name]
     end
 
     def enter_password(value)
@@ -78,7 +78,7 @@ module PageModels
       accept_terms_and_conditions(true)
       submit_registration_details
       puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
-      return @password, @email_address, @first_name, @last_name
+      [@password, @email_address, @first_name, @last_name]
     end
 
     def register_with_existing_email_address

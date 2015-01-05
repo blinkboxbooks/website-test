@@ -145,7 +145,7 @@ module PageModels
       expect_page_displayed('order complete')
       assert_order_complete
       card_count += 1 if save_payment
-      return name_on_card, card_type, card_count
+      [name_on_card, card_type, card_count]
     end
 
     def submit_payment_details_with_empty_cc_form

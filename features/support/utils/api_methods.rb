@@ -113,7 +113,7 @@ module APIMethods
       fail "Test Error: Failed to register new user with response:\n#{response.inspect}" unless response.status <= 201
       user_props = MultiJson.load(response.body)
       @access_token = user_props['access_token']
-      return @email_address, @password, @device_name
+      [@email_address, @password, @device_name]
     end
 
     def add_credit_card(access_token = @access_token)
