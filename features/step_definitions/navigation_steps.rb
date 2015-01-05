@@ -185,7 +185,7 @@ When(/^I select (.*?) link from the hamburger Menu$/) do|link_name|
 end
 
 Then(/^I am redirected to the "([a-zA-Z ]+)" support page in a new window$/) do |support_page|
-  pending('CWA-1029 - FAQ, Contact us under Support should open(in new window') do
+  pending('CWA-1029 - FAQ, Contact us under Support should open in new window') do
     assert_support_page(support_page)
   end
 end
@@ -198,7 +198,7 @@ Then(/^following FAQ links are displayed(?: on confirmation page)?:$/) do |table
 end
 
 And(/^clicking above FAQ link opens relevant support page in a new window$/) do
-  pending('CWA-1029 - FAQ, Contact us under Support should open(in new window') do
+  pending('CWA-1029 - FAQ, Contact us under Support should open in new window') do
     @support_links.hashes.each do |row|
       click_link(row['support links'])
       begin
