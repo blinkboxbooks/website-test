@@ -2,10 +2,11 @@ module PageModels
   class ConfirmAndPayPage < PageModels::BlinkboxbooksPage
     set_url_matcher /confirm/
     set_url '/#!/confirm{?book}'
+    set_load_checker { |page| page.has_pay_with_new_card? || page.has_card_number? || page.has_free_book_message? }
 
     element :details_view, 'div#confirm-pay-card-details-view'
     element :save_card, '#save_details'
-    element :cvv , '#number_cvv'
+    element :cvv, '#number_cvv'
     element :name_on_card, '#card_name'
     element :card_number, '#number_card'
     element :expiry_month, '#card_dates_month'

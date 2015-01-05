@@ -20,11 +20,11 @@ Feature: Gift voucher redemption
     Then the redemption confirmation message is displayed
 
   @negative
-  Scenario: Scenario: Expired voucher code is rejected
+  Scenario: Expired voucher code is rejected
     When I submit an invalid voucher code "CPBGFWUSDSFPG7HP"
     Then "is past its use by date. Sorry, it's no longer valid." error message is displayed
 
-  @negative @smoke
+  @negative @sanity
   Scenario: Scenario: Expired voucher code is rejected
     When I submit an invalid voucher code "1234567890abcdef"
     Then "doesn't exist! Keep an eye out for typos and try again." error message is displayed

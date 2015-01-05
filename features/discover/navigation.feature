@@ -20,7 +20,7 @@ Feature: Navigation around the website
   @sanity
   Scenario: Read a sample
     Given I am on the Book Details page of a paid book
-    And  the book reader is displayed
+    And the book reader is displayed
     And I am able to read the sample of corresponding book
 
   @production @CWA-2074

@@ -84,6 +84,7 @@ end
 Given /^I am on the Confirm and pay page trying to buy a (paid|free) book$/i do |book_type|
   @book_title = select_book_to_buy_on('Book details', book_type)
   sign_in_from_redirected_page
+  assert_page("Confirm and pay")
 end
 
 Given /^I have selected to buy a free book( via search)?$/ do |do_search|

@@ -33,7 +33,6 @@ end
 
 Then /^(.*?) promotable category has (\d+) books$/ do |category_name, no_of_books|
   assert_promotable_category(category_name, no_of_books)
-
 end
 
 And /^all the books displayed$/ do
