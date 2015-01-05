@@ -28,13 +28,13 @@ module PageModels
 
     def random_purchasable_book
       sample = purchasable_books.sample
-      raise 'There are no purchasable books available on the current page' if sample.nil?
+      fail 'There are no purchasable books available on the current page' if sample.nil?
       sample
     end
 
     def random_free_book
       sample = free_books.sample
-      raise 'There are no free books available on the current page' if sample.nil?
+      fail 'There are no free books available on the current page' if sample.nil?
       sample
     end
 

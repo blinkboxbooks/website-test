@@ -25,7 +25,7 @@ module ManageAccount
         end
       end
     else
-      raise 'Saved cards list on Your Payments page is empty!'
+      fail 'Saved cards list on Your Payments page is empty!'
     end
 
     click_button('Update default card')
@@ -45,7 +45,7 @@ module ManageAccount
     when '7 inch tablet'
       resize_window(550, 1024)
     else
-      raise "Unsupported browser viewing mode: #{viewing_mode}"
+      fail "Unsupported browser viewing mode: #{viewing_mode}"
     end
   end
 end

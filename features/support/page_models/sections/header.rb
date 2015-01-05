@@ -68,7 +68,7 @@ module PageModels
       if account_menu.respond_to?(link)
         account_menu.send(link).click
       else
-        raise "Cannot find link \"#{link_name}\" in hamburger menu!"
+        fail "Cannot find link \"#{link_name}\" in hamburger menu!"
       end
     end
 
@@ -91,7 +91,7 @@ module PageModels
     def navigate_to(link_name)
       header_tab = tab(link_name)
       if header_tab.nil?
-        raise "Not recognised header navigation link: #{link_name}"
+        fail "Not recognised header navigation link: #{link_name}"
       else
         header_tab.click
       end

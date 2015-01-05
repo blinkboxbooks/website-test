@@ -19,7 +19,7 @@ module PageModels
 
     def select_suggestion(text)
       result = suggestion(text)
-      raise "Unable to find suggestion by text '#{text}'" if result.nil?
+      fail "Unable to find suggestion by text '#{text}'" if result.nil?
       result.find('a').click
     end
   end

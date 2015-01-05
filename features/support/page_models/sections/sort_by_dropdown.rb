@@ -11,7 +11,7 @@ module PageModels
       selected_item_element.hover
       wait_until_list_visible
       item = list.find { |l| l.text == title }
-      raise "Sort by \"#{title}\" option does not exist!" if item.nil?
+      fail "Sort by \"#{title}\" option does not exist!" if item.nil?
       item.hover
       item.click
     end

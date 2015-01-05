@@ -95,7 +95,7 @@ module PageModels
       end
       password ||= test_data('passwords', 'valid_password')
       if logged_in_session?
-        raise 'User is already signed in, which is not expected, please check your flow'
+        fail 'User is already signed in, which is not expected, please check your flow'
       else
         navigate_to_sign_in_form
         submit_sign_in_details(email_address, password)

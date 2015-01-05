@@ -27,7 +27,7 @@ module AssertNavigation
     when 'bestselling authors'
       authors_page.section_title.should include(text)
     else
-      raise "Unknown section header: #{section_id}"
+      fail "Unknown section header: #{section_id}"
     end
   end
 

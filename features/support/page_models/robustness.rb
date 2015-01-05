@@ -22,7 +22,7 @@ module MakeTestsRobust
   end
 
   def timeout!
-    raise TimeoutError, "Timeout waiting for AJAX execution - waited #{Capybara.default_wait_time}"
+    fail TimeoutError, "Timeout waiting for AJAX execution - waited #{Capybara.default_wait_time}"
   end
 
   def ajax_done?

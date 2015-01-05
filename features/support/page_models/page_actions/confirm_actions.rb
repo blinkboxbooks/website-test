@@ -4,7 +4,7 @@ module PageModels
       card_details = set_valid_card_details('VISA')
       symbol = card_field.titlecase_to_underscore_case.to_sym
 
-      raise "unsupported card field '#{symbol}'" if card_details[symbol].nil?
+      fail "unsupported card field '#{symbol}'" if card_details[symbol].nil?
 
       card_details[symbol] = ''
       enter_card_details(card_details)
@@ -31,7 +31,7 @@ module PageModels
       symbol = missing_field.titlecase_to_underscore_case.to_sym
       fields = billing_details
 
-      raise "Unsupported address field '#{symbol}'" if fields[symbol].nil?
+      fail "Unsupported address field '#{symbol}'" if fields[symbol].nil?
 
       fields[symbol] = ''
       enter_card_details(set_valid_card_details('VISA'))
@@ -43,7 +43,7 @@ module PageModels
       symbol = missing_field.titlecase_to_underscore_case.to_sym
       fields = billing_details
 
-      raise "Unsupported address field '#{symbol}'" if fields[symbol].nil?
+      fail "Unsupported address field '#{symbol}'" if fields[symbol].nil?
 
       fields[symbol] = '12345'
       enter_card_details(set_valid_card_details('VISA'))

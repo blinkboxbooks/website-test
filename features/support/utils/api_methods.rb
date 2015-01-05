@@ -49,7 +49,7 @@ module APIMethods
                   'Content-Type' => 'application/x-www-form-urlencoded',
                   'Accept' => 'application/json' }
       response = http_client.get(@browsers_uri, body: {}, header: headers)
-      raise 'Test Error: Failed to get browsers list from BrowserStack!' unless response.status == 200
+      fail 'Test Error: Failed to get browsers list from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
 
@@ -58,7 +58,7 @@ module APIMethods
                   'Content-Type' => 'application/x-www-form-urlencoded',
                   'Accept' => 'application/json' }
       response = http_client.get(@plan_uri, body: {}, header: headers)
-      raise 'Test Error: Failed to get number of free sessions from BrowserStack!' unless response.status == 200
+      fail 'Test Error: Failed to get number of free sessions from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
 
@@ -67,7 +67,7 @@ module APIMethods
                   'Content-Type' => 'application/x-www-form-urlencoded',
                   'Accept' => 'application/json' }
       response = http_client.get(@projects_uri, body: {}, header: headers)
-      raise 'Test Error: Failed to get list of projects from BrowserStack!' unless response.status == 200
+      fail 'Test Error: Failed to get list of projects from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
   end
@@ -110,7 +110,7 @@ module APIMethods
         response = http_client.post(@auth_uri, body: params, header: headers)
       end
 
-      raise "Test Error: Failed to register new user with response:\n#{response.inspect}" unless response.status <= 201
+      fail "Test Error: Failed to register new user with response:\n#{response.inspect}" unless response.status <= 201
       user_props = MultiJson.load(response.body)
       @access_token = user_props['access_token']
       return @email_address, @password, @device_name
@@ -128,8 +128,8 @@ module APIMethods
         response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
       end
 
-      raise "Adding credit card failed with response:\n#{response.inspect}" unless response.status <= 201
-      params['cardholderName']
+      fail "Adding credit card failed with response:\n#{response.inspect}" unless response.status <= 201
+      params[:cardholderName]
     end
 
     def http_client
