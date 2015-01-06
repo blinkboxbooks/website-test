@@ -128,7 +128,7 @@ module APIMethods
       end
 
       raise "Adding credit card failed with response:\n#{response.inspect}" unless response.status <= 201
-      params[:cardholderName]
+      params['cardholderName']
     end
 
     def buy_a_book
