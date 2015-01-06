@@ -25,7 +25,7 @@ Feature: Gift voucher redemption
     Then "is past its use by date. Sorry, it's no longer valid." error message is displayed
 
   @negative @sanity
-  Scenario: Scenario: Expired voucher code is rejected
+  Scenario: Expired voucher code is rejected
     When I submit an invalid voucher code "1234567890abcdef"
     Then "doesn't exist! Keep an eye out for typos and try again." error message is displayed
 
@@ -59,7 +59,7 @@ Feature: Gift voucher redemption
     Then "<error_message>" error message is displayed
 
   Examples:
-    | invalid_code      | error_message                                                                |
-    | 123D!@£           | That code isn't quite right - it should be a combo of 16 letters and numbers |
-    | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers     |
-    | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers      |
+    | invalid_code      | error_message                                                                 |
+    | 123D!@£           | That code isn't quite right - it should be a combo of 16 letters and numbers. |
+    | 12D4567890        | That code's a bit short – it should be a combo of 16 letters and numbers.     |
+    | 11DB1111111111111 | That code's a bit long – it should be a combo of 16 letters and numbers.      |
