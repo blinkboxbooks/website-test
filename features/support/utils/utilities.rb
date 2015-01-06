@@ -19,9 +19,11 @@ module Utilities
   end
 
   def return_search_word_for_book_type(book_type)
-    #Until http://jira.blinkbox.local/jira/browse/PT-242 is fixed, commenting that out. returns always a keyword that return results
-    # book_type.to_sym == :free ? 'free' : test_data_sample('random_search_keywords')
-    book_type.to_sym == :free ? 'free' : 'cooking'
+    if TEST_CONFIG['server']=~/QA/i
+      book_type.to_sym == :free ? 'free' : 'love'
+    else
+      book_type.to_sym == :free ? 'free' : test_data_sample('random_search_keywords')
+    end
   end
 
   def isbn_for_book_type(book_type)
