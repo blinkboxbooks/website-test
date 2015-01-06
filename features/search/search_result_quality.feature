@@ -17,7 +17,7 @@ Feature: Verify that search results match search criteria
   Examples:
     | invalid_search_item |
     | blahblahblahblah    |
-    | $%^$%&^%*^&         |
+   #| $%^$%&^%*^&         |
 
   @data-dependent @sanity @production
   Scenario: Search results displayed
