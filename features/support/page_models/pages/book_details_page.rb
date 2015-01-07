@@ -31,7 +31,7 @@ module PageModels
     end
 
     def reader_page_text
-      reader_frame { |frame| return page.text }
+      reader_frame { page.text }
     end
   end
   register_model_caller_method(BookDetailsPage)
