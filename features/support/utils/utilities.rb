@@ -19,7 +19,11 @@ module Utilities
   end
 
   def return_search_word_for_book_type(book_type)
-    book_type.to_sym == :free ? 'free' : test_data_sample('random_search_keywords')
+    if TEST_CONFIG['server']=~/QA/i
+      book_type.to_sym == :free ? 'free' : 'love'
+    else
+      book_type.to_sym == :free ? 'free' : test_data_sample('random_search_keywords')
+    end
   end
 
   def isbn_for_book_type(book_type)
