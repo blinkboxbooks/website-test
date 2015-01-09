@@ -1,6 +1,7 @@
 module APIMethods
   require 'httpclient'
   require 'multi_json'
+  require 'blinkbox/user'
   require_rel 'utilities.rb'
 
   class Browserstack
@@ -74,89 +75,38 @@ module APIMethods
     include Utilities
 
     def initialize(auth, api)
-      @auth_uri = "#{auth}/oauth2/token"
+      @auth_uri = auth
       @credit_card_uri = "#{api}/service/my/creditcards"
     end
 
-    def create_new_user! (options ={})
-      with_client = options[:with_client]
-      @email_address = generate_random_email_address
-      @password = 'test1234'
-      params = {
-          grant_type: 'urn:blinkbox:oauth:grant-type:registration',
-          first_name: generate_random_first_name,
-          last_name: generate_random_last_name,
-          username: @email_address,
-          password: @password,
-          accepted_terms_and_conditions: true,
-          allow_marketing_communications: false
-      }
-      if with_client
-        @device_name = 'Web Site Test Client'
-        params.merge!({
-                          client_name: @device_name,
-                          client_brand: 'Tesco',
-                          client_model: 'Hudl',
-                          client_os: 'Android'})
+    def create_new_user!(options = {})
+      @email_address = options[:email_address] || generate_random_email_address
+      @password = options[:password] || 'test1234'
+
+      @user = Blinkbox::User.new(:username => @email_address, :password => @password, :server_uri => @auth_uri)
+      @user.register
+
+      if options[:with_client]
+        @device_name = options[:device_name] || 'Web Site Test Client'
+        @device_brand = options[:device_brand] || 'Tesco'
+        @device_model = options[:device_model] || 'Hudl'
+        @device_os = options[:device_os] || 'Android'
+
+        @user.authenticate
+        @user.register_device(:name => @device_name, :brand => @device_brand, :model => @device_model, :os => @device_os)
       end
 
-      headers = {'Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json'}
-
-      #a tmp patch to re-try in case of SSL Broken_pipe failure
-      begin
-        response = http_client.post(@auth_uri, body: params, header: headers)
-      rescue Errno::EPIPE
-        response = http_client.post(@auth_uri, body: params, header: headers)
-      end
-
-      raise "Test Error: Failed to register new user with response:\n#{response.inspect}" unless response.status <= 201
-      user_props = MultiJson.load(response.body)
-      @access_token = user_props['access_token']
       return @email_address, @password, @device_name
     end
 
-    def add_credit_card(access_token = @access_token)
-      params = test_data_sample('encrypted_card_details')
-      headers = {'Content-Type' => 'application/vnd.blinkboxbooks.data.v1+json', 'Authorization' => "Bearer #{access_token}"}
-      body = {'type' => 'urn:blinkboxbooks:schema:creditcard'}.merge(params)
-
-      #a tmp patch to re-try in case of SSL Broken_pipe failure
-      begin
-        response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
-      rescue Errno::EPIPE
-        response = http_client.post(@credit_card_uri, body: format_body(body), header: headers)
-      end
-
-      raise "Adding credit card failed with response:\n#{response.inspect}" unless response.status <= 201
-      params['cardholderName']
-    end
-
-    def buy_a_book
-
-    end
-
-    def add_a_device
-
-    end
-
-    def http_client
-      @http ||= HTTPClient.new
-      @http.ssl_config.options |= OpenSSL::SSL::OP_NO_SSLv3
-      @http
-    end
-
-    def format_body(body)
-      if body.is_a?(Hash)
-        MultiJson.dump(body)
-      else
-        body
-      end
+    def add_credit_card
+      # pending
+      # PR to add this functionality to Blinkbox:User is under review
     end
   end
 
-
   def api_helper
-    @api_helper||=APIMethods::User.new(server('auth'), server('api'))
+    @api_helper ||= APIMethods::User.new(server('auth'), server('api'))
   end
 end
 World(APIMethods)
