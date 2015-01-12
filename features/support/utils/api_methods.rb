@@ -82,7 +82,6 @@ module APIMethods
       @auth_uri = auth
       @api_uri = api
       @braintree_env = braintree_env
-      # Change dev_int -> dev in the gem
     end
 
     def create_new_user!(options = {})
