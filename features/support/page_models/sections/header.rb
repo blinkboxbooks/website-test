@@ -90,10 +90,10 @@ module PageModels
 
     def navigate_to(link_name)
       header_tab = tab(link_name)
-      if header_tab.nil?
-        fail "Not recognised header navigation link: #{link_name}"
-      else
+      if !header_tab.nil?
         header_tab.click
+      else
+        fail "Not recognised header navigation link: #{link_name}"
       end
     end
 
