@@ -60,7 +60,7 @@ module PageModels
       wait_until_user_account_logo_visible
       user_account_logo.click
       wait_until_account_menu_visible
-    end  
+    end
 
     def navigate_to_account_option(link_name)
       open_account_menu
@@ -68,7 +68,7 @@ module PageModels
       if account_menu.respond_to?(link)
         account_menu.send(link).click
       else
-        raise "Cannot find link \"#{link_name}\" in hamburger menu!"
+        fail "Cannot find link \"#{link_name}\" in hamburger menu!"
       end
     end
 
@@ -90,10 +90,10 @@ module PageModels
 
     def navigate_to(link_name)
       header_tab = tab(link_name)
-      unless header_tab.nil?
+      if !header_tab.nil?
         header_tab.click
       else
-        raise "Not recognised header navigation link: #{link_name}"
+        fail "Not recognised header navigation link: #{link_name}"
       end
     end
 

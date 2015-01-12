@@ -1,6 +1,5 @@
 module PageModels
   class Book < PageModels::BlinkboxbooksSection
-
     element :layer, 'div.book'
     element :title_element, 'h2.title'
     element :title_element_list, 'h2.title a'

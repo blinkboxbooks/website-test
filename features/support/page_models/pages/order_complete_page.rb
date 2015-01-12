@@ -1,6 +1,6 @@
 module PageModels
   class OrderCompletePage < PageModels::BlinkboxbooksPage
-    set_url_matcher /order-complete/
+    set_url_matcher(/order-complete/)
     set_url '/#!/order-complete{?book}{&cpa}'
 
     element :continue_shopping_button,     'a', :text => /Continue shopping/i

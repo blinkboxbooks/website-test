@@ -27,9 +27,7 @@ module WebUtilities
 
   def clear_text_field(element)
     wait_until { element.visible? }
-    until element.value.empty? do
-      element.native.send_keys(:backspace)
-    end
+    element.native.send_keys(:backspace) until element.value.empty?
   end
 
   def reset_session!
@@ -72,9 +70,7 @@ module WebUtilities
   end
 
   def close_excessive_browser_windows
-    while open_windows.count > 1
-      close_last_open_browser_window
-    end
+    close_last_open_browser_window while open_windows.count > 1
   end
 
   def last_open_browser_window

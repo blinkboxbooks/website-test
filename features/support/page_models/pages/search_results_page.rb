@@ -1,7 +1,7 @@
 module PageModels
   class SearchResultsPage < PageModels::BlinkboxbooksPage
     set_url '/#!/search{?q}'
-    set_url_matcher /search\?q=/
+    set_url_matcher(/search\?q=/)
 
     element :searched_term_element, '.searched_term'
     sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
@@ -32,7 +32,7 @@ module PageModels
     end
 
     def searched_term
-      searched_term_element.text.gsub('"','').strip
+      searched_term_element.text.gsub('"', '').strip
     end
   end
   register_model_caller_method(SearchResultsPage, :search_results_page)

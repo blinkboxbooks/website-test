@@ -3,10 +3,10 @@ module PageModels
     element :email, 'input#email'
     element :password, 'input#password'
     element :sign_in_button, 'button', :text => /Sign in/i
-    element :show_password,'#showPassword'
+    element :show_password, '#showPassword'
 
     def submit(email, password)
-      wait_until {all_there?}
+      wait_until { all_there? }
       self.email.set email
       self.show_password.set true
       self.password.set password

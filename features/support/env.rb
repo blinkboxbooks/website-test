@@ -1,6 +1,6 @@
 # ======== Set Load Paths ======
 support_dir = File.dirname(__FILE__)
-path_to_root = support_dir + '/../../'
+path_to_root = File.join(support_dir, '/../../')
 $LOAD_PATH.unshift File.expand_path(support_dir)
 
 # ======= Setup Test Config =======
@@ -84,17 +84,17 @@ if TEST_CONFIG['GRID'] =~ /browserstack/i
 else
   browser_name = TEST_CONFIG['BROWSER_NAME'].downcase.to_sym
   caps = case browser_name
-           when :chrome
-             if TEST_CONFIG['performance_logging']
-               caps_perflog = Selenium::WebDriver::Remote::Capabilities.chrome(
-                   "LOGGING_PREFS" => {"LogType" => [ "PERFORMANCE" ]}
-               )
-             end
-             Selenium::WebDriver::Remote::Capabilities.send(browser_name)
-           when :firefox, :safari, :ie, :android
-             Selenium::WebDriver::Remote::Capabilities.send(browser_name)
-           else
-             fail "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
+         when :chrome
+           if TEST_CONFIG['performance_logging']
+             caps_perflog = Selenium::WebDriver::Remote::Capabilities.chrome(
+               "LOGGING_PREFS" => { "LogType" => ["PERFORMANCE"] }
+             )
+           end
+           Selenium::WebDriver::Remote::Capabilities.send(browser_name)
+         when :firefox, :safari, :ie, :android
+           Selenium::WebDriver::Remote::Capabilities.send(browser_name)
+         else
+           fail "Not supported browser: #{TEST_CONFIG['BROWSER_NAME']}"
          end
   caps.version = TEST_CONFIG['BROWSER_VERSION']
 end
@@ -108,18 +108,18 @@ if config_flag_on?(TEST_CONFIG['GRID'])
   # target platform
   TEST_CONFIG['PLATFORM'] ||= 'FIRST_AVAILABLE'
   case TEST_CONFIG['PLATFORM'].upcase
-    when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
-      TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
-      caps.platform = TEST_CONFIG['PLATFORM'].upcase.to_sym
-    when 'ANDROID'
-      TEST_CONFIG['GRID_HUB_IP'] ||= 'localhost'
-      caps.platform = TEST_CONFIG['PLATFORM'].downcase.to_sym
-    when 'FIRST_AVAILABLE'
-      TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
-    #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
-    #which matches other specified capabilities. NB nodes are ordered by the order of registration with the hub.
-    else
-      fail "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
+  when 'MAC', 'XP', 'VISTA', 'WIN8', 'WINDOWS', 'LINUX' # *WINDOWS* stands for Windows 7
+    TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
+    caps.platform = TEST_CONFIG['PLATFORM'].upcase.to_sym
+  when 'ANDROID'
+    TEST_CONFIG['GRID_HUB_IP'] ||= 'localhost'
+    caps.platform = TEST_CONFIG['PLATFORM'].downcase.to_sym
+  when 'FIRST_AVAILABLE'
+    TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
+  #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
+  #which matches other specified capabilities. NB nodes are ordered by the order of registration with the hub.
+  else
+    fail "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
   end
 
   # register the remote driver
