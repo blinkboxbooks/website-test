@@ -34,7 +34,7 @@ Feature: User adding sample to Library
     | free      |
 
   @unstable
-  Scenario Outline: Returning user adding a sample to library
+  Scenario Outline: Existing user adding a sample to library
     Given I have identified a <book_type> book on the search results page to read sample offline
     When I select Read offline on the book details page
     And I sign in to proceed with adding sample
@@ -46,7 +46,7 @@ Feature: User adding sample to Library
     | free      |
 
   @negative
-  Scenario Outline: Returning user attempting to add book sample that already exists in his library
+  Scenario Outline: Existing user attempting to add book sample that already exists in his library
     Given I have a <book_type> book as a sample in my library
     When I am on the Book Details page for the same <book_type> book
     And I try to add the book as a sample again
@@ -59,7 +59,7 @@ Feature: User adding sample to Library
     | free      |
 
   @negative
-  Scenario Outline: Returning user attempting to add book sample of which full book already exists in his library
+  Scenario Outline: Existing user attempting to add book sample of which full book already exists in his library
     Given I have purchased a <book_type> book
     When I am on the Book Details page for the same <book_type> book
     And I try to add the book as a sample again
