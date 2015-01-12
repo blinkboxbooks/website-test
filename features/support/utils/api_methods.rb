@@ -76,9 +76,16 @@ module APIMethods
   class User
     include Utilities
 
-    def initialize(auth, api)
+    def initialize(auth)
       @auth_uri = auth
-      @credit_card_uri = "#{api}/service/my/creditcards"
+      case auth
+        when /dev/
+          @braintree_env = 'dev_int'
+        when /qa/
+          @braintree_env = 'qa'
+        else
+          fail 'API calls on this environment is not supported!'
+      end
     end
 
     def create_new_user!(options = {})
@@ -101,14 +108,18 @@ module APIMethods
       return @email_address, @password, @device_name
     end
 
-    def add_credit_card
-      # pending
-      # PR to add this functionality to Blinkbox:User is under review
+    def add_credit_card(options = {})
+      create_new_user! unless @user
+      @card_type = options[:card_type] || 'visa'
+
+      @user.authenticate
+      @user.add_default_credit_card({:card_type => @card_type, :braintree_env => @braintree_env})
+      'Jimmy Jib'
     end
   end
 
   def api_helper
-    @api_helper ||= APIMethods::User.new(server('auth'), server('api'))
+    @api_helper ||= APIMethods::User.new(server('auth'))
   end
 end
 World(APIMethods)
