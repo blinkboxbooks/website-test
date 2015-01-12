@@ -111,8 +111,6 @@ module APIMethods
 
       @user.authenticate
       @user.add_default_credit_card(card_type: @card_type, braintree_env: @braintree_env)
-      'Jimmy Jib'
-      # Return this from the gem
     end
   end
 
