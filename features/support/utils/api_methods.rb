@@ -76,23 +76,20 @@ module APIMethods
   class User
     include Utilities
 
-    def initialize(auth)
+    attr_accessor :auth_uri, :braintree_env, :user
+
+    def initialize(auth, api, braintree_env)
       @auth_uri = auth
-      case auth
-        when /dev/
-          @braintree_env = 'dev_int'
-        when /qa/
-          @braintree_env = 'qa'
-        else
-          fail 'API calls on this environment is not supported!'
-      end
+      @api_uri = api
+      @braintree_env = braintree_env
+      # Change dev_int -> dev in the gem
     end
 
     def create_new_user!(options = {})
       @email_address = options[:email_address] || generate_random_email_address
       @password = options[:password] || 'test1234'
 
-      @user = Blinkbox::User.new(:username => @email_address, :password => @password, :server_uri => @auth_uri)
+      @user = Blinkbox::User.new(username: @email_address, password: @password, server_uri: @auth_uri, credit_card_service_uri: @api_uri)
       @user.register
 
       if options[:with_client]
@@ -102,7 +99,7 @@ module APIMethods
         @device_os = options[:device_os] || 'Android'
 
         @user.authenticate
-        @user.register_device(:name => @device_name, :brand => @device_brand, :model => @device_model, :os => @device_os)
+        @user.register_device(name: @device_name, brand: @device_brand, model: @device_model, os: @device_os)
       end
 
       return @email_address, @password, @device_name
@@ -113,13 +110,14 @@ module APIMethods
       @card_type = options[:card_type] || 'visa'
 
       @user.authenticate
-      @user.add_default_credit_card({:card_type => @card_type, :braintree_env => @braintree_env})
+      @user.add_default_credit_card(card_type: @card_type, braintree_env: @braintree_env)
       'Jimmy Jib'
+      # Return this from the gem
     end
   end
 
   def api_helper
-    @api_helper ||= APIMethods::User.new(server('auth'))
+    @api_helper ||= APIMethods::User.new(server('auth'), server('api'), server('braintree_env'))
   end
 end
 World(APIMethods)
