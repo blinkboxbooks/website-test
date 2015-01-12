@@ -55,7 +55,7 @@ namespace :ci do
 
     desc 'Rerun Cucumber tasks with rerunning on failure.'
     task :all do
-      rm_rf @run_record if File.exists?(@run_record)
+      rm_rf @run_record if File.exist?(@run_record)
 
       begin
         Rake::Task['ci:cucumber:run'].invoke
@@ -71,9 +71,7 @@ namespace :ci do
           begin
             puts 'Rerun ' + @run.to_s + ' of ' + @reruns.to_s
 
-            if @run > 1
-              Rake::Task['ci:cucumber:rerun'].reenable
-            end
+            Rake::Task['ci:cucumber:rerun'].reenable if @run > 1
 
             if tests_passed_according_to_record?
               puts "Tests passed according to the record in #{run_record}"

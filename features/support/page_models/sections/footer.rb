@@ -55,7 +55,7 @@ module PageModels
       if links.respond_to?(link)
         links.send(link).click
       else
-        raise "Not recognised footer navigation link: #{link}"
+        fail "Not recognised footer navigation link: #{link}"
       end
     end
   end

@@ -3,7 +3,6 @@ require 'capybara/rspec/matchers'
 require 'capybara/selenium/node'
 
 module AssertNavigation
-
   def assert_page(page_name)
     page = page_model(page_name)
     page.wait_until_displayed
@@ -11,7 +10,7 @@ module AssertNavigation
     raise RSpec::Expectations::ExpectationNotMetError, "Page verification failed\n   Expected page: '#{page_name}' with url_matcher #{page.url_matcher}\n   Current url: #{current_url}\nTimeOutWaitingForPageToAppear: #{e.message}"
   end
 
-  alias :expect_page_displayed :assert_page
+  alias_method :expect_page_displayed, :assert_page
 
   def assert_message_displayed(message_text)
     expect(current_page).to have_content(message_text, :visible => true)
@@ -19,21 +18,21 @@ module AssertNavigation
 
   def assert_section_header(section_id, text)
     case section_id.downcase
-      when 'bestsellers'
-        bestsellers_page.section_title.should include(text)
-      when 'new releases'
-        new_releases_page.section_title.should include(text)
-      when 'free ebooks'
-        free_ebooks_page.section_title.should include(text)
-      when 'bestselling authors'
-        authors_page.section_title.should include(text)
-      else
-        raise "Unknown section header: #{section_id}"
+    when 'bestsellers'
+      bestsellers_page.section_title.should include(text)
+    when 'new releases'
+      new_releases_page.section_title.should include(text)
+    when 'free ebooks'
+      free_ebooks_page.section_title.should include(text)
+    when 'bestselling authors'
+      authors_page.section_title.should include(text)
+    else
+      fail "Unknown section header: #{section_id}"
     end
   end
 
   def assert_book_details
-    expect{book_details_page.all_there?}.to become_true
+    expect { book_details_page.all_there? }.to become_true
   end
 
   def assert_book_reader
@@ -44,7 +43,6 @@ module AssertNavigation
   def assert_order_complete
     expect { order_complete_page.has_order_complete_message? }.to become_true
   end
-
 end
 
 module AssertSearch
@@ -52,7 +50,7 @@ module AssertSearch
     expect_page_displayed('Search Results')
     expect(search_results_page).to have_content("You searched for")
     expect(search_results_page.searched_term).to eq(search_word)
-    expect {books_section.has_books?}.to become_true, "Books are not displayed"
+    expect { books_section.has_books? }.to become_true, "Books are not displayed"
     expect(books_section.books_with_title(search_word)).to have_at_least(1).item
   end
 
@@ -90,7 +88,7 @@ end
 
 module AssertLogin
   def assert_logged_in_session
-    expect {logged_in_session?}.to become_true, "User is not logged in as expected"
+    expect { logged_in_session? }.to become_true, "User is not logged in as expected"
   end
 end
 

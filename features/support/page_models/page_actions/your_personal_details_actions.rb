@@ -1,7 +1,6 @@
 module PageModels
   module YourPersonalDetailsActions
-
-    def enter_clubcard(clubcard_number, args = {:submit => false})
+    def enter_clubcard(clubcard_number, args = { :submit => false })
       your_personal_details_page.wait_until_club_card_visible
       delete_clubcard
       your_personal_details_page.club_card.set clubcard_number
@@ -10,11 +9,10 @@ module PageModels
     end
 
     def delete_clubcard
-     your_personal_details_page.wait_until_club_card_visible
-     until your_personal_details_page.club_card.value.empty? do
-       your_personal_details_page.club_card.native.send_keys(:backspace)
-
-     end
+      your_personal_details_page.wait_until_club_card_visible
+      until your_personal_details_page.club_card.value.empty?
+        your_personal_details_page.club_card.native.send_keys(:backspace)
+      end
     end
 
     def submit_personal_details
@@ -46,7 +44,7 @@ module PageModels
       your_personal_details_page.email_address.value
       email_before
     end
-
   end
 end
+
 World(PageModels::YourPersonalDetailsActions)

@@ -18,10 +18,12 @@ module APIMethods
     end
 
     def valid_capabilities?(browser, browser_version, os, os_version)
-      !browser_list.select { |b| b['browser'] =~ /#{browser}/i &&
-          b['browser_version'] =~ /#{browser_version}/i &&
-          b['os'] =~ /#{os}/i &&
-          b['os_version'] =~ /#{os_version}/i }.empty?
+      !browser_list.select { |b|
+        b['browser'] =~ /#{browser}/i &&
+        b['browser_version'] =~ /#{browser_version}/i &&
+        b['os'] =~ /#{os}/i &&
+        b['os_version'] =~ /#{os_version}/i
+      }.empty?
     end
 
     def session_available?
@@ -44,29 +46,29 @@ module APIMethods
     private
 
     def browser_list
-      headers = {'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
-                 'Content-Type' => 'application/x-www-form-urlencoded',
-                 'Accept' => 'application/json'}
+      headers = { 'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
+                  'Content-Type' => 'application/x-www-form-urlencoded',
+                  'Accept' => 'application/json' }
       response = http_client.get(@browsers_uri, body: {}, header: headers)
-      raise 'Test Error: Failed to get browsers list from BrowserStack!' unless response.status == 200
+      fail 'Test Error: Failed to get browsers list from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
 
     def plan_status
-      headers = {'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
-                 'Content-Type' => 'application/x-www-form-urlencoded',
-                 'Accept' => 'application/json'}
+      headers = { 'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
+                  'Content-Type' => 'application/x-www-form-urlencoded',
+                  'Accept' => 'application/json' }
       response = http_client.get(@plan_uri, body: {}, header: headers)
-      raise 'Test Error: Failed to get number of free sessions from BrowserStack!' unless response.status == 200
+      fail 'Test Error: Failed to get number of free sessions from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
 
     def project_list
-      headers = {'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
-                 'Content-Type' => 'application/x-www-form-urlencoded',
-                 'Accept' => 'application/json'}
+      headers = { 'Authorization' => Base64.strict_encode64("#{@username}:#{@key}"),
+                  'Content-Type' => 'application/x-www-form-urlencoded',
+                  'Accept' => 'application/json' }
       response = http_client.get(@projects_uri, body: {}, header: headers)
-      raise 'Test Error: Failed to get list of projects from BrowserStack!' unless response.status == 200
+      fail 'Test Error: Failed to get list of projects from BrowserStack!' unless response.status == 200
       MultiJson.load(response.body)
     end
   end
@@ -110,4 +112,3 @@ module APIMethods
   end
 end
 World(APIMethods)
-

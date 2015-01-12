@@ -1,7 +1,7 @@
 module PageModels
   class CategoriesPage < PageModels::BlinkboxbooksPage
     set_url '/#!/categories'
-    set_url_matcher /categories/
+    set_url_matcher(/categories/)
 
     sections :book_results_sections, BookResults, '[data-test="search-results-list"]'
 
@@ -31,7 +31,7 @@ module PageModels
       top_categories.each { |category| categories << category.title }
       categories
     end
-
   end
+
   register_model_caller_method(CategoriesPage)
 end

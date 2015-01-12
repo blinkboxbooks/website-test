@@ -10,22 +10,22 @@ module ManageAccount
     puts "Changing last name from '#{your_personal_details_page.first_name}' to '#{last_name}'"
     your_personal_details_page.first_name_element.set first_name
     your_personal_details_page.last_name_element.set last_name
-    return first_name, last_name
+    [first_name, last_name]
   end
 
   def set_card_default
     your_payments_page.wait_for_saved_cards_list
     saved_cards_list = your_payments_page.saved_cards
-    unless saved_cards_list.empty?
-      saved_cards_list.each { |card|
+    if !saved_cards_list.empty?
+      saved_cards_list.each do |card|
         unless card.is_default?
           card.check_default_radio
           @default_card = card.title + card.holder_name
           break
         end
-      }
+      end
     else
-      raise 'Saved cards list on Your Payments page is empty!'
+      fail 'Saved cards list on Your Payments page is empty!'
     end
 
     click_button('Update default card')
@@ -45,10 +45,9 @@ module ManageAccount
     when '7 inch tablet'
       resize_window(550, 1024)
     else
-      raise "Unsupported browser viewing mode: #{viewing_mode}"
+      fail "Unsupported browser viewing mode: #{viewing_mode}"
     end
   end
-
 end
 
 module CommonActions

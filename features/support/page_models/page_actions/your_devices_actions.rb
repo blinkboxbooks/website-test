@@ -1,6 +1,5 @@
 module PageModels
   module YourDevicesActions
-
     def delete_device
       your_devices_page.delete_device.click
       your_devices_page.wait_for_delete_device_pop_up
@@ -18,7 +17,7 @@ module PageModels
       your_devices_page.delete_device_pop_up.close
     end
 
-    def rename_device (new_name)
+    def rename_device(new_name)
       your_devices_page.rename_device.click
       your_devices_page.rename_device_input.set new_name
     end
@@ -31,7 +30,6 @@ module PageModels
     def cancel_rename_device
       your_devices_page.cancel_rename_device.click
     end
-
   end
 end
 World(PageModels::YourDevicesActions)

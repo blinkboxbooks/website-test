@@ -1,6 +1,5 @@
 module PageModels
   module FooterActions
-
     def click_author_link_on_footer(author_name)
       link = current_page.footer.author_by_name(author_name)
       fail("Unable to find an author by name #{author_name}") if link.nil?
@@ -16,7 +15,6 @@ module PageModels
     def click_footer_link(link_name)
       current_page.footer.navigate_by_link(link_name)
     end
-
   end
 end
 

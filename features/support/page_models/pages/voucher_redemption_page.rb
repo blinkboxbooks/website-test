@@ -57,7 +57,7 @@ module PageModels
 
   class VoucherRedemptionPage < PageModels::BlinkboxbooksPage
     set_url '/#!/redeem'
-    set_url_matcher /redeem/
+    set_url_matcher(/redeem/)
 
     #redemption stage 1
     element :voucher_code, '[data-test="voucher-code-text-box"]'
@@ -94,7 +94,6 @@ module PageModels
     def validation_error
       validation_error_element.text
     end
-
   end
 
   register_model_caller_method(VoucherRedemptionPage)

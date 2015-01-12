@@ -1,6 +1,6 @@
 module PageModels
   class YourAccountPage < PageModels::BlinkboxbooksPage
-    set_url_matcher /account\//
+    set_url_matcher(/account\//)
     section :account_nav_frame, AccountNavFrame, '#content'
     element :sign_out_button, 'button', :text => 'Sign out'
     element :spinner, '.load_spinner'
@@ -20,14 +20,14 @@ module PageModels
 
   class OrderAndPaymentHistoryPage < PageModels::YourAccountPage
     set_url '/#!/account/order-payment-history'
-    set_url_matcher /account\/order-payment-history/
+    set_url_matcher(/account\/order-payment-history/)
     element :ordered_books, '.order_books'
     element :book_list, '.expandable'
   end
 
   class SamplesPage < PageModels::YourAccountPage
     set_url '/#!/account/samples'
-    set_url_matcher /account\/samples/
+    set_url_matcher(/account\/samples/)
     sections :samples_section, SampleResults, 'expandable itemsets'
     section :highlights_section, BookResults, '#books_news'
     sections :sample_list, SampleResults, '.order_books'
@@ -35,7 +35,7 @@ module PageModels
 
   class YourPersonalDetailsPage < PageModels::YourAccountPage
     set_url '/#!/account/personal-details'
-    set_url_matcher /account\/personal-details/
+    set_url_matcher(/account\/personal-details/)
     element :email_address, '#email'
     element :first_name_element, '#first_name'
     element :last_name_element, '#last_name'
@@ -63,12 +63,11 @@ module PageModels
       wait_for_last_name_element
       last_name_element.value
     end
-
   end
 
   class YourPaymentsPage < PageModels::YourAccountPage
     set_url '/#!/account/your-payments'
-    set_url_matcher /account\/your-payments/
+    set_url_matcher(/account\/your-payments/)
     sections :saved_cards_list, CardRecord, '.payment_list li'
     element :saved_cards_container, '.payment_list'
     element :card_holder_name, '.payment_holder'
@@ -98,7 +97,7 @@ module PageModels
 
   class YourDevicesPage < PageModels::YourAccountPage
     set_url '/#!/account/your-devices'
-    set_url_matcher /account\/your-devices/
+    set_url_matcher(/account\/your-devices/)
     element :device_list, '.device_list'
     elements :devices, 'ul.device_list li.ng-scope'
     element :device_name, 'span.device_name'
@@ -112,14 +111,13 @@ module PageModels
 
   class ChangePasswordPage < PageModels::YourAccountPage
     set_url '/#!/account/change-password'
-    set_url_matcher /account\/change-password/
+    set_url_matcher(/account\/change-password/)
     element :current_password, '#currentPassword'
     element :enter_new_password, '#password'
     element :re_enter_new_password, '#repassword'
     element :show_password, '#show'
     element :confirm_button, 'button[data-test="confirm-button"]'
     element :error_sign_in_popup, '#error_signin'
-
   end
 
   register_model_caller_method(YourAccountPage)

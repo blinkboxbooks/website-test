@@ -1,6 +1,5 @@
 module PageModels
   module BookResultsActions
-
     def books_section
       search_results_page.wait_for_book_results_sections
       search_results_page.book_results_sections.first
@@ -25,7 +24,6 @@ module PageModels
         end
       end
     end
-
   end
 end
 

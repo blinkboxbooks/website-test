@@ -26,10 +26,10 @@ module PageModels
 
     def billing_details
       {
-          :address_line_one => test_data('payment', 'address_lineone'),
-          :address_line_two => test_data('payment', 'address_linetwo'),
-          :town_or_city => test_data('payment', 'town_or_city'),
-          :postcode => test_data('payment', 'postcode')
+        :address_line_one => test_data('payment', 'address_lineone'),
+        :address_line_two => test_data('payment', 'address_linetwo'),
+        :town_or_city => test_data('payment', 'town_or_city'),
+        :postcode => test_data('payment', 'postcode')
       }
     end
 
@@ -145,7 +145,7 @@ module PageModels
       expect_page_displayed('order complete')
       assert_order_complete
       card_count += 1 if save_payment
-      return name_on_card, card_type, card_count
+      [name_on_card, card_type, card_count]
     end
 
     def submit_payment_details_with_empty_cc_form

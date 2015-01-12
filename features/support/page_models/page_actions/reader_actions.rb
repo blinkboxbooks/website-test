@@ -1,6 +1,5 @@
 module PageModels
   module ReaderActions
-
     def click_reader_next_page
       book_details_page.reader.turn_to_next_page
       sleep 1
@@ -18,7 +17,6 @@ module PageModels
       another_page = get_reader_page_contents
       expect(first_page).to_not eq(another_page)
     end
-
   end
 end
 
