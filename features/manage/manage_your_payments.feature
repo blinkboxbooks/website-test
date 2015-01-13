@@ -47,21 +47,21 @@ Feature: Update the Payment details of the user under 'your account'
     When I complete purchase with new card by selecting not to save Payment details
     Then I have no saved payment cards in my account
 
-  Scenario: Returning user checking Payment details after buying a book with saved payments
+  Scenario: Existing user checking Payment details after buying a book with saved payments
     Given I have a stored card
     And I have selected to buy a paid book from the Book details page
     And I sign in to proceed with the purchase
     When I complete purchase by paying with saved card
     Then my saved Payment details are not updated
 
-  Scenario: Returning user checking Payment details after buying a book with new payment and saving payment details
+  Scenario: Existing user checking Payment details after buying a book with new payment and saving payment details
     Given I have a stored card
     And I have selected to buy a paid book from the Book details page
     And I sign in to proceed with the purchase
     When I complete purchase with new card by selecting to save Payment details
     Then I can see the payment card saved in my Payment details
 
-  Scenario: Returning user checking Payment details after buying a book with new payment and not saving payment details
+  Scenario: Existing user checking Payment details after buying a book with new payment and not saving payment details
     Given I have a stored card
     And I have selected to buy a paid book from the Book details page
     And I sign in to proceed with the purchase

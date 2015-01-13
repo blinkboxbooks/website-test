@@ -4,7 +4,7 @@ Feature: Credit card details form validation
   I want the ability to validate credit card form
 
   Background:
-    Given I am returning user
+    Given I am an existing user
     And I am buying a paid book as a logged in user
 
   Scenario Outline: Submit Payment details with empty values
@@ -54,7 +54,7 @@ Feature: Credit card details form validation
     | 1a2 |
     | $12 |
 
-  Scenario: Returning user submits new payment details form with empty credit card form
+  Scenario: Existing user submits new payment details form with empty credit card form
     When I choose to pay with a new card
     And submit the payment details with empty credit card form
     Then my payment is not successful

@@ -200,7 +200,7 @@ When(/^I click on Send reset link$/) do
   reset_password_page.send_reset_link.click
 end
 
-Given(/^I am returning user(?: with saved payment details)?$/) do
+Given(/^I am an existing user(?: with saved payment details)?$/) do
   set_email_and_password(test_data('emails', 'no_expired_cards'), test_data('passwords', 'valid_password'))
 end
 
@@ -222,7 +222,7 @@ Given(/^I have purchased a (?:paid|free) book$/) do
   @sample = false
 end
 
-Given(/^I am returning user with no (?:associated devices|saved payment cards|orders in the past)$/) do
+Given(/^I am an existing user with no (?:associated devices|saved payment cards|orders in the past)$/) do
   set_email_and_password(test_data('emails', 'empty_library_no_devices'), test_data('passwords', 'valid_password'))
 end
 

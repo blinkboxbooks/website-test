@@ -1,6 +1,6 @@
 @buy
-Feature: Returning buying book from blinkbox books
-  As a returning user of blinkbox books
+Feature: An Existing user buying book from blinkbox books
+  As an existing user of blinkbox books
   I want to the ability to sign in and buy a book
   So that I can read it
 

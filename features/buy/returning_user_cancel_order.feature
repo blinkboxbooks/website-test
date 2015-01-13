@@ -1,13 +1,13 @@
 @buy
-Feature: Returning user cancels order
-  As a returning user of blinkbox books
+Feature: Existing user cancels order
+  As an existing user of blinkbox books
   I want to the ability to cancel order
   So that I can cancel unwanted order.
 
   Background:
-    Given I am returning user with saved payment details
+    Given I am an existing user with saved payment details
 
-  Scenario Outline: Returning user paying with saved card, user cancels order
+  Scenario Outline: Existing user paying with saved card, user cancels order
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I sign in to proceed with the purchase
     When I cancel order
@@ -23,7 +23,7 @@ Feature: Returning user cancels order
     | Bestsellers    | paid      |
     | New releases   | paid      |
 
-  Scenario Outline: Returning user paying with new payment, user cancels order
+  Scenario Outline: Existing user paying with new payment, user cancels order
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I sign in to proceed with the purchase
     And I choose to pay with a new card
@@ -40,7 +40,7 @@ Feature: Returning user cancels order
     | Bestsellers    | paid      |
     | New releases   | paid      |
 
-  Scenario Outline: Returning user's new payment has failed, user cancels order
+  Scenario Outline: Existing user's new payment has failed, user cancels order
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I sign in to proceed with the purchase
     And my payment failed at Braintree for not matching CVV
@@ -58,7 +58,7 @@ Feature: Returning user cancels order
     | Bestsellers    | paid      |
     | New releases   | paid      |
 
-  Scenario Outline: Returning user has validation errors for new payment details, user cancels orders
+  Scenario Outline: Existing user has validation errors for new payment details, user cancels orders
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I sign in to proceed with the purchase
     And I choose to pay with a new card
@@ -77,7 +77,7 @@ Feature: Returning user cancels order
     | Bestsellers    | paid      |
     | New releases   | paid      |
 
-  Scenario Outline: Returning buying a free book, user cancels order
+  Scenario Outline: Existing buying a free book, user cancels order
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I sign in to proceed with the purchase
     When I cancel order

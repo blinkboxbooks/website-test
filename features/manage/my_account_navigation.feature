@@ -75,7 +75,7 @@ Feature: Navigating through my account pages
   @CWA-615 @production
   Scenario Outline: User with no associated payment, order or device information check their account information
     Given I am on the home page
-    Given I am returning user with no <user_type>
+    Given I am an existing user with no <user_type>
     And I have signed in
     When I select <account_link> link from drop down menu
     Then <account_page> page is displayed
