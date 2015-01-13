@@ -62,15 +62,6 @@ module WaitSteps
   rescue Terminator::Error
     raise Terminator::Error, "Time out after #{timeout}s of waiting until #{description}"
   end
-
-  def try_to_wait(wait_time_seconds = Capybara.default_wait_time)
-    start_time = Time.now
-    loop do
-      return true if yield
-      break unless Time.now - start_time <= wait_time_seconds
-      sleep(0.05)
-    end
-  end
 end
 
 World(WaitSteps)
