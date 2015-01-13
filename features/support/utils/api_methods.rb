@@ -105,7 +105,7 @@ module APIMethods
     end
 
     def add_credit_card(options = {})
-      create_new_user! unless @user
+      create_new_user! if @user.nil?
       @card_type = options[:card_type] || 'visa'
 
       @user.authenticate

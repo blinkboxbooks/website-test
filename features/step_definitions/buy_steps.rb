@@ -191,8 +191,8 @@ end
 And(/^I have a stored card$/) do
   @email_address, @password = api_helper.create_new_user!
   card_details = api_helper.add_credit_card
-  @name_on_card = card_details[:cardholderName]
-  @card_type = card_details[:cardType].upcase
+  @name_on_card = card_details['cardholderName']
+  @card_type = card_details['cardType'].upcase
 end
 
 And(/^submit the payment details with cvv (\d+) for (.*?) card$/) do |cvv, card_type|
