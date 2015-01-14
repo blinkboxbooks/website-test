@@ -4,7 +4,7 @@ Feature: Billing address form validation
   I want the ability to validate billing address form
 
   Background:
-    Given I am returning user
+    Given I am an existing user
     And I am buying a paid book as a logged in user
 
   Scenario Outline: Submit the payment with empty address field

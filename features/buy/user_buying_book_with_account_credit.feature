@@ -1,6 +1,6 @@
 @buy
-Feature: Returning user buying book from blinkbox books with account credit
-  As a returning user of blinkbox books
+Feature: Existing user buying book from blinkbox books with account credit
+  As an existing user of blinkbox books
   I want to the ability to buy a book with account credit
   So that I can read it
 

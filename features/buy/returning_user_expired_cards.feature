@@ -1,5 +1,5 @@
-Feature: Returning user with expired cards buying book
-  As a returning user with expired saved cards buying a book
+Feature: Existing user with expired cards buying book
+  As an existing user with expired saved cards buying a book
   I should not be allowed to submit payments with expired cards
   So that I can complete purchase with new payment card or other stored cards.
 

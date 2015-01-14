@@ -5,7 +5,7 @@ Feature: Unhappy path buy
   So that I can edit payment details or payment method.
 
   @negative @ie @safari
-  Scenario Outline: Returning user attempting to buy a book that already exists in his library
+  Scenario Outline: Existing user attempting to buy a book that already exists in his library
     Given I have purchased a <book_type> book
     When I am on the Book Details page for the same <book_type> book
     And I try to buy the book again
@@ -17,7 +17,7 @@ Feature: Unhappy path buy
     | free      |
 
   @negative
-  Scenario Outline: Returning user buying a book, cvv not matching payment failure error from Braintree
+  Scenario Outline: Existing user buying a book, cvv not matching payment failure error from Braintree
     Given I am on the Confirm and pay page trying to buy a paid book
     When I choose to pay with a new card
     And I submit the payment details with not matching cvv <cvv_number>

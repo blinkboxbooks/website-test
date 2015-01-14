@@ -77,7 +77,7 @@ Feature: Update the Personal details of the user under 'your account'
 
   @negative @production
   Scenario: Update email address using already registered email address
-    Given I am returning user
+    Given I am an existing user
     And I have signed in
     And I am on the Personal details tab
     When I attempt to update email address with already registered email address
@@ -85,7 +85,7 @@ Feature: Update the Personal details of the user under 'your account'
     And my email is not updated
 
   @production
-  Scenario Outline: Check marketing preferences status for returning user
+  Scenario Outline: Check marketing preferences status for an existing user
     Given I have <opt_status> for blinkbox books marketing
     And I have signed in
     When I am on the Personal details tab
