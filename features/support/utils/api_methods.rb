@@ -76,8 +76,6 @@ module APIMethods
   class User
     include Utilities
 
-    attr_accessor :auth_uri, :braintree_env, :user
-
     def initialize(auth, api, braintree_env)
       @auth_uri = auth
       @api_uri = api
