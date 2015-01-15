@@ -85,19 +85,18 @@ module APIMethods
     def create_new_user!(options = {})
       @email_address = options[:email_address] || generate_random_email_address
       @password = options[:password] || 'test1234'
-
-      @user = Blinkbox::User.new(username: @email_address, password: @password, server_uri: @auth_uri, credit_card_service_uri: @api_uri)
-      @user.register
+      client = {}
 
       if options[:with_client]
         @device_name = options[:device_name] || 'Web Site Test Client'
         @device_brand = options[:device_brand] || 'Tesco'
         @device_model = options[:device_model] || 'Hudl'
         @device_os = options[:device_os] || 'Android'
-
-        @user.authenticate
-        @user.register_device(Blinkbox::Device.new(name: @device_name, brand: @device_brand, model: @device_model, os: @device_os))
+        client = { :name => @device_name, :brand => @device_brand, :model => @device_model, :os => @device_os }
       end
+
+      @user = Blinkbox::User.new(username: @email_address, password: @password, server_uri: @auth_uri, credit_card_service_uri: @api_uri)
+      @user.register(client)
 
       return @email_address, @password, @device_name
     end
