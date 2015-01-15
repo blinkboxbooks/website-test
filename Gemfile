@@ -16,7 +16,7 @@ group :support do
   gem 'activesupport'
   gem 'cucumber-helpers'
   gem 'cucumber-blinkbox', '~> 0.3'
-  gem 'blinkbox-user', '0.5.0'
+  gem 'blinkbox-user'
   gem 'i18n'
   gem 'rake'
   gem 'Platform'
