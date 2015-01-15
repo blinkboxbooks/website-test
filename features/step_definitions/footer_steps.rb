@@ -25,11 +25,9 @@ When(/I look at the footer/) do
 end
 
 Then(/^the footer copyright text should be displayed$/i) do
-  pending 'CWA-2092: [Regression] Copyright text is missing on the Pay&Confirm page' do
-    expect(current_page.footer).to have_copyright_label
-    expect(current_page.footer.copyright_text).to include('blinkbox books')
-    expect(current_page.footer.copyright_text).to include('All Rights Reserved')
-  end
+  expect(current_page.footer).to have_copyright_label
+  expect(current_page.footer.copyright_text).to include('blinkbox books')
+  expect(current_page.footer.copyright_text).to include('All Rights Reserved')
 end
 
 Then(/^footer visuals should not be displayed$/i) do
