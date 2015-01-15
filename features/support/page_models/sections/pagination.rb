@@ -1,6 +1,5 @@
 module PageModels
   class Pagination < PageModels::BlinkboxbooksSection
-
     elements :pagination_numbers, '[data-test^="pagination"] li'
     element :previous_button, '[data-test="pagination-previous"]'
     element :next_button, '[data-test="pagination-next"]'
@@ -22,13 +21,12 @@ module PageModels
 
     def click_on_pagination_number(page_number)
       wait_for_pagination_controls
-      pagination_numbers[page_number.to_i-1].find('a').click
+      pagination_numbers[page_number.to_i - 1].find('a').click
     end
 
     def selected_page_number
       wait_for_pagination_controls
       pagination_numbers.find { |page| page[:class].include?('active') }
     end
-
   end
 end

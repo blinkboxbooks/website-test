@@ -99,7 +99,7 @@ module APIMethods
         @user.register_device(Blinkbox::Device.new(name: @device_name, brand: @device_brand, model: @device_model, os: @device_os))
       end
 
-      return @email_address, @password, @device_name
+      [@email_address, @password, @device_name]
     end
 
     def add_credit_card(options = {})
