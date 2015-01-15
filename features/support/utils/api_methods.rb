@@ -96,7 +96,7 @@ module APIMethods
         @device_os = options[:device_os] || 'Android'
 
         @user.authenticate
-        @user.register_device(name: @device_name, brand: @device_brand, model: @device_model, os: @device_os)
+        @user.register_device(Blinkbox::Device.new(name: @device_name, brand: @device_brand, model: @device_model, os: @device_os))
       end
 
       return @email_address, @password, @device_name
