@@ -97,8 +97,7 @@ module APIMethods
 
       @user = Blinkbox::User.new(username: @email_address, password: @password, server_uri: @auth_uri, credit_card_service_uri: @api_uri)
       response = @user.register(client)
-
-      [response['username'], @password, @device_name]
+      response.merge!({ 'password' => @password, 'device_name' => @device_name })
     end
 
     def add_credit_card(options = {})
