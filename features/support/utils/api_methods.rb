@@ -88,11 +88,11 @@ module APIMethods
       client = {}
 
       if options[:with_client]
-        @device_name = options[:device_name] || 'Web Site Test Client'
-        @device_brand = options[:device_brand] || 'Tesco'
-        @device_model = options[:device_model] || 'Hudl'
-        @device_os = options[:device_os] || 'Android'
-        client = { :name => @device_name, :brand => @device_brand, :model => @device_model, :os => @device_os }
+        @device_name = options[:client_name] || 'Web Site Test Client'
+        @device_brand = options[:client_brand] || 'Tesco'
+        @device_model = options[:client_model] || 'Hudl'
+        @device_os = options[:client_os] || 'Android'
+        client = { client_name: @device_name, client_brand: @device_brand, client_model: @device_model, client_os: @device_os }
       end
 
       @user = Blinkbox::User.new(username: @email_address, password: @password, server_uri: @auth_uri, credit_card_service_uri: @api_uri)
