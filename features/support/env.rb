@@ -73,7 +73,7 @@ Capybara.app_host = server('web')
 # ======== set up browser driver =======
 # Capybara browser driver settings
 Capybara.default_driver = :selenium
-Capybara.default_wait_time = 10
+Capybara.default_wait_time = environment_data('sync_timeout')
 World(Capybara::Angular::DSL)
 
 # target browser
