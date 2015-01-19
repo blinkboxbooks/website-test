@@ -1,10 +1,10 @@
 @buy
-Feature: New user cancels order
-  As a new user of blinkbox books
+Feature: Guest user cancels order
+  As a guest user of blinkbox books
   I want to the ability to cancel order
   So that I can cancel unwanted order.
 
-  Scenario Outline: First time user cancels order in payments page
+  Scenario Outline: Guest user cancels order in payments page
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I register to proceed with the purchase
     When I cancel order
@@ -23,7 +23,7 @@ Feature: New user cancels order
     | Book details   | free      |
     | Free eBooks    | free      |
 
-  Scenario Outline: First time user cancels order in registration page
+  Scenario Outline: Guest user cancels order in registration page
     Given I have selected to buy a <book_type> book from the <page_name> page
     And I have selected register option
     When I cancel registration
