@@ -67,7 +67,6 @@ module PageModels
 
     def submit_registration_details
       register_page.register_button.click
-      logger.info("Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}")
     end
 
     def register_new_user(provide_clubcard = 'without', clubcard_number = '')

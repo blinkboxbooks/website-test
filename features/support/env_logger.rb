@@ -24,7 +24,7 @@ module Logging
     attr_accessor :logger
 
     def initialize
-      @logger = Logger.new(MultiIO.new(File.open('results/log.txt', 'a'), STDOUT))
+      @logger = Logger.new(MultiIO.new(File.open('results/log.txt', 'w'), STDOUT))
 
       @logger.level = Logger.const_get(TEST_CONFIG['LOG_LEVEL'].upcase)
       @logger.datetime_format = '%Y-%m-%d %H:%M:%S'
