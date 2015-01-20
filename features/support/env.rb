@@ -17,8 +17,8 @@ TEST_CONFIG['debug'] = config_flag_on?(TEST_CONFIG['DEBUG'])
 TEST_CONFIG['fail_fast'] = config_flag_on?(TEST_CONFIG['FAIL_FAST'])
 TEST_CONFIG['js_log'] ||= config_flag_on?(TEST_CONFIG['JS_LOG'])
 if TEST_CONFIG['debug']
-  ARGV.each { |a| puts "Argument: #{a}" }
-  puts "TEST_CONFIG: #{TEST_CONFIG}"
+  ARGV.each { |a| logger.info("Argument: #{a}") }
+  logger.info("TEST_CONFIG: #{TEST_CONFIG}")
 end
 
 # ======== Load environment specific test data ======
@@ -31,7 +31,7 @@ module RequireAllExtensions
   def require_rel_and_log(*args)
     # Handle passing an array as an argument
     args.flatten!
-    args.each { |file| puts "Loading #{file}" } if TEST_CONFIG['debug']
+    args.each { |file| logger.info("Loading #{file}") } if TEST_CONFIG['debug']
     require_rel(args)
   end
 end
@@ -46,7 +46,7 @@ require_rel_and_log 'page_models/pages/blinkboxbooks_page.rb'
 require_rel_and_log 'page_models/pages/*.rb'
 
 # ======= Setup PATH env. variable =======
-puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
+logger.info("RUBY_PLATFORM: #{RUBY_PLATFORM}")
 
 case Platform::OS
 when :win32
@@ -140,11 +140,11 @@ elsif TEST_CONFIG['GRID'] =~ /browserstack/i
   TEST_CONFIG['OS_VERSION'] ||= '7'
 
   # TODO: Logger
-  puts "-- BrowserStack settings --"
-  puts "Browser name: #{TEST_CONFIG['BROWSER_NAME']}"
-  puts "Browser version: #{TEST_CONFIG['BROWSER_VERSION']}"
-  puts "OS: #{TEST_CONFIG['OS']}"
-  puts "OS version: #{TEST_CONFIG['OS_VERSION']}"
+  logger.info('-- BrowserStack settings --')
+  logger.info("Browser name: #{TEST_CONFIG['BROWSER_NAME']}")
+  logger.info("Browser version: #{TEST_CONFIG['BROWSER_VERSION']}")
+  logger.info("OS: #{TEST_CONFIG['OS']}")
+  logger.info("OS version: #{TEST_CONFIG['OS_VERSION']}")
 
   caps["browser"] = TEST_CONFIG['BROWSER_NAME']
   caps["browser_version"] = TEST_CONFIG['BROWSER_VERSION']
@@ -194,7 +194,7 @@ end
 
 #======== Headless Mode ======
 if config_flag_on?(TEST_CONFIG['HEADLESS'])
-  puts 'Headless mode.'
+  logger.info('Headless mode.')
 
   require 'headless'
 

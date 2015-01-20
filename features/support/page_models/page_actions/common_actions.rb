@@ -6,8 +6,8 @@ module ManageAccount
   def edit_personal_details
     first_name = generate_random_first_name
     last_name = generate_random_last_name
-    puts "Changing first name from '#{your_personal_details_page.first_name}' to '#{first_name}'"
-    puts "Changing last name from '#{your_personal_details_page.first_name}' to '#{last_name}'"
+    logger.info("Changing first name from '#{your_personal_details_page.first_name}' to '#{first_name}'")
+    logger.info("Changing last name from '#{your_personal_details_page.first_name}' to '#{last_name}'")
     your_personal_details_page.first_name_element.set first_name
     your_personal_details_page.last_name_element.set last_name
     [first_name, last_name]

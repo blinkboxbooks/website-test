@@ -67,7 +67,7 @@ module PageModels
 
     def submit_registration_details
       register_page.register_button.click
-      puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
+      logger.info("Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}")
     end
 
     def register_new_user(provide_clubcard = 'without', clubcard_number = '')
@@ -77,7 +77,7 @@ module PageModels
       register_page.fill_in_club_card(clubcard_number) if provide_clubcard.eql?('with')
       accept_terms_and_conditions(true)
       submit_registration_details
-      puts "Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}"
+      logger.info("Email address used for user registration: #{@email_address}, #{@first_name} #{@last_name}")
       [@password, @email_address, @first_name, @last_name]
     end
 
@@ -100,7 +100,7 @@ module PageModels
         navigate_to_sign_in_form
         submit_sign_in_details(email_address, password)
       end
-      puts "Email address used for user sign-in: #{email_address}"
+      logger.info("Email address used for user sign-in: #{email_address}")
     end
 
     def set_email_and_password(email_address, password)

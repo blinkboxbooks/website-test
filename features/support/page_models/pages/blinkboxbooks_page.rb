@@ -39,7 +39,7 @@ module PageModels
       rescue SitePrism::TimeoutException
         raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page to be displayed'
       ensure
-        puts "Load time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
+        logger.info("Load time of #{self.class.name.demodulize}: #{Time.now - r0} sec")
       end
     end
 
@@ -50,7 +50,7 @@ module PageModels
       rescue SitePrism::TimeoutException
         raise PageModelHelpers::TimeOutWaitingForPageToAppear.new, 'Timed out waiting for page not to be displayed'
       ensure
-        puts "Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec"
+        logger.info("Processing time of #{self.class.name.demodulize}: #{Time.now - r0} sec")
       end
     end
 

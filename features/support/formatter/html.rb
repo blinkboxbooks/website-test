@@ -25,9 +25,9 @@ module Cucumber
             image = Base64.encode64(open(file).to_a.join)
             embed image, 'image/png', 'CLICK TO VIEW/HIDE SCREENSHOT'
           rescue => e
-            puts 'TAKING SCREENSHOT FAILED'
-            puts e.message
-            puts e.backtrace
+            logger.warn('TAKING SCREENSHOT FAILED')
+            logger.info(e.message)
+            logger.info(e.backtrace)
           end
         end
 

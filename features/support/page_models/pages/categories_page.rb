@@ -20,7 +20,7 @@ module PageModels
       wait_until_all_categories_visible(10)
       category = all_categories.sample
       category_title = category.title
-      puts "Selecting category #{category_title}"
+      logger.info("Selecting category #{category_title}")
       category.click
       category_title
     end
