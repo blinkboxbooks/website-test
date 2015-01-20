@@ -112,7 +112,7 @@ module APIMethods
   end
 
   def api_helper
-    @api_helper ||= APIMethods::User.new(server('auth'), server('api'), server('braintree_env'))
+    @api_helper ||= APIMethods::User.new(server('auth'), server('api'), environment_data('braintree_env'))
   end
 end
 World(APIMethods)
