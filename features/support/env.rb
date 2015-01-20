@@ -11,6 +11,7 @@ TEST_CONFIG['server'] = TEST_CONFIG['SERVER'].to_s.downcase || 'test'
 puts 'Loading gems and config...'
 require 'env_gems'
 require 'env_config'
+require 'env_logger'
 
 TEST_CONFIG['debug'] = config_flag_on?(TEST_CONFIG['DEBUG'])
 TEST_CONFIG['fail_fast'] = config_flag_on?(TEST_CONFIG['FAIL_FAST'])
