@@ -34,3 +34,8 @@ After do |scenario|
   $browser_stack_tunnel.stop unless $browser_stack_tunnel.nil?
 
 end
+
+at_exit do
+  logger.info('Closing the logger')
+  logger.close
+end
