@@ -23,6 +23,12 @@ module KnowsAboutTheEnvironment
     uri
   end
 
+  def environment_data(param)
+    data = test_env[param.to_s.downcase]
+    fail "'#{param}' is not defined for environment '#{TEST_CONFIG['server']}' in config/environments.yml" if data.nil?
+    data
+  end
+
   private
 
   def initialise_test_data

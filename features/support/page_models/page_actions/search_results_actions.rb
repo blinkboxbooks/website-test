@@ -1,6 +1,7 @@
 module PageModels
   module SearchResultsActions
     def switch_to_grid_view
+      fail 'No search results returned' unless search_results_page.no_results_message.empty?
       return if search_results_page.current_view == :grid
 
       search_results_page.wait_for_grid_view_button
@@ -11,6 +12,7 @@ module PageModels
     end
 
     def switch_to_list_view
+      fail 'No search results returned' unless search_results_page.no_results_message.empty?
       return if search_results_page.current_view == :list
 
       search_results_page.wait_for_list_view_button
@@ -22,12 +24,13 @@ module PageModels
 
     def switch_to_view(view)
       books_section.wait_for_books
-      fail 'No search results returned' unless search_results_page.no_results_message.empty?
-      if view.to_sym == :list
+
+      case view.to_sym
+      when :list
         switch_to_list_view
-      elsif view.to_sym == :grid
+      when :grid
         switch_to_grid_view
-      elsif view.to_sym == :none
+      when :none
         # Do nothing on purpose
       else
         fail "Unsupported view for book results: #{view}"
