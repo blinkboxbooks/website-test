@@ -33,6 +33,7 @@ module PageModels
       }
     end
 
+    
     def click_confirm_and_pay
       confirm_and_pay_page.wait_for_confirm_and_pay
       confirm_and_pay_page.confirm_and_pay.click
