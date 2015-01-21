@@ -23,8 +23,8 @@ module PageModels
       book_type == :free ? books_section.click_details_free_book : books_section.click_details_random_book
     end
 
-    def buy_sample_added_book
-      book_details_page.load(:isbn => @book_isbn)
+    def buy_sample_added_book(sample_isbn)
+      book_details_page.load(isbn: sample_isbn, title: 'a_book_title')
       click_buy_now_in_book_details_page
     end
 
@@ -46,7 +46,7 @@ module PageModels
       else
         page_model('Book Details').load(isbn: isbn, title: 'a_book_title')
       end
-      book_details_page.read_offline.click
+      isbn
     end
 
     def select_book_to_buy_on(page_name, book_type)
