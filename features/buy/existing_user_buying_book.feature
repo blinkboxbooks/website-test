@@ -64,7 +64,7 @@ Feature: An Existing user buying book from blinkbox books
     Then my payment is successful
 
   @CWA-1000
-  Scenario: Existing user tries to buy a book, for which he already has sample in the library
+  Scenario: Existing user buys a book, for which he already has sample in the library
     Given I have identified a paid book on the book details page to read sample offline
     When I select Read offline on the book details page
     And I sign in to proceed with adding sample
