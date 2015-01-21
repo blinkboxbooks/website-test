@@ -19,7 +19,7 @@ Feature: Gift voucher redemption
     And I confirm the voucher redemption
     Then the redemption confirmation message is displayed
 
-  @negative
+  @negative @pending
   Scenario: Expired voucher code is rejected
     When I submit an invalid voucher code "CPBGFWUSDSFPG7HP"
     Then "is past its use by date. Sorry, it's no longer valid." error message is displayed
