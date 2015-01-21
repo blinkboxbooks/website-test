@@ -19,7 +19,6 @@ Feature: Gift voucher redemption
     And I confirm the voucher redemption
     Then the redemption confirmation message is displayed
 
-#  Marking this as pending, as this will always fail on QA. After the release tomorrow, I'll refactor the scenarios needing code to tbe env specific - Dhaval
   @negative @pending
   Scenario: Expired voucher code is rejected
     When I submit an invalid voucher code "CPBGFWUSDSFPG7HP"
