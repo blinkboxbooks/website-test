@@ -63,7 +63,6 @@ Feature: An Existing user buying book from blinkbox books
     When I click on Confirm order
     Then my payment is successful
 
-  @CWA-1000
   Scenario: Existing user buys a book, for which he already has sample in the library
     Given I have identified a paid book on the book details page to read sample offline
     When I select Read offline on the book details page
