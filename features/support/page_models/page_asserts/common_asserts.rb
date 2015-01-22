@@ -79,10 +79,14 @@ module AssertSearch
     end
   end
 
-  def assert_search_word_in_suggestions(corrected_word)
+  def assert_search_word_in_suggestions(expected_word)
     current_page.search_form.wait_until_suggestions_visible
     suggestions = current_page.search_form.suggestions
-    expect(suggestions.all? { |suggestion| suggestion.visible? && suggestion.text.include?(corrected_word) }).to eq(true), "Some suggestions are not visible: #{suggestions.inspect} and/or does not include corrected word: #{corrected_word}"
+    expect(suggestions.all? { |s| s.visible? }).to eq(true), "Some suggestions are not visible"
+    unless suggestions.all? { |s| s.text.downcase.include?(expected_word.downcase) }
+      text = suggestions.inject('') { |all, s| "#{all}\n- #{s.text}" }
+      fail "Some suggestions do not include expected word '#{expected_word}'#{text}"
+    end
   end
 end
 
