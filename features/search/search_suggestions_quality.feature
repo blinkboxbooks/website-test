@@ -7,6 +7,7 @@ Feature: Suggestions for user search
   Background: Opens Blinkbox books home page
     Given I am on the home page
 
+  @optional
   Scenario: Search suggestions displayed
     When I type "spring" into search field
     Then search suggestions should be displayed
@@ -17,11 +18,6 @@ Feature: Suggestions for user search
     Then search suggestions should be displayed
      And I should see at least 5 suggestions
      And all suggestions should contain search word "Gone"
-
-  Scenario: Exact match of letters should be first suggestion
-    When I type "Dan Brown" into search field
-    Then search suggestions should be displayed
-    And first suggestions should contain complete word "Dan Brown"
 
   # Application does not display suggestions at all
   @pending
@@ -42,6 +38,7 @@ Feature: Suggestions for user search
   Scenario: Select "More results for XX" from suggestion drop down menu
     When I type "Gone girl" into search field
     Then search suggestions should be displayed
+    And first suggestions should contain complete word "Gone girl"
     And last suggestion should contain More results for "Gone girl"
     When I select suggestion which contains More results for "Gone girl"
     Then search results should be displayed

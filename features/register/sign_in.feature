@@ -14,6 +14,7 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
+  @optional
   Scenario: Sign in by selecting Keep me signed in
     When I enter valid sign in details
     And select Keep me signed in
@@ -21,12 +22,14 @@ Feature: Sign into Blinkbox books
     Then I am successfully signed in
     And I am redirected to Home page
 
+  @optional
   Scenario: Tick to show password after entering password
     Given I am on the Sign in page
     When I enter a password
     And I tick the checkbox show password while typing on the Sign in page
     Then the password should be visible on the Sign in page
 
+  @optional
   Scenario: Check password is hidden as you type
     Given I am on the Sign in page
     When I enter a password

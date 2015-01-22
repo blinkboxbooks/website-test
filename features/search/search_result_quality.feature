@@ -79,6 +79,7 @@ Feature: Verify that search results match search criteria
     And I click on previous button on pagination
     Then then the selected page number should be "4"
 
+  @optional
   Scenario: Click on page number and verify URL
     Given I search for "gone girl"
     Then Search Results page is displayed

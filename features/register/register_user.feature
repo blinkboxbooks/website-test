@@ -16,6 +16,7 @@ Feature: Register a new Blinkbox books user
     Then Registration success page is displayed
     And welcome message is shown
 
+  @optional
   Scenario: Happy path register user with a valid club card number
     Given I am on the Register page
     When I enter personal details with valid clubcard number
@@ -71,7 +72,7 @@ Feature: Register a new Blinkbox books user
     And "Please enter your password" message is displayed
     And "Your passwords don't match, please check and try again" message is displayed
 
-  @negative
+  @negative @optional
   Scenario: Submit registration details with invalid clubcard number
     Given I am on the Register page
     When I enter personal details with invalid clubcard number
@@ -80,12 +81,14 @@ Feature: Register a new Blinkbox books user
     Then registration is not successful
     And "This Tesco Clubcard number doesn't seem to be correct. Please check and try again" message is displayed
 
+  @optional
   Scenario: Tick to show password after entering passwords
     Given I am on the Register page
     When I choose a valid password
     And I tick the checkbox show password while typing
     Then the passwords should be visible
 
+  @optional
   Scenario: Check password is hidden as you type
     Given I am on the Register page
     When I choose a valid password

@@ -64,14 +64,17 @@ Feature: Global Footer
     When I click on the Privacy & Cookies Policy footer link
     Then Terms and conditions page is displayed in a new window
 
+  @optional
   Scenario: Top authors links from footer is dynamically generated
     Given there are top five authors on the Authors page
     Then the same Top authors are displayed in the footer
 
+  @optional
   Scenario: Top categories links from footer is dynamically generated
     Given there are top five categories on the Categories page
     Then the same Top categories are displayed in the footer
 
+  @optional
   Scenario: New releases links from footer is dynamically generated
     Given there are top five books on the New release page
     Then the same New releases are displayed in the footer

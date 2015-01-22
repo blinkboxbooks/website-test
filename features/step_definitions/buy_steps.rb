@@ -237,3 +237,40 @@ end
 When(/^I click buy now on book details page$/i) do
   book_details_page.buy_book
 end
+
+Then(/^I submit the payment details form with:$/) do |table|
+  failed_scenarios = []
+
+  table.hashes.each do |row|
+    scenario = row[:scenario].split(':').map!{ |s| s.to_s.lstrip }
+    scenario_name = scenario[0]
+    scenario_data = scenario[1]
+    error_message = row[:error_message]
+
+    case scenario_name
+      when /Empty (card number|name on card|cvv) field/i
+        field = scenario_name.match(/(card number|name on card|cvv)/i)[1]
+        step("submit the payment details with empty #{field}")
+      when 'Invalid card number'
+        step("submit the payment details with card number #{scenario_data}")
+      when /Incorrect CVV for (Visa|MasterCard) card/i
+        card_type = scenario_name.match(/(Visa|MasterCard)/i)[1]
+        step("submit the payment details with cvv #{scenario_data} for #{card_type} card")
+      when 'Malformed CVV'
+        step("submit the payment details with a malformed cvv #{scenario_data}")
+    end
+
+    begin
+      expect(confirm_and_pay_page).to be_displayed
+      assert_message_displayed(error_message)
+    rescue
+      failed_scenarios << scenario
+    end
+
+    refresh_current_page(wait_for_header: false)
+    assert_page('Confirm and pay')
+    step('I choose to pay with a new card')
+  end
+
+  fail("Failed scenarios:\n#{failed_scenarios.join("\n")}") unless failed_scenarios.empty?
+end

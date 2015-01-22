@@ -50,9 +50,9 @@ module WebUtilities
     page.driver.browser.manage.window.resize_to(x, y)
   end
 
-  def refresh_current_page
+  def refresh_current_page(params = {:wait_for_header => true})
     page.driver.browser.navigate.refresh
-    current_page.wait_until_header_visible(10)
+    current_page.wait_until_header_visible(10) if params[:wait_for_header]
   end
 
   def go_back
