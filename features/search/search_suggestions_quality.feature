@@ -38,7 +38,7 @@ Feature: Suggestions for user search
   Scenario: Select "More results for XX" from suggestion drop down menu
     When I type "Gone girl" into search field
     Then search suggestions should be displayed
-    And first suggestions should contain complete word "Gone girl"
+    And first suggestions should contain complete word "Gone Girl"
     And last suggestion should contain More results for "Gone girl"
     When I select suggestion which contains More results for "Gone girl"
     Then search results should be displayed
