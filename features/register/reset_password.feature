@@ -55,7 +55,7 @@ Feature: Reset password with blinkbox books
 
   @optional
   Examples:
-    | invalid_email
+    | invalid_email                  |
     | no_email_server_address@       |
     | no_domain@mail.                |
     | @no_account_name.com           |
