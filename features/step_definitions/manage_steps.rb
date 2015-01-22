@@ -169,7 +169,7 @@ Then(/^my marketing preferences checkbox is (not selected|selected)$/) do |marke
 end
 
 And(/^I have a device associated with my blinkbox books account$/) do
-  user_details = api_helper.create_new_user!(with_client: 'device')
+  user_details = api_helper.create_new_user!(with_device: true)
   @email_address = user_details['user_username']
   @password = user_details['password']
   @device_name = user_details['device_name']

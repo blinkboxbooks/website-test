@@ -83,21 +83,22 @@ module APIMethods
     end
 
     def create_new_user!(options = {})
-      @email_address = options[:email_address] || generate_random_email_address
-      @password = options[:password] || 'test1234'
-      client = {}
+      user_details = {}
+      user_details[:username] = options[:email_address] || generate_random_email_address
+      user_details[:password] = options[:password] || 'test1234'
 
+      client_details = {}
       if options[:with_client]
-        @device_name = options[:client_name] || 'Web Site Test Client'
-        @device_brand = options[:client_brand] || 'Tesco'
-        @device_model = options[:client_model] || 'Hudl'
-        @device_os = options[:client_os] || 'Android'
-        client = { client_name: @device_name, client_brand: @device_brand, client_model: @device_model, client_os: @device_os }
+        client_details[:client_name] = options[:client_name] || 'Web Site Test Client'
+        client_details[:client_brand] = options[:client_brand] || 'Tesco'
+        client_details[:client_model] = options[:client_model] || 'Hudl'
+        client_details[:client_os] = options[:client_os] || 'Android'
       end
 
-      @user = Blinkbox::User.new(username: @email_address, password: @password, server_uri: @auth_uri, credit_card_service_uri: @api_uri)
-      response = @user.register(client)
-      response.merge!({ 'password' => @password, 'device_name' => @device_name })
+      user = Blinkbox::User.new(user_details.merge(server_uri: @auth_uri, credit_card_service_uri: @api_uri))
+      response = user.register(client_details)
+      #TODO: assert successful response
+      response.merge(user_details).merge('password' => user_details[:password], 'device_name' => client_details[:client_name])
     end
 
     def add_credit_card(options = {})
