@@ -55,7 +55,7 @@ Feature: Navigation around the website
     Then I should see Fiction books in list view
 
   Scenario: Redesigned footer is displayed
-    When I scroll down to the footer
+    When I look at the footer
     Then the Help & Support footer visual should be displayed
     Then the How it Works footer visual should be displayed
     Then the Tesco Clubcard footer visual should be displayed
