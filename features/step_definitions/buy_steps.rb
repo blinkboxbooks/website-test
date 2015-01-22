@@ -260,11 +260,18 @@ Then(/^I submit the payment details form with:$/) do |table|
         step("submit the payment details with a malformed cvv #{scenario_data}")
     end
 
-    begin
-      expect(confirm_and_pay_page).to be_displayed
-      assert_message_displayed(error_message)
-    rescue
-      failed_scenarios << scenario
+    passed = (
+      begin
+        expect(confirm_and_pay_page).to be_displayed
+        expect(current_page).to have_content(error_message, :visible => true)
+        true
+      rescue RSpec::Expectations::ExpectationNotMetError => e
+        false
+      end
+    )
+
+    unless passed
+      failed_scenarios << row[:scenario]
     end
 
     refresh_current_page(wait_for_header: false)
