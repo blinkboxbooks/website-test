@@ -7,7 +7,7 @@ Feature: Checking home page contents
   Background: Opens Blinkbox books home page
     Given I am on the home page
 
-  @CWA-33
+  @CWA-33 @optional
   Scenario: Homepage hero banner display
     When number of banners is between 1 and 4
     Then homepage hero banner is displayed

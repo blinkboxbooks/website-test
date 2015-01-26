@@ -51,12 +51,16 @@ Feature: Reset password with blinkbox books
     | invalid_email                  |
     | no_dot@missingdot              |
     | only_account_name              |
+    | special_chars@_£$%#_domain.com |
+
+  @optional
+  Examples:
+    | invalid_email                  |
     | no_email_server_address@       |
     | no_domain@mail.                |
     | @no_account_name.com           |
     | @no_account_name_no_dot        |
     | £$%#_@special.chars            |
-    | special_chars@_£$%#_domain.com |
 
   @negative @production
   Scenario: Leave blank email address on reset my password screen

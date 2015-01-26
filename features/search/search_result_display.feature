@@ -17,6 +17,7 @@ Feature: Search Results page
     Given the result is displayed in Grid mode
     And I should see the sort option drop down
 
+  @optional
   Scenario: Switch from Grid mode to List mode
     Given the result is displayed in Grid mode
       And I change from Grid mode to List mode
@@ -29,6 +30,7 @@ Feature: Search Results page
       And I change from List mode to Grid mode
      Then the result is displayed in Grid mode
 
+  @optional
   Scenario: Check the number of return result is equal on both modes - Grid and List mode
     Given the result is displayed in Grid mode
       And I take the number books on Grid mode

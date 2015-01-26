@@ -54,38 +54,8 @@ Feature: Navigation around the website
     And I select list view
     Then I should see Fiction books in list view
 
-  @CWA-71 @production
-  Scenario: Bestsellers page - Grid view not changing between tabs
-    When I click on the Bestsellers header tab
-    Then Bestsellers page is displayed
-    And I select grid view
-    Then I should see Fiction books in grid view
-    And I click on Non-Fiction tab
-    Then I should see Non-Fiction books in grid view
-
-  @CWA-71 @production
-  Scenario: Bestsellers page - List view not changing between tabs
-    When I click on the Bestsellers header tab
-    Then Bestsellers page is displayed
-    And I select list view
-    Then I should see Fiction books in list view
-    And I click on Non-Fiction tab
-    Then I should see Non-Fiction books in list view
-
-  Scenario: Top authors links from footer is dynamically generated
-    Given there are top five authors on the Authors page
-    Then the same Top authors are displayed in the footer
-
-  Scenario: Top categories links from footer is dynamically generated
-    Given there are top five categories on the Categories page
-    Then the same Top categories are displayed in the footer
-
-  Scenario: New releases links from footer is dynamically generated
-    Given there are top five books on the New release page
-    Then the same New releases are displayed in the footer
-
   Scenario: Redesigned footer is displayed
-    When I scroll down to the footer
+    When I look at the footer
     Then the Help & Support footer visual should be displayed
     Then the How it Works footer visual should be displayed
     Then the Tesco Clubcard footer visual should be displayed
@@ -116,7 +86,7 @@ Feature: Navigation around the website
     | Free eBooks  |
     | New releases |
 
-
+  @CWA-71 @production
   Scenario Outline: Bestsellers page - View not changing between tabs
     Given I am on the Bestsellers page
     When I select <view> view
