@@ -1,7 +1,7 @@
 module PageModels
   module DiscoverBookActions
     def search(search_word, view = :list)
-      puts "Searching for books with search word '#{search_word}'"
+      logger.info("Searching for books with search word '#{search_word}'")
       current_page.header.wait_until_search_input_visible
       current_page.header.search_input.click
       current_page.header.search_input.set search_word

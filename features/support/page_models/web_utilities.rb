@@ -92,7 +92,7 @@ module BlinkboxWebUtilities
   def delete_access_token_cookie
     delete_cookie('access_token')
   rescue
-    puts 'A problem occurred while deleting the access_token cookie!'
+    logger.info('A problem occurred while deleting the access_token cookie!')
   end
 
   def logged_in_session?
@@ -129,7 +129,7 @@ module BrowserstackUtilities
     end
 
     def start
-      puts('Starting BrowserStack Tunnel...')
+      logger.info('Starting BrowserStack Tunnel...')
       process.start
       # Wait until the tunnel is established
       wait_until do
@@ -139,11 +139,11 @@ module BrowserstackUtilities
         end
         is_started
       end
-      puts "Tunnel for #{server_info} started!\n\n"
+      logger.info("Tunnel for #{server_info} started!\n\n")
     end
 
     def stop
-      puts 'Stopping...'
+      logger.info('Stopping...')
       stop_process if @process
       @log.close if @log
     end
@@ -157,14 +157,14 @@ module BrowserstackUtilities
         @process.stop
       end
     rescue Errno::ECHILD
-      puts 'already dead'
+      logger.info('already dead')
     ensure
       @process = nil
     end
 
     def process
       @process ||= (
-      puts "Starting BrowserStack proxy for #{server_info}"
+      logger.info("Starting BrowserStack proxy for #{server_info}")
       cp = ChildProcess.new(@binary, '-force', '-onlyAutomate', @access_key, server_info_for_process)
       cp.detach = true # Start in the background
       cp.io.stdout = cp.io.stderr = @log
