@@ -88,7 +88,7 @@ module APIMethods
       user_details[:password] = options[:password] || 'test1234'
 
       client_details = {}
-      if options[:with_client]
+      if options[:with_device]
         client_details[:client_name] = options[:client_name] || 'Web Site Test Client'
         client_details[:client_brand] = options[:client_brand] || 'Tesco'
         client_details[:client_model] = options[:client_model] || 'Hudl'
