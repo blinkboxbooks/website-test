@@ -11,13 +11,15 @@ TEST_CONFIG['server'] = TEST_CONFIG['SERVER'].to_s.downcase || 'test'
 puts 'Loading gems and config...'
 require 'env_gems'
 require 'env_config'
-require 'env_logger'
 
 TEST_CONFIG['debug'] = config_flag_on?(TEST_CONFIG['DEBUG'])
 TEST_CONFIG['fail_fast'] = config_flag_on?(TEST_CONFIG['FAIL_FAST'])
 TEST_CONFIG['js_log'] ||= config_flag_on?(TEST_CONFIG['JS_LOG'])
 
-ARGV.each { |a| logger.debug("Argument: #{a}") }
+require 'env_logger'
+logger.unknown("Logging level: #{TEST_CONFIG['log_level']}")
+
+ARGV.each { |a| logger.debug("Argument: #{a}") } if TEST_CONFIG['debug']
 logger.debug("TEST_CONFIG: #{TEST_CONFIG}")
 
 # ======== Load environment specific test data ======
@@ -30,7 +32,7 @@ module RequireAllExtensions
   def require_rel_and_log(*args)
     # Handle passing an array as an argument
     args.flatten!
-    args.each { |file| logger.info("Loading #{file}") } if TEST_CONFIG['debug']
+    args.each { |file| logger.debug("Loading #{file}") } if TEST_CONFIG['debug']
     require_rel(args)
   end
 end
@@ -87,7 +89,7 @@ else
          when :chrome
            if TEST_CONFIG['performance_logging']
              caps_perflog = Selenium::WebDriver::Remote::Capabilities.chrome(
-               "LOGGING_PREFS" => { "LogType" => ["PERFORMANCE"] }
+               "LOGGING_PREFS" => {"LogType" => ["PERFORMANCE"]}
              )
            end
            Selenium::WebDriver::Remote::Capabilities.send(browser_name)
@@ -116,8 +118,8 @@ if config_flag_on?(TEST_CONFIG['GRID'])
     caps.platform = TEST_CONFIG['PLATFORM'].downcase.to_sym
   when 'FIRST_AVAILABLE'
     TEST_CONFIG['GRID_HUB_IP'] ||= '172.17.51.12'
-  #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
-  #which matches other specified capabilities. NB nodes are ordered by the order of registration with the hub.
+    #do not set caps.platform, in order to force selenium grid hub to pick up the first available node,
+    #which matches other specified capabilities. NB nodes are ordered by the order of registration with the hub.
   else
     fail "Not supported platform: #{TEST_CONFIG['PLATFORM']}"
   end
