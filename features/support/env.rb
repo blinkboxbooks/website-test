@@ -16,10 +16,9 @@ require 'env_logger'
 TEST_CONFIG['debug'] = config_flag_on?(TEST_CONFIG['DEBUG'])
 TEST_CONFIG['fail_fast'] = config_flag_on?(TEST_CONFIG['FAIL_FAST'])
 TEST_CONFIG['js_log'] ||= config_flag_on?(TEST_CONFIG['JS_LOG'])
-if TEST_CONFIG['debug']
-  ARGV.each { |a| logger.info("Argument: #{a}") }
-  logger.info("TEST_CONFIG: #{TEST_CONFIG}")
-end
+
+ARGV.each { |a| logger.debug("Argument: #{a}") }
+logger.debug("TEST_CONFIG: #{TEST_CONFIG}")
 
 # ======== Load environment specific test data ======
 # initialise test data in order to fail fast, if config is incorrect or data is missing
