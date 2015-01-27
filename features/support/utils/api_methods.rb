@@ -97,7 +97,7 @@ module APIMethods
 
       user = Blinkbox::User.new(user_details.merge(server_uri: @auth_uri, credit_card_service_uri: @api_uri))
       response = user.register(client_details)
-      #TODO: assert successful response
+      fail "Erroneous response from server: #{response}" if response =~ /4|5\d\d/
       response.merge(user_details).merge('device_name' => client_details[:client_name])
     end
 
