@@ -83,23 +83,22 @@ module APIMethods
     end
 
     def create_new_user!(options = {})
-      @email_address = options[:email_address] || generate_random_email_address
-      @password = options[:password] || 'test1234'
+      user_details = {}
+      user_details[:username] = options[:email_address] || generate_random_email_address
+      user_details[:password] = options[:password] || 'test1234'
 
-      @user = Blinkbox::User.new(username: @email_address, password: @password, server_uri: @auth_uri, credit_card_service_uri: @api_uri)
-      @user.register
-
-      if options[:with_client]
-        @device_name = options[:device_name] || 'Web Site Test Client'
-        @device_brand = options[:device_brand] || 'Tesco'
-        @device_model = options[:device_model] || 'Hudl'
-        @device_os = options[:device_os] || 'Android'
-
-        @user.authenticate
-        @user.register_device(Blinkbox::Device.new(name: @device_name, brand: @device_brand, model: @device_model, os: @device_os))
+      client_details = {}
+      if options[:with_device]
+        client_details[:client_name] = options[:client_name] || 'Web Site Test Client'
+        client_details[:client_brand] = options[:client_brand] || 'Tesco'
+        client_details[:client_model] = options[:client_model] || 'Hudl'
+        client_details[:client_os] = options[:client_os] || 'Android'
       end
 
-      [@email_address, @password, @device_name]
+      @user = Blinkbox::User.new(user_details.merge(server_uri: @auth_uri, credit_card_service_uri: @api_uri))
+      response = @user.register(client_details)
+      fail "Erroneous response from server: #{response}" if response =~ /4|5\d\d/
+      response.merge('password' => user_details[:password], 'device_name' => client_details[:client_name])
     end
 
     def add_credit_card(options = {})

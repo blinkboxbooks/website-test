@@ -189,7 +189,10 @@ When(/^I complete purchase with new card by selecting (to save|not to save) Paym
 end
 
 And(/^I have a stored card$/) do
-  @email_address, @password = api_helper.create_new_user!
+  user_details = api_helper.create_new_user!
+  @email_address = user_details['user_username']
+  @password = user_details['password']
+
   card_details = api_helper.add_credit_card
   @name_on_card = card_details['cardholderName']
   @card_type = card_details['cardType'].upcase
