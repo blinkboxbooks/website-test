@@ -85,7 +85,6 @@ module APIMethods
     def create_new_user!(options = {})
       user_details = {}
       user_details[:username] = options[:email_address] || generate_random_email_address
-      user_details[:password] = options[:password] || 'test1234'
 
       client_details = {}
       if options[:with_device]
