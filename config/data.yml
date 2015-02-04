@@ -1,0 +1,185 @@
+COMMON_DATA: &COMMON_DATA
+  messages:
+    welcome: Welcome, book lover You're successfully registered with blinkbox books! Why not check out our bestselling books, or if you want to try us out first, download some of our free eBooks. To read your eBooks, you'll need download our free app to your Apple or Android smartphone or tablet - find out more about how to get the app below. START SHOPPING
+
+  support_page_urls:
+    view_all_faqs: support.blinkboxbooks.com/home
+    what_devices_can_i_use_to_read_my_books?: support.blinkboxbooks.com/entries/25400608
+    i_bought_a_book_but_can’t_find_it: support.blinkboxbooks.com/entries/25378796
+    how_do_i_read_books_in_the_app?: support.blinkboxbooks.com/entries/25462193
+    how_do_i_change_my_billing_address?: support.blinkboxbooks.com/entries/25384827
+    how_can_i_earn_tesco_clubcard_points?: support.blinkboxbooks.com/entries/25385867
+    can_i_delete_my_blinkbox_books_account?: support.blinkboxbooks.com/entries/25377036
+    how_do_i_add_a_new_payment_method?: support.blinkboxbooks.com/entries/25385467
+    what_are_my_payment_options?: support.blinkboxbooks.com/entries/23868518
+    do_you_accept_gift_cards?: support.blinkboxbooks.com/entries/25385517
+    what_devices_can_i_use_to_read_my_books?: support.blinkboxbooks.com/entries/25400608
+    how_do_i_download_the_app?: support.blinkboxbooks.com/entries/25378706
+    problems_installing_the_app: support.blinkboxbooks.com/entries/25378726
+    contact_us: https://support.blinkboxbooks.com/anonymous_requests/new
+
+  library_isbns:
+    paid:
+    free:
+    sample_for_paid_book:
+    sample_for_free_book:
+
+  random_search_keywords:
+    - Winter
+    - Summer
+    - Autumn
+    - Football
+    - Music
+    - Autobiography
+    - Biography
+    - Health
+    - Business
+    - Children
+    - Disney
+    - Murder
+    - War
+    - Kids
+    - Royal
+    - Cookery
+    - Dummies
+    - Romance
+    - Government
+    - Lonely Planet
+    - Mills and boon
+    - History
+    - Spanish
+    - Doctor
+    - Holiday
+    - Travel
+    - New
+
+TEST_DATA:
+  <<: *COMMON_DATA
+  emails:
+    happypath_user:
+    multiple_storedcards:
+    no_expired_cards:
+    one_default_expired_card:
+    multiple_cards_default_expired:
+    multiple_cards_non_default_expired:
+    user_with_devices:
+    books_in_library:
+    books_in_library_and_devices:
+    empty_library_no_devices:
+    opted_in_marketing:
+    opted_out_marketing:
+    fifty_account_credit:
+    ten_account_credit:
+    five_account_credit:
+    change_first_name:
+    email_address_invalid:
+    email_with_no_at:
+    dummy_email: this_email_is_not_registered_with@blinkboxbooks.com
+
+  name:
+    happypath_user:
+    multiple_storedcards:
+    no_expired_cards:
+    one_default_expired_card:
+    multiple_cards_default_expired:
+    multiple_cards_non_default_expired:
+    user_with_devices:
+    books_in_library:
+    empty_library_no_devices:
+    opted_in_marketing:
+    opted_out_marketing:
+    fifty_account_credit:
+    ten_account_credit:
+    five_account_credit:
+
+  passwords:
+    valid_password: 
+    invalid_password: 
+    five_digit_password:
+    not_matching_password: 
+    change_password: 
+
+  vouchers:
+    valid_voucher:
+    already_used:
+
+  clubcards:
+    valid_clubcard_number:
+    valid_clubcard_register:
+    invalid_clubcard_number: 434004024023421292
+
+  payment:
+    visa: 4111111111111111
+    cvv: 123
+    mastercard: 5555555555554444
+    visadebit: 4012000033330125
+    jcb: 6011111111111117
+    expiry_month: 12
+    expiry_year: 2023
+    name_on_card: jamie jones
+    address_lineone: my address line one
+    address_linetwo: my address line two
+    town_or_city: My town
+    postcode: WC18AQ
+    cvv_does_not_match: 200
+
+  random_search_keywords:
+    - Winter
+
+LIVE_DATA:
+  <<: *COMMON_DATA
+  emails:
+    happypath_user:
+    multiple_storedcards:
+    no_expired_cards:
+    user_with_devices:
+    books_in_library:
+    books_in_library_and_devices:
+    empty_library_no_devices:
+    opted_in_marketing:
+    opted_out_marketing:
+    fifty_account_credit:
+    ten_account_credit:
+    five_account_credit:
+    one_default_expired_card:
+    multiple_cards_default_expired:
+    multiple_cards_non_default_expired:
+    change_first_name:
+    email_address_invalid:
+    email_with_no_at:
+    dummy_email:
+
+  name:
+    happypath_user:
+    user_with_devices:
+    multiple_storedcards:
+
+  vouchers:
+    already_used:
+
+  passwords:
+    valid_password:
+    invalid_password:
+    five_digit_password:
+    not_matching_password:
+    change_password:
+
+  clubcards:
+    valid_clubcard_number:
+    valid_clubcard_register:
+    invalid_clubcard_number:
+
+  payment:
+    visa:
+    cvv:
+    mastercard:
+    visadebit:
+    jcb:
+    expiry_month: 12
+    expiry_year: 2023
+    name_on_card: jamie jones
+    address_lineone: my address line one
+    address_linetwo: my address line two
+    town_or_city: My town
+    postcode: WC18AQ
+    cvv_does_not_match: 200
