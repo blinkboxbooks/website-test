@@ -1,0 +1,44 @@
+localhost:
+  servers:
+    web: https://localhost:8443
+    auth: https://auth.dev.bbbtest2.com
+    api: https://api.dev.bbbtest2.com
+  braintree_env: dev_int
+  data: TEST_DATA
+  sync_timeout: 20
+
+test:
+  servers:
+    web: https://www.test.bbbtest1.com
+    auth: https://auth.dev.bbbtest2.com
+    api: https://api.dev.bbbtest2.com
+  braintree_env: dev_int
+  data: TEST_DATA
+  sync_timeout: 20
+
+dev_int:
+  servers:
+    web:
+    auth:
+    api:
+  braintree_env: production
+  data: LIVE_DATA
+  sync_timeout: 10
+
+qa:
+  servers:
+    web: https://www.qa.bbbtest1.com
+    auth: https://auth.qa.bbbtest2.com
+    api: https://api.qa.bbbtest2.com
+  braintree_env: qa
+  data: TEST_DATA
+  sync_timeout: 15
+
+production:
+  servers:
+    web:
+    auth:
+    api:
+  braintree_env: production
+  data: LIVE_DATA
+  sync_timeout: 10
